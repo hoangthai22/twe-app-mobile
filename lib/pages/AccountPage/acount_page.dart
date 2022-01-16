@@ -38,7 +38,7 @@ class _AccountPage extends State<AccountPage> {
                 "Thiết lập",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 19,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
             )),
@@ -71,7 +71,7 @@ class _AccountPage extends State<AccountPage> {
                               child: Text(
                                 widget.userId,
                                 style: const TextStyle(
-                                    fontSize: 15, color: Colors.black87),
+                                    fontSize: 13, color: Colors.black87),
                               ),
                               margin: EdgeInsets.only(left: 20, bottom: 8),
                             ),
@@ -79,7 +79,7 @@ class _AccountPage extends State<AccountPage> {
                               child: Text(
                                 "ID Tài khoản: 1231241321",
                                 style: const TextStyle(
-                                    fontSize: 14, color: Colors.black45),
+                                    fontSize: 13, color: Colors.black45),
                               ),
                               margin: EdgeInsets.only(left: 20, top: 8),
                             )
@@ -104,8 +104,8 @@ class _AccountPage extends State<AccountPage> {
                           ),
                           child: Container(
                               padding: const EdgeInsets.only(
-                                top: 25,
-                                bottom: 25,
+                                top: 15,
+                                bottom: 15,
                               ),
                               decoration: const BoxDecoration(
                                   border: Border(
@@ -114,7 +114,7 @@ class _AccountPage extends State<AccountPage> {
                               child: Text(
                                 entries[index],
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                 ),
                               )),

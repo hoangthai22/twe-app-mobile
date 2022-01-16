@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/models/subject.dart';
 
 var MENTOR_DATA = [
   MentorModel(
@@ -17,7 +18,7 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
       avatar: "https://camblyavatars.s3.amazonaws.com/5e5e806038ba58cd17b86d3es200",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Lý"]),
+      skill: ["Giáo viên Toán"]),
   MentorModel(
       id: 3,
       mentorName: "Trấn Thành",
@@ -25,7 +26,7 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
       avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Tin Học", "Kỹ sư phần mềm"]),
+      skill: ["Giáo viên Toán"]),
   MentorModel(
       id: 4,
       mentorName: "Hoàng Thái",
@@ -33,5 +34,13 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
       avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Tin Học", "Kỹ sư phần mềm"]),
+      skill: ["Giáo viên Toán"]),
+];
+
+var SUBJECT_DATA = [
+  SubjectModel(subjectId: 1, subjectName: "Kỹ thuật phầm mềm"),
+  SubjectModel(subjectId: 2, subjectName: "Tiếng Nhật"),
+  SubjectModel(subjectId: 3, subjectName: "Tiếng Anh"),
+  SubjectModel(subjectId: 4, subjectName: "Tiếng Trung"),
+  SubjectModel(subjectId: 5, subjectName: "Quản trị kinh doanh"),
 ];

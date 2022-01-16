@@ -49,17 +49,27 @@ class AppState extends State<App> {
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
-        body: Stack(children: <Widget>[
-          _buildOffstageNavigatorHome(TabItem.home),
-          _buildOffstageNavigator(TabItem.search),
-          _buildOffstageNavigatorAccout(
-              TabItem.account, context.watch<AppProvider>().getUserId)
-        ]),
-        bottomNavigationBar: MenuFooter(
-          currentTab: _currentTab,
-          onSelectTab: _selectTab,
-        ),
-      ),
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Stack(children: <Widget>[
+              _buildOffstageNavigatorHome(TabItem.home),
+              _buildOffstageNavigator(TabItem.search),
+              _buildOffstageNavigatorAccout(
+                  TabItem.account, context.watch<AppProvider>().getUserId)
+            ]),
+          ),
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: Colors.white,
+              primaryColor: Colors.red,
+            ),
+            child: MenuFooter(
+              currentTab: _currentTab,
+              onSelectTab: _selectTab,
+            ),
+          )),
     );
   }
 

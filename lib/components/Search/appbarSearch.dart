@@ -1,19 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget {
   @override
   _CustomAppBar createState() => _CustomAppBar();
 
-  late final String text;
+  final String text;
 
   // late final ValueChanged<String> onChanged;
-  late final callback;
+  final callback;
 
   CustomAppBar({required this.callback, required this.text});
 
-  @override
-  Size get preferredSize => const Size.fromHeight(80);
 }
 
 class _CustomAppBar extends State<CustomAppBar> {
@@ -29,30 +27,33 @@ class _CustomAppBar extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
-        color: Colors.white,
-        alignment: Alignment.center,
-        height: 100,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+    return 
+    // Container(
+    //     // padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+    //     color: Colors.white,
+    //     // alignment: Alignment.centerLeft,
+    //     // height: 80,
+    //     child: 
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
                 flex: 1,
                 child: IconButton(
                   icon: const Icon(
                     Icons.search,
-                    size: 26,
+                    size: 24,
                     color: Colors.black,
                   ),
                   onPressed: cachbackFunc,
-                )),
+                )
+                ),
             Expanded(
               flex: 9,
               child: TextField(
                 style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 controller: _controller,
                 textInputAction: TextInputAction.search,
                 textCapitalization: TextCapitalization.words,
@@ -73,7 +74,8 @@ class _CustomAppBar extends State<CustomAppBar> {
               ),
             ),
           ],
-        ));
+        // )
+        );
   }
 
   Widget hidingIcon() {
