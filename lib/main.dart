@@ -5,6 +5,7 @@ import 'package:twe/components/app.dart';
 import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
+
 void main() {
   runApp(MultiProvider(
     providers: [
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'TWE',
       theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFEFEFEF),
-          textTheme: GoogleFonts.openSansTextTheme(
+          textTheme: GoogleFonts.robotoTextTheme(
             Theme.of(context)
                 .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
           )),

@@ -12,7 +12,7 @@ class MenuFooter extends StatefulWidget implements PreferredSizeWidget {
 
   MenuFooter({required this.currentTab, required this.onSelectTab});
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(60);
 }
 
 class _MenuFooter extends State<MenuFooter> {
@@ -44,8 +44,3 @@ class _MenuFooter extends State<MenuFooter> {
   }
 }
 
-class TabNavigatorRoutes {
-  static const String root = '/';
-  static const String detail = '/detail';
-  static const String account = '/account';
-}
