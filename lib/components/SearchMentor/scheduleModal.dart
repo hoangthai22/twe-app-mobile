@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/common/utils.dart';
 
 import 'package:twe/components/menuFooter.dart';
@@ -8,7 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 class ScheduleModal extends StatefulWidget {
   // final List<String> filterSub;
 
-  final ValueChanged<String> onGetDate;
+  final ValueChanged<DateTime> onGetDate;
   final ValueChanged<int> onGetSlot;
 
   ScheduleModal({
@@ -22,34 +23,22 @@ class ScheduleModal extends StatefulWidget {
 }
 
 class _ScheduleModal extends State<ScheduleModal> {
-  late DateTime _selectedDate;
+
 
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-
-  final List<String> slots = [
-    "07:00 - 08:30",
-    "08:45 - 10:15",
-    "10:30 - 12:00",
-    "12:30 - 14:00",
-    "14:15 - 15:45",
-    "16:30 - 17:30"
-  ];
+  late DateTime _selectedDay;
   int isSelected = 0;
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = DateTime.now();
+    _selectedDay = DateTime.now();
   }
 
   void cachbackFunc() {
     widget.onGetSlot(isSelected);
-    widget.onGetDate(
-      _selectedDate.toString(),
-    );
-   
+    widget.onGetDate(_selectedDay);
   }
 
   @override
@@ -77,7 +66,10 @@ class _ScheduleModal extends State<ScheduleModal> {
                       alignment: Alignment.topLeft,
                       child: const Text(
                         "Áp dụng",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
                       ),
                     ),
                   ),
@@ -87,7 +79,10 @@ class _ScheduleModal extends State<ScheduleModal> {
                       child: const Text(
                         "Lịch",
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w700),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Roboto',
+                        ),
                       )),
                   InkWell(
                     child: Container(
@@ -96,24 +91,15 @@ class _ScheduleModal extends State<ScheduleModal> {
                       alignment: Alignment.topRight,
                       child: const Text(
                         "Xóa",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
                       ),
                     ),
                   )
                 ],
               )),
-              // Container(
-              //   margin: EdgeInsets.only(left: 15, top: 20, right: 15),
-              //   child: Text(
-              //     'April 2022',
-              //     style: TextStyle(
-              //       color: Color(0xff363636),
-              //       fontSize: 15,
-              //       fontFamily: 'Roboto',
-              //       fontWeight: FontWeight.w700,
-              //     ),
-              //   ),
-              // ),
               TableCalendar(
                 daysOfWeekHeight: 40,
                 calendarStyle: CalendarStyle(
@@ -151,7 +137,6 @@ class _ScheduleModal extends State<ScheduleModal> {
                   _focusedDay = focusedDay;
                 },
               ),
-
               Container(
                 margin: EdgeInsets.only(left: 15, top: 30, right: 15),
                 child: Text(
@@ -183,7 +168,7 @@ class _ScheduleModal extends State<ScheduleModal> {
                           });
                         },
                         child: mentorTimingsData(
-                            slots[index], isSelected == index ? true : false),
+                            SLOT[index], isSelected == index ? true : false),
                       );
                     }),
               ),
@@ -217,7 +202,7 @@ class _ScheduleModal extends State<ScheduleModal> {
                             isSelected = index + 3;
                           });
                         },
-                        child: mentorTimingsData(slots[index + 3],
+                        child: mentorTimingsData(SLOT[index + 3],
                             isSelected == (index + 3) ? true : false),
                       );
                     }),
@@ -320,7 +305,7 @@ Widget mentorTimingsData(String time, bool isSelected) {
                   time,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 11,
+                    fontSize: 12,
                     fontFamily: 'Roboto',
                   ),
                 ),
@@ -344,7 +329,7 @@ Widget mentorTimingsData(String time, bool isSelected) {
                   time,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 11,
+                    fontSize: 12,
                     fontFamily: 'Roboto',
                   ),
                 ),

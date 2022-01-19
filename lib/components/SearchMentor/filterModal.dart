@@ -57,7 +57,10 @@ class _FilterModal extends State<FilterModal> {
                           alignment: Alignment.topLeft,
                           child: const Text(
                             "Áp dụng",
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Roboto',
+                            ),
                           ),
                         ),
                       ),
@@ -67,7 +70,9 @@ class _FilterModal extends State<FilterModal> {
                           child: const Text(
                             "Bộ lọc",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w700),
+                                fontFamily: 'Roboto',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
                           )),
                       InkWell(
                         onTap: () {
@@ -82,7 +87,10 @@ class _FilterModal extends State<FilterModal> {
                           alignment: Alignment.topRight,
                           child: const Text(
                             "Xóa",
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Roboto',
+                            ),
                           ),
                         ),
                       )
@@ -106,7 +114,9 @@ class _FilterModal extends State<FilterModal> {
                                     color: Colors.black12, width: 1.0))),
                         child: const Text("Chuyên Ngành",
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w700))),
+                                fontFamily: 'Roboto',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700))),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +134,13 @@ class _FilterModal extends State<FilterModal> {
                                                       color: Colors.black12,
                                                       width: 1.0))),
                                           child: ListTile(
-                                            title: Text("${item.subjectName}", style: TextStyle(fontSize: 13),),
+                                            title: Text(
+                                              "${item.subjectName}",
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontFamily: 'Roboto',
+                                              ),
+                                            ),
                                             onTap: () {
                                               setState(() {
                                                 if (item.subjectId ==

@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class BottomNavMentorDetail extends StatelessWidget {
   Function function;
   Function onRedirect;
-  BottomNavMentorDetail({required this.function, required this.onRedirect});
+  String session;
+  BottomNavMentorDetail(
+      {required this.function,
+      required this.onRedirect,
+      required this.session});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +34,21 @@ class BottomNavMentorDetail extends StatelessWidget {
                       onPressed: () {
                         function();
                       },
-                      child: const Text('13-01-2022 07:00-08:30',
-                     textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xff107163),
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: session.isEmpty
+                          ? const Text("Lên lịch học",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Color(0xff107163),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: "Roboto"))
+                          : Text(session,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Color(0xff107163),
+                                  fontSize: 11.5,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "Roboto")),
                     ))),
             Spacer(
               flex: 1,
@@ -45,13 +57,17 @@ class BottomNavMentorDetail extends StatelessWidget {
                 flex: 8,
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff107163),
+                      color: session.isEmpty
+                          ? Color(0xffEEEEEE)
+                          : Color(0xff107163),
                       borderRadius: BorderRadius.circular(18.0),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        onRedirect();
-                      },
+                      onPressed: session.isEmpty
+                          ? null
+                          : () {
+                              onRedirect();
+                            },
                       child: const Text('Tiếp tục',
                           style: TextStyle(
                             color: Colors.white,

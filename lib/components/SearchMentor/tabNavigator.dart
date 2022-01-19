@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
+import 'package:twe/pages/SearchPage/coffee_detail_page.dart';
 import 'package:twe/pages/SearchPage/llist_cafe_page.dart';
 import 'package:twe/pages/SearchPage/mentor_detail_page.dart';
 import 'package:twe/pages/SearchPage/search_page.dart';
@@ -9,6 +10,7 @@ class TabNavigatorRoutes {
   static const String root = '/';
   static const String detail = '/detail';
   static const String coffee = '/coffee';
+  static const String coffeeDetail = '/coffee-detail';
 }
 
 // 2
@@ -21,7 +23,7 @@ class TabNavigator extends StatelessWidget {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context,
       {int mentorId: 500}) {
     return {
-      TabNavigatorRoutes.root: (context) => SearchPage(
+      TabNavigatorRoutes.coffeeDetail: (context) => SearchPage(
             onPush: (mentorId) => _pushMentorDetail(context, mentorId),
           ),
       TabNavigatorRoutes.detail: (context) => MentorDetailPage(
@@ -29,8 +31,14 @@ class TabNavigator extends StatelessWidget {
             materialIndex: mentorId,
             onPush: (materialIndex) => _pushListCafe(context, mentorId),
           ),
-      TabNavigatorRoutes.coffee: (context) =>
-          ListCoffeePage(mentorId: mentorId),
+      TabNavigatorRoutes.coffee: (context) => ListCoffeePage(
+            mentorId: mentorId,
+            onPush: (coffeeId) => _pushListCafeDetail(context, coffeeId),
+          ),
+      TabNavigatorRoutes.root: (context) => CoffeeDetailPage(
+            coffeeId: mentorId,
+            onPush: (materialIndex) => _pushListCafeDetail(context, mentorId),
+          ),
     };
   }
 
@@ -69,6 +77,18 @@ class TabNavigator extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) =>
             routeBuilders[TabNavigatorRoutes.coffee]!(context),
+      ),
+    );
+  }
+
+  void _pushListCafeDetail(BuildContext context, coffeeId) {
+    var routeBuilders = _routeBuilders(context, mentorId: coffeeId);
+    print("coffeeId: $coffeeId");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            routeBuilders[TabNavigatorRoutes.coffeeDetail]!(context),
       ),
     );
   }

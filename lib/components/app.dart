@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/menuFooter.dart';
-import 'package:twe/components/Search/tabNavigator.dart';
+import 'package:twe/components/SearchMentor/tabNavigator.dart';
 import 'package:twe/pages/AccountPage/acount_page.dart';
 import 'package:twe/pages/HomePage/home_page.dart';
 import 'package:provider/provider.dart';
