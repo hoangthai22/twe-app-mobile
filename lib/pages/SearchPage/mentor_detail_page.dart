@@ -472,6 +472,8 @@ class _MentorDetailPage extends State<MentorDetailPage> {
       bottomNavigationBar: Consumer<AppProvider>(
         builder: (context, cart, child) {
           return BottomNavMentorDetail(
+              title: "Lên lịch học",
+              isChosseDay: true,
               session: date.isEmpty && slot.isEmpty ? "" : "$date\n$slot",
               function: () => onSubmit(context),
               onRedirect: () => {

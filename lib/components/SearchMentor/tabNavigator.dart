@@ -23,7 +23,7 @@ class TabNavigator extends StatelessWidget {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context,
       {int mentorId: 500}) {
     return {
-      TabNavigatorRoutes.coffeeDetail: (context) => SearchPage(
+      TabNavigatorRoutes.root: (context) => SearchPage(
             onPush: (mentorId) => _pushMentorDetail(context, mentorId),
           ),
       TabNavigatorRoutes.detail: (context) => MentorDetailPage(
@@ -35,7 +35,7 @@ class TabNavigator extends StatelessWidget {
             mentorId: mentorId,
             onPush: (coffeeId) => _pushListCafeDetail(context, coffeeId),
           ),
-      TabNavigatorRoutes.root: (context) => CoffeeDetailPage(
+      TabNavigatorRoutes.coffeeDetail: (context) => CoffeeDetailPage(
             coffeeId: mentorId,
             onPush: (materialIndex) => _pushListCafeDetail(context, mentorId),
           ),

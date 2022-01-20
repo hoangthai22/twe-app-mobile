@@ -55,30 +55,55 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
     var listRate = [for (var i = 1; i <= coffee.rate; i++) i];
 
     return Scaffold(
-        appBar: AppBar(
-          leading: BackButton(color: Colors.black),
-          backgroundColor: Colors.white,
-          title: Text(
-            'Coffee',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-              fontFamily: 'Roboto',
-            ),
-          ),
-        ),
+        // appBar: AppBar(
+        //   leading: BackButton(color: Colors.black),
+        //   backgroundColor: Colors.white,
+        //   title: Text(
+        //     'Coffee',
+        //     style: TextStyle(
+        //       color: Colors.black,
+        //       fontSize: 17,
+        //       fontFamily: 'Roboto',
+        //     ),
+        //   ),
+        // ),
         body: Container(
           color: Colors.white,
           child: ListView(
             children: [
-              ClipRRect(
-                  child: Image(
-                // color:70olors.red,
-                height: 200,
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://gongcha.com.vn/wp-content/uploads/2018/03/Banner-Trang-Ch%E1%BB%A7-k%E1%BA%BF-%C4%91%E1%BB%8Ba-ch%E1%BB%89-CH-800x380-01.jpg"),
-              )),
+              Stack(
+                children: <Widget>[
+                  ClipRRect(
+                      child: Image(
+                    // color:70olors.red,
+                    height: 250,
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                        "https://gongcha.com.vn/wp-content/uploads/2018/03/Banner-Trang-Ch%E1%BB%A7-k%E1%BA%BF-%C4%91%E1%BB%8Ba-ch%E1%BB%89-CH-800x380-01.jpg"),
+                  )),
+                  Positioned(
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white38,
+                      ),
+                      child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back_rounded,
+                            size: 24,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ),
+                    top: 15,
+                    left: 15,
+                  ),
+                ],
+              ),
               Container(
                 padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
                 child: Text(
@@ -153,7 +178,11 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                 ),
               ),
               Container(
-                  padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
+                  padding: const EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(
+                    right: 15,
+                    left: 15,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -177,7 +206,79 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                         ),
                       ),
                     ],
-                  ))
+                  )),
+              Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 15),
+                  margin: EdgeInsets.only(
+                    right: 15,
+                    left: 15,
+                  ),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: Colors.black12, width: 1.0)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: Icon(
+                          Icons.phone,
+                          size: 20,
+                          color: Color(0xff107163),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "09834812992",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  )),
+              Container(
+                padding: const EdgeInsets.only(
+                    top: 15, bottom: 15, left: 15, right: 15),
+                child: Text(
+                  "Nhận xét (2)",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+              ),
+              Container(
+                height: 200,
+                width: 300,
+                margin: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    FeedBack(
+                      avatar: coffee.avatar,
+                      userId: 1,
+                      userName: "Hoang Thai Hoang Thai Hoang Thai ",
+                      feedbackContent: coffee.description,
+                      time: "22:20, 11 thg 1, 2022",
+                    ),
+                    FeedBack(
+                      avatar: coffee.avatar,
+                      userId: 1,
+                      userName: "Hoang Thai",
+                      feedbackContent:
+                          (coffee.description + coffee.description),
+                      time: "22:20, 11 thg 1, 2022",
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -188,6 +289,8 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
         //   );
         // }),
         bottomNavigationBar: BottomNavMentorDetail(
+            title: "Chọn ngày",
+            isChosseDay: false,
             session: date.isEmpty && slot.isEmpty ? "" : "$date\n$slot",
             function: () => onSubmit(context),
             onRedirect: () => onRedirect(context)));
