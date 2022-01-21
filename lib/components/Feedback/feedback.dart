@@ -43,19 +43,19 @@ class _FeedBack extends State<FeedBack> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Container(
                           decoration: BoxDecoration(color: Colors.white),
-                          padding: const EdgeInsets.only(left: 10, right: 5),
+                          padding: const EdgeInsets.only(left: 15, right: 5),
                           child: CircleAvatar(
                             radius: 30, // Image radius
                             backgroundImage: NetworkImage(widget.avatar),
                           )),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 7,
                       child: Container(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        padding: const EdgeInsets.only(left: 10, right: 15),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,9 @@ class _FeedBack extends State<FeedBack> {
                                 padding: const EdgeInsets.only(bottom: 3),
                                 child: Text(
                                   widget.userName,
+                                  maxLines: 1,
                                   style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -83,9 +85,13 @@ class _FeedBack extends State<FeedBack> {
               Expanded(
                   flex: 4,
                   child: Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                    child: Text(widget.feedbackContent,
-                        maxLines: 5, overflow: TextOverflow.ellipsis),
+                    padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+                    child: Text(
+                      widget.feedbackContent,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 13, fontFamily: "Roboto"),
+                    ),
                   ))
             ],
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/Search/appbarSearch.dart';
-import 'package:twe/components/Search/filterModal.dart';
-import 'package:twe/components/Search/mentoritem.dart';
+import 'package:twe/components/SearchMentor/appbarSearch.dart';
+import 'package:twe/components/SearchMentor/filterModal.dart';
+import 'package:twe/components/SearchMentor/mentoritem.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
 
@@ -39,7 +39,7 @@ class _SearchPage extends State<SearchPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomAppBar(
+                AppBarSearchMentor(
                   text: query,
                   callback: (query) => searchBar(query),
                 ),

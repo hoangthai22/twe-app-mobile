@@ -23,19 +23,21 @@ class MentorItem extends StatelessWidget {
     }
 
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
         ),
+        margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
         // padding: EdgeInsets.all(10),
         child: InkWell(
           onTap: () => onClick(),
           child: Container(
-              height: 200,
+              height: 175,
               decoration: const BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Colors.black12, width: 1.0)),
-              ),
-              margin: const EdgeInsets.only(left: 15, right: 15),
+                  // border: Border(
+                  //     bottom: BorderSide(color: Colors.black12, width: 1.0)),
+                  ),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               child: Column(children: <Widget>[
                 Expanded(
                     flex: 9,
@@ -46,7 +48,7 @@ class MentorItem extends StatelessWidget {
                             child: Container(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: CircleAvatar(
-                                  radius: 50, // Image radius
+                                  radius: 35, // Image radius
                                   backgroundImage: NetworkImage(mentor.avatar),
                                 ))),
                         Expanded(
@@ -59,9 +61,11 @@ class MentorItem extends StatelessWidget {
                                   Text(
                                     mentor.mentorName,
                                     style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Roboto',
+                                    ),
                                   ),
                                   Row(
                                       crossAxisAlignment:
@@ -83,9 +87,11 @@ class MentorItem extends StatelessWidget {
                                                 child: Text(
                                               "${mentor.rate}",
                                               style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500),
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'Roboto',
+                                              ),
                                             )))
                                       ]),
                                   Row(
@@ -109,6 +115,7 @@ class MentorItem extends StatelessWidget {
                                                 skills,
                                                 maxLines: 2,
                                                 style: const TextStyle(
+                                                    fontFamily: 'Roboto',
                                                     color: Colors.black,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w500,
@@ -129,8 +136,9 @@ class MentorItem extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 1,
                       child: Text(mentor.description,
-                          maxLines: 3,
+                          maxLines: 2,
                           style: const TextStyle(
+                            fontFamily: 'Roboto',
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
