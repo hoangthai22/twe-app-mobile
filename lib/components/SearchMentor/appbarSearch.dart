@@ -1,22 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class AppBarSearchMentor extends StatefulWidget {
   @override
-  _CustomAppBar createState() => _CustomAppBar();
+  _AppBarSearchMentor createState() => _AppBarSearchMentor();
 
-  late final String text;
+  final String text;
 
   // late final ValueChanged<String> onChanged;
-  late final callback;
+  final callback;
 
-  CustomAppBar({required this.callback, required this.text});
-
-  @override
-  Size get preferredSize => const Size.fromHeight(80);
+  AppBarSearchMentor({required this.callback, required this.text});
 }
 
-class _CustomAppBar extends State<CustomAppBar> {
+class _AppBarSearchMentor extends State<AppBarSearchMentor> {
   var inputText = "";
   final _controller = TextEditingController();
 
@@ -29,30 +26,41 @@ class _CustomAppBar extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
-        color: Colors.white,
-        alignment: Alignment.center,
-        height: 100,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.search,
-                    size: 26,
-                    color: Colors.black,
-                  ),
-                  onPressed: cachbackFunc,
-                )),
-            Expanded(
-              flex: 9,
+    return
+        // Container(
+        //     // padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+        //     color: Colors.white,
+        //     // alignment: Alignment.centerLeft,
+        //     // height: 80,
+        //     child:
+        Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+            flex: 1,
+            child: IconButton(
+              icon: const Icon(
+                Icons.search,
+                size: 24,
+                color: Colors.black,
+              ),
+              onPressed: cachbackFunc,
+            )),
+        Expanded(
+            flex: 9,
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
               child: TextField(
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Roboto",
+                  height: 1.5,
+                ),
                 controller: _controller,
                 textInputAction: TextInputAction.search,
                 textCapitalization: TextCapitalization.words,
@@ -68,12 +76,12 @@ class _CustomAppBar extends State<CustomAppBar> {
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Tìm một gia sư',
-                    contentPadding: const EdgeInsets.only(left: 10, top: 10),
                     suffixIcon: hidingIcon()),
               ),
-            ),
-          ],
-        ));
+            )),
+      ],
+      // )
+    );
   }
 
   Widget hidingIcon() {

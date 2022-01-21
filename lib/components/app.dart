@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/menuFooter.dart';
-import 'package:twe/components/Search/tabNavigator.dart';
+import 'package:twe/components/SearchMentor/tabNavigator.dart';
 import 'package:twe/pages/AccountPage/acount_page.dart';
 import 'package:twe/pages/HomePage/home_page.dart';
 import 'package:provider/provider.dart';
@@ -49,17 +49,27 @@ class AppState extends State<App> {
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
-        body: Stack(children: <Widget>[
-          _buildOffstageNavigatorHome(TabItem.home),
-          _buildOffstageNavigator(TabItem.search),
-          _buildOffstageNavigatorAccout(
-              TabItem.account, context.watch<AppProvider>().getUserId)
-        ]),
-        bottomNavigationBar: MenuFooter(
-          currentTab: _currentTab,
-          onSelectTab: _selectTab,
-        ),
-      ),
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Stack(children: <Widget>[
+              _buildOffstageNavigatorHome(TabItem.home),
+              _buildOffstageNavigator(TabItem.search),
+              _buildOffstageNavigatorAccout(
+                  TabItem.account, context.watch<AppProvider>().getUserId)
+            ]),
+          ),
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: Colors.white,
+              primaryColor: Colors.red,
+            ),
+            child: MenuFooter(
+              currentTab: _currentTab,
+              onSelectTab: _selectTab,
+            ),
+          )),
     );
   }
 

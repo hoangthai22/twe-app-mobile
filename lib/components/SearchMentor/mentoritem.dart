@@ -23,21 +23,24 @@ class MentorItem extends StatelessWidget {
     }
 
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
         ),
+        margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
         // padding: EdgeInsets.all(10),
         child: InkWell(
           onTap: () => onClick(),
           child: Container(
+              height: 175,
               decoration: const BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Colors.black12, width: 1.0)),
-              ),
-              margin: const EdgeInsets.only(left: 15, right: 15),
+                  // border: Border(
+                  //     bottom: BorderSide(color: Colors.black12, width: 1.0)),
+                  ),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               child: Column(children: <Widget>[
                 Expanded(
-                    flex: 6,
+                    flex: 9,
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -45,7 +48,7 @@ class MentorItem extends StatelessWidget {
                             child: Container(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: CircleAvatar(
-                                  radius: 50, // Image radius
+                                  radius: 35, // Image radius
                                   backgroundImage: NetworkImage(mentor.avatar),
                                 ))),
                         Expanded(
@@ -58,9 +61,11 @@ class MentorItem extends StatelessWidget {
                                   Text(
                                     mentor.mentorName,
                                     style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w700),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Roboto',
+                                    ),
                                   ),
                                   Row(
                                       crossAxisAlignment:
@@ -74,7 +79,7 @@ class MentorItem extends StatelessWidget {
                                                 child: const Icon(
                                                   Icons.star,
                                                   color: Colors.amber,
-                                                  size: 24.0,
+                                                  size: 20.0,
                                                 ))),
                                         Expanded(
                                             flex: 9,
@@ -82,9 +87,11 @@ class MentorItem extends StatelessWidget {
                                                 child: Text(
                                               "${mentor.rate}",
                                               style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600),
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'Roboto',
+                                              ),
                                             )))
                                       ]),
                                   Row(
@@ -99,7 +106,7 @@ class MentorItem extends StatelessWidget {
                                                 child: const Icon(
                                                   Icons.local_fire_department,
                                                   color: Colors.amber,
-                                                  size: 24.0,
+                                                  size: 20.0,
                                                 ))),
                                         Expanded(
                                             flex: 9,
@@ -108,9 +115,10 @@ class MentorItem extends StatelessWidget {
                                                 skills,
                                                 maxLines: 2,
                                                 style: const TextStyle(
+                                                    fontFamily: 'Roboto',
                                                     color: Colors.black,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
                                                     overflow:
                                                         TextOverflow.ellipsis),
                                               ),
@@ -124,18 +132,19 @@ class MentorItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                     )),
                 Expanded(
-                    flex: 4,
+                    flex: 6,
                     child: Container(
                       width: MediaQuery.of(context).size.width * 1,
                       child: Text(mentor.description,
-                          maxLines: 3,
+                          maxLines: 2,
                           style: const TextStyle(
+                            fontFamily: 'Roboto',
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                            fontSize: 12,
                             overflow: TextOverflow.ellipsis,
                           )),
-                    ))
+                    )),
               ], mainAxisAlignment: MainAxisAlignment.spaceAround)),
         ));
   }

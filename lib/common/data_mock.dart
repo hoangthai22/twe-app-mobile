@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:twe/models/coffee.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/models/subject.dart';
 
 var MENTOR_DATA = [
   MentorModel(
@@ -17,7 +19,7 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
       avatar: "https://camblyavatars.s3.amazonaws.com/5e5e806038ba58cd17b86d3es200",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Lý"]),
+      skill: ["Giáo viên Toán"]),
   MentorModel(
       id: 3,
       mentorName: "Trấn Thành",
@@ -25,7 +27,7 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
       avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Tin Học", "Kỹ sư phần mềm"]),
+      skill: ["Giáo viên Toán"]),
   MentorModel(
       id: 4,
       mentorName: "Hoàng Thái",
@@ -33,5 +35,54 @@ var MENTOR_DATA = [
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
       avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
       rate: 4.2,
-      skill: ["Giáo viên Toán", "Giáo viên Tin Học", "Kỹ sư phần mềm"]),
+      skill: ["Giáo viên Toán"]),
+];
+
+var SUBJECT_DATA = [
+  SubjectModel(subjectId: 1, subjectName: "Kỹ thuật phầm mềm"),
+  SubjectModel(subjectId: 2, subjectName: "Tiếng Nhật"),
+  SubjectModel(subjectId: 3, subjectName: "Tiếng Anh"),
+  SubjectModel(subjectId: 4, subjectName: "Tiếng Trung"),
+  SubjectModel(subjectId: 5, subjectName: "Quản trị kinh doanh"),
+];
+var COFFEE_DATA = [
+  CoffeeModel(
+    id: 1,
+    coffeeName: "TocoToco",
+    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    description:
+        "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
+    avatar:
+        "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
+    rate: 5,
+  ),
+  CoffeeModel(
+    id: 2,
+    coffeeName: "Coffe House",
+    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    description:
+        "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
+    avatar: "https://bloganchoi.com/wp-content/uploads/2019/12/ha-dong.jpg",
+    rate: 4,
+  ),
+  CoffeeModel(
+    id: 3,
+    coffeeName: "GongCha",
+    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    description:
+        "Thương hiệu Gong Cha được công ty TNHH Golden Trust chính thức đưa vào hoạt động tại thị trường Việt Nam từ ngày 11/10/2014. Trải qua hơn năm năm hoạt động, công ty TNHH Golden Trust – đơn vị nhượng quyền độc quyền của Gong Cha tại Việt Nam, đã đưa thương hiệu phát triển nhanh chóng và trở thành một trong những điểm đến thân thuộc của các bạn trẻ yêu thích văn hóa trà sữa và mong muốn trải nghiệm sản phẩm trà uy tín chất lượng với nguồn gốc xuất xứ rõ ràng.",
+    avatar:
+        "https://gongcha.com.vn/wp-content/uploads/2018/03/Banner-Trang-Ch%E1%BB%A7-k%E1%BA%BF-%C4%91%E1%BB%8Ba-ch%E1%BB%89-CH-800x380-01.jpg",
+    rate: 3,
+  ),
+  CoffeeModel(
+    id: 4,
+    coffeeName: "TocoToco",
+    address: "45 đường Số 5 - Cứ xá Bình Thới",
+    description:
+        "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
+    avatar:
+        "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
+    rate: 5,
+  ),
 ];
