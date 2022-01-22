@@ -1,26 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:twe/common/constants.dart';
+import 'package:twe/provider/appProvider.dart';
 
 class AppBarSearchCoffee extends StatefulWidget {
   @override
   _AppBarSearchCoffee createState() => _AppBarSearchCoffee();
 
   final String text;
+  final String title;
+  final String hintText;
 
   // late final ValueChanged<String> onChanged;
   final callback;
+  final showListMentorInvite;
 
-  AppBarSearchCoffee({required this.callback, required this.text});
+  AppBarSearchCoffee(
+      {required this.callback,
+      required this.text,
+      required this.title,
+      required this.showListMentorInvite,
+      required this.hintText});
 }
 
 class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
   var inputText = "";
   var isSearch = false;
   final _controller = TextEditingController();
+  final _counter = 1;
 
   void cachbackFunc() {
     widget.callback(inputText);
     primaryFocus!.unfocus(disposition: disposition);
+  }
+
+  void funcShowListMentorInvite() {
+    widget.showListMentorInvite();
   }
 
   UnfocusDisposition disposition = UnfocusDisposition.scope;
@@ -41,13 +57,13 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-              flex: 1,
+              flex: 2,
               child: isSearch
                   ? IconButton(
                       icon: const Icon(
                         Icons.search,
-                        size: 24,
-                        color: Colors.black,
+                        size: 28,
+                        color: Colors.white,
                       ),
                       onPressed: () {
                         cachbackFunc();
@@ -55,19 +71,20 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                   : IconButton(
                       icon: const Icon(
                         Icons.arrow_back_rounded,
-                        size: 24,
-                        color: Colors.black,
+                        size: 28,
+                        color: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                       })),
           Expanded(
-              flex: 8,
+              flex: 12,
               child: isSearch
                   ? Container(
                       padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextField( 
+                      child: TextField(
                         style: const TextStyle(
+                            color: Colors.white,
                             height: 1.5,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -75,6 +92,7 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                         controller: _controller,
                         textInputAction: TextInputAction.search,
                         textCapitalization: TextCapitalization.words,
+                        cursorColor: Colors.white,
                         onSubmitted: (value) {
                           cachbackFunc();
                         },
@@ -85,27 +103,71 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                         },
                         autofocus: isSearch,
                         decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Tìm một quán coffee',
-                        ),
+                            border: InputBorder.none,
+                            hintText: widget.hintText,
+                            hintStyle: TextStyle(color: Colors.white)),
                       ),
                     )
                   : Text(
-                      "Chọn địa điểm",
+                      widget.title,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: "Roboto",
                           fontSize: 17,
+                          color: Colors.white,
                           fontWeight: FontWeight.w600),
                     )),
           Expanded(
-              flex: 1,
+              flex: 2,
+              child: isSearch
+                  ? Container()
+                  : InkWell(
+                      onTap: () => funcShowListMentorInvite(),
+                      child: Stack(
+                        children: [
+                          Icon(
+                            Icons.person_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topRight,
+                            margin: EdgeInsets.only(top: 5),
+                            child: Container(
+                              width: 15,
+                              height: 15,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffc32c37),
+                                  border: Border.all(
+                                      color: MaterialColors.primary, width: 1)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Center(child: Consumer<AppProvider>(
+                                    builder: (context, provider, child) {
+                                  return Text(
+                                    provider.getListMentorInvite.length
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.white),
+                                  );
+                                })),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+          Expanded(
+              flex: 2,
               child: isSearch
                   ? IconButton(
                       icon: const Icon(
                         Icons.close,
-                        size: 24,
-                        color: Colors.black,
+                        size: 28,
+                        color: Colors.white,
                       ),
                       onPressed: () {
                         setState(() {
@@ -115,8 +177,8 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                   : IconButton(
                       icon: const Icon(
                         Icons.search,
-                        size: 24,
-                        color: Colors.black,
+                        size: 28,
+                        color: Colors.white,
                       ),
                       onPressed: () {
                         setState(() {

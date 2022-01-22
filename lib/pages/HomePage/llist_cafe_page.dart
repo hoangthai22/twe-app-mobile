@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
@@ -22,19 +23,21 @@ class _ListCoffeePage extends State<ListCoffeePage> {
           preferredSize: Size.fromHeight(60), // Set this height
           child: Container(
             padding: EdgeInsets.only(top: 20, left: 15, right: 15),
-            color: Colors.white,
-            child:  AppBarSearchCoffee(
-                  text: query,
-                  callback: (query) => searchBar(query),
-                ),
+            color: MaterialColors.primary,
+            child: AppBarSearchCoffee(
+              showListMentorInvite: () => {print("object")},
+              title: "Chọn địa điểm",
+              hintText: "Tìm một quán coffee",
+              text: query,
+              callback: (query) => searchBar(query),
+            ),
           ),
         ),
         body: GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          child:
-           ListView(
+          child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -46,7 +49,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                     width: 100,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff107163),
+                        primary: MaterialColors.primary,
                         textStyle: TextStyle(color: Colors.white),
                         shadowColor: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -114,6 +117,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                     return CoffeeItem(
                       coffee: coffeeList[index],
                       onPush: widget.onPush,
+                      onSubmit: widget.onRedirect,
                     );
                   },
                 ),
@@ -138,8 +142,10 @@ class _ListCoffeePage extends State<ListCoffeePage> {
 
 class ListCoffeePage extends StatefulWidget {
   late final ValueChanged<int> onPush;
-  final int mentorId;
-  ListCoffeePage({required this.mentorId, required this.onPush});
+  late final onRedirect;
+  final int coffeId;
+  ListCoffeePage(
+      {required this.coffeId, required this.onPush, required this.onRedirect});
   @override
   _ListCoffeePage createState() => _ListCoffeePage();
 }

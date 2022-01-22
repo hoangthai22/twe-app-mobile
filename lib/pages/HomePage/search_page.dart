@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/SearchMentor/appbarSearch.dart';
-import 'package:twe/components/SearchMentor/filterModal.dart';
-import 'package:twe/components/SearchMentor/mentoritem.dart';
+import 'package:twe/components/CreateSession/appbarSearch.dart';
+import 'package:twe/components/CreateSession/filterModal.dart';
+import 'package:twe/components/CreateSession/listMentorInvite.dart';
+import 'package:twe/components/CreateSession/mentoritem.dart';
+import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
 
@@ -26,6 +29,10 @@ class _SearchPage extends State<SearchPage> {
     super.didChangeDependencies();
   }
 
+  void showListMentorInvite() {
+    return _Modal(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     // print("subList int $subList");
@@ -35,15 +42,13 @@ class _SearchPage extends State<SearchPage> {
           preferredSize: Size.fromHeight(60), // Set this height
           child: Container(
             padding: EdgeInsets.only(top: 20, left: 15, right: 15),
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppBarSearchMentor(
-                  text: query,
-                  callback: (query) => searchBar(query),
-                ),
-              ],
+            color: MaterialColors.primary,
+            child: AppBarSearchCoffee(
+              hintText: "Tìm một giáo viên",
+              title: "Chọn giáo viên",
+              text: query,
+              callback: (query) => searchBar(query),
+              showListMentorInvite: () => showListMentorInvite(),
             ),
           ),
         ),
@@ -62,14 +67,16 @@ class _SearchPage extends State<SearchPage> {
                     padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
                     width: 100,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
+                      style: ElevatedButton.styleFrom(
+                        primary: MaterialColors.primary,
+                        textStyle: TextStyle(color: Colors.white),
+                        shadowColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
                       onPressed: () {
-                        _ModalBottom(context);
+                        _Modal(context);
                       },
                       child: Text(
                         "Bộ lọc",
@@ -153,19 +160,14 @@ class _SearchPage extends State<SearchPage> {
         ));
   }
 
-  void _ModalBottom(context) {
+  void _Modal(context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
-          return FilterModal(
-              onGetSub: (id) => setState(() {
-                    checkedInit = id;
-                  }),
-              subList: subList,
-              checkedInit: checkedInit);
+          return ListMentorInvite();
         });
   }
 

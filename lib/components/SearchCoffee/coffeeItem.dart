@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/models/coffee.dart';
 
 class CoffeeItem extends StatelessWidget {
   CoffeeModel coffee;
   late final ValueChanged<int> onPush;
+  late final onSubmit;
 
-  CoffeeItem({Key? key, required this.coffee, required this.onPush})
+  CoffeeItem(
+      {Key? key,
+      required this.coffee,
+      required this.onPush,
+      required this.onSubmit})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     void onClick() {
       onPush(coffee.id);
+    }
+
+    void onRedirect() {
+      onSubmit();
     }
 
     var listRate = [for (var i = 1; i <= coffee.rate; i++) i];
@@ -82,7 +92,7 @@ class CoffeeItem extends StatelessWidget {
                                 flex: 1,
                                 child: Icon(
                                   Icons.location_on,
-                                  color: Color(0xff107163),
+                                  color: MaterialColors.primary,
                                   size: 16,
                                 ),
                               ),
@@ -126,7 +136,7 @@ class CoffeeItem extends StatelessWidget {
                                               child: Icon(
                                                 Icons.timer,
                                                 size: 16,
-                                                color: Color(0xff107163),
+                                                color: MaterialColors.primary,
                                               ),
                                             )),
                                         Expanded(
@@ -149,9 +159,9 @@ class CoffeeItem extends StatelessWidget {
                                     child: Container(
                                       alignment: Alignment.topRight,
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () => onRedirect(),
                                         style: ElevatedButton.styleFrom(
-                                          primary: Color(0xff107163),
+                                          primary: MaterialColors.primary,
                                           textStyle:
                                               TextStyle(color: Colors.white),
                                           shadowColor: Colors.white,

@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/booking.dart';
+import 'package:twe/models/mentor.dart';
 
 class AppProvider with ChangeNotifier {
   String userId = "";
-  int mentorId = 0;
+  List<MentorModel> listMentorInvite = [];
 
   BookingModel booking = BookingModel(id: 111111111);
+
+  void setListMentorInvite(mentor) {
+    listMentorInvite.add(mentor);
+    notifyListeners();
+  }
+
+  void romoveMentor(mentor) {
+    listMentorInvite.remove(mentor);
+    notifyListeners();
+  }
 
   void setUserLogin(id) {
     userId = id;
@@ -37,6 +48,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;
   int get getBookingSlot => booking.slot;
   int get getBookingCoffee => booking.coffeeId;

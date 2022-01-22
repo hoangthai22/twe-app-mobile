@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/pages/AccountPage/acount_page.dart';
-import 'package:twe/pages/SearchPage/search_page.dart';
+import 'package:twe/pages/HomePage/search_page.dart';
 
 class MenuFooter extends StatefulWidget implements PreferredSizeWidget {
   @override

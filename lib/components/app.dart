@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/components/CreateSession/navigatoCreateSession.dart';
 import 'package:twe/components/menuFooter.dart';
-import 'package:twe/components/SearchMentor/tabNavigator.dart';
+import 'package:twe/components/SearchMentor/tabNavigatorSessionList.dart';
 import 'package:twe/pages/AccountPage/acount_page.dart';
 import 'package:twe/pages/HomePage/home_page.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  var _currentTab = TabItem.search;
+  var _currentTab = TabItem.home;
 
   final _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
@@ -92,7 +93,13 @@ class AppState extends State<App> {
   }
 
   Widget _buildOffstageNavigatorHome(TabItem tabItem) {
-    return Offstage(offstage: _currentTab != tabItem, child: HomePage());
+    return Offstage(
+      offstage: _currentTab != tabItem,
+      child: NavigatorCreateSession(
+        navigatorKey: _navigatorKeys[tabItem]!,
+        tabItem: tabItem,
+      ),
+    );
   }
 
   void onPushRouter() {}

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:twe/components/menuFooter.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final onPush;
+  const HomePage({Key? key, required this.onPush}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text("Home")),
+      child: Center(child: TextButton(child: Text("Create session"), onPressed: onPush)),
     );
   }
 }

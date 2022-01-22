@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
-import 'package:twe/pages/SearchPage/coffee_detail_page.dart';
-import 'package:twe/pages/SearchPage/llist_cafe_page.dart';
-import 'package:twe/pages/SearchPage/mentor_detail_page.dart';
-import 'package:twe/pages/SearchPage/search_page.dart';
+import 'package:twe/pages/HomePage/coffee_detail_page.dart';
+import 'package:twe/pages/HomePage/llist_cafe_page.dart';
+import 'package:twe/pages/HomePage/mentor_detail_page.dart';
+import 'package:twe/pages/HomePage/search_page.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -28,12 +28,12 @@ class TabNavigator extends StatelessWidget {
           ),
       TabNavigatorRoutes.detail: (context) => MentorDetailPage(
             mentorId: mentorId,
-            materialIndex: mentorId,
             onPush: (materialIndex) => _pushListCafe(context, mentorId),
           ),
       TabNavigatorRoutes.coffee: (context) => ListCoffeePage(
-            mentorId: mentorId,
+            coffeId: mentorId,
             onPush: (coffeeId) => _pushListCafeDetail(context, coffeeId),
+            onRedirect: () => _pushListCafeDetail(context, 1),
           ),
       TabNavigatorRoutes.coffeeDetail: (context) => CoffeeDetailPage(
             coffeeId: mentorId,
@@ -45,6 +45,7 @@ class TabNavigator extends StatelessWidget {
   // 4
   @override
   Widget build(BuildContext context) {
+    print("contextSearch: $context");
     final routeBuilders = _routeBuilders(context);
 
     return Navigator(

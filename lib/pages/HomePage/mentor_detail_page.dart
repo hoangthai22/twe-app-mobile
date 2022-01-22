@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/components/CreateSession/bottomNav.dart';
 import 'package:twe/components/Feedback/feedback.dart';
-import 'package:twe/components/SearchMentor/bottomNav.dart';
 import 'package:twe/components/SearchMentor/scheduleModal.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
@@ -30,12 +30,15 @@ class _MentorDetailPage extends State<MentorDetailPage> {
   }
 
   void onSubmit(context) {
-    return _ModalBottom(context);
+    print("id: ${mentor.id}");
+
+    Navigator.pop(context);
+    // return _ModalBottom(context);
   }
 
-  void onRedirect(context) {
-    widget.onPush(widget.mentorId);
-  }
+  // void onRedirect(context) {
+  //   widget.onPush(widget.mentorId);
+  // }
 
   void _ModalBottom(context) {
     showModalBottomSheet(
@@ -119,7 +122,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                     margin: EdgeInsets.only(right: 5, left: 20),
                     child: const Icon(
                       Icons.price_change_outlined,
-                      color: Color(0xff107163),
+                      color: MaterialColors.primary,
                       size: 20.0,
                     ),
                   ),
@@ -165,7 +168,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: const Icon(
                         Icons.schedule,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -210,7 +213,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: Icon(
                         Icons.phone,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -255,7 +258,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: Icon(
                         Icons.language,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -300,7 +303,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: Icon(
                         Icons.subject,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -345,7 +348,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: Icon(
                         Icons.subject,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -394,7 +397,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       flex: 1,
                       child: Icon(
                         Icons.cast_for_education,
-                        color: Color(0xff107163),
+                        color: MaterialColors.primary,
                         size: 24.0,
                       ),
                     ),
@@ -469,36 +472,26 @@ class _MentorDetailPage extends State<MentorDetailPage> {
               )
             ],
           )),
-      bottomNavigationBar: Consumer<AppProvider>(
-        builder: (context, cart, child) {
-          return BottomNavMentorDetail(
-              title: "Lên lịch học",
-              isChosseDay: true,
-              session: date.isEmpty && slot.isEmpty ? "" : "$date\n$slot",
-              function: () => onSubmit(context),
-              onRedirect: () => {
-                    onRedirect(context),
-                    context
-                        .read<AppProvider>()
-                        .setBookingMentorId(widget.mentorId),
-                    context.read<AppProvider>().setBookingDate(date),
-                    context.read<AppProvider>().setBookingSlot(slotNumber),
-                  });
-        },
-      ),
+      bottomNavigationBar:
+          Consumer<AppProvider>(builder: (context, provider, child) {
+        return Container(
+          color: Colors.white,
+          child: BottomNavMentorDetail(
+              title: "Mời",
+              onRedirect: () =>
+                  {onSubmit(context), provider.setListMentorInvite(mentor)}),
+        );
+      }),
     );
   }
 }
 
 class MentorDetailPage extends StatefulWidget {
   final int mentorId;
-  final int materialIndex;
+
   final ValueChanged<int> onPush;
 
-  const MentorDetailPage(
-      {required this.mentorId,
-      required this.materialIndex,
-      required this.onPush});
+  const MentorDetailPage({required this.mentorId, required this.onPush});
 
   @override
   _MentorDetailPage createState() => _MentorDetailPage();
