@@ -6,9 +6,11 @@ class BottomNavMentorDetail extends StatelessWidget {
   Function onRedirect;
 
   String title;
+  bool checkInvited;
 
   BottomNavMentorDetail({
     required this.onRedirect,
+    required this.checkInvited,
     required this.title,
   });
 
@@ -26,14 +28,16 @@ class BottomNavMentorDetail extends StatelessWidget {
             children: [
               Container(
                   decoration: BoxDecoration(
-                    color: MaterialColors.primary,
+                    color: checkInvited
+                        ? MaterialColors.primary.withOpacity(0.5)
+                        : MaterialColors.primary,
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   // width: 180,
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: TextButton(
                     onPressed: () {
-                      onRedirect();
+                      checkInvited ? null : onRedirect();
                     },
                     child: Text(title,
                         style: TextStyle(

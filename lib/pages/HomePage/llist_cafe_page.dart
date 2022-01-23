@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 import 'package:twe/components/menuFooter.dart';
 import 'package:twe/models/coffee.dart';
+import 'package:twe/provider/appProvider.dart';
 
 class _ListCoffeePage extends State<ListCoffeePage> {
   String query = '';
@@ -22,9 +24,10 @@ class _ListCoffeePage extends State<ListCoffeePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60), // Set this height
           child: Container(
-            padding: EdgeInsets.only(top: 20, left: 15, right: 15),
+            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
             color: MaterialColors.primary,
             child: AppBarSearchCoffee(
+              step: "Step 2 of 4",
               showListMentorInvite: () => {print("object")},
               title: "Chọn địa điểm",
               hintText: "Tìm một quán coffee",
@@ -107,21 +110,28 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                 ],
               ),
               Container(
-                // height: 900,
-                child: ListView.builder(
+                  // height: 900,
+                  child: Consumer<AppProvider>(
+                      builder: (context, provider, child) {
+                return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   // scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: coffeeList.length,
                   itemBuilder: (context, index) {
                     return CoffeeItem(
-                      coffee: coffeeList[index],
-                      onPush: widget.onPush,
-                      onSubmit: widget.onRedirect,
-                    );
+                        coffee: coffeeList[index],
+                        onPush: (coffeeId) {
+                          widget.onPush(coffeeId);
+                        },
+                        onSubmit: (coffee) {
+                          provider.setBookingCoffee(coffee);
+                          widget.onRedirect();
+                        },
+                        isButton: true);
                   },
-                ),
-              )
+                );
+              }))
             ],
           ),
         ));

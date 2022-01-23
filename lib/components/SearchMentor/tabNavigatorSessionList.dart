@@ -24,6 +24,7 @@ class TabNavigator extends StatelessWidget {
       {int mentorId: 500}) {
     return {
       TabNavigatorRoutes.root: (context) => SearchPage(
+            onRedirect: () => {},
             onPush: (mentorId) => _pushMentorDetail(context, mentorId),
           ),
       TabNavigatorRoutes.detail: (context) => MentorDetailPage(

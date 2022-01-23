@@ -11,6 +11,7 @@ class AppBarSearchCoffee extends StatefulWidget {
   final String text;
   final String title;
   final String hintText;
+  final String step;
 
   // late final ValueChanged<String> onChanged;
   final callback;
@@ -19,6 +20,7 @@ class AppBarSearchCoffee extends StatefulWidget {
   AppBarSearchCoffee(
       {required this.callback,
       required this.text,
+      required this.step,
       required this.title,
       required this.showListMentorInvite,
       required this.hintText});
@@ -51,10 +53,10 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
         //     // height: 80,
         //     child:
         Container(
-      height: 60,
+      height: 65,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Expanded(
               flex: 2,
@@ -78,45 +80,65 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                         Navigator.pop(context);
                       })),
           Expanded(
-              flex: 12,
-              child: isSearch
-                  ? Container(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextField(
-                        style: const TextStyle(
-                            color: Colors.white,
-                            height: 1.5,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Roboto"),
-                        controller: _controller,
-                        textInputAction: TextInputAction.search,
-                        textCapitalization: TextCapitalization.words,
-                        cursorColor: Colors.white,
-                        onSubmitted: (value) {
-                          cachbackFunc();
-                        },
-                        onChanged: (text) {
-                          setState(() {
-                            inputText = text;
-                          });
-                        },
-                        autofocus: isSearch,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: widget.hintText,
-                            hintStyle: TextStyle(color: Colors.white)),
-                      ),
-                    )
-                  : Text(
-                      widget.title,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 17,
+            flex: 14,
+            child: isSearch
+                ? Container(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: TextField(
+                      style: const TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    )),
+                          height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Roboto"),
+                      controller: _controller,
+                      textInputAction: TextInputAction.search,
+                      textCapitalization: TextCapitalization.words,
+                      cursorColor: Colors.white,
+                      onSubmitted: (value) {
+                        cachbackFunc();
+                      },
+                      onChanged: (text) {
+                        setState(() {
+                          inputText = text;
+                        });
+                      },
+                      autofocus: isSearch,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: widget.hintText,
+                          hintStyle: TextStyle(color: Colors.white)),
+                    ),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, left: 21),
+                        child: Text(
+                          widget.step,
+                          style: TextStyle(
+                              color: Colors.white70,
+                              fontFamily: "Roboto",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text(
+                          widget.title,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Roboto",
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+          ),
           Expanded(
               flex: 2,
               child: isSearch

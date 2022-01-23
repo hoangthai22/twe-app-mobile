@@ -287,7 +287,9 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
         //   );
         // }),
         bottomNavigationBar: BottomNavMentorDetail(
-            title: "Tiếp tục", onRedirect: () => widget.onPush()));
+            checkInvited: false,
+            title: "Tiếp tục",
+            onRedirect: () => widget.onPush()));
   }
 }
 

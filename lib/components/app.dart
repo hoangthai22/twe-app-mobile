@@ -39,9 +39,9 @@ class AppState extends State<App> {
             !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
-          if (_currentTab != TabItem.search) {
+          if (_currentTab != TabItem.home) {
             // select 'main' tab
-            _selectTab(TabItem.search);
+            _selectTab(TabItem.home);
             // back button handled by app
             return false;
           }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/booking.dart';
+import 'package:twe/models/coffee.dart';
 import 'package:twe/models/mentor.dart';
 
 class AppProvider with ChangeNotifier {
@@ -23,6 +24,16 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setBookingSubjct(sub) {
+    booking.subject = sub;
+    notifyListeners();
+  }
+
+  void setBookingMajor(major) {
+    booking.major = major;
+    notifyListeners();
+  }
+
   void setBookingMentorId(id) {
     booking.mentorId = id;
     notifyListeners();
@@ -38,8 +49,8 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setBookingCoffee(id) {
-    booking.coffeeId = id;
+  void setBookingCoffee(coffee) {
+    booking.coffee = coffee;
     notifyListeners();
   }
 
@@ -51,8 +62,10 @@ class AppProvider with ChangeNotifier {
   List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;
   int get getBookingSlot => booking.slot;
-  int get getBookingCoffee => booking.coffeeId;
+  CoffeeModel get getBookingCoffee => booking.coffee;
   int get getBookingUserId => booking.userId;
   String get getBookingDate => booking.date;
   int get getBookingMentorId => booking.mentorId;
+  String get getBookingSubject => booking.subject;
+  String get getBookingMajor => booking.major;
 }

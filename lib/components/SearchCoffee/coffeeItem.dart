@@ -6,12 +6,14 @@ import 'package:twe/models/coffee.dart';
 class CoffeeItem extends StatelessWidget {
   CoffeeModel coffee;
   late final ValueChanged<int> onPush;
-  late final onSubmit;
+  late final ValueChanged<CoffeeModel> onSubmit;
+  late final isButton;
 
   CoffeeItem(
       {Key? key,
       required this.coffee,
       required this.onPush,
+      required this.isButton,
       required this.onSubmit})
       : super(key: key);
 
@@ -22,7 +24,7 @@ class CoffeeItem extends StatelessWidget {
     }
 
     void onRedirect() {
-      onSubmit();
+      onSubmit(coffee);
     }
 
     var listRate = [for (var i = 1; i <= coffee.rate; i++) i];
@@ -43,12 +45,18 @@ class CoffeeItem extends StatelessWidget {
                   flex: 3,
                   child: ClipRRect(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12)),
+                        topLeft: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                        topRight:
+                            isButton ? Radius.circular(0) : Radius.circular(12),
+                        bottomRight:
+                            isButton ? Radius.circular(0) : Radius.circular(12),
+                      ),
+
                       // padding: const EdgeInsets.only(right: 15, left: 0),
                       child: Image(
                         // color:70olors.red,
-                        height: 140,
+                        height: isButton ? 140 : 110,
 
                         fit: BoxFit.cover,
                         image: NetworkImage(coffee.avatar),
@@ -56,7 +64,7 @@ class CoffeeItem extends StatelessWidget {
               Expanded(
                   flex: 8,
                   child: Container(
-                    height: 120,
+                    height: 110,
                     padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +76,7 @@ class CoffeeItem extends StatelessWidget {
                             coffee.coffeeName,
                             style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700),
                           ),
                         ),
@@ -156,25 +164,28 @@ class CoffeeItem extends StatelessWidget {
                                     )),
                                 Expanded(
                                     flex: 5,
-                                    child: Container(
-                                      alignment: Alignment.topRight,
-                                      child: ElevatedButton(
-                                        onPressed: () => onRedirect(),
-                                        style: ElevatedButton.styleFrom(
-                                          primary: MaterialColors.primary,
-                                          textStyle:
-                                              TextStyle(color: Colors.white),
-                                          shadowColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18),
+                                    child: Visibility(
+                                      visible: isButton,
+                                      child: Container(
+                                        alignment: Alignment.topRight,
+                                        child: ElevatedButton(
+                                          onPressed: () => onRedirect(),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: MaterialColors.primary,
+                                            textStyle:
+                                                TextStyle(color: Colors.white),
+                                            shadowColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18),
+                                            ),
                                           ),
-                                        ),
-                                        child: Text(
-                                          "Đặt chổ",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Roboto',
+                                          child: Text(
+                                            "Đặt chổ",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: 'Roboto',
+                                            ),
                                           ),
                                         ),
                                       ),

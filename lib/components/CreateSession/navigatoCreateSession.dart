@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
+import 'package:twe/pages/HomePage/booking_page.dart';
 import 'package:twe/pages/HomePage/coffee_detail_page.dart';
 import 'package:twe/pages/HomePage/create_session_page.dart';
 import 'package:twe/pages/HomePage/home_page.dart';
@@ -15,6 +16,7 @@ class TabNavigatorRoutes {
   static const String coffeeDetail = '/coffee-detail';
   static const String mentorList = '/mentors';
   static const String mentorDetail = '/mentor-detail';
+  static const String booking = '/booking';
 }
 
 // 2
@@ -44,11 +46,13 @@ class NavigatorCreateSession extends StatelessWidget {
           ),
       TabNavigatorRoutes.mentorList: (context) => SearchPage(
             onPush: (materialIndex) => _pushMentorDetail(context, data),
+            onRedirect: () => _pushBooking(context),
           ),
       TabNavigatorRoutes.mentorDetail: (context) => MentorDetailPage(
             mentorId: data,
             onPush: (materialIndex) => {},
           ),
+      TabNavigatorRoutes.booking: (context) => BookingPage(),
     };
   }
 
@@ -124,6 +128,17 @@ class NavigatorCreateSession extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) =>
             routeBuilders[TabNavigatorRoutes.mentorDetail]!(context),
+      ),
+    );
+  }
+
+  void _pushBooking(BuildContext context) {
+    var routeBuilders = _routeBuilders(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            routeBuilders[TabNavigatorRoutes.booking]!(context),
       ),
     );
   }

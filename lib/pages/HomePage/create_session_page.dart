@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/common/utils.dart';
 import 'package:twe/components/menuFooter.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/subject.dart';
+import 'package:twe/provider/appProvider.dart';
 
 class CreateSessionPage extends StatefulWidget {
   // final List<String> filterSub;
@@ -23,15 +26,18 @@ class _CreateSessionPage extends State<CreateSessionPage> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   late DateTime _selectedDay;
-  int isSelected = 0;
-  int isSelectedSub = 0;
+  int isSelectedSlot = 0;
+  MajorModel isSelectMajor = new MajorModel(majorId: 0, majorName: "");
+  List<MajorModel> majorList = [];
   List<SubjectModel> subList = [];
-  int checkedInit = 0;
+  SubjectModel isSelectSubject =
+      new SubjectModel(subjectId: 0, majorId: 0, subjectName: "");
 
   @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
+    majorList = MAJOR_DATA;
     subList = SUBJECT_DATA;
   }
 
@@ -40,12 +46,32 @@ class _CreateSessionPage extends State<CreateSessionPage> {
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(color: Colors.white),
-          title: Text(
-            "Tạo buổi học",
-            style: TextStyle(color: Colors.white, fontFamily: "Roboto",),
+          toolbarHeight: 65,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 5),
+                child: Text(
+                  "Step 1 of 4",
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontFamily: "Roboto",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+              Text(
+                "Tạo buổi học",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Roboto",
+                  // fontSize: 18,
+                ),
+              ),
+            ],
           ),
           backgroundColor: MaterialColors.primary,
-          centerTitle: true,
         ),
         body: Container(
           color: Colors.white,
@@ -125,11 +151,11 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                             return InkWell(
                               onTap: () {
                                 setState(() {
-                                  isSelected = index;
+                                  isSelectedSlot = index;
                                 });
                               },
                               child: mentorTimingsData(SLOT[index],
-                                  isSelected == index ? true : false),
+                                  isSelectedSlot == index ? true : false),
                             );
                           }),
                     ),
@@ -169,11 +195,11 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                             return InkWell(
                               onTap: () {
                                 setState(() {
-                                  isSelected = index + 3;
+                                  isSelectedSlot = index + 3;
                                 });
                               },
                               child: mentorTimingsData(SLOT[index + 3],
-                                  isSelected == (index + 3) ? true : false),
+                                  isSelectedSlot == (index + 3) ? true : false),
                             );
                           }),
                     ),
@@ -203,16 +229,20 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         height: 45,
                         child: ListView(
-                          children: subList
+                          children: majorList
                               .map((e) => InkWell(
                                     child: subjectsData(
-                                        e.subjectName,
-                                        isSelectedSub == (e.subjectId)
+                                        e.majorName,
+                                        isSelectMajor.majorId == (e.majorId)
                                             ? true
                                             : false),
                                     onTap: () {
                                       setState(() {
-                                        isSelectedSub = e.subjectId;
+                                        final subs = SUBJECT_DATA.where((sub) {
+                                          return sub.majorId == e.majorId;
+                                        }).toList();
+                                        isSelectMajor = e;
+                                        subList = subs;
                                       });
                                     },
                                   ))
@@ -255,25 +285,25 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                           onTap: () {
                                             setState(() {
                                               if (item.subjectId ==
-                                                  checkedInit) {
-                                                checkedInit = 0;
+                                                  isSelectSubject.subjectId) {
+                                                isSelectSubject.subjectId = 0;
                                               } else {
-                                                checkedInit = item.subjectId;
+                                                isSelectSubject = item;
                                               }
                                               // cachbackFunc();
                                             });
                                           },
                                           leading: Radio(
-                                            value: checkedInit,
-                                            groupValue: item.subjectId,
+                                            value: isSelectSubject,
+                                            groupValue: item,
                                             activeColor: MaterialColors.primary,
                                             onChanged: (value) {
                                               setState(() {
                                                 if (item.subjectId ==
-                                                    checkedInit) {
-                                                  checkedInit = 0;
+                                                    isSelectSubject.subjectId) {
+                                                  isSelectSubject.subjectId = 0;
                                                 } else {
-                                                  checkedInit = item.subjectId;
+                                                  isSelectSubject = item;
                                                 }
                                                 // cachbackFunc();
                                               });
@@ -282,23 +312,34 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                         ),
                                       ))
                                   .toList())),
-                      Container(
-                        margin: EdgeInsets.only(top: 25, bottom: 15, left: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: MaterialColors.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
+                      Consumer<AppProvider>(
+                          builder: (context, provider, child) {
+                        return Container(
+                          margin:
+                              EdgeInsets.only(top: 25, bottom: 15, left: 10),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: MaterialColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
                             ),
+                            child: Text(
+                              "Tiếp theo",
+                              style:
+                                  TextStyle(fontFamily: "Roboto", fontSize: 16),
+                            ),
+                            onPressed: () => {
+                              widget.onPush(),
+                              provider.setBookingDate(
+                                  "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),
+                              provider.setBookingSlot(isSelectedSlot + 1),
+                              provider.setBookingSubjct(isSelectSubject.subjectName),
+                              provider.setBookingMajor(isSelectMajor.majorName),
+                            },
                           ),
-                          child: Text(
-                            "Tiếp theo",
-                            style:
-                                TextStyle(fontFamily: "Roboto", fontSize: 16),
-                          ),
-                          onPressed: () => widget.onPush(),
-                        ),
-                      )
+                        );
+                      })
                     ],
                   ))
             ],
@@ -306,8 +347,8 @@ class _CreateSessionPage extends State<CreateSessionPage> {
         ));
   }
 
-  Widget mentorTimingsData(String time, bool isSelected) {
-    return isSelected
+  Widget mentorTimingsData(String time, bool isSelectedSlot) {
+    return isSelectedSlot
         ? Container(
             margin: EdgeInsets.only(right: 10, left: 10),
             decoration: BoxDecoration(
@@ -358,8 +399,8 @@ class _CreateSessionPage extends State<CreateSessionPage> {
           );
   }
 
-  Widget subjectsData(String title, bool isSelected) {
-    return isSelected
+  Widget subjectsData(String title, bool isSelectedSlot) {
+    return isSelectedSlot
         ? Container(
             margin: EdgeInsets.only(right: 5, left: 10),
             decoration: BoxDecoration(

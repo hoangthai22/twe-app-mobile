@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/coffee.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
 
@@ -39,11 +40,16 @@ var MENTOR_DATA = [
 ];
 
 var SUBJECT_DATA = [
-  SubjectModel(subjectId: 1, subjectName: "Kỹ thuật phầm mềm"),
-  SubjectModel(subjectId: 2, subjectName: "Tiếng Nhật"),
-  SubjectModel(subjectId: 3, subjectName: "Tiếng Anh"),
-  SubjectModel(subjectId: 4, subjectName: "Tiếng Trung"),
-  SubjectModel(subjectId: 5, subjectName: "Quản trị kinh doanh"),
+  SubjectModel(subjectId: 1, majorId: 1, subjectName: "Database"),
+  SubjectModel(subjectId: 2, majorId: 1, subjectName: "Programing"),
+  SubjectModel(subjectId: 3, majorId: 2, subjectName: "Nhật 1"),
+  SubjectModel(subjectId: 4, majorId: 2, subjectName: "Nhật 2"),
+  SubjectModel(subjectId: 5, majorId: 3, subjectName: "Anh 3"),
+];
+var MAJOR_DATA = [
+  MajorModel(majorId: 1, majorName: "Kỹ thuật phầm mềm"),
+  MajorModel(majorId: 2, majorName: "Tiếng Nhật"),
+  MajorModel(majorId: 3, majorName: "Tiếng Anh"),
 ];
 var COFFEE_DATA = [
   CoffeeModel(
