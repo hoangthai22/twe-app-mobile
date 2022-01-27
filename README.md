@@ -1,17 +1,17 @@
 Tab Home: 
     Home Screen:                :   None <br />
-    Create Session Screen       :   OK
-    List Coffe Screen           :   OK
-    Coffee Detail Screen        :   OK
-    List Mentor Screen          :   OK
-    Mentor Detail Screen        :   OK
-    List Mentor Invited Screen  :   OK
-    Confirmation Screen         :   OK
-    Succussfull Screen          :   None
-
-Tab Search Session:
-
-Tab Setting:
-    List Setting Screen         :   Done
-    History Screen              :   None
-    Request Screen              :   None
+    Create Session Screen       :   OK   <br />
+    List Coffe Screen           :   OK   <br />
+    Coffee Detail Screen        :   OK   <br />
+    List Mentor Screen          :   OK   <br />
+    Mentor Detail Screen        :   OK   <br />
+    List Mentor Invited Screen  :   OK   <br />
+    Confirmation Screen         :   OK   <br />
+    Succussfull Screen          :   None <br />
+<br />
+Tab Search Session: <br />
+<br />
+Tab Setting: <br />
+    List Setting Screen         :   Done <br />
+    History Screen              :   None <br />
+    Request Screen              :   None <br />
