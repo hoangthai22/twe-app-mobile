@@ -1,5 +1,5 @@
 Tab Home: 
-    Home Screen:                :   None
+    Home Screen:                :   None <br />
     Create Session Screen       :   OK
     List Coffe Screen           :   OK
     Coffee Detail Screen        :   OK
