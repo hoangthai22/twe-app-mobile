@@ -23,8 +23,6 @@ class ScheduleModal extends StatefulWidget {
 }
 
 class _ScheduleModal extends State<ScheduleModal> {
-
-
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   late DateTime _selectedDay;
@@ -104,11 +102,11 @@ class _ScheduleModal extends State<ScheduleModal> {
                 daysOfWeekHeight: 40,
                 calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
-                      color: Color(0xff107163).withOpacity(0.5),
+                      color: MaterialColors.primary.withOpacity(0.5),
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
-                      color: Color(0xff107163),
+                      color: MaterialColors.primary,
                       shape: BoxShape.circle,
                     )),
                 firstDay: kFirstDay,
@@ -207,7 +205,9 @@ class _ScheduleModal extends State<ScheduleModal> {
                       );
                     }),
               ),
-            ]));
+            ])
+            
+            );
   }
 }
 
@@ -292,7 +292,7 @@ Widget mentorTimingsData(String time, bool isSelected) {
       ? Container(
           margin: EdgeInsets.only(right: 10, left: 10),
           decoration: BoxDecoration(
-            color: Color(0xff107163),
+            color: MaterialColors.primary,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(

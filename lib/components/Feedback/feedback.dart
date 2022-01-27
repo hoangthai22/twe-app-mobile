@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/common/constants.dart';
 
 class FeedBack extends StatefulWidget {
   final String avatar;
@@ -37,7 +38,7 @@ class _FeedBack extends State<FeedBack> {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,6 +76,36 @@ class _FeedBack extends State<FeedBack> {
                                 widget.time,
                                 style: TextStyle(
                                     fontSize: 11, color: Colors.black54),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 14.0,
+                                  ),
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 14.0,
+                                  ),
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 14.0,
+                                  ),
+                                  const Icon(
+                                    Icons.star_border,
+                                    color: Colors.amber,
+                                    size: 14.0,
+                                  ),
+                                  const Icon(
+                                    Icons.star_border,
+                                    color: Colors.amber,
+                                    size: 14.0,
+                                  ),
+                                ],
                               )
                             ]),
                       ),
@@ -83,7 +114,7 @@ class _FeedBack extends State<FeedBack> {
                 ),
               ),
               Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Container(
                     padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                     child: Text(
