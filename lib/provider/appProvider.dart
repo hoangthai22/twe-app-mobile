@@ -5,9 +5,20 @@ import 'package:twe/models/mentor.dart';
 
 class AppProvider with ChangeNotifier {
   String userId = "";
+  bool isLogin = false;
   List<MentorModel> listMentorInvite = [];
 
   BookingModel booking = BookingModel(id: 111111111);
+
+  void setIsLogin() {
+    isLogin = true;
+    notifyListeners();
+  }
+
+  void setIsLogout() {
+    isLogin = false;
+    notifyListeners();
+  }
 
   void setListMentorInvite(mentor) {
     listMentorInvite.add(mentor);
@@ -59,6 +70,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get getIsLogin => isLogin;
   List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;
   int get getBookingSlot => booking.slot;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/pages/AccountPage/acount_page.dart';
 import 'package:twe/pages/HomePage/search_page.dart';
@@ -29,6 +30,7 @@ class _MenuFooter extends State<MenuFooter> {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       unselectedItemColor: Colors.grey,
+      selectedIconTheme: IconThemeData(color: MaterialColors.primary),
       type: BottomNavigationBarType.fixed,
       currentIndex: widget.currentTab.index,
       selectedItemColor: Colors.amber[800],

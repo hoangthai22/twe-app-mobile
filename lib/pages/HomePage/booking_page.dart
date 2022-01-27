@@ -299,7 +299,9 @@ class BookingPage extends StatelessWidget {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).popUntil((route) => route.isFirst);
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,
                           textStyle: TextStyle(color: Colors.white),

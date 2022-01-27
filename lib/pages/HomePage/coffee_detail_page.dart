@@ -286,10 +286,16 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
         //     child: Text("ID: ${widget.coffeeId} \n MentorId: ${provider.booking.mentorId} \n date: ${provider.booking.date} \n slot: ${provider.booking.slot}"),
         //   );
         // }),
-        bottomNavigationBar: BottomNavMentorDetail(
-            checkInvited: false,
-            title: "Tiếp tục",
-            onRedirect: () => widget.onPush()));
+        bottomNavigationBar:
+            Consumer<AppProvider>(builder: (context, provider, child) {
+          return BottomNavMentorDetail(
+              checkInvited: false,
+              title: "Tiếp tục",
+              onRedirect: () {
+                widget.onPush();
+                provider.setBookingCoffee(coffee);
+              });
+        }));
   }
 }
 

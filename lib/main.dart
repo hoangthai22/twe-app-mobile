@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/components/app.dart';
+import 'package:twe/pages/AccountPage/my_session.dart';
 import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/provider/appProvider.dart';
-
 
 void main() {
   runApp(MultiProvider(
@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
-      routes: {
-        '/': (context) => App(),
-        '/login': (context) => LoginPage(),
+      initialRoute: '/',
+      routes: <String, WidgetBuilder> {
+        '/': (BuildContext context) => LoginPage(),
+        '/home': (BuildContext context) => App(),
       },
       title: 'TWE',
       theme: ThemeData(

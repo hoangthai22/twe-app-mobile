@@ -38,7 +38,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
     super.initState();
     _selectedDay = DateTime.now();
     majorList = MAJOR_DATA;
-    subList = SUBJECT_DATA;
+    subList = [];
   }
 
   @override
@@ -284,13 +284,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                           ),
                                           onTap: () {
                                             setState(() {
-                                              if (item.subjectId ==
-                                                  isSelectSubject.subjectId) {
-                                                isSelectSubject.subjectId = 0;
-                                              } else {
-                                                isSelectSubject = item;
-                                              }
-                                              // cachbackFunc();
+                                              isSelectSubject = item;
                                             });
                                           },
                                           leading: Radio(
@@ -299,13 +293,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                             activeColor: MaterialColors.primary,
                                             onChanged: (value) {
                                               setState(() {
-                                                if (item.subjectId ==
-                                                    isSelectSubject.subjectId) {
-                                                  isSelectSubject.subjectId = 0;
-                                                } else {
-                                                  isSelectSubject = item;
-                                                }
-                                                // cachbackFunc();
+                                                isSelectSubject = item;
                                               });
                                             },
                                           ),
@@ -319,7 +307,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                               EdgeInsets.only(top: 25, bottom: 15, left: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: MaterialColors.primary,
+                              primary:isSelectSubject.subjectId != 0 ? MaterialColors.primary : MaterialColors.primary.withOpacity(0.5),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18),
                               ),
@@ -329,14 +317,18 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                               style:
                                   TextStyle(fontFamily: "Roboto", fontSize: 16),
                             ),
-                            onPressed: () => {
-                              widget.onPush(),
-                              provider.setBookingDate(
-                                  "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),
-                              provider.setBookingSlot(isSelectedSlot + 1),
-                              provider.setBookingSubjct(isSelectSubject.subjectName),
-                              provider.setBookingMajor(isSelectMajor.majorName),
-                            },
+                            onPressed: () => isSelectSubject.subjectId != 0
+                                ? {
+                                    widget.onPush(),
+                                    provider.setBookingDate(
+                                        "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),
+                                    provider.setBookingSlot(isSelectedSlot + 1),
+                                    provider.setBookingSubjct(
+                                        isSelectSubject.subjectName),
+                                    provider.setBookingMajor(
+                                        isSelectMajor.majorName),
+                                  }
+                                : {},
                           ),
                         );
                       })

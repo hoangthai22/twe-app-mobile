@@ -67,8 +67,7 @@ class NavigatorCreateSession extends StatelessWidget {
       initialRoute: TabNavigatorRoutes.home,
       onGenerateRoute: (routeSettings) {
         return MaterialPageRoute(
-          builder: (context) =>
-              routeBuilders[TabNavigatorRoutes.home]!(context),
+          builder: (context) => routeBuilders[TabNavigatorRoutes.home]!(context),
         );
       },
     );

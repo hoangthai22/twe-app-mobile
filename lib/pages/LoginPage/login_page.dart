@@ -7,13 +7,16 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("login");
     return Scaffold(
         body: Container(
       child: Center(
           child: ElevatedButton(
         onPressed: () {
           context.read<AppProvider>().setUserLogin("hoangthai123");
-          Navigator.pushNamed(context, '/');
+          context.read<AppProvider>().setIsLogin();
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/home');
         },
         child: Text("Login"),
       )),

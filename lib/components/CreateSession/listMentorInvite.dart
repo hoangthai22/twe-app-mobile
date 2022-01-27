@@ -36,69 +36,94 @@ class ListMentorInvite extends StatelessWidget {
                             padding: EdgeInsets.only(
                                 left: 15, right: 15, bottom: 10, top: 15),
                             child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Expanded(
-                                    flex: 1,
+                                    flex: 2,
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(18)),
                                         // padding: const EdgeInsets.only(right: 15, left: 0),
                                         child: Image(
                                           height: 80,
+                                          width: 80,
                                           fit: BoxFit.cover,
                                           image: NetworkImage(mentor.avatar),
                                         ))),
                                 Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(left: 25),
-                                        child: Text(
-                                          mentor.mentorName,
-                                          style: TextStyle(
-                                              fontFamily: "Roboto",
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          left: 25,
-                                          top: 10,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.subject_outlined,
-                                              color: MaterialColors.primary,
-                                              size: 24,
+                                  child: Container(
+                                    height: 55,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.55,
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              mentor.mentorName,
+                                              style: TextStyle(
+                                                  fontFamily: "Roboto",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600),
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(left: 5),
-                                              child: Text(
-                                                "Kỹ Thuật Phần Mềm",
-                                                style: const TextStyle(
-                                                    fontFamily: "Roboto",
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                          ),
+                                        ),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                left: 8,
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.subject_outlined,
+                                                    color:
+                                                        MaterialColors.primary,
+                                                    size: 24,
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.40,
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Text(
+                                                      "Kỹ Thuật Phần Mềm  ",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontFamily: "Roboto",
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ))
+                                      ],
+                                    ),
                                   ),
-                                  flex: 3,
+                                  flex: 5,
                                 ),
                                 Expanded(
-                                    flex: 1,
+                                    flex: 2,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: MaterialColors.primary,

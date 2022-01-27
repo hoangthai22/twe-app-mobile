@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:twe/components/CreateSession/navigatoCreateSession.dart';
-import 'package:twe/components/menuFooter.dart';
-import 'package:twe/components/SearchMentor/tabNavigatorSessionList.dart';
-import 'package:twe/pages/AccountPage/acount_page.dart';
-import 'package:twe/pages/HomePage/home_page.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/components/Navigator/navigatorCreateSession.dart';
+import 'package:twe/components/Navigator/navigatorSessionList.dart';
+import 'package:twe/components/Navigator/navigatorSetting.dart';
+import 'package:twe/components/menuFooter.dart';
+import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class App extends StatefulWidget {
@@ -33,63 +33,56 @@ class AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
-        if (isFirstRouteInCurrentTab) {
-          // if not on the 'main' tab
-          if (_currentTab != TabItem.home) {
-            // select 'main' tab
-            _selectTab(TabItem.home);
-            // back button handled by app
-            return false;
-          }
-        }
-        // let system handle back button if we're on the first route
-        return isFirstRouteInCurrentTab;
-      },
-      child: Scaffold(
-          body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: Stack(children: <Widget>[
-              _buildOffstageNavigatorHome(TabItem.home),
-              _buildOffstageNavigator(TabItem.search),
-              _buildOffstageNavigatorAccout(
-                  TabItem.account, context.watch<AppProvider>().getUserId)
-            ]),
-          ),
-          bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-              canvasColor: Colors.white,
-              primaryColor: Colors.red,
-            ),
-            child: MenuFooter(
-              currentTab: _currentTab,
-              onSelectTab: _selectTab,
-            ),
-          )),
-    );
-  }
-
-  Widget _buildOffstageNavigator(TabItem tabItem) {
-    return Offstage(
-      offstage: _currentTab != tabItem,
-      child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem]!,
-        tabItem: tabItem,
-      ),
-    );
-  }
-
-  Widget _buildOffstageNavigatorAccout(TabItem tabItem, userId) {
-    return Offstage(
-        offstage: _currentTab != tabItem,
-        child: AccountPage(
-          userId: userId,
-        ));
+    return Consumer<AppProvider>(builder: (context, provider, child) {
+      print("main");
+      return WillPopScope(
+          onWillPop: () async {
+            if (provider.getIsLogin == true) {
+              final isFirstRouteInCurrentTab =
+                  !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
+              if (isFirstRouteInCurrentTab) {
+                // if not on the 'main' tab
+                if (_currentTab != TabItem.home) {
+                  // select 'main' tab
+                  _selectTab(TabItem.home);
+                  // back button handled by app
+                  return false;
+                }
+              }
+              // let system handle back button if we're on the first route
+              return isFirstRouteInCurrentTab;
+            } else {
+              // print("object 1");
+              // final isFirstRouteInCurrentTab =
+              //     !await _navigatorKeys[TabItem.home]!.currentState!.maybePop();
+              // Navigator.pushNamed(context, '/login');
+              return true;
+            }
+          },
+          child: provider.getIsLogin
+              ? Scaffold(
+                  body: GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    child: Stack(children: <Widget>[
+                      _buildOffstageNavigatorHome(TabItem.home),
+                      _buildOffstageNavigator(TabItem.search),
+                      _buildOffstageNavigatorAccount(TabItem.account)
+                    ]),
+                  ),
+                  bottomNavigationBar: Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.white,
+                      primaryColor: Colors.red,
+                    ),
+                    child: MenuFooter(
+                      currentTab: _currentTab,
+                      onSelectTab: _selectTab,
+                    ),
+                  ))
+              : LoginPage());
+    });
   }
 
   Widget _buildOffstageNavigatorHome(TabItem tabItem) {
@@ -100,6 +93,25 @@ class AppState extends State<App> {
         tabItem: tabItem,
       ),
     );
+  }
+
+  Widget _buildOffstageNavigator(TabItem tabItem) {
+    return Offstage(
+      offstage: _currentTab != tabItem,
+      child: NavigatorSessionList(
+        navigatorKey: _navigatorKeys[tabItem]!,
+        tabItem: tabItem,
+      ),
+    );
+  }
+
+  Widget _buildOffstageNavigatorAccount(TabItem tabItem) {
+    return Offstage(
+        offstage: _currentTab != tabItem,
+        child: NavigatorSetting(
+          navigatorKey: _navigatorKeys[tabItem]!,
+          tabItem: tabItem,
+        ));
   }
 
   void onPushRouter() {}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/coffee.dart';
+import 'package:twe/models/history.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
@@ -91,4 +92,47 @@ var COFFEE_DATA = [
         "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
     rate: 5,
   ),
+];
+
+var HISTORY_DATA = [
+  HistoryModel(
+      id: 1,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[1],
+      date: "22/01/2022",
+      mentor: MENTOR_DATA[1],
+      slot: 1),
+  HistoryModel(
+      id: 3,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[2],
+      date: "02/07/2022",
+      mentor: MENTOR_DATA[1],
+      slot: 3),
+  HistoryModel(
+      id: 4,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[1],
+      date: "19/02/2022",
+      mentor: MENTOR_DATA[0],
+      slot: 2),
+  HistoryModel(
+      id: 5,
+      coffee: COFFEE_DATA[1],
+      major: MAJOR_DATA[1],
+      subject: SUBJECT_DATA[1],
+      date: "19/1/2022",
+      mentor: MENTOR_DATA[0],
+      slot: 4),
+  HistoryModel(
+      id: 2,
+      coffee: COFFEE_DATA[1],
+      major: MAJOR_DATA[2],
+      subject: SUBJECT_DATA[4],
+      date: "29/12/2022",
+      mentor: MENTOR_DATA[2],
+      slot: 5)
 ];

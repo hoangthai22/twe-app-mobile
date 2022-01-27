@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 const SLOT = [
   "07:00 - 08:30",
@@ -16,3 +17,30 @@ class MaterialColors {
   static const Color warning = Color.fromRGBO(255, 152, 0, 1.0);
   static const Color muted = Color.fromRGBO(151, 151, 151, 1.0);
 }
+
+class HistoryColor {
+  static Color red = Colors.red.withOpacity(0.6);
+  static Color green = Colors.green.withOpacity(0.6);
+  static Color blue = Colors.blue.withOpacity(0.6);
+  static Color pink = Colors.pink.withOpacity(0.6);
+  static Color orange = Colors.orange.withOpacity(0.6);
+}
+
+enum ButtonSetting {
+  account,
+  nofi,
+  history,
+  sessions,
+  favorite,
+  contact,
+  logout
+}
+const Map<ButtonSetting, String> btnSetting = {
+  ButtonSetting.account: 'Tài khoản',
+  ButtonSetting.nofi: 'Thông báo',
+  ButtonSetting.history: 'Lịch sử',
+  ButtonSetting.sessions: 'Buổi học của tôi',
+  ButtonSetting.favorite: 'Gia sư Yêu thích',
+  ButtonSetting.contact: 'Liên hệ với chúng tôi',
+  ButtonSetting.logout: 'Đăng xuất',
+};
