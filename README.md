@@ -12,6 +12,8 @@ Tab Home:
 Tab Search Session: <br />
 <br />
 Tab Setting: <br />
-    List Setting Screen         :   Done <br />
+    List Setting Screen         :   OK   <br />
     History Screen              :   None <br />
-    Request Screen              :   None <br />
+    Request Screen              :   OK   <br />
+    Profile Screen              :   OK   <br />
+    Nofication Screen           :   None <br />
