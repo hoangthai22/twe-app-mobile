@@ -37,6 +37,7 @@ class _MenuFooter extends State<MenuFooter> {
       items: [
         _buildItem(TabItem.home),
         _buildItem(TabItem.search),
+        _buildItem(TabItem.nofication),
         _buildItem(TabItem.account),
       ],
       onTap: (index) => widget.onSelectTab(

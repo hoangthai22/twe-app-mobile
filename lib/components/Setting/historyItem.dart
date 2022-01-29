@@ -52,7 +52,7 @@ class HistoryItem extends StatelessWidget {
               margin: EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
                 color: convertColorHistory(int.parse(history.date.substring(0, 2))),
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(
                 child: Text(

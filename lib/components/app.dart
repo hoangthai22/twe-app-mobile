@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/components/Navigator/navigatorCreateSession.dart';
+import 'package:twe/components/Navigator/navigatorNofication.dart';
 import 'package:twe/components/Navigator/navigatorSessionList.dart';
 import 'package:twe/components/Navigator/navigatorSetting.dart';
 import 'package:twe/components/menuFooter.dart';
@@ -19,6 +20,7 @@ class AppState extends State<App> {
   final _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
     TabItem.search: GlobalKey<NavigatorState>(),
+    TabItem.nofication: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
   };
 
@@ -68,6 +70,7 @@ class AppState extends State<App> {
                     child: Stack(children: <Widget>[
                       _buildOffstageNavigatorHome(TabItem.home),
                       _buildOffstageNavigator(TabItem.search),
+                      _buildOffstageNavigatorNofication(TabItem.nofication),
                       _buildOffstageNavigatorAccount(TabItem.account)
                     ]),
                   ),
@@ -114,19 +117,28 @@ class AppState extends State<App> {
         ));
   }
 
-  void onPushRouter() {}
+  Widget _buildOffstageNavigatorNofication(TabItem tabItem) {
+    return Offstage(
+        offstage: _currentTab != tabItem,
+        child: NavigatorNofication(
+          navigatorKey: _navigatorKeys[tabItem]!,
+          tabItem: tabItem,
+        ));
+  }
 }
 
-enum TabItem { home, search, account }
+enum TabItem { home, search, nofication, account }
 
 const Map<TabItem, String> tabName = {
   TabItem.home: 'home',
+  TabItem.nofication: 'nofication',
   TabItem.search: 'search',
   TabItem.account: 'account',
 };
 
 const Map<TabItem, IconData> tabIcon = {
   TabItem.home: Icons.home,
+  TabItem.nofication: Icons.notifications,
   TabItem.search: Icons.search,
   TabItem.account: Icons.account_circle,
 };
