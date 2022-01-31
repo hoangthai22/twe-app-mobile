@@ -1,14 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/booking.dart';
+import 'package:twe/models/coffee.dart';
+import 'package:twe/models/mentor.dart';
 
 class AppProvider with ChangeNotifier {
   String userId = "";
-  int mentorId = 0;
+  bool isLogin = false;
+  List<MentorModel> listMentorInvite = [];
 
   BookingModel booking = BookingModel(id: 111111111);
 
+  void setIsLogin() {
+    isLogin = true;
+    notifyListeners();
+  }
+
+  void setIsLogout() {
+    isLogin = false;
+    notifyListeners();
+  }
+
+  void setListMentorInvite(mentor) {
+    listMentorInvite.add(mentor);
+    notifyListeners();
+  }
+
+  void removeMentor(mentor) {
+    listMentorInvite.remove(mentor);
+    notifyListeners();
+  }
+
   void setUserLogin(id) {
     userId = id;
+    notifyListeners();
+  }
+
+  void setBookingSubjct(sub) {
+    booking.subject = sub;
+    notifyListeners();
+  }
+
+  void setBookingMajor(major) {
+    booking.major = major;
     notifyListeners();
   }
 
@@ -27,8 +60,8 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setBookingCoffee(id) {
-    booking.coffeeId = id;
+  void setBookingCoffee(coffee) {
+    booking.coffee = coffee;
     notifyListeners();
   }
 
@@ -37,10 +70,14 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get getIsLogin => isLogin;
+  List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;
   int get getBookingSlot => booking.slot;
-  int get getBookingCoffee => booking.coffeeId;
+  CoffeeModel get getBookingCoffee => booking.coffee;
   int get getBookingUserId => booking.userId;
   String get getBookingDate => booking.date;
   int get getBookingMentorId => booking.mentorId;
+  String get getBookingSubject => booking.subject;
+  String get getBookingMajor => booking.major;
 }

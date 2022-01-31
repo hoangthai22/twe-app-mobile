@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/coffee.dart';
+import 'package:twe/models/history.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/models/nofication.dart';
 import 'package:twe/models/subject.dart';
 
 var MENTOR_DATA = [
@@ -39,11 +42,16 @@ var MENTOR_DATA = [
 ];
 
 var SUBJECT_DATA = [
-  SubjectModel(subjectId: 1, subjectName: "Kỹ thuật phầm mềm"),
-  SubjectModel(subjectId: 2, subjectName: "Tiếng Nhật"),
-  SubjectModel(subjectId: 3, subjectName: "Tiếng Anh"),
-  SubjectModel(subjectId: 4, subjectName: "Tiếng Trung"),
-  SubjectModel(subjectId: 5, subjectName: "Quản trị kinh doanh"),
+  SubjectModel(subjectId: 1, majorId: 1, subjectName: "Database"),
+  SubjectModel(subjectId: 2, majorId: 1, subjectName: "Programing"),
+  SubjectModel(subjectId: 3, majorId: 2, subjectName: "Nhật 1"),
+  SubjectModel(subjectId: 4, majorId: 2, subjectName: "Nhật 2"),
+  SubjectModel(subjectId: 5, majorId: 3, subjectName: "Anh 3"),
+];
+var MAJOR_DATA = [
+  MajorModel(majorId: 1, majorName: "Kỹ thuật phầm mềm"),
+  MajorModel(majorId: 2, majorName: "Tiếng Nhật"),
+  MajorModel(majorId: 3, majorName: "Tiếng Anh"),
 ];
 var COFFEE_DATA = [
   CoffeeModel(
@@ -85,4 +93,82 @@ var COFFEE_DATA = [
         "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
     rate: 5,
   ),
+];
+
+var HISTORY_DATA = [
+  HistoryModel(
+      id: 1,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[1],
+      date: "22/01/2022",
+      mentor: MENTOR_DATA[1],
+      slot: 1),
+  HistoryModel(
+      id: 3,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[2],
+      date: "02/07/2022",
+      mentor: MENTOR_DATA[1],
+      slot: 3),
+  HistoryModel(
+      id: 4,
+      coffee: COFFEE_DATA[0],
+      major: MAJOR_DATA[0],
+      subject: SUBJECT_DATA[1],
+      date: "19/02/2022",
+      mentor: MENTOR_DATA[0],
+      slot: 2),
+  HistoryModel(
+      id: 5,
+      coffee: COFFEE_DATA[1],
+      major: MAJOR_DATA[1],
+      subject: SUBJECT_DATA[1],
+      date: "19/1/2022",
+      mentor: MENTOR_DATA[0],
+      slot: 4),
+  HistoryModel(
+      id: 2,
+      coffee: COFFEE_DATA[1],
+      major: MAJOR_DATA[2],
+      subject: SUBJECT_DATA[4],
+      date: "29/12/2022",
+      mentor: MENTOR_DATA[2],
+      slot: 5)
+];
+
+var NOFI_DATA = [
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[0].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[0].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[1].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[1].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[2].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[2].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[3].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[3].mentorName),
 ];

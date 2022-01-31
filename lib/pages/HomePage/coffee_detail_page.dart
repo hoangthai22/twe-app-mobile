@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Feedback/feedback.dart';
-import 'package:twe/components/SearchMentor/bottomNav.dart';
+import 'package:twe/components/CreateSession/bottomNav.dart';
 import 'package:twe/components/SearchMentor/scheduleModal.dart';
 import 'package:twe/models/coffee.dart';
 import 'package:twe/models/mentor.dart';
@@ -26,9 +26,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
     return _ModalBottom(context);
   }
 
-  void onRedirect(context) {
-    // widget.onPush(widget.mentorId);
-  }
+  void onRedirect(context) {}
 
   void _ModalBottom(context) {
     showModalBottomSheet(
@@ -288,21 +286,25 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
         //     child: Text("ID: ${widget.coffeeId} \n MentorId: ${provider.booking.mentorId} \n date: ${provider.booking.date} \n slot: ${provider.booking.slot}"),
         //   );
         // }),
-        bottomNavigationBar: BottomNavMentorDetail(
-            title: "Chọn ngày",
-            isChosseDay: false,
-            session: date.isEmpty && slot.isEmpty ? "" : "$date\n$slot",
-            function: () => onSubmit(context),
-            onRedirect: () => onRedirect(context)));
+        bottomNavigationBar:
+            Consumer<AppProvider>(builder: (context, provider, child) {
+          return BottomNavMentorDetail(
+              checkInvited: false,
+              title: "Tiếp tục",
+              onRedirect: () {
+                widget.onPush();
+                provider.setBookingCoffee(coffee);
+              });
+        }));
   }
 }
 
 class CoffeeDetailPage extends StatefulWidget {
   final int coffeeId;
 
-  final ValueChanged<int> onPush;
+  final onPush;
 
-  const CoffeeDetailPage({required this.coffeeId, required this.onPush});
+  CoffeeDetailPage({required this.coffeeId, required this.onPush});
 
   @override
   _CoffeeDetailPage createState() => _CoffeeDetailPage();
