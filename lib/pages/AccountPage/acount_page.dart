@@ -7,7 +7,6 @@ import 'package:twe/provider/appProvider.dart';
 class _AccountPage extends State<AccountPage> {
   final List<AccountModel> account = <AccountModel>[
     AccountModel(title: "Tài khoản", icon: Icons.account_circle),
-    AccountModel(title: "Thông báo", icon: Icons.notifications),
     AccountModel(title: "Lịch sử", icon: Icons.history),
     AccountModel(title: "Buổi học của tôi", icon: Icons.school),
     AccountModel(title: "Gia sư Yêu thích", icon: Icons.favorite),

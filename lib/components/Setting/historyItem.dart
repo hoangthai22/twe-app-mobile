@@ -51,7 +51,8 @@ class HistoryItem extends StatelessWidget {
               // padding: EdgeInsets.only(right: 15, left: 15),
               margin: EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
-                color: convertColorHistory(int.parse(history.date.substring(0, 2))),
+                color: convertColorHistory(
+                    int.parse(history.date.substring(0, 2))),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(
@@ -148,7 +149,8 @@ class HistoryItem extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          Icon(Icons.arrow_forward_ios,size: 18,)
         ],
       ),
     );

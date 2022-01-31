@@ -128,7 +128,10 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                           provider.setBookingCoffee(coffee);
                           widget.onRedirect();
                         },
-                        isButton: true);
+                        isButton: true,
+                        isStar: true,
+                        heightImg: 140,
+                        widthImg: 120);
                   },
                 );
               }))

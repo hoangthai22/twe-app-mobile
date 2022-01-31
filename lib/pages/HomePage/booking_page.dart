@@ -57,7 +57,10 @@ class BookingPage extends StatelessWidget {
                         coffee: provider.getBookingCoffee,
                         onPush: (i) {},
                         onSubmit: (coffee) {},
-                        isButton: false)),
+                        isButton: false,
+                        isStar: true,
+                        heightImg: 110,
+                        widthImg: 110)),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -300,7 +303,8 @@ class BookingPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,

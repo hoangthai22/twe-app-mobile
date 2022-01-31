@@ -25,7 +25,7 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void romoveMentor(mentor) {
+  void removeMentor(mentor) {
     listMentorInvite.remove(mentor);
     notifyListeners();
   }

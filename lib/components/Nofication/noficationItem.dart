@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/common/data_mock.dart';
 
 class NoficationItem extends StatelessWidget {
   final TextSpan content;
   final String title;
   final String time;
-  final Color color;
+  final String image;
 
   NoficationItem(
-      {required this.color,
+      {required this.image,
       required this.content,
       required this.time,
       required this.title});
@@ -23,18 +24,16 @@ class NoficationItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 15),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            width: 60,
-            height: 60,
-            child: Icon(
-              Icons.notifications_none_outlined,
-              color: Colors.white,
-            ),
-          ),
+              margin: EdgeInsets.only(right: 15),
+              width: 60,
+              height: 60,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: Image(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(image),
+                ),
+              )),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +47,7 @@ class NoficationItem extends StatelessWidget {
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontFamily: "Roboto",
-                        fontSize: 17,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -60,7 +59,8 @@ class NoficationItem extends StatelessWidget {
                   time,
                   style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: 13,
+                    fontSize: 12,
+                    color: Colors.black54
                   ),
                 ),
               ],
