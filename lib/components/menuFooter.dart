@@ -24,6 +24,21 @@ class _MenuFooter extends State<MenuFooter> {
     );
   }
 
+  BottomNavigationBarItem _buildNofication(TabItem tabItem) {
+    return BottomNavigationBarItem(
+      icon: Stack(children: <Widget>[
+        Icon(tabIcon[tabItem]),
+        Positioned(
+          // draw a red marble
+          top: 0.0,
+          right: 0.0,
+          child: Icon(Icons.brightness_1, size: 8.0, color: Colors.redAccent),
+        )
+      ]),
+      label: tabName[tabItem],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -37,6 +52,7 @@ class _MenuFooter extends State<MenuFooter> {
       items: [
         _buildItem(TabItem.home),
         _buildItem(TabItem.search),
+        _buildNofication(TabItem.nofication),
         _buildItem(TabItem.account),
       ],
       onTap: (index) => widget.onSelectTab(
@@ -45,4 +61,3 @@ class _MenuFooter extends State<MenuFooter> {
     );
   }
 }
-

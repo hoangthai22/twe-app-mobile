@@ -13,7 +13,10 @@ Tab Search Session: <br />
 <br />
 Tab Setting: <br />
     List Setting Screen         :   OK   <br />
-    History Screen              :   None <br />
-    Request Screen              :   OK   <br />
+    History Screen              :   OK   <br />
+    History Detail Screen       :   OK   <br />
+    History Feedback Screen     :   OK   <br />
+    Request Screen              :   None <br />
     Profile Screen              :   OK   <br />
-    Nofication Screen           :   None <br />
+<br />
+Tab  Nofication                 :   OK   <br />

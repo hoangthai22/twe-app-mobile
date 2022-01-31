@@ -3,6 +3,7 @@ import 'package:twe/models/coffee.dart';
 import 'package:twe/models/history.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/models/nofication.dart';
 import 'package:twe/models/subject.dart';
 
 var MENTOR_DATA = [
@@ -135,4 +136,39 @@ var HISTORY_DATA = [
       date: "29/12/2022",
       mentor: MENTOR_DATA[2],
       slot: 5)
+];
+
+var NOFI_DATA = [
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[0].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[0].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[1].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[1].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[2].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[2].mentorName),
+  NoficationModel(
+      id: 1,
+      image: MENTOR_DATA[3].avatar,
+      content: "Buổi học của bạn đã được giảng viên ",
+      time: "19:03 PM, 22 thg 1, 2022",
+      title: "Buổi học đã được xác nhận",
+      userId: MENTOR_DATA[0].id,
+      person: MENTOR_DATA[3].mentorName),
 ];

@@ -4,8 +4,9 @@ import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Setting/historyItem.dart';
 
 class HistoryPage extends StatelessWidget {
-  const HistoryPage({Key? key}) : super(key: key);
-
+  const HistoryPage({Key? key, required this.onPush}) : super(key: key);
+  final ValueChanged<int> onPush;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +37,9 @@ class HistoryPage extends StatelessWidget {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: HISTORY_DATA
-                .map((history) => HistoryItem(history: history))
+                .map((history) => InkWell(
+                    onTap: () => onPush(history.id),
+                    child: HistoryItem(history: history)))
                 .toList()),
       ),
     );
