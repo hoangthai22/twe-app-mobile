@@ -6,12 +6,20 @@ import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 
 class HistoryDetailPage extends StatelessWidget {
   const HistoryDetailPage(
-      {Key? key, required this.historyId, required this.onPush})
+      {Key? key,
+      required this.historyId,
+      required this.onCoffeeDetail,
+      required this.onFeedback,
+      required this.onMentorDetail})
       : super(key: key);
   final int historyId;
-  final onPush;
+  final Function onMentorDetail;
+  final Function onFeedback;
+  final Function onCoffeeDetail;
+
   @override
   Widget build(BuildContext context) {
+    print("idHistory: ${historyId}");
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(
@@ -42,8 +50,10 @@ class HistoryDetailPage extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(top: 20),
                   child: CoffeeItem(
-                      coffee: COFFEE_DATA[0],
-                      onPush: (i) {},
+                      coffee: COFFEE_DATA[2],
+                      onPush: (i) {
+                        onCoffeeDetail(i);
+                      },
                       onSubmit: (coffee) {},
                       isButton: false,
                       isStar: true,
@@ -196,11 +206,16 @@ class HistoryDetailPage extends StatelessWidget {
                             fontSize: 18),
                       ),
                     ),
-                    MentorItemInvite(
-                      mentorName: MENTOR_DATA[0].mentorName,
-                      avatar: MENTOR_DATA[0].avatar,
-                      major: MAJOR_DATA[0].majorName,
-                      isButtonCancel: false,
+                    InkWell(
+                      onTap: (){
+                        onMentorDetail(MENTOR_DATA[0].id);
+                      },
+                      child: MentorItemInvite(
+                        mentorName: MENTOR_DATA[0].mentorName,
+                        avatar: MENTOR_DATA[0].avatar,
+                        major: MAJOR_DATA[0].majorName,
+                        isButtonCancel: false,
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.all(15),
@@ -250,7 +265,7 @@ class HistoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => onPush(),
+                      onPressed: () => onFeedback(),
                       style: ElevatedButton.styleFrom(
                         primary: MaterialColors.primary,
                         textStyle: TextStyle(color: Colors.white),

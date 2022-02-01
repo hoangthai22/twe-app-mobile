@@ -51,7 +51,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
   @override
   Widget build(BuildContext context) {
     var listRate = [for (var i = 1; i <= coffee.rate; i++) i];
-
+    print("idCoffee: ${widget.coffeeId}");
     return Scaffold(
         // appBar: AppBar(
         //   leading: BackButton(color: Colors.black),

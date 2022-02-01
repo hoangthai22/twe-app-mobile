@@ -8,6 +8,8 @@ import 'package:twe/pages/AccountPage/hisory_page.dart';
 import 'package:twe/pages/AccountPage/history_detail_page.dart';
 import 'package:twe/pages/AccountPage/my_session.dart';
 import 'package:twe/pages/AccountPage/profile_page.dart';
+import 'package:twe/pages/HomePage/coffee_detail_page.dart';
+import 'package:twe/pages/HomePage/mentor_detail_page.dart';
 import 'package:twe/pages/SearchPage/list_session_page.dart';
 
 class TabNavigatorRoutes {
@@ -17,6 +19,8 @@ class TabNavigatorRoutes {
   static const String profile = '/profile';
   static const String historyDetail = '/history-detail';
   static const String feedbackSession = '/feedback-session';
+  static const String coffeeDetail = '/coffee-detail';
+  static const String mentorDetail = '/mentor-detail';
 }
 
 // 2
@@ -29,21 +33,35 @@ class NavigatorSetting extends StatelessWidget {
   final TabItem tabItem;
 
   // 3
-  Map<String, WidgetBuilder> _routeBuilders(BuildContext context, {historyId}) {
+  Map<String, WidgetBuilder> _routeBuilders(BuildContext context, {id}) {
     return {
       TabNavigatorRoutes.setting: (context) => AccountPage(
           onPush: (settingCondition) =>
               _pushRedirect(context, settingCondition)),
       TabNavigatorRoutes.sessions: (context) => MySession(),
       TabNavigatorRoutes.history: (context) => HistoryPage(
-            onPush: (historyId) => _pushHistoryDetail(context, historyId),
+            onPush: (historyId) => _pushRoutes(
+                context, historyId, TabNavigatorRoutes.historyDetail),
           ),
       TabNavigatorRoutes.profile: (context) => ProfilePage(),
       TabNavigatorRoutes.historyDetail: (context) => HistoryDetailPage(
-          historyId: historyId,
-          onPush: () => _pushFeedbackSession(context, historyId)),
+          historyId: id,
+          onFeedback: () =>
+              _pushRoutes(context, id, TabNavigatorRoutes.feedbackSession),
+          onMentorDetail: (id) =>
+              _pushRoutes(context, id, TabNavigatorRoutes.mentorDetail),
+          onCoffeeDetail: (id) =>
+              _pushRoutes(context, id, TabNavigatorRoutes.coffeeDetail)),
       TabNavigatorRoutes.feedbackSession: (context) => FeedbackSessionPage(
-            historyId: historyId,
+            historyId: id,
+          ),
+      TabNavigatorRoutes.coffeeDetail: (context) => CoffeeDetailPage(
+            coffeeId: id,
+            onPush: (value) {},
+          ),
+      TabNavigatorRoutes.mentorDetail: (context) => MentorDetailPage(
+            mentorId: id,
+            onPush: (value) {},
           ),
     };
   }
@@ -89,25 +107,25 @@ class NavigatorSetting extends StatelessWidget {
     // }
   }
 
-  void _pushHistoryDetail(BuildContext context, historyId) {
-    var routeBuilders = _routeBuilders(context, historyId: historyId);
+  void _pushRoutes(BuildContext context, id, feedbackSession) {
+    var routeBuilders = _routeBuilders(context, id: id);
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            routeBuilders[TabNavigatorRoutes.historyDetail]!(context),
+        builder: (context) => routeBuilders[feedbackSession]!(context),
       ),
     );
   }
 
-  void _pushFeedbackSession(BuildContext context, historyId) {
-    var routeBuilders = _routeBuilders(context, historyId: historyId);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            routeBuilders[TabNavigatorRoutes.feedbackSession]!(context),
-      ),
-    );
-  }
+  // void _pushRedirect(BuildContext context, id, feedbackSession) {
+  //   var routeBuilders = _routeBuilders(context, historyId: historyId);
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) =>
+  //           routeBuilders[TabNavigatorRoutes.feedbackSession]!(context),
+  //     ),
+  //   );
+  // }
 }

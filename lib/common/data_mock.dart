@@ -98,7 +98,7 @@ var COFFEE_DATA = [
 var HISTORY_DATA = [
   HistoryModel(
       id: 1,
-      coffee: COFFEE_DATA[0],
+      coffee: COFFEE_DATA[2],
       major: MAJOR_DATA[0],
       subject: SUBJECT_DATA[1],
       date: "22/01/2022",
@@ -161,7 +161,7 @@ var NOFI_DATA = [
       content: "Buổi học của bạn đã được giảng viên ",
       time: "19:03 PM, 22 thg 1, 2022",
       title: "Buổi học đã được xác nhận",
-      userId: MENTOR_DATA[0].id,
+      userId: MENTOR_DATA[2].id,
       person: MENTOR_DATA[2].mentorName),
   NoficationModel(
       id: 1,
