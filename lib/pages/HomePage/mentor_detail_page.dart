@@ -64,18 +64,27 @@ class _MentorDetailPage extends State<MentorDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("mentor: ${widget.mentorId}");
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: Colors.black),
-        backgroundColor: Colors.white,
-        title: Text(
-          'Hồ sơ',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 17,
-            fontFamily: 'Roboto',
-          ),
+        leading: BackButton(
+          color: Colors.white,
         ),
+        toolbarHeight: 65,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Thông tin giảng viên",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Roboto",
+                // fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: MaterialColors.primary,
       ),
       body: Stack(
         alignment: Alignment.center,
