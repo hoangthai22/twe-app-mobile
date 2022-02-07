@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
@@ -17,8 +18,9 @@ class _AccountPage extends State<AccountPage> {
 
   void onClick(item, provider) {
     if (item == btnSetting[ButtonSetting.logout].toString()) {
-      provider.setIsLogout();
-    }else{
+      FirebaseAuth auth = FirebaseAuth.instance;
+      auth.signOut().then((value) => provider.setIsLogout());
+    } else {
       widget.onPush(item);
     }
     // } else if (index == btnSetting[ButtonSetting.history]) {
@@ -30,6 +32,7 @@ class _AccountPage extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
     return Scaffold(
         appBar: AppBar(
             backgroundColor: MaterialColors.primary,
@@ -70,7 +73,9 @@ class _AccountPage extends State<AccountPage> {
                           children: [
                             Container(
                               child: Text(
-                                "hoangthai",
+                                auth.currentUser != null
+                                    ? auth.currentUser!.email.toString()
+                                    : "",
                                 style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.black87,
