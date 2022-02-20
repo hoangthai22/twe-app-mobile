@@ -211,8 +211,8 @@ class HistoryDetailPage extends StatelessWidget {
                         onMentorDetail(MENTOR_DATA[0].id);
                       },
                       child: MentorItemInvite(
-                        mentorName: MENTOR_DATA[0].mentorName,
-                        avatar: MENTOR_DATA[0].avatar,
+                        mentorName: MENTOR_DATA[0].fullname!,
+                        avatar: MENTOR_DATA[0].image!,
                         major: MAJOR_DATA[0].majorName,
                         isButtonCancel: false,
                       ),

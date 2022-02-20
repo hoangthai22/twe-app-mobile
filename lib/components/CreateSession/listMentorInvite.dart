@@ -36,8 +36,8 @@ class ListMentorInvite extends StatelessWidget {
                   children: provider.getListMentorInvite
                       .map(
                         (mentor) => MentorItemInvite(
-                            avatar: mentor.avatar,
-                            mentorName: mentor.mentorName,
+                            avatar: mentor.image!,
+                            mentorName: mentor.fullname!,
                             major: MAJOR_DATA[0].majorName,
                             isButtonCancel: true,
                             onPush: () => provider.removeMentor(mentor)),

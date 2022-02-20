@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
@@ -6,19 +7,33 @@ import 'package:twe/provider/appProvider.dart';
 
 class _AccountPage extends State<AccountPage> {
   final List<AccountModel> account = <AccountModel>[
-    AccountModel(title: "Tài khoản", icon: Icons.account_circle),
-    AccountModel(title: "Lịch sử", icon: Icons.history),
-    AccountModel(title: "Buổi học của tôi", icon: Icons.school),
-    AccountModel(title: "Gia sư Yêu thích", icon: Icons.favorite),
-    AccountModel(title: "Liên hệ với chúng tôi", icon: Icons.contact_support),
-    AccountModel(title: "Đăng xuất", icon: Icons.logout)
+    AccountModel(
+        title: btnSetting[ButtonSetting.account].toString(),
+        icon: Icons.account_circle),
+    AccountModel(
+        title: btnSetting[ButtonSetting.history].toString(),
+        icon: Icons.history),
+    AccountModel(
+        title: btnSetting[ButtonSetting.sessions].toString(),
+        icon: Icons.school),
+    AccountModel(
+        title: btnSetting[ButtonSetting.nofi].toString(), icon: Icons.favorite),
+    AccountModel(
+        title: btnSetting[ButtonSetting.favorite].toString(),
+        icon: Icons.notifications),
+    AccountModel(
+        title: btnSetting[ButtonSetting.contact].toString(),
+        icon: Icons.contact_support),
+    AccountModel(
+        title: btnSetting[ButtonSetting.logout].toString(), icon: Icons.logout)
   ];
 
   void onClick(item, provider) {
     if (item == btnSetting[ButtonSetting.logout].toString()) {
-      provider.setIsLogout();
-    }else{
-      widget.onPush(item);
+      FirebaseAuth auth = FirebaseAuth.instance;
+      auth.signOut().then((value) => provider.setIsLogout());
+    } else if (item == btnSetting[ButtonSetting.nofi].toString()) {
+      Navigator.pushNamed(context, '/notification');
     }
     // } else if (index == btnSetting[ButtonSetting.history]) {
     //   Navigator.pushNamed(context, '/history');
@@ -29,6 +44,7 @@ class _AccountPage extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("account");
     return Scaffold(
         appBar: AppBar(
             backgroundColor: MaterialColors.primary,
@@ -154,9 +170,6 @@ class _AccountPage extends State<AccountPage> {
 }
 
 class AccountPage extends StatefulWidget {
-  final ValueChanged<String> onPush;
-  AccountPage({required this.onPush});
-
   @override
   _AccountPage createState() => _AccountPage();
 }

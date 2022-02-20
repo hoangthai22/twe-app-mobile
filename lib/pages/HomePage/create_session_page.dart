@@ -5,17 +5,17 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/common/utils.dart';
 import 'package:twe/components/menuFooter.dart';
+import 'package:twe/main.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/subject.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class CreateSessionPage extends StatefulWidget {
   // final List<String> filterSub;
-  final onPush;
 
   CreateSessionPage({
     Key? key,
-    required this.onPush,
   }) : super(key: key);
 
   @override
@@ -307,7 +307,9 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                               EdgeInsets.only(top: 25, bottom: 15, left: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary:isSelectSubject.subjectId != 0 ? MaterialColors.primary : MaterialColors.primary.withOpacity(0.5),
+                              primary: isSelectSubject.subjectId != 0
+                                  ? MaterialColors.primary
+                                  : MaterialColors.primary.withOpacity(0.5),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18),
                               ),
@@ -319,7 +321,6 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                             ),
                             onPressed: () => isSelectSubject.subjectId != 0
                                 ? {
-                                    widget.onPush(),
                                     provider.setBookingDate(
                                         "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),
                                     provider.setBookingSlot(isSelectedSlot + 1),
@@ -327,6 +328,10 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                         isSelectSubject.subjectName),
                                     provider.setBookingMajor(
                                         isSelectMajor.majorName),
+                                    Navigator.of(context).pushNamed(
+                                      '/list-coffee',
+                                      arguments: ScreenArguments(false),
+                                    )
                                   }
                                 : {},
                           ),

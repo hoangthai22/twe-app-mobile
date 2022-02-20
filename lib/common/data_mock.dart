@@ -8,37 +8,61 @@ import 'package:twe/models/subject.dart';
 
 var MENTOR_DATA = [
   MentorModel(
-      id: 1,
-      mentorName: "Phạm Văn Dương",
+      id: "1",
+      fullname: "Phạm Văn Dương",
       description:
           "Xin chào! Tôi có khoảng 5 năm kinh nghiệm dạy người lớn và trẻ em. Tôi kiên nhẫn, hiểu biết và thân thiện. Tôi thích giúp mọi người thực hành tiếng Anh của họ bằng cách trò chuyện thú vị về nhiều chủ đề. Tôi hy vọng sẽ nói chuyện với bạn sớm!!",
-      avatar: "https://camblyavatars.s3.amazonaws.com/5e1652f28e140d1c194ba446s200?h=2905bf5571661770dcd05f9e812b1e50",
-      rate: 4.5,
-      skill: ["Giáo viên Tiếng Anh"]),
+      image:
+          "https://camblyavatars.s3.amazonaws.com/5e1652f28e140d1c194ba446s200?h=2905bf5571661770dcd05f9e812b1e50",
+      rate: 4,
+      address: "",
+      birthday: "",
+      phone: "",
+      price: 100,
+      sex: "male",
+      status: true),
   MentorModel(
-      id: 2,
-      mentorName: "Võ Chí Công",
+      id: "2",
+      fullname: "Võ Chí Công",
       description:
           "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
-      avatar: "https://camblyavatars.s3.amazonaws.com/5e5e806038ba58cd17b86d3es200",
-      rate: 4.2,
-      skill: ["Giáo viên Toán"]),
+      image:
+          "https://camblyavatars.s3.amazonaws.com/5e5e806038ba58cd17b86d3es200",
+      rate: 4,
+      address: "",
+      birthday: "",
+      phone: "",
+      price: 100,
+      sex: "male",
+      status: true),
   MentorModel(
-      id: 3,
-      mentorName: "Trấn Thành",
+      id: "3",
+      fullname: "Trấn Thành",
       description:
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
-      avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
-      rate: 4.2,
-      skill: ["Giáo viên Toán"]),
+      image:
+          "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
+      rate: 4,
+      address: "",
+      birthday: "",
+      phone: "",
+      price: 100,
+      sex: "male",
+      status: true),
   MentorModel(
-      id: 4,
-      mentorName: "Hoàng Thái",
+      id: "4",
+      fullname: "Hoàng Thái",
       description:
           "Xin chào, tôi là Thái. Tôi có hơn năm năm kinh nghiệm giảng dạy. Chuyên môn của tôi là lập trình",
-      avatar: "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
-      rate: 4.2,
-      skill: ["Giáo viên Toán"]),
+      image:
+          "https://camblyavatars.s3.amazonaws.com/5b1e3217aeaa4a00241c8f91s200?h=af8c3e4b50e327814ec80878a4641b56",
+      rate: 4,
+      address: "",
+      birthday: "",
+      phone: "",
+      price: 100,
+      sex: "male",
+      status: true),
 ];
 
 var SUBJECT_DATA = [
@@ -141,34 +165,34 @@ var HISTORY_DATA = [
 var NOFI_DATA = [
   NoficationModel(
       id: 1,
-      image: MENTOR_DATA[0].avatar,
+      image: MENTOR_DATA[0].image!,
       content: "Buổi học của bạn đã được giảng viên ",
       time: "19:03 PM, 22 thg 1, 2022",
       title: "Buổi học đã được xác nhận",
-      userId: MENTOR_DATA[0].id,
-      person: MENTOR_DATA[0].mentorName),
+      userId: MENTOR_DATA[0].id!,
+      person: MENTOR_DATA[0].fullname!),
   NoficationModel(
       id: 1,
-      image: MENTOR_DATA[1].avatar,
+      image: MENTOR_DATA[1].image!,
       content: "Buổi học của bạn đã được giảng viên ",
       time: "19:03 PM, 22 thg 1, 2022",
       title: "Buổi học đã được xác nhận",
-      userId: MENTOR_DATA[0].id,
-      person: MENTOR_DATA[1].mentorName),
+      userId: MENTOR_DATA[0].id!,
+      person: MENTOR_DATA[1].fullname!),
   NoficationModel(
       id: 1,
-      image: MENTOR_DATA[2].avatar,
+      image: MENTOR_DATA[2].image!,
       content: "Buổi học của bạn đã được giảng viên ",
       time: "19:03 PM, 22 thg 1, 2022",
       title: "Buổi học đã được xác nhận",
-      userId: MENTOR_DATA[2].id,
-      person: MENTOR_DATA[2].mentorName),
+      userId: MENTOR_DATA[2].id!,
+      person: MENTOR_DATA[2].fullname!),
   NoficationModel(
       id: 1,
-      image: MENTOR_DATA[3].avatar,
+      image: MENTOR_DATA[3].image!,
       content: "Buổi học của bạn đã được giảng viên ",
       time: "19:03 PM, 22 thg 1, 2022",
       title: "Buổi học đã được xác nhận",
-      userId: MENTOR_DATA[0].id,
-      person: MENTOR_DATA[3].mentorName),
+      userId: MENTOR_DATA[0].id!,
+      person: MENTOR_DATA[3].fullname!),
 ];

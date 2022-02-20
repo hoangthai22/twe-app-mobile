@@ -50,6 +50,7 @@ class _NoficationPage extends State<NoficationPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("Notifi");
     return Scaffold(
         appBar: AppBar(
             backgroundColor: MaterialColors.primary,
@@ -121,7 +122,7 @@ class _NoficationPage extends State<NoficationPage> {
                             TextSpan(text: " xác nhận"),
                           ]),
                       time: "19:03 PM",
-                      image: MENTOR_DATA[0].avatar,
+                      image: MENTOR_DATA[0].image!,
                     ),
                   ],
                 )),

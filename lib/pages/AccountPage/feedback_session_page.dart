@@ -59,8 +59,8 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                     top: BorderSide(width: 1, color: Colors.black12),
                   )),
               child: MentorItemInvite(
-                mentorName: MENTOR_DATA[0].mentorName,
-                avatar: MENTOR_DATA[0].avatar,
+                mentorName: MENTOR_DATA[0].fullname!,
+                avatar: MENTOR_DATA[0].image!,
                 major: MAJOR_DATA[0].majorName,
                 isButtonCancel: false,
               ),

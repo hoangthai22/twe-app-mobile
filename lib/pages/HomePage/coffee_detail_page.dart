@@ -292,7 +292,6 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
               checkInvited: false,
               title: "Tiếp tục",
               onRedirect: () {
-                widget.onPush();
                 provider.setBookingCoffee(coffee);
               });
         }));
@@ -302,9 +301,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
 class CoffeeDetailPage extends StatefulWidget {
   final int coffeeId;
 
-  final onPush;
-
-  CoffeeDetailPage({required this.coffeeId, required this.onPush});
+  CoffeeDetailPage({required this.coffeeId});
 
   @override
   _CoffeeDetailPage createState() => _CoffeeDetailPage();

@@ -1,38 +1,37 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class MentorItem extends StatelessWidget {
   MentorModel mentor;
-  late final ValueChanged<int> onPush;
+  late final ValueChanged<String> onPush;
   late final onSubmit;
+  late final isBtnInvite;
 
   MentorItem(
       {Key? key,
       required this.mentor,
       required this.onPush,
-      required this.onSubmit})
+      required this.onSubmit,
+      required this.isBtnInvite})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var skills = "";
-    for (var element in mentor.skill) {
-      if (skills != "") {
-        skills = "$skills, $element";
-      } else {
-        skills = element;
-      }
-    }
     void onClick() {
-      onPush(mentor.id);
+      onPush(mentor.id!);
     }
 
     void onRedirect() {
       onSubmit();
     }
+
+    
 
     return Container(
         decoration: BoxDecoration(
@@ -54,7 +53,7 @@ class MentorItem extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10, right: 10),
                   child: Column(children: <Widget>[
                     Expanded(
-                        flex: 9,
+                        flex: 12,
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -64,7 +63,7 @@ class MentorItem extends StatelessWidget {
                                     child: CircleAvatar(
                                       radius: 35, // Image radius
                                       backgroundImage:
-                                          NetworkImage(mentor.avatar),
+                                          NetworkImage(mentor.image!),
                                     ))),
                             Expanded(
                                 flex: 3,
@@ -75,10 +74,10 @@ class MentorItem extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        mentor.mentorName,
+                                        mentor.fullname!,
                                         style: const TextStyle(
                                           color: Colors.black,
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                           fontFamily: 'Roboto',
                                         ),
@@ -96,7 +95,7 @@ class MentorItem extends StatelessWidget {
                                                     child: const Icon(
                                                       Icons.star,
                                                       color: Colors.amber,
-                                                      size: 20.0,
+                                                      size: 22.0,
                                                     ))),
                                             Expanded(
                                                 flex: 9,
@@ -105,7 +104,7 @@ class MentorItem extends StatelessWidget {
                                                   "${mentor.rate}",
                                                   style: const TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 12,
+                                                    fontSize: 15,
                                                     fontWeight: FontWeight.w500,
                                                     fontFamily: 'Roboto',
                                                   ),
@@ -125,18 +124,18 @@ class MentorItem extends StatelessWidget {
                                                       Icons
                                                           .local_fire_department,
                                                       color: Colors.amber,
-                                                      size: 20.0,
+                                                      size: 22.0,
                                                     ))),
                                             Expanded(
                                                 flex: 9,
                                                 child: Container(
                                                   child: Text(
-                                                    skills,
+                                                    getMajorString(mentor.listMajor!),
                                                     maxLines: 2,
                                                     style: const TextStyle(
                                                         fontFamily: 'Roboto',
                                                         color: Colors.black,
-                                                        fontSize: 12,
+                                                        fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         overflow: TextOverflow
@@ -155,38 +154,41 @@ class MentorItem extends StatelessWidget {
                         flex: 6,
                         child: Container(
                           width: MediaQuery.of(context).size.width * 1,
-                          child: Text(mentor.description,
+                          child: Text(mentor.description!,
                               maxLines: 2,
                               style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 12,
+                                fontSize: 15,
                                 overflow: TextOverflow.ellipsis,
                               )),
                         )),
                   ], mainAxisAlignment: MainAxisAlignment.spaceAround)),
-              Consumer<AppProvider>(builder: (context, provider, child) {
-                var checkInvited =
-                    provider.getListMentorInvite.contains(mentor);
-                return Positioned(
-                    right: 15,
-                    top: 30,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: checkInvited
-                            ? MaterialColors.primary.withOpacity(0.5)
-                            : MaterialColors.primary,
-                        textStyle: TextStyle(color: Colors.white),
-                        shadowColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                      ),
-                      child: checkInvited ? Text("Đã Mời") : Text("Mời"),
-                      onPressed: () => checkInvited ? null : onRedirect(),
-                    ));
-              }),
+              (isBtnInvite == true
+                  ? Consumer<AppProvider>(builder: (context, provider, child) {
+                      var checkInvited =
+                          provider.getListMentorInvite.contains(mentor);
+                      return Positioned(
+                          right: 15,
+                          top: 30,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: checkInvited
+                                  ? MaterialColors.primary.withOpacity(0.5)
+                                  : MaterialColors.primary,
+                              textStyle: TextStyle(color: Colors.white),
+                              shadowColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            child:
+                                checkInvited ? Text("Đã Mời") : Text("Mời"),
+                            onPressed: () => checkInvited ? null : onRedirect(),
+                          ));
+                    })
+                  : Container())
             ],
           ),
         ));

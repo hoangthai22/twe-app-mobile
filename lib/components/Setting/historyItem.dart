@@ -136,7 +136,7 @@ class HistoryItem extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * 1 - 180,
                       child: Text(
-                        history.mentor.mentorName,
+                        history.mentor.fullname!,
                         maxLines: 1,
                         style: TextStyle(
                             fontFamily: "Roboto",
