@@ -1,35 +1,74 @@
+import 'dart:convert' as convert;
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/CreateSession/appbarSearch.dart';
-import 'package:twe/components/CreateSession/filterModal.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
-import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
-import 'package:twe/models/subject.dart';
 import 'package:twe/provider/appProvider.dart';
 
-class _SearchPage extends State<SearchPage> {
-  late List<MentorModel> mentorList;
-  late List<MajorModel> majorList;
+class _ListMentorPage extends State<ListMentorPage> {
+  bool _isLoading = true;
+  bool isListFull = false;
+  int page = 1;
   String query = '';
-
+  final ScrollController scrollController = ScrollController();
   int checkedInit = 0;
+  late List<MentorModel> listMentor = [];
+
+  _fetch() async {
+    setState(() {
+      _isLoading = true;
+    });
+    List<MentorModel> mentors = [];
+    List<MentorModel> newList = [];
+    ApiServices.getListMentorPagination(page, 4).then((item) => {
+          mentors = item,
+          if (mentors.isEmpty)
+            {
+              setState(() {
+                isListFull = true;
+                _isLoading = false;
+              })
+            }
+          else
+            {
+              newList = [...listMentor, ...mentors],
+              setState(() {
+                print("load xong");
+                _isLoading = false;
+                listMentor = newList;
+                page++;
+              })
+            }
+        });
+  }
 
   @override
   void initState() {
     super.initState();
-    mentorList = MENTOR_DATA;
-    majorList = MAJOR_DATA;
+    _fetch();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !_isLoading &&
+          !isListFull) {
+            print(query);
+        _fetch();
+      }
+    });
+    // futureMentor = fetchData();
   }
 
   @override
-  void didChangeDependencies() {
-    // print("update");
-    super.didChangeDependencies();
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   void showListMentorInvite() {
@@ -38,15 +77,14 @@ class _SearchPage extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print("majorList int $majorList");
-
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60), // Set this height
+          preferredSize: Size.fromHeight(60), // Set this fromHeight
           child: Container(
             padding: EdgeInsets.only(top: 20, left: 15, right: 15),
             color: MaterialColors.primary,
             child: AppBarSearchCoffee(
+              isTabPage: widget.isMentorTab,
               step: "Step 3 of 4",
               hintText: "Tìm một giáo viên",
               title: "Chọn giáo viên",
@@ -61,9 +99,9 @@ class _SearchPage extends State<SearchPage> {
               FocusScope.of(context).requestFocus(FocusNode());
             },
             child: Stack(
-              alignment: Alignment.center,
               children: [
                 ListView(
+                  controller: scrollController,
                   physics: const AlwaysScrollableScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
@@ -113,7 +151,7 @@ class _SearchPage extends State<SearchPage> {
                                         Container(
                                           margin: EdgeInsets.only(right: 5),
                                           child: Text(
-                                            "${majorList.where((element) => element.majorId == checkedInit).toList()[0].majorName}",
+                                            "",
                                             style:
                                                 TextStyle(color: Colors.blue),
                                           ),
@@ -136,42 +174,62 @@ class _SearchPage extends State<SearchPage> {
                       ],
                     ),
                     Consumer<AppProvider>(builder: (context, provider, child) {
-                      return Container(
-                        child: ListView.builder(
+                      return ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: mentorList.length,
-                          itemBuilder: (context, index) {
-                            return MentorItem(
-                              mentor: mentorList[index],
-                              onPush: widget.onPush,
-                              onSubmit: () {
-                                provider.setListMentorInvite(mentorList[index]);
-                              },
-                            );
-                          },
-                        ),
-                      );
+                          children: [
+                            if (listMentor.length > 0)
+                              ...listMentor
+                                  .map((MentorModel mentor) => MentorItem(
+                                        mentor: mentor,
+                                        onPush: (mentorId) {
+                                          Navigator.of(context).pushNamed(
+                                            '/mentor-detail',
+                                            arguments: mentorId,
+                                          );
+                                        },
+                                        isBtnInvite: !widget.isMentorTab,
+                                        onSubmit: () {
+                                          provider.setListMentorInvite(mentor);
+                                        },
+                                      ))
+                                  .toList(),
+                            if (_isLoading) ...[
+                              Center(
+                                  child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 3.0,
+                                        color: MaterialColors.primary,
+                                      )))
+                            ]
+                          ]);
                     })
                   ],
                 ),
-                Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: ElevatedButton(
-                        child: Text("Xác nhận"),
-                        style: ElevatedButton.styleFrom(
-                          primary: MaterialColors.primary,
-                          textStyle: TextStyle(color: Colors.white),
-                          shadowColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
+                (widget.isMentorTab == false
+                    ? Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: ElevatedButton(
+                            child: Text("Xác nhận"),
+                            style: ElevatedButton.styleFrom(
+                              primary: MaterialColors.primary,
+                              textStyle: TextStyle(color: Colors.white),
+                              shadowColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            onPressed: () => {
+                              Navigator.of(context).pushNamed(
+                                '/confirm-booking',
+                              )
+                            },
                           ),
-                        ),
-                        onPressed: () => widget.onRedirect(),
-                      ),
-                    ))
+                        ))
+                    : Container())
               ],
             )));
   }
@@ -189,25 +247,28 @@ class _SearchPage extends State<SearchPage> {
 
   void clearOption() {}
 
-  void searchBar(String query) {
-    final mentors = MENTOR_DATA.where((mentor) {
-      final nameLower = mentor.id.toString();
-      final searchLower = query.toLowerCase();
-      return nameLower == searchLower;
-    }).toList();
+  void searchBar(String query) async {
     setState(() {
-      this.query = query;
-      mentorList = mentors;
+      _isLoading = true;
+      listMentor = [];
     });
+    await ApiServices.getListMentorBySearchKey(query).then((value) => {
+          print(value),
+          setState(() {
+            print("object");
+            this.query = query;
+            listMentor = value;
+            _isLoading = false;
+          }),
+        });
   }
 }
 
-class SearchPage extends StatefulWidget {
-  late final ValueChanged<int> onPush;
-  late final onRedirect;
+class ListMentorPage extends StatefulWidget {
+  late final isMentorTab;
 
-  SearchPage({required this.onPush, required this.onRedirect});
+  ListMentorPage({required this.isMentorTab});
 
   @override
-  _SearchPage createState() => _SearchPage();
+  _ListMentorPage createState() => _ListMentorPage();
 }

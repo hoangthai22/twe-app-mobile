@@ -5,8 +5,10 @@ import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 import 'package:twe/components/menuFooter.dart';
+import 'package:twe/main.dart';
 import 'package:twe/models/coffee.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class _ListCoffeePage extends State<ListCoffeePage> {
   String query = '';
@@ -20,6 +22,8 @@ class _ListCoffeePage extends State<ListCoffeePage> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    print(args);
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60), // Set this height
@@ -27,6 +31,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
             padding: EdgeInsets.only(top: 20, left: 10, right: 10),
             color: MaterialColors.primary,
             child: AppBarSearchCoffee(
+              isTabPage: widget.isCoffeeTab,
               step: "Step 2 of 4",
               showListMentorInvite: () => {print("object")},
               title: "Chọn địa điểm",
@@ -122,11 +127,17 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                     return CoffeeItem(
                         coffee: coffeeList[index],
                         onPush: (coffeeId) {
-                          widget.onPush(coffeeId);
+                          Navigator.of(context).pushNamed(
+                            '/coffee-detail',
+                            arguments: coffeeId,
+                          );
                         },
                         onSubmit: (coffee) {
+                          Navigator.of(context).pushNamed(
+                            '/list-mentor',
+                            arguments: ScreenArguments(false),
+                          );
                           provider.setBookingCoffee(coffee);
-                          widget.onRedirect();
                         },
                         isButton: true,
                         isStar: true,
@@ -154,11 +165,9 @@ class _ListCoffeePage extends State<ListCoffeePage> {
 }
 
 class ListCoffeePage extends StatefulWidget {
-  late final ValueChanged<int> onPush;
-  late final onRedirect;
-  final int coffeId;
-  ListCoffeePage(
-      {required this.coffeId, required this.onPush, required this.onRedirect});
+  late final isCoffeeTab;
+
+  ListCoffeePage({required this.isCoffeeTab});
   @override
   _ListCoffeePage createState() => _ListCoffeePage();
 }

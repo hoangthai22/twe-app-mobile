@@ -81,7 +81,7 @@ class _ProfilePage extends State<ProfilePage> {
                   ],
                 ),
                 TextFormField(
-                  initialValue: "HoangThai22",
+                  initialValue: "HoangThai",
                   readOnly: true,
                   decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(

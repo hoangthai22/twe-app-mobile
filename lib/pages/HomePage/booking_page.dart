@@ -11,6 +11,7 @@ class BookingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
     var coffee = COFFEE_DATA[1];
     return Scaffold(
         appBar: AppBar(
@@ -229,14 +230,14 @@ class BookingPage extends StatelessWidget {
                                           child: CircleAvatar(
                                         radius: 40, // Image radius
                                         backgroundImage:
-                                            NetworkImage(mentor.avatar),
+                                            NetworkImage(mentor.image!),
                                       )),
                                       Container(
                                         alignment: Alignment.center,
                                         // width: 150,
                                         margin: EdgeInsets.only(top: 10),
                                         child: Text(
-                                          mentor.mentorName,
+                                          mentor.fullname!,
                                           maxLines: 1,
                                           style: TextStyle(
                                               fontSize: 12,
