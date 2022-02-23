@@ -6,7 +6,7 @@ class NoficationModel {
   late String title;
   late String content;
   late String person;
-  late int userId;
+  late String userId;
   late String image;
 
   NoficationModel(

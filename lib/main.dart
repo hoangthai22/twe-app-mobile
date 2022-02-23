@@ -1,12 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:twe/components/app.dart';
-import 'package:twe/pages/AccountPage/my_session.dart';
-import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
-void main() {
+void main() async {
+  FlutterNativeSplash.removeAfter(initialization);
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AppProvider()),
@@ -15,6 +21,8 @@ void main() {
   ));
 }
 
+void initialization(BuildContext context) async {}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,10 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
-      routes: <String, WidgetBuilder> {
-        '/': (BuildContext context) => LoginPage(),
-        '/home': (BuildContext context) => App(),
-      },
+      onGenerateRoute: RouteGenerator.generateRoute,
       title: 'TWE',
       theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFEFEFEF),
@@ -37,3 +42,37 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class LandingPage extends StatelessWidget {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  checkUserAuth() async {
+    try {
+      User user = await auth.currentUser!;
+      return user;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    checkUserAuth().then((success) {
+      if (success != null) {
+        print("login");
+        context.read<AppProvider>().setUserLogin(success.email);
+        context.read<AppProvider>().setIsLogin();
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    });
+
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+
