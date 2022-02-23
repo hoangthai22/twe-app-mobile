@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
-import 'package:twe/pages/HomePage/booking_page.dart';
-import 'package:twe/pages/HomePage/coffee_detail_page.dart';
-import 'package:twe/pages/HomePage/create_session_page.dart';
-import 'package:twe/pages/HomePage/list_mentor_page.dart';
-import 'package:twe/pages/HomePage/llist_cafe_page.dart';
-import 'package:twe/pages/HomePage/mentor_detail_page.dart';
+import 'package:twe/pages/SearchTab/booking_page.dart';
+import 'package:twe/pages/SearchTab/coffee_detail_page.dart';
+import 'package:twe/pages/SearchTab/create_session_page.dart';
+import 'package:twe/pages/SearchTab/list_mentor_page.dart';
+import 'package:twe/pages/SearchTab/llist_cafe_page.dart';
+import 'package:twe/pages/SearchTab/mentor_detail_page.dart';
 import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/pages/LoginPage/sign_in.dart';
-import 'package:twe/pages/NoficationPage/nofication_page.dart';
+import 'package:twe/pages/AccountTab/nofication_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

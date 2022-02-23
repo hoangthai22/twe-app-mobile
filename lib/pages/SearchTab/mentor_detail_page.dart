@@ -52,7 +52,6 @@ class _MentorDetailPage extends State<MentorDetailPage> {
         builder: (BuildContext bc) {
           return ScheduleModal(
               onGetSlot: (i) => setState(() {
-                    print("i: $i");
                     slot = SLOT[i];
                     slotNumber = i + 1;
                   }),
@@ -217,7 +216,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                                       top: 10,
                                     ),
                                     child: Text(
-                                        mentor.birthday!,
+                                      mentor.birthday!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'Roboto',

@@ -109,16 +109,17 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
                     )
                   : (widget.isTabPage == true
                       ? Container(
-                          margin: EdgeInsets.only(left: 20),
-                          child: Text(
-                            widget.title,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Roboto",
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                            child: Text(
+                              widget.title,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Roboto",
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ))
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
