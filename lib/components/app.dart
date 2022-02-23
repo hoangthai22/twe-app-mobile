@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/components/menuFooter.dart';
-import 'package:twe/pages/AccountPage/acount_page.dart';
-import 'package:twe/pages/HomePage/create_session_page.dart';
-import 'package:twe/pages/HomePage/list_mentor_page.dart';
-import 'package:twe/pages/HomePage/list_session_page.dart';
-import 'package:twe/pages/HomePage/llist_cafe_page.dart';
-import 'package:twe/pages/SearchPage/home_page.dart';
+import 'package:twe/pages/AccountTab/acount_page.dart';
+import 'package:twe/pages/MentorTab/mentor_page_main_tab.dart';
+import 'package:twe/pages/SearchTab/create_session_page.dart';
+import 'package:twe/pages/SearchTab/list_mentor_page.dart';
+import 'package:twe/pages/SearchTab/list_session_page.dart';
+import 'package:twe/pages/SearchTab/llist_cafe_page.dart';
+import 'package:twe/pages/HomeTab/home_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class App extends StatefulWidget {
@@ -17,53 +18,6 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   var _currentTab = TabItem.home;
-
-  // Widget _buildOffstageNavigator(TabItem tabItem) {
-  //   switch (tabItem) {
-  //     case TabItem.home:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorSessionList(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //     case TabItem.mentor:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorMentor(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //     case TabItem.search:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorCreateSession(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //     case TabItem.coffee:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorCoffee(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //     case TabItem.account:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorSetting(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //     default:
-  //       return Offstage(
-  //         offstage: _currentTab != tabItem,
-  //         child: NavigatorSessionList(
-  //           navigatorKey: _navigatorKeys[tabItem]!,
-  //         ),
-  //       );
-  //   }
-  // }
 
   final _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
@@ -81,7 +35,7 @@ class AppState extends State<App> {
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
       HomePage(),
-      ListMentorPage(isMentorTab: true),
+      MentorPageMainTab(),
       const ListSessionPage(),
       ListCoffeePage(isCoffeeTab: true),
       AccountPage()

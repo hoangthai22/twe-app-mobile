@@ -20,6 +20,7 @@ var MENTOR_DATA = [
       phone: "",
       price: 100,
       sex: "male",
+      listMajor: ['Kỹ Thuật Phần Mềm', 'Quản Trị Kinh Doanh'],
       status: true),
   MentorModel(
       id: "2",
@@ -33,6 +34,7 @@ var MENTOR_DATA = [
       birthday: "",
       phone: "",
       price: 100,
+      listMajor: ['Kỹ Thuật Phần Mềm'],
       sex: "male",
       status: true),
   MentorModel(
@@ -45,6 +47,7 @@ var MENTOR_DATA = [
       rate: 4,
       address: "",
       birthday: "",
+      listMajor: ['Kỹ Thuật Phần Mềm','Tiếng Nhật', 'Quản Trị Kinh Doanh'],
       phone: "",
       price: 100,
       sex: "male",
@@ -59,6 +62,7 @@ var MENTOR_DATA = [
       rate: 4,
       address: "",
       birthday: "",
+      listMajor: ['Tiếng Nhật'],
       phone: "",
       price: 100,
       sex: "male",
