@@ -87,7 +87,11 @@ class AppState extends State<App> {
             channelDescription: 'your channel description',
             importance: Importance.max,
             priority: Priority.high,
+            icon: '@drawable/logo_transparent',
+            tag: "TWE",
+            largeIcon: DrawableResourceAndroidBitmap('@drawable/logo_transparent'),
             ticker: 'ticker');
+        
     final NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin

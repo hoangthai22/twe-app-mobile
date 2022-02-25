@@ -63,6 +63,7 @@ class LandingPage extends StatelessWidget {
       if (success != null) {
         print("login");
         context.read<AppProvider>().setUserLogin(success.email);
+        context.read<AppProvider>().setUid(success.uid);
         context.read<AppProvider>().setIsLogin();
         Navigator.pushReplacementNamed(context, '/home');
       } else {

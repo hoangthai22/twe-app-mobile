@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.twe">
    <application
-        android:label="twe"
+        android:label="TWE"
         android:name="${applicationName}"
         android:icon="@drawable/logo_transparent">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_transparent" /> 
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,8 +38,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logo_transparent" />
+        
     </application>
 </manifest>
