@@ -1,14 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/components/menuFooter.dart';
+import 'package:twe/models/notification.dart';
 import 'package:twe/pages/AccountTab/acount_page.dart';
+import 'package:twe/pages/HomeTab/home_page.dart';
 import 'package:twe/pages/MentorTab/mentor_page_main_tab.dart';
-import 'package:twe/pages/SearchTab/create_session_page.dart';
-import 'package:twe/pages/SearchTab/list_mentor_page.dart';
 import 'package:twe/pages/SearchTab/list_session_page.dart';
 import 'package:twe/pages/SearchTab/llist_cafe_page.dart';
-import 'package:twe/pages/HomeTab/home_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class App extends StatefulWidget {
@@ -29,6 +32,86 @@ class AppState extends State<App> {
 
   void _selectTab(TabItem tabItem) {
     setState(() => _currentTab = tabItem);
+  }
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  PushNotificationModel? _notificationInfo;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  void registerNotification() async {
+    await Firebase.initializeApp();
+    messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true, badge: true, provisional: false, sound: true);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        print("on app");
+        PushNotificationModel notification = PushNotificationModel(
+            title: message.notification!.title,
+            body: message.notification!.body,
+            dataTitle: message.data['title'],
+            dataBody: message.data['body']);
+
+        setState(() {
+          _notificationInfo = notification;
+        });
+        print("body: ${notification.body}");
+        print("title: ${notification.title}");
+        if (notification != null) {
+          _showNotification(
+              _notificationInfo!.title!, _notificationInfo!.body!);
+        }
+      });
+    } else {
+      print("not permission");
+    }
+  }
+
+  // Future onSelectNotification(String payload) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (_) {
+  //       return new AlertDialog(
+  //         title: Text("Thông báo"),
+  //         content: Text("Push Notification : 123"),
+  //       );
+  //     },
+  //   );
+  // }
+
+  Future<void> _showNotification(String title, String content) async {
+    final AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('your channel id', 'your channel name',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: '@drawable/logo_transparent',
+            tag: "TWE",
+            largeIcon: DrawableResourceAndroidBitmap('@drawable/logo_transparent'),
+            ticker: 'ticker');
+        
+    final NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin
+        .show(0, title, content, platformChannelSpecifics, payload: 'item x');
+  }
+
+  @override
+  void initState() {
+    // var initializationSettingsAndroid =
+    //     AndroidInitializationSettings('@mipmap/ic_launcher');
+    // var initializationSettingsIOS = IOSInitializationSettings();
+    // var initializationSettings = InitializationSettings(
+    //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    //     onSelectNotification: (value) {
+    //   onSelectNotification("123");
+    // });
+    registerNotification();
+    super.initState();
   }
 
   @override

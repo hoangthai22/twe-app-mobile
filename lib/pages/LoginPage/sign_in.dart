@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
@@ -15,7 +17,8 @@ class _SignInPage extends State<SignInPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
-
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   @override
   void initState() {
     // checkUserAuth();
@@ -39,44 +42,71 @@ class _SignInPage extends State<SignInPage> {
   signIn() {
     String email = _email.text;
     String pass = _pass.text;
-    try {
-      auth
-          .signInWithEmailAndPassword(email: email, password: pass)
-          .then((value) async {
-        if (value.user != null) {
-          // String? fcmToken = await messaging.getToken();
-          User user = value.user!;
-          // db.collection("users").doc(user.uid).set({
-          //   'email': user.email,
-          //   'fcmToken': fcmToken,
-          // });
-
-          context
-              .read<AppProvider>()
-              .setUserLogin(value.user!.email.toString());
-          context.read<AppProvider>().setIsLogin();
-          // Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, '/home');
-        }
-      }).catchError((onError) {
-        showDialog(
-            context: context,
-            builder: (build) {
-              return AlertDialog(
-                title: Text("Sai"),
-                content: Text("Sai luon"),
-                actions: [
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.pop(build);
-                      },
-                      child: Text("OK"))
-                ],
-              );
+    if (email.isEmpty || pass.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (build) {
+            return AlertDialog(
+              title: Text("Thông báo"),
+              content:
+                  Text("Email hoặc mật khẩu của bạn không chính xác"),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(build);
+                    },
+                    child: Text("OK"))
+              ],
+            );
+          });
+    } else {
+      try {
+        auth
+            .signInWithEmailAndPassword(email: email, password: pass)
+            .then((value) async {
+          if (value.user != null) {
+            String? fcmToken = await messaging.getToken();
+            User user = value.user!;
+            db.collection("users").doc(user.uid).set({
+              'email': user.email,
+              'fcmToken': fcmToken,
             });
-      });
-    } catch (e) {
-      print(e);
+
+            context
+                .read<AppProvider>()
+                .setUserLogin(value.user!.email.toString());
+            context
+                .read<AppProvider>()
+                .setUid(value.user!.uid.toString());
+            context.read<AppProvider>().setIsLogin();
+            // Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/home');
+          }
+        }).catchError((onError) {
+          showDialog(
+              context: context,
+              builder: (build) {
+                return AlertDialog(
+                  title: Text("Thông báo"),
+                  content: Text(
+                      "Email hoặc mật khẩu của bạn không chính xác"),
+                  actions: [
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.pop(build);
+                        },
+                        child: Text("OK"))
+                  ],
+                );
+              });
+        });
+      } on FirebaseAuthException catch (e) {
+        print('Failed with error code: ${e.code}');
+        print(e.message);
+      } catch (e) {
+        print(e);
+        rethrow;
+      }
     }
   }
 
@@ -112,7 +142,7 @@ class _SignInPage extends State<SignInPage> {
                     margin: EdgeInsets.only(right: 5),
                     width: 45,
                     child: Image.asset(
-                      'assets/logo.png',
+                      'assets/logo_transparent.png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -135,7 +165,7 @@ class _SignInPage extends State<SignInPage> {
             decoration: BoxDecoration(
                 color: MaterialColors.primary.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(50)),
-            child: TextField(
+            child: TextFormField(
               cursorColor: MaterialColors.primary,
               controller: _email,
               decoration: InputDecoration(

@@ -41,7 +41,7 @@ class MentorPageMainTab extends StatelessWidget {
           ListMentorTab(isMentorTab: true),
           Center(
               child: Text(
-            "Two",
+            "Giảng viên yêu thích",
             style: TextStyle(fontSize: 50),
           )),
         ]),
