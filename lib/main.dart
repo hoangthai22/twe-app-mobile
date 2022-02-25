@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
@@ -28,17 +29,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
-      title: 'TWE',
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xFFEFEFEF),
-          textTheme: GoogleFonts.robotoTextTheme(
-            Theme.of(context)
-                .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
-          )),
-      // home: App(),
+    return OverlaySupport(
+      child: MaterialApp(
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
+        title: 'TWE',
+        theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xFFEFEFEF),
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context)
+                  .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
+            )),
+        // home: App(),
+      ),
     );
   }
 }
@@ -74,5 +77,3 @@ class LandingPage extends StatelessWidget {
     );
   }
 }
-
-
