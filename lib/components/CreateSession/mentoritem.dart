@@ -39,6 +39,14 @@ class MentorItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: Offset(0, 2), // changes position of shadow
+            ),
+          ],
         ),
         margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
         // padding: EdgeInsets.all(10),
@@ -106,6 +114,9 @@ class MentorItem extends StatelessWidget {
                                                                       .all(7),
                                                               decoration:
                                                                   BoxDecoration(
+                                                                color:
+                                                                    MaterialColors
+                                                                        .primary,
                                                                 border: Border.all(
                                                                     color: MaterialColors
                                                                         .primary,
@@ -113,7 +124,7 @@ class MentorItem extends StatelessWidget {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            12.0),
+                                                                            10.0),
                                                               ),
                                                               child: Text(
                                                                 item,
@@ -121,8 +132,7 @@ class MentorItem extends StatelessWidget {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Roboto',
-                                                                  color: MaterialColors
-                                                                      .primary,
+                                                                  color: Colors.white,
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight

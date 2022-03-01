@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:io';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
 
@@ -54,6 +55,24 @@ class ApiServices {
         List<MentorModel> mentors =
             body.map((dynamic item) => MentorModel.fromJson(item)).toList();
         return mentors;
+      } else if (response.statusCode == 404) {
+        return [];
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getMajors() async {
+    try {
+      var response = await http.get(
+        Uri.parse('${baseURL}/majors'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<MajorModel> majorModel =
+            body.map((dynamic item) => MajorModel.fromJson(item)).toList();
+        return majorModel;
       } else if (response.statusCode == 404) {
         return [];
       }

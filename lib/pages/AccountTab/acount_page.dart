@@ -35,6 +35,10 @@ class _AccountPage extends State<AccountPage> {
       Navigator.pushNamed(context, '/');
     } else if (item == btnSetting[ButtonSetting.nofi].toString()) {
       Navigator.pushNamed(context, '/notification');
+    }else if (item == btnSetting[ButtonSetting.account].toString()) {
+      Navigator.pushNamed(context, '/profile');
+    }else if (item == btnSetting[ButtonSetting.history].toString()) {
+      Navigator.pushNamed(context, '/history');
     }
     // } else if (index == btnSetting[ButtonSetting.history]) {
     //   Navigator.pushNamed(context, '/history');

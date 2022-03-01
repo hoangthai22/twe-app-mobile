@@ -80,7 +80,7 @@ class _LoginPage extends State<LoginPage> {
           Container(
             padding: EdgeInsets.only(top: 15),
             child: Text(
-              "Tạo một buổi học cùng giảng viên yêu thích một cách nhanh chóng ",
+              "Tạo một buổi học cùng Mentor yêu thích một cách nhanh chóng ",
               style: TextStyle(
                 fontFamily: "Roboto",
                 fontSize: 14,

@@ -48,7 +48,7 @@ class _AppBarSearchCoffee extends State<AppBarSearchCoffee> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
+      height: 60,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,

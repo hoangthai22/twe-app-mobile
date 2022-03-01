@@ -53,15 +53,17 @@ class _NoficationPage extends State<NoficationPage> {
     print("Notifi");
     return Scaffold(
         appBar: AppBar(
+            centerTitle: true,
             backgroundColor: MaterialColors.primary,
             automaticallyImplyLeading: false,
-            title: const Center(
-              child: Text(
-                "Thông báo",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Roboto",
-                ),
+            leading: BackButton(
+              color: Colors.white,
+            ),
+            title: Text(
+              "Thông báo",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Roboto",
               ),
             )),
         body: ListView(

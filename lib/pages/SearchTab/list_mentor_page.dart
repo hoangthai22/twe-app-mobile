@@ -20,6 +20,9 @@ class _ListMentorPage extends State<ListMentorPage> {
   final ScrollController scrollController = ScrollController();
   int checkedInit = 0;
   late List<MentorModel> listMentor = [];
+  final _controller = TextEditingController();
+  String inputText = "";
+  bool isSearch = false;
 
   _fetch() async {
     setState(() {
@@ -86,26 +89,101 @@ class _ListMentorPage extends State<ListMentorPage> {
     return _Modal(context);
   }
 
+  Widget _buildSearchField() {
+    return TextField(
+      autofocus: true,
+      controller: _controller,
+      decoration: const InputDecoration(
+        hintText: 'Tìm một Mentor...',
+        border: InputBorder.none,
+        hintStyle: TextStyle(color: Colors.white30),
+      ),
+      onSubmitted: (value) {
+        searchBar(value);
+      },
+      onChanged: (text) {
+        setState(() {
+          inputText = text;
+        });
+      },
+      style: const TextStyle(color: Colors.white, fontSize: 16.0),
+    );
+  }
+
+  Widget _buildTitleAppbar() {
+    if (widget.isMentorTab) {
+      return Text("Chọn một Mentor");
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 5, left: 1),
+            child: Text(
+              "Step 3 of 4",
+              style: TextStyle(
+                  color: Colors.white70,
+                  fontFamily: "Roboto",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          Container(
+            child: Text(
+              "Chọn Mentor yêu thích",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Roboto",
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(60), // Set this height
-            child: Container(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-              color: MaterialColors.primary,
-              child: AppBarSearchCoffee(
-                isTabPage: widget.isMentorTab,
-                step: "Step 3 of 4",
-                showListMentorInvite: () => {print("object")},
-                title: "Chọn giảng viên yêu thích",
-                hintText: "Tìm một giảng viên",
-                text: query,
-                callback: (query) => searchBar(query),
-              ),
-            ),
+          appBar: AppBar(
+            centerTitle: widget.isMentorTab,
+            title: isSearch ? _buildSearchField() : _buildTitleAppbar(),
+            backgroundColor: MaterialColors.primary,
+            actions: <Widget>[
+              if (isSearch) ...[
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    // do something
+                    setState(() {
+                      isSearch = false;
+                    });
+                  },
+                ),
+              ] else ...[
+                IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    // do something
+                    setState(() {
+                      isSearch = true;
+                    });
+                  },
+                ),
+              ]
+            ],
           ),
           body: GestureDetector(
               onTap: () {
@@ -226,8 +304,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                                       MediaQuery.of(context).size.height - 200,
                                   color: Colors.white,
                                   child: Center(
-                                    child: Text(
-                                        "Không tìm thấy giảng viên nào"),
+                                    child: Text("Không tìm thấy Mentor nào"),
                                   ),
                                 )
                               ]
@@ -239,7 +316,9 @@ class _ListMentorPage extends State<ListMentorPage> {
                       ? Positioned(
                           bottom: 0,
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 5, right: 5),
+                            width: MediaQuery.of(context).size.width,
                             child: ElevatedButton(
                               child: Text("Xác nhận"),
                               style: ElevatedButton.styleFrom(

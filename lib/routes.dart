@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
+import 'package:twe/pages/AccountTab/hisory_page.dart';
+import 'package:twe/pages/AccountTab/history_detail_page.dart';
+import 'package:twe/pages/AccountTab/profile_page.dart';
 import 'package:twe/pages/SearchTab/booking_page.dart';
 import 'package:twe/pages/SearchTab/coffee_detail_page.dart';
 import 'package:twe/pages/SearchTab/create_session_page.dart';
@@ -54,6 +57,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BookingPage());
       case '/notification':
         return MaterialPageRoute(builder: (_) => NoficationPage());
+      case '/profile':
+        return MaterialPageRoute(builder: (_) => ProfilePage());
+      case '/history':
+        return MaterialPageRoute(builder: (_) => HistoryPage());
+      case '/history-detail':
+        return MaterialPageRoute(
+            builder: (_) => HistoryDetailPage(
+                  historyId: (args.toString()),
+                ));
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

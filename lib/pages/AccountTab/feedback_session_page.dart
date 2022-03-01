@@ -123,10 +123,11 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                       top: BorderSide(width: 1, color: Colors.black12),
                     )),
                 child: CoffeeItem(
+                  isButton: false,
                   coffee: COFFEE_DATA[0],
                   onPush: (i) {},
                   onSubmit: (coffee) {},
-                  isButton: false,
+                  isTabPage: false,
                   isStar: false,
                   heightImg: 80,
                   widthImg: 80,

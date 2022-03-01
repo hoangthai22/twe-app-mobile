@@ -5,8 +5,13 @@ import 'package:twe/components/Setting/historyItem.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
-  onPush() {}
-  
+  onPush(context, historyId) {
+    Navigator.of(context).pushNamed(
+      '/history-detail',
+      arguments: historyId,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,7 @@ class HistoryPage extends StatelessWidget {
             scrollDirection: Axis.vertical,
             children: HISTORY_DATA
                 .map((history) => InkWell(
-                    onTap: () => onPush(),
+                    onTap: () => onPush(context, history.id),
                     child: HistoryItem(history: history)))
                 .toList()),
       ),
