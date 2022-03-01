@@ -75,9 +75,7 @@ class _SignInPage extends State<SignInPage> {
             context
                 .read<AppProvider>()
                 .setUserLogin(value.user!.email.toString());
-            context
-                .read<AppProvider>()
-                .setUid(value.user!.uid.toString());
+            context.read<AppProvider>().setUid(value.user!.uid.toString());
             context.read<AppProvider>().setIsLogin();
             // Navigator.pop(context);
             Navigator.pushReplacementNamed(context, '/home');
