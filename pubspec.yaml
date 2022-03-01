@@ -43,6 +43,10 @@ dependencies:
   firebase_core: ^1.12.0
   rive: ^0.8.1
   http: ^0.13.4
+  overlay_support: ^1.2.1
+  firebase_messaging: ^11.2.6
+  cloud_firestore: ^3.1.8
+  flutter_local_notifications: ^9.3.2
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +74,7 @@ flutter:
     - assets/login.png
     - assets/support.png
     - assets/logo.png
+    - assets/logo_transparent.png
     - assets/google.png
     - assets/loading.riv
   #   - images/a_dot_ham.jpeg

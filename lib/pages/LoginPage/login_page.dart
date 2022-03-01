@@ -52,7 +52,7 @@ class _LoginPage extends State<LoginPage> {
               Container(
                 width: 40,
                 child: Image.asset(
-                  'assets/logo.png',
+                  'assets/logo_transparent.png',
                   fit: BoxFit.cover,
                 ),
               ),
