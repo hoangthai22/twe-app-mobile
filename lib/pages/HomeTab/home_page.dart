@@ -60,6 +60,105 @@ class _HomePage extends State<HomePage> {
             ? Loading()
             : Center(
                 child: Text("List session"),
-              ));
+            ),
+    */
+    return Scaffold(
+        appBar: AppBar(
+            elevation: 0.8,
+            brightness: Brightness.light,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            primary: false,
+            excludeHeaderSemantics: true,
+            flexibleSpace: SafeArea(
+                child: Container(
+              padding: EdgeInsets.only(left: 60.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 0),
+                            width: 60,
+                            child: Image.asset(
+                              'assets/logo_transparent.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            "Toad Study",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 14, 105, 17),
+                                fontFamily: "Roboto",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 140),
+                            width: 28,
+                            child: Image.asset(
+                              'assets/chuongvip.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ))),
+        body: Container(
+          padding: EdgeInsets.only(top: 15, right: 15, left: 15),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: ListView(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            children: [
+              Stack(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Tuần nay có gì!",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                  child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        Stack(
+                        children: [
+
+                          Row(
+                            children: [
+                              Container(
+                                child: Image.asset('assets/home1.png'),
+                                ),
+                              ],
+                          ),
+
+                      ),
+                      ],
+                      ),
+                      ),
+            ],
+          ),
+        )
+        );
   }
 }
