@@ -27,7 +27,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
   DateTime _focusedDay = DateTime.now();
   late DateTime _selectedDay;
   int isSelectedSlot = 0;
-  MajorModel isSelectMajor = new MajorModel(majorId: 0, majorName: "");
+  MajorModel isSelectMajor = new MajorModel(majorId: "", majorName: "");
   List<MajorModel> majorList = [];
   List<SubjectModel> subList = [];
   SubjectModel isSelectSubject =

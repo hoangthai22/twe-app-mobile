@@ -9,17 +9,20 @@ import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
+import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class _ListMentorTab extends State<ListMentorTab> {
   bool _isLoading = true;
   bool isListFull = false;
+  bool _isChecked = false;
   int page = 1;
   String query = '';
   final ScrollController scrollController = ScrollController();
   int checkedInit = 0;
   late List<MentorModel> listMentor = [];
+  int _value = 1;
 
   _fetch() async {
     setState(() {
@@ -69,7 +72,7 @@ class _ListMentorTab extends State<ListMentorTab> {
               scrollController.position.maxScrollExtent &&
           !_isLoading &&
           !isListFull) {
-        print(query);
+        // print(query);
         _fetch();
       }
     });
@@ -106,26 +109,83 @@ class _ListMentorTab extends State<ListMentorTab> {
                       Row(
                         children: <Widget>[
                           Container(
-                            padding:
+                            margin:
                                 EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                            width: 100,
+                            width: 110,
+                            height: 40,
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: MaterialColors.primary,
-                                textStyle: TextStyle(color: Colors.white),
-                                shadowColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
+                                style: ElevatedButton.styleFrom(
+                                  primary: MaterialColors.primary,
+                                  textStyle: TextStyle(color: Colors.white),
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
                                 ),
-                              ),
-                              onPressed: () {
-                                _Modal(context);
-                              },
-                              child: Text(
-                                "Bộ lọc",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
+                                onPressed: () {
+                                  _Modal(context);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Bộ lọc",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.filter_alt_outlined,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                          Container(
+                            margin:
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                            width: 110,
+                            height: 40,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  textStyle:
+                                      TextStyle(color: MaterialColors.primary),
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      side: BorderSide(
+                                          color: MaterialColors.primary,
+                                          width: 1)),
+                                ),
+                                onPressed: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Sắp xếp",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: MaterialColors.primary,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.sort_by_alpha,
+                                        color: MaterialColors.primary,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                )),
                           ),
                           (checkedInit == 0
                               ? Text("")
@@ -210,8 +270,7 @@ class _ListMentorTab extends State<ListMentorTab> {
                                       MediaQuery.of(context).size.height - 200,
                                   color: Colors.white,
                                   child: Center(
-                                    child: Text(
-                                        "Không tìm thấy giảng viên nào"),
+                                    child: Text("Không tìm thấy Mentor nào"),
                                   ),
                                 )
                               ]
@@ -254,7 +313,9 @@ class _ListMentorTab extends State<ListMentorTab> {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
-          return ListMentorInvite();
+          return ModalFilter(
+            onSeletedMajor: (majorId) => {print("majorId: $majorId")},
+          );
         });
   }
 
@@ -270,7 +331,7 @@ class _ListMentorTab extends State<ListMentorTab> {
             this.query = query;
             listMentor = value;
             _isLoading = false;
-            print(listMentor);
+            // print(listMentor);
           }),
         });
   }

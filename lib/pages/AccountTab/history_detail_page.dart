@@ -5,17 +5,17 @@ import 'package:twe/components/CreateSession/mentorItemInvite.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 
 class HistoryDetailPage extends StatelessWidget {
-  const HistoryDetailPage(
-      {Key? key,
-      required this.historyId,
-      required this.onCoffeeDetail,
-      required this.onFeedback,
-      required this.onMentorDetail})
-      : super(key: key);
-  final int historyId;
-  final Function onMentorDetail;
-  final Function onFeedback;
-  final Function onCoffeeDetail;
+  const HistoryDetailPage({
+    Key? key,
+    required this.historyId,
+    // required this.onCoffeeDetail,
+    // required this.onFeedback,
+    // required this.onMentorDetail
+  }) : super(key: key);
+  final String historyId;
+  // final Function onMentorDetail;
+  // final Function onFeedback;
+  // final Function onCoffeeDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +50,13 @@ class HistoryDetailPage extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(top: 20),
                   child: CoffeeItem(
+                      isButton: false,
                       coffee: COFFEE_DATA[2],
                       onPush: (i) {
-                        onCoffeeDetail(i);
+                        // onCoffeeDetail(i);
                       },
                       onSubmit: (coffee) {},
-                      isButton: false,
+                      isTabPage: false,
                       isStar: true,
                       heightImg: 110,
                       widthImg: 110)),
@@ -199,7 +200,7 @@ class HistoryDetailPage extends StatelessWidget {
                         right: 15,
                       ),
                       child: Text(
-                        "Giảng viên đã mời ",
+                        "Mentor đã mời ",
                         style: TextStyle(
                             fontFamily: "Roboto",
                             fontWeight: FontWeight.w500,
@@ -207,8 +208,8 @@ class HistoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: (){
-                        onMentorDetail(MENTOR_DATA[0].id);
+                      onTap: () {
+                        // onMentorDetail(MENTOR_DATA[0].id);
                       },
                       child: MentorItemInvite(
                         mentorName: MENTOR_DATA[0].fullname!,
@@ -265,7 +266,7 @@ class HistoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => onFeedback(),
+                      onPressed: () => {},
                       style: ElevatedButton.styleFrom(
                         primary: MaterialColors.primary,
                         textStyle: TextStyle(color: Colors.white),

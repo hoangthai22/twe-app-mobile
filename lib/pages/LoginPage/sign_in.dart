@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/provider/appProvider.dart';
@@ -19,10 +22,15 @@ class _SignInPage extends State<SignInPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  Timer? _timer;
+  late double _progress;
+
   @override
   void initState() {
     // checkUserAuth();
     super.initState();
+    print("object");
   }
 
   // checkUserAuth() async {
@@ -61,6 +69,10 @@ class _SignInPage extends State<SignInPage> {
           });
     } else {
       try {
+        EasyLoading.show(
+          status: 'loading...',
+          maskType: EasyLoadingMaskType.clear,
+        );
         auth
             .signInWithEmailAndPassword(email: email, password: pass)
             .then((value) async {
@@ -75,11 +87,10 @@ class _SignInPage extends State<SignInPage> {
             context
                 .read<AppProvider>()
                 .setUserLogin(value.user!.email.toString());
-            context
-                .read<AppProvider>()
-                .setUid(value.user!.uid.toString());
+            context.read<AppProvider>().setUid(value.user!.uid.toString());
             context.read<AppProvider>().setIsLogin();
             // Navigator.pop(context);
+            EasyLoading.dismiss();
             Navigator.pushReplacementNamed(context, '/home');
           }
         }).catchError((onError) {

@@ -77,9 +77,9 @@ var SUBJECT_DATA = [
   SubjectModel(subjectId: 5, majorId: 3, subjectName: "Anh 3"),
 ];
 var MAJOR_DATA = [
-  MajorModel(majorId: 1, majorName: "Kỹ thuật phầm mềm"),
-  MajorModel(majorId: 2, majorName: "Tiếng Nhật"),
-  MajorModel(majorId: 3, majorName: "Tiếng Anh"),
+  MajorModel(majorId: "1", majorName: "Kỹ thuật phầm mềm"),
+  MajorModel(majorId: "2", majorName: "Tiếng Nhật"),
+  MajorModel(majorId: "3", majorName: "Tiếng Anh"),
 ];
 var COFFEE_DATA = [
   CoffeeModel(

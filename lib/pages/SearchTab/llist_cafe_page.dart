@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
-import 'package:twe/components/menuFooter.dart';
-import 'package:twe/main.dart';
 import 'package:twe/models/coffee.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
@@ -13,6 +10,9 @@ import 'package:twe/routes.dart';
 class _ListCoffeePage extends State<ListCoffeePage> {
   String query = '';
   late List<CoffeeModel> coffeeList;
+  final _controller = TextEditingController();
+  String inputText = "";
+  bool isSearch = false;
 
   @override
   void initState() {
@@ -20,26 +20,101 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     coffeeList = COFFEE_DATA;
   }
 
+  Widget _buildSearchField() {
+    return TextField(
+      autofocus: true,
+      controller: _controller,
+      decoration: const InputDecoration(
+        hintText: 'Tìm một địa điểm...',
+        border: InputBorder.none,
+        hintStyle: TextStyle(color: Colors.white30),
+      ),
+      onSubmitted: (value) {
+        searchBar(value);
+      },
+      onChanged: (text) {
+        setState(() {
+          inputText = text;
+        });
+      },
+      style: const TextStyle(color: Colors.white, fontSize: 16.0),
+    );
+  }
+
+  Widget _buildTitleAppbar() {
+    if (widget.isCoffeeTab) {
+      return Text("Chọn một địa điểm");
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 5, left: 1),
+            child: Text(
+              "Step 3 of 4",
+              style: TextStyle(
+                  color: Colors.white70,
+                  fontFamily: "Roboto",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          Container(
+            child: Text(
+              "Chọn địa điểm",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Roboto",
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments;
-    print(args);
+
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60), // Set this height
-          child: Container(
-            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-            color: MaterialColors.primary,
-            child: AppBarSearchCoffee(
-              isTabPage: widget.isCoffeeTab,
-              step: "Step 2 of 4",
-              showListMentorInvite: () => {print("object")},
-              title: "Chọn địa điểm",
-              hintText: "Tìm một quán coffee",
-              text: query,
-              callback: (query) => searchBar(query),
-            ),
-          ),
+        appBar: AppBar(
+          centerTitle: widget.isCoffeeTab,
+          title: isSearch ? _buildSearchField() : _buildTitleAppbar(),
+          backgroundColor: MaterialColors.primary,
+          actions: <Widget>[
+            if (isSearch) ...[
+              IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 28,
+                ),
+                onPressed: () {
+                  // do something
+                  setState(() {
+                    isSearch = false;
+                  });
+                },
+              ),
+            ] else ...[
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 28,
+                ),
+                onPressed: () {
+                  // do something
+                  setState(() {
+                    isSearch = true;
+                  });
+                },
+              ),
+            ]
+          ],
         ),
         body: GestureDetector(
           onTap: () {
@@ -140,8 +215,9 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                           provider.setBookingCoffee(coffee);
                         },
                         isButton: true,
+                        isTabPage: !widget.isCoffeeTab,
                         isStar: true,
-                        heightImg: 140,
+                        heightImg: 150,
                         widthImg: 120);
                   },
                 );

@@ -89,9 +89,10 @@ class AppState extends State<App> {
             priority: Priority.high,
             icon: '@drawable/logo_transparent',
             tag: "TWE",
-            largeIcon: DrawableResourceAndroidBitmap('@drawable/logo_transparent'),
+            largeIcon:
+                DrawableResourceAndroidBitmap('@drawable/logo_transparent'),
             ticker: 'ticker');
-        
+
     final NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin
@@ -119,7 +120,7 @@ class AppState extends State<App> {
     List<Widget> _widgetOptions = <Widget>[
       HomePage(),
       MentorPageMainTab(),
-      const ListSessionPage(),
+      ListSessionPage(),
       ListCoffeePage(isCoffeeTab: true),
       AccountPage()
     ];
@@ -170,7 +171,7 @@ enum TabItem { home, mentor, search, coffee, account }
 
 const Map<TabItem, String> tabName = {
   TabItem.home: 'Trang chủ',
-  TabItem.mentor: 'Giảng viên',
+  TabItem.mentor: 'Mentor',
   TabItem.search: 'Tìm kiếm',
   TabItem.coffee: 'Địa điểm',
   TabItem.account: 'Cài đặt',

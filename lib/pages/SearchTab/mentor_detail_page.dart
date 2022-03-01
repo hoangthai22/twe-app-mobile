@@ -76,7 +76,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Thông tin giảng viên",
+              "Thông tin Mentor",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Roboto",

@@ -58,6 +58,7 @@ class BookingPage extends StatelessWidget {
                         coffee: provider.getBookingCoffee,
                         onPush: (i) {},
                         onSubmit: (coffee) {},
+                        isTabPage: false,
                         isButton: false,
                         isStar: true,
                         heightImg: 110,
@@ -202,7 +203,7 @@ class BookingPage extends StatelessWidget {
                           right: 15,
                         ),
                         child: Text(
-                          "Danh sách giảng viên đã mời ",
+                          "Danh sách Mentor đã mời ",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
