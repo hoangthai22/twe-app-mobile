@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/components/SearchSession/mySession.dart';
 import 'package:twe/components/SearchSession/sessionItem.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/session.dart';
@@ -23,7 +24,7 @@ class _ListSessionPage extends State<ListSessionPage> {
         description: MENTOR_DATA[0].description,
         sessionId: "1",
         subject: "Lập trình Java",
-        date: "20/02/2022, 09:00 - 10:30",
+        date: "2022-02-20, 09:00 - 10:30",
         slot: 1,
         image: "https://www.koudaiyingwen.com/fe/static/landing_page/chat.webp",
         member: [
@@ -35,7 +36,7 @@ class _ListSessionPage extends State<ListSessionPage> {
         description: MENTOR_DATA[0].description,
         sessionId: "1",
         subject: "Kỹ Thuật Phần Mềm",
-        date: "20/02/2022, 09:00 - 10:30",
+        date: "2022-02-20, 09:00 - 10:30",
         slot: 1,
         image:
             "https://thumbs.dreamstime.com/b/teamwork-concept-stack-business-hands-cooperation-teamwork-group-partnership-team-buidding-team-building-concept-stack-109416474.jpg",
@@ -48,7 +49,7 @@ class _ListSessionPage extends State<ListSessionPage> {
         description: MENTOR_DATA[0].description,
         sessionId: "1",
         subject: "Kỹ Thuật Phần Mềm",
-        date: "20/02/2022, 09:00 - 10:30",
+        date: "2022-02-20, 09:00 - 10:30",
         slot: 1,
         image:
             "https://img.freepik.com/free-vector/candidate-hr-manager-having-job-interview_179970-732.jpg?size=626&ext=jpg",
@@ -62,7 +63,7 @@ class _ListSessionPage extends State<ListSessionPage> {
         sessionId: "1",
         subject: "Kỹ Thuật Phần Mềm",
         slot: 1,
-        date: "20/02/2022, 09:00 - 10:30",
+        date: "2022-02-20, 09:00 - 10:30",
         image:
             "https://thumbs.dreamstime.com/b/job-interview-hr-manager-office-work-vector-flat-illustration-174794726.jpg",
         member: [
@@ -340,6 +341,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                                 )
                               ],
                             )),
+                        MySession(session: listSession[2]),
                         Consumer<AppProvider>(
                             builder: (context, provider, child) {
                           return ListView(
@@ -380,6 +382,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                   Positioned(
                       bottom: 0,
                       child: Container(
+                        height: 40,
                         color: Colors.white,
                         padding: EdgeInsets.only(left: 5, right: 5),
                         width: MediaQuery.of(context).size.width,

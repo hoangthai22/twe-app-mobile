@@ -48,6 +48,8 @@ dependencies:
   cloud_firestore: ^3.1.8
   flutter_local_notifications: ^9.3.2
   flutter_easyloading: ^3.0.3
+  accordion: ^2.2.1
+  getwidget: ^2.0.5
 
 dev_dependencies:
   flutter_test:
