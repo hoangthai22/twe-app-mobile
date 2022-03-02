@@ -195,7 +195,14 @@ class _HomePage extends State<HomePage> {
                             fontFamily: "Roboto",
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
-                      )
+                      ),
+                      /*Text(
+                        "Xem thêm",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300),
+                      )*/
                     ],
                   ),
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
+import 'package:twe/pages/AccountTab/contact_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
@@ -55,6 +56,8 @@ class RouteGenerator {
                 ));
       case '/confirm-booking':
         return MaterialPageRoute(builder: (_) => BookingPage());
+      case '/contact':
+        return MaterialPageRoute(builder: (_) => Contact());
       case '/notification':
         return MaterialPageRoute(builder: (_) => NoficationPage());
       case '/profile':
