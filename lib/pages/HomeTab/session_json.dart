@@ -4,7 +4,7 @@ const List sessionItems = [
     "image":
         "https://d3mxt5v3yxgcsr.cloudfront.net/courses/5819/course_5819_image.jpg",
     "date": " 01/03/2022",
-    "time": " 7:00 - 9:00 AM",
+    "time": " 7:00 - 9:00",
     "mentor": " Lâm Hữu Khánh Phương",
     "address": "Moda coffee",
     "price": "250000"
@@ -14,7 +14,7 @@ const List sessionItems = [
     "image":
         "https://codelearn.io/Upload/Blog/tinh-ke-thua-trong-OOP-63729699128.2913.jpg",
     "date": " 02/03/2022",
-    "time": " 7:00 - 9:00 PM",
+    "time": " 7:00 - 9:00",
     "mentor": " Nguyễn Thế Hoàng",
     "address": "Hightland coffee",
     "price": "250000"
@@ -24,7 +24,7 @@ const List sessionItems = [
     "image":
         "https://teky.edu.vn/blog/wp-content/uploads/2021/07/ngon-ngu-golang-la-gi.jpg",
     "date": " 03/03/2022",
-    "time": " 13:00 - 14:30 AM",
+    "time": " 13:00 - 14:30",
     "mentor": " Lại Đức Hùng",
     "address": "Gongcha coffee",
     "price": "500000"
@@ -33,7 +33,7 @@ const List sessionItems = [
     "name": "Data Model Diagram",
     "image": "https://i.ytimg.com/vi/Xx_d1tRduzI/maxresdefault.jpg",
     "date": " 03/03/2022",
-    "time": " 13:00 - 14:30 AM",
+    "time": " 13:00 - 14:30",
     "mentor": " Nguyễn Thế Hoàng",
     "address": "Hightland coffee",
     "price": "520000"

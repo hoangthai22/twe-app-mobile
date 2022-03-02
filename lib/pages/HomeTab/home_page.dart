@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:twe/components/Loading/loading.dart';
+import 'package:twe/components/SearchMentor/mentor_card.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
-import 'package:twe/pages/HomeTab/session_card.dart';
+import 'package:twe/components/SearchSession/session_card.dart';
 import 'package:twe/pages/HomeTab/session_json.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:provider/provider.dart';
@@ -216,14 +217,21 @@ class _HomePage extends State<HomePage> {
               Stack(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 70)),
-                      Text(
-                        "Top Mentor của tháng!",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text(
+                          "Top Mentor của tháng!",
+                          style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text("Xem thêm"),
                       )
                     ],
                   ),
@@ -237,7 +245,7 @@ class _HomePage extends State<HomePage> {
                     return Padding(
                       //child: SessionCard(session: mentor)
                       padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(child: SessionCard(session: mentor)),
+                      child: Container(child: MentorCard(mentor: mentor)),
                     );
                   }),
                 ),

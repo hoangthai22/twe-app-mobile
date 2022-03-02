@@ -30,7 +30,7 @@ class SessionItem extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                  height: 210,
+                  height: 230,
                   margin: const EdgeInsets.only(left: 10, right: 10, top: 15),
                   child: ListView(
                     shrinkWrap: true,
@@ -71,11 +71,11 @@ class SessionItem extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.group,
+                                  Icon(Icons.attach_money_outlined,
                                       size: 22, color: MaterialColors.primary),
                                   Container(
                                     margin: EdgeInsets.only(left: 5),
-                                    child: Text("4/5 thành viên",
+                                    child: Text("300.000 / buổi học",
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400)),
@@ -124,60 +124,74 @@ class SessionItem extends StatelessWidget {
                               Container(
                                 width: MediaQuery.of(context).size.width - 90,
                                 margin: EdgeInsets.only(left: 5),
-                                child: Text(COFFEE_DATA[0].coffeeName + ", "+ COFFEE_DATA[0].address,
+                                child: Text(
+                                    COFFEE_DATA[0].coffeeName +
+                                        ", " +
+                                        COFFEE_DATA[0].address,
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400)),
                               )
                             ],
                           )),
-                      Container(
-                          margin: EdgeInsets.only(top: 7),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(Icons.info,
-                                  size: 20, color: MaterialColors.primary),
-                              Container(
-                                width: MediaQuery.of(context).size.width - 90,
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text(session.description!,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400)),
-                              )
-                            ],
-                          ))
+                      // Container(
+                      //     margin: EdgeInsets.only(top: 7),
+                      //     child: Row(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Icon(Icons.info,
+                      //             size: 20, color: MaterialColors.primary),
+                      //         Container(
+                      //           width: MediaQuery.of(context).size.width - 90,
+                      //           margin: EdgeInsets.only(left: 5),
+                      //           child: Text(session.description!,
+                      //               maxLines: 2,
+                      //               overflow: TextOverflow.ellipsis,
+                      //               style: TextStyle(
+                      //                   fontSize: 15,
+                      //                   fontWeight: FontWeight.w400)),
+                      //         )
+                      //       ],
+                      //     ))
                     ],
                   )),
+              
               Positioned(
-                  right: 0,
-                  top: 30,
+                  right: 10,
+                  bottom: 10,
                   child: Container(
                     color: Colors.white,
-                    height: 45,
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 1 - 50,
                     child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: MaterialColors.primary,
-                        textStyle: TextStyle(color: Colors.white),
-                        shadowColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(18),
-                          bottomLeft: Radius.circular(18),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          primary: MaterialColors.primary,
+                          textStyle: TextStyle(color: Colors.white),
+                          shadowColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18)),
+                        ),
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 5),
+                                child: Icon(Icons.person_add,
+                                    size: 20, color: Colors.white),
+                              ),
+                              Text(
+                                "Tham gia (còn 2 chỗ trống)",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
                         )),
-                      ),
-                      child: Text(
-                        "Tham gia",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
                   ))
             ],
           ),
