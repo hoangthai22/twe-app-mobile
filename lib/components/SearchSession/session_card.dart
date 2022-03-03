@@ -19,7 +19,7 @@ class SessionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //padding: EdgeInsets.all(0),
-      width: this.width,
+      // width: this.width,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
