@@ -50,6 +50,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   accordion: ^2.2.1
   getwidget: ^2.0.5
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:

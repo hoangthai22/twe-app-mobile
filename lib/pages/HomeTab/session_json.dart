@@ -4,7 +4,7 @@ const List sessionItems = [
     "image":
         "https://d3mxt5v3yxgcsr.cloudfront.net/courses/5819/course_5819_image.jpg",
     "date": " 01/03/2022",
-    "time": " 7:00 - 9:00",
+    "time": " 07:00 - 09:00",
     "mentor": " Lâm Hữu Khánh Phương",
     "address": "Moda coffee",
     "price": "250000"
@@ -14,7 +14,7 @@ const List sessionItems = [
     "image":
         "https://codelearn.io/Upload/Blog/tinh-ke-thua-trong-OOP-63729699128.2913.jpg",
     "date": " 02/03/2022",
-    "time": " 7:00 - 9:00",
+    "time": " 07:00 - 09:00",
     "mentor": " Nguyễn Thế Hoàng",
     "address": "Hightland coffee",
     "price": "250000"

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:twe/common/constants.dart';
 import 'package:twe/components/Loading/loading.dart';
 import 'package:twe/components/SearchMentor/mentor_card.dart';
 import 'package:twe/models/mentor.dart';
@@ -12,6 +14,7 @@ import 'package:twe/provider/appProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:carousel_slider/carousel_slider.dart';
 
 const riveFile = 'assets/loading.riv';
 const home1 = 'assets/home1.png';
@@ -71,13 +74,14 @@ class _HomePage extends State<HomePage> {
         appBar: AppBar(
             elevation: 0.8,
             brightness: Brightness.light,
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: MaterialColors.primary,
+            toolbarHeight: 65,
             automaticallyImplyLeading: false,
             primary: false,
             excludeHeaderSemantics: true,
             flexibleSpace: SafeArea(
                 child: Container(
-              padding: EdgeInsets.only(left: 60.0),
+              padding: EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,31 +89,45 @@ class _HomePage extends State<HomePage> {
                   Stack(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 0),
-                            width: 60,
-                            child: Image.asset(
-                              'assets/logo_transparent.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            "Toad Study",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 14, 105, 17),
-                                fontFamily: "Roboto",
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700),
+                            margin: EdgeInsets.only(top: 0),
+                            child: Row(children: [
+                              Container(
+                                width: 45,
+                                child: Image.asset(
+                                  'assets/logo_transparent.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(
+                                "The Weekend ",
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 22,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              Text(
+                                "Expertise",
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 22,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ]),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 140),
-                            width: 28,
-                            child: Image.asset(
-                              'assets/chuongvip.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                              // margin: EdgeInsets.only(left: 0),
+                              margin: EdgeInsets.only(top: 0),
+                              width: 28,
+                              child: Icon(
+                                Icons.notifications,
+                                color: Colors.white,
+                                size: 32,
+                              )),
                         ],
                       ),
                     ],
@@ -118,7 +136,7 @@ class _HomePage extends State<HomePage> {
               ),
             ))),
         body: Container(
-          padding: EdgeInsets.only(top: 30, right: 15, left: 15),
+          padding: EdgeInsets.only(top: 10, right: 15, left: 15),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           color: Color.fromARGB(255, 241, 241, 241),
@@ -126,6 +144,35 @@ class _HomePage extends State<HomePage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
+              // Container(
+              //   padding: EdgeInsets.only(right: 15, left: 30, top: 20),
+              //   child: Text(
+              //     "Hi Hoàng Thái! ",
+              //     style: TextStyle(
+              //         fontFamily: "Roboto",
+              //         fontSize: 22,
+              //         fontWeight: FontWeight.w700),
+              //   ),
+              // ),
+              // Container(
+              //   color: MaterialColors.primary,
+              //   padding: EdgeInsets.only(right: 15, left: 15),
+              //   child: Container(
+              //     margin: EdgeInsets.symmetric(vertical: 20),
+              //     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(29.5),
+              //     ),
+              //     child: TextField(
+              //       decoration: InputDecoration(
+              //         hintText: "Search",
+              //         icon: Icon(Icons.search),
+              //         border: InputBorder.none,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Container(
                 child: Row(
                   children: <Widget>[
@@ -140,15 +187,23 @@ class _HomePage extends State<HomePage> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: (Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset('assets/home1.png'),
-                  ],
-                )),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 220.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  enlargeCenterPage: true,
+                ),
+                items: [1, 2, 3, 4].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        child:
+                            Image.asset('assets/home1.png', fit: BoxFit.cover),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
               Stack(
                 children: [
@@ -188,22 +243,27 @@ class _HomePage extends State<HomePage> {
               Stack(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 70)),
-                      Text(
-                        "Gợi ý cho bạn!",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text(
+                          "Gợi ý cho bạn!",
+                          style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
-                      /*Text(
-                        "Xem thêm",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300),
-                      )*/
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/suggest-session");
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text("Xem thêm"),
+                        ),
+                      )
                     ],
                   ),
                 ],
@@ -236,9 +296,14 @@ class _HomePage extends State<HomePage> {
                               fontWeight: FontWeight.w700),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(top: 30, bottom: 20),
-                        child: Text("Xem thêm"),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/ranking");
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text("Xem thêm"),
+                        ),
                       )
                     ],
                   ),
