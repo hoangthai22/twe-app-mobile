@@ -188,22 +188,22 @@ class _HomePage extends State<HomePage> {
               Stack(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 70)),
-                      Text(
-                        "Gợi ý cho bạn!",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text(
+                          "Gợi ý cho bạn!",
+                          style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
-                      /*Text(
-                        "Xem thêm",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300),
-                      )*/
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text("Xem thêm"),
+                      )
                     ],
                   ),
                 ],
