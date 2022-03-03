@@ -8,6 +8,7 @@ import 'package:twe/components/SearchMentor/scheduleModal.dart';
 import 'package:twe/models/coffee.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class _CoffeeDetailPage extends State<CoffeeDetailPage> {
   late CoffeeModel coffee;
@@ -293,6 +294,8 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
               title: "Tiếp tục",
               onRedirect: () {
                 provider.setBookingCoffee(coffee);
+                Navigator.of(context).pushNamed('/list-mentor',
+                    arguments: ScreenArguments(false));
               });
         }));
   }
@@ -300,8 +303,9 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
 
 class CoffeeDetailPage extends StatefulWidget {
   final int coffeeId;
+  final bool isCoffeeTab;
 
-  CoffeeDetailPage({required this.coffeeId});
+  CoffeeDetailPage({required this.coffeeId, required this.isCoffeeTab});
 
   @override
   _CoffeeDetailPage createState() => _CoffeeDetailPage();

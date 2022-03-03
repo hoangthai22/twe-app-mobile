@@ -103,15 +103,30 @@ class SessionItem extends StatelessWidget {
                           margin: EdgeInsets.only(top: 15),
                           child: Row(
                             children: [
-                              Icon(Icons.timer_outlined,
-                                  size: 20, color: MaterialColors.primary),
                               Container(
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text(session.date!,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400)),
-                              )
+                                margin: EdgeInsets.only(right: 2),
+                                child: Icon(Icons.calendar_month_outlined,
+                                    size: 20, color: MaterialColors.primary),
+                              ),
+                              Text(
+                                session.date!.split(",")[0],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Roboto",
+                                    fontSize: 15),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 10),
+                                child: Icon(Icons.schedule,
+                                    size: 20, color: MaterialColors.primary),
+                              ),
+                              Text(
+                                session.date!.split(",")[1],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Roboto",
+                                    fontSize: 15),
+                              ),
                             ],
                           )),
                       Container(
@@ -155,7 +170,28 @@ class SessionItem extends StatelessWidget {
                       //     ))
                     ],
                   )),
-              
+              Positioned(
+                  right: 0,
+                  top: 15,
+                  child: Container(
+                    height: 40,
+                    width: 110,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: MaterialColors.primary,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          topLeft: Radius.circular(30),
+                        )),
+                    child: Text(
+                      "3/5 thành viên",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Roboto',
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )),
               Positioned(
                   right: 10,
                   bottom: 10,

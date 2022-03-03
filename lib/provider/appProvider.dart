@@ -26,6 +26,11 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setListMentorInviteEmpty() {
+    listMentorInvite = [];
+    notifyListeners();
+  }
+
   void removeMentor(mentor) {
     listMentorInvite.remove(mentor);
     notifyListeners();
