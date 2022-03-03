@@ -6,6 +6,8 @@ import 'package:twe/pages/AccountTab/contact_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
+import 'package:twe/pages/HomeTab/ranking_page.dart';
+import 'package:twe/pages/HomeTab/suggest_session_page.dart';
 import 'package:twe/pages/SearchTab/booking_page.dart';
 import 'package:twe/pages/SearchTab/coffee_detail_page.dart';
 import 'package:twe/pages/SearchTab/create_session_page.dart';
@@ -69,6 +71,10 @@ class RouteGenerator {
             builder: (_) => HistoryDetailPage(
                   historyId: (args.toString()),
                 ));
+      case '/ranking':
+        return MaterialPageRoute(builder: (_) => RankingPage());
+      case '/suggest-session':
+        return MaterialPageRoute(builder: (_) => SuggestSessionPage());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
