@@ -102,7 +102,7 @@ class _HomePage extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "The Weekend ",
+                                "Toad ",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -110,7 +110,7 @@ class _HomePage extends State<HomePage> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                "Expertise",
+                                "learn",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
