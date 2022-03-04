@@ -5,6 +5,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/utils.dart';
 import 'package:twe/components/Feedback/feedback.dart';
 import 'package:twe/components/SearchMentor/scheduleModal.dart';
+import 'package:twe/models/feedback.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:getwidget/getwidget.dart';
@@ -18,6 +19,8 @@ class _MentorDetailPage extends State<MentorDetailPage> {
   String date = "";
   List<int> listRate = [];
   List<int> listRateEmpty = [];
+  List<FeedbackModel> listFeedback = [];
+
   @override
   void initState() {
     setState(() {
@@ -34,6 +37,13 @@ class _MentorDetailPage extends State<MentorDetailPage> {
             listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
           })
         });
+
+    ApiServices.getListFeebackByMentorId(widget.mentorId, 1, 3)
+        .then((value) => {
+              setState(() {
+                listFeedback = value;
+              })
+            });
   }
 
   void onSubmit(context) {
@@ -105,7 +115,8 @@ class _MentorDetailPage extends State<MentorDetailPage> {
             Container(
                 color: Colors.white,
                 child: ListView(
-                  padding: const EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 30),
+                  padding: const EdgeInsets.only(
+                      right: 15, left: 15, top: 15, bottom: 30),
                   children: [
                     Container(
                         decoration: BoxDecoration(color: Colors.white),
@@ -577,7 +588,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                     Container(
                       padding: const EdgeInsets.only(top: 15, bottom: 15),
                       child: Text(
-                        "Nhận xét của học sinh",
+                        "Nhận xét của học sinh (${listFeedback.length})",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 18,
@@ -586,30 +597,23 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       ),
                     ),
                     Container(
-                      height: 200,
+                      height: 170,
                       width: 300,
                       margin: const EdgeInsets.only(bottom: 20),
                       child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          FeedBack(
-                            avatar: mentor.image!,
-                            userId: 1,
-                            userName: "Hoang Thai Hoang Thai Hoang Thai ",
-                            feedbackContent: mentor.description!,
-                            time: "22:20, 11 thg 1, 2022",
-                          ),
-                          FeedBack(
-                            avatar: mentor.image!,
-                            userId: 1,
-                            userName: "Hoang Thai",
-                            feedbackContent:
-                                (mentor.description! + mentor.description!),
-                            time: "22:20, 11 thg 1, 2022",
-                          )
-                        ],
-                      ),
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          children: listFeedback
+                              .map(
+                                (feedback) => FeedBack(
+                                  avatar: feedback.memberImage!,
+                                  userId: 1,
+                                  userName: feedback.memberName!,
+                                  feedbackContent: feedback.feedbackOfMentor!,
+                                  time: feedback.dateMentorFeedback!,
+                                ),
+                              )
+                              .toList()),
                     )
                   ],
                 )),

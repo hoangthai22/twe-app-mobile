@@ -140,9 +140,9 @@ class SessionItem extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width - 90,
                                 margin: EdgeInsets.only(left: 5),
                                 child: Text(
-                                    COFFEE_DATA[0].coffeeName +
+                                    COFFEE_DATA[0].name! +
                                         ", " +
-                                        COFFEE_DATA[0].address,
+                                        COFFEE_DATA[0].distric!,
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400)),

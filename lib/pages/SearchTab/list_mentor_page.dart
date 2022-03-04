@@ -72,7 +72,7 @@ class _ListMentorPage extends State<ListMentorPage> {
               scrollController.position.maxScrollExtent &&
           !_isLoading &&
           !isListFull) {
-        print(query);
+        // print(query);
         _fetch();
       }
     });
@@ -406,7 +406,7 @@ class _ListMentorPage extends State<ListMentorPage> {
             this.query = query;
             listMentor = value;
             _isLoading = false;
-            print(listMentor);
+            // print(listMentor);
           }),
         });
   }

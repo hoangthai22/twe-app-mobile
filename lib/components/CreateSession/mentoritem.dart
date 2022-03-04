@@ -34,7 +34,7 @@ class MentorItem extends StatelessWidget {
     var listRate = [for (var i = 1; i <= mentor.rate!; i++) i];
     var listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
 
-    print(mentor.rate);
+   
     return Container(
         decoration: BoxDecoration(
           color: Colors.white,

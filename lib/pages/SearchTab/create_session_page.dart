@@ -350,10 +350,9 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                             onPressed: () => isSelectSubject.subjectId != ""
                                 ? {
                                     provider.setBookingDate(
-                                        "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),
-                                    provider.setBookingSlot(isSelectedSlot + 1),
-                                    provider.setBookingSubjct(
-                                        isSelectSubject.subjectName),
+                                        "${_selectedDay.year}-${_selectedDay.month < 10 ? "0" + _selectedDay.month.toString() : _selectedDay.month}-${_selectedDay.day < 10 ? "0" + _selectedDay.day.toString() : _selectedDay.day}"),
+                                    provider.setBookingSlot(isSelectedSlot),
+                                    provider.setBookingSubjct(isSelectSubject),
                                     provider.setBookingMajor(
                                         isSelectMajor.majorName),
                                     Navigator.of(context).pushNamed(

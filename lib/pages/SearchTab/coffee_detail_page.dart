@@ -51,7 +51,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var listRate = [for (var i = 1; i <= coffee.rate; i++) i];
+    var listRate = [for (var i = 1; i <= coffee.rate!; i++) i];
     print("idCoffee: ${widget.coffeeId}");
     return Scaffold(
         // appBar: AppBar(
@@ -106,7 +106,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
               Container(
                 padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
                 child: Text(
-                  coffee.coffeeName,
+                  coffee.name!,
                   style: TextStyle(
                       fontFamily: "Roboto",
                       fontSize: 20,
@@ -165,7 +165,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                       width: MediaQuery.of(context).size.width * 1 - 65,
                       margin: const EdgeInsets.only(left: 10),
                       child: Text(
-                        "${coffee.address}",
+                        "${coffee.street}",
                         style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'Roboto',
@@ -261,18 +261,18 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                   shrinkWrap: true,
                   children: <Widget>[
                     FeedBack(
-                      avatar: coffee.avatar,
+                      avatar: coffee.image!,
                       userId: 1,
                       userName: "Hoang Thai Hoang Thai Hoang Thai ",
-                      feedbackContent: coffee.description,
+                      feedbackContent: coffee.description!,
                       time: "22:20, 11 thg 1, 2022",
                     ),
                     FeedBack(
-                      avatar: coffee.avatar,
+                      avatar: coffee.image!,
                       userId: 1,
                       userName: "Hoang Thai",
                       feedbackContent:
-                          (coffee.description + coffee.description),
+                          (coffee.description! + coffee.description!),
                       time: "22:20, 11 thg 1, 2022",
                     )
                   ],

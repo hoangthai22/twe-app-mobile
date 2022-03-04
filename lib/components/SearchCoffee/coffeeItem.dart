@@ -5,7 +5,7 @@ import 'package:twe/models/coffee.dart';
 
 class CoffeeItem extends StatefulWidget {
   CoffeeModel coffee;
-  late final ValueChanged<int> onPush;
+  late final ValueChanged<String> onPush;
   late final ValueChanged<CoffeeModel> onSubmit;
   late final isTabPage;
   late final isButton;
@@ -35,14 +35,14 @@ class _CoffeeItem extends State<CoffeeItem> {
   @override
   Widget build(BuildContext context) {
     void onClick() {
-      widget.onPush(widget.coffee.id);
+      widget.onPush(widget.coffee.id!);
     }
 
     void onRedirect() {
       widget.onSubmit(widget.coffee);
     }
 
-    var listRate = [for (var i = 1; i <= widget.coffee.rate; i++) i];
+    var listRate = [for (var i = 1; i <= 5; i++) i];
 
     return Stack(
       children: [
@@ -88,7 +88,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                               height: widget.heightImg,
                               width: widget.widthImg,
                               fit: BoxFit.cover,
-                              image: NetworkImage(widget.coffee.avatar),
+                              image: NetworkImage(widget.coffee.image!),
                             )),
                       ),
                       Container(
@@ -106,7 +106,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                widget.coffee.coffeeName,
+                                widget.coffee.name!,
                                 style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 15,
@@ -143,7 +143,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                                         (widget.widthImg + 30 + 45),
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Text(
-                                      widget.coffee.address,
+                                      widget.coffee.street!,
                                       maxLines: 2,
                                       style: TextStyle(
                                           fontSize: 13,

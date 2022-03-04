@@ -10,23 +10,30 @@ import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
 import 'package:twe/components/SearchCoffee/modalFilter.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
-class _ListMentorTab extends State<ListMentorTab> {
+class _ListMentorTab extends State<ListMentorTab>
+    with AutomaticKeepAliveClientMixin<ListMentorTab> {
   bool _isLoading = true;
   bool isListFull = false;
   bool _isChecked = false;
   int page = 1;
   String query = '';
   final ScrollController scrollController = ScrollController();
-  int checkedInit = 0;
+  String majorId = "";
+  late MajorModel majorFilter;
   late List<MentorModel> listMentor = [];
   int _value = 1;
+
+  @override
+  bool get wantKeepAlive => true;
 
   _fetch() async {
     setState(() {
       _isLoading = true;
+      
     });
     List<MentorModel> mentors = [];
     List<MentorModel> newList = [];
@@ -187,18 +194,20 @@ class _ListMentorTab extends State<ListMentorTab> {
                                   ],
                                 )),
                           ),
-                          (checkedInit == 0
+                          (majorId == ""
                               ? Text("")
                               : Container(
+                                  height: 40,
                                   padding: EdgeInsets.only(left: 15),
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.white70,
-                                        textStyle:
-                                            TextStyle(color: Colors.blue),
+                                        primary: Colors.white,
+                                        textStyle: TextStyle(
+                                            color: MaterialColors.primary),
                                         shadowColor: Colors.white,
                                         side: BorderSide(
-                                            color: Colors.blue, width: 1),
+                                            color: MaterialColors.primary,
+                                            width: 1),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(18),
@@ -210,20 +219,26 @@ class _ListMentorTab extends State<ListMentorTab> {
                                           Container(
                                             margin: EdgeInsets.only(right: 5),
                                             child: Text(
-                                              "",
-                                              style:
-                                                  TextStyle(color: Colors.blue),
+                                              majorFilter.majorName,
+                                              style: TextStyle(
+                                                  color: MaterialColors.primary,
+                                                  fontSize: 14,
+                                                  fontFamily: "Roboto",
+                                                  fontWeight: FontWeight.w400),
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
-                                                checkedInit = 0;
+                                                majorId = "";
+                                                page = 1;
+                                                listMentor = [];
                                               });
+                                               _fetch();
                                             },
                                             child: const Icon(
                                               Icons.highlight_remove_rounded,
-                                              color: Colors.blue,
+                                              color: MaterialColors.primary,
                                               size: 24,
                                             ),
                                           )
@@ -267,7 +282,7 @@ class _ListMentorTab extends State<ListMentorTab> {
                               if (listMentor.length == 0 && !_isLoading) ...[
                                 Container(
                                   height:
-                                      MediaQuery.of(context).size.height - 200,
+                                      MediaQuery.of(context).size.height - 250,
                                   color: Colors.white,
                                   child: Center(
                                     child: Text("Không tìm thấy Mentor nào"),
@@ -314,12 +329,43 @@ class _ListMentorTab extends State<ListMentorTab> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
           return ModalFilter(
-            onSeletedMajor: (majorId) => {print("majorId: $majorId")},
+            onSeletedMajor: (major) => {
+              setState(() {
+                filterMentorByMajorName(major.majorName);
+                majorFilter = major;
+                majorId = major.majorId;
+              })
+            },
           );
         });
   }
 
-  void clearOption() {}
+  void filterMentorByMajorName(String majorName) {
+    setState(() {
+      _isLoading = true;
+      listMentor = [];
+    });
+    var checkList = [];
+    ApiServices.getListMentorBymajorName(majorName, 1, 10).then((value) => {
+          checkList = value,
+          if (checkList.isEmpty)
+            {
+              setState(() {
+                isListFull = true;
+                listMentor = [];
+                _isLoading = false;
+              })
+            }
+          else
+            {
+              setState(() {
+                listMentor = value;
+                _isLoading = false;
+                // print(listMentor);
+              }),
+            }
+        });
+  }
 
   void searchBar(String query) {
     setState(() {
