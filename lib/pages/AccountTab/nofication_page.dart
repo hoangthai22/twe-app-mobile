@@ -105,7 +105,7 @@ class _NoficationPage extends State<NoficationPage> {
                             TextSpan(text: " xác nhận"),
                           ]),
                       time: "19:03 AM",
-                      image: COFFEE_DATA[0].avatar,
+                      image: COFFEE_DATA[0].image!,
                     ),
                     NoficationItem(
                       title: "Buổi học đã được xác nhận",

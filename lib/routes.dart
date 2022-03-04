@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/components/Session/infoClass.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
 import 'package:twe/pages/AccountTab/contact_page.dart';
@@ -17,6 +18,7 @@ import 'package:twe/pages/SearchTab/mentor_detail_page.dart';
 import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/pages/LoginPage/sign_in.dart';
 import 'package:twe/pages/AccountTab/nofication_page.dart';
+import 'package:twe/pages/SearchTab/successful_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,7 +45,10 @@ class RouteGenerator {
       case '/coffee-detail':
         return MaterialPageRoute(
             builder: (_) => CoffeeDetailPage(
-                  coffeeId: int.parse(args.toString()),
+                  isCoffeeTab: false,
+                  coffeeId: int.parse(
+                    args.toString(),
+                  ),
                 ));
       case '/list-mentor':
         ScreenArguments argument = args as ScreenArguments;
@@ -75,6 +80,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RankingPage());
       case '/suggest-session':
         return MaterialPageRoute(builder: (_) => SuggestSessionPage());
+      case '/successful':
+        return MaterialPageRoute(builder: (_) => SuccessfulPage());
+      case '/session':
+        return MaterialPageRoute(builder: (_) => InfoClass());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

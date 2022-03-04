@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/coffee.dart';
+import 'package:twe/models/subject.dart';
 
 class BookingModel {
-  late int id;
+  late String id;
   late int slot;
   late String date;
-  late String subject;
+  late SubjectModel subject;
   late String major;
-  late int mentorId;
-  late int userId;
+  late double price;
+  late String mentorId;
+  late String userId;
   late CoffeeModel coffee;
 
   BookingModel({required this.id});

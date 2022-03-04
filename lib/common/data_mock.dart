@@ -47,7 +47,11 @@ var MENTOR_DATA = [
       rate: 4,
       address: "",
       birthday: "",
-      listMajor: ['Kỹ Thuật Phần Mềm','Tiếng Nhật', 'Quản Trị Kinh Doanh'],
+      listMajor: [
+        'Kỹ Thuật Phần Mềm',
+        'Tiếng Nhật',
+        'Quản Trị Kinh Doanh'
+      ],
       phone: "",
       price: 100,
       sex: "male",
@@ -70,11 +74,11 @@ var MENTOR_DATA = [
 ];
 
 var SUBJECT_DATA = [
-  SubjectModel(subjectId: 1, majorId: 1, subjectName: "Database"),
-  SubjectModel(subjectId: 2, majorId: 1, subjectName: "Programing"),
-  SubjectModel(subjectId: 3, majorId: 2, subjectName: "Nhật 1"),
-  SubjectModel(subjectId: 4, majorId: 2, subjectName: "Nhật 2"),
-  SubjectModel(subjectId: 5, majorId: 3, subjectName: "Anh 3"),
+  SubjectModel(subjectId: "1", majorId: "1", subjectName: "Database"),
+  SubjectModel(subjectId: "2", majorId: "1", subjectName: "Programing"),
+  SubjectModel(subjectId: "3", majorId: "2", subjectName: "Nhật 1"),
+  SubjectModel(subjectId: "4", majorId: "2", subjectName: "Nhật 2"),
+  SubjectModel(subjectId: "5", majorId: "3", subjectName: "Anh 3"),
 ];
 var MAJOR_DATA = [
   MajorModel(majorId: "1", majorName: "Kỹ thuật phầm mềm"),
@@ -83,41 +87,45 @@ var MAJOR_DATA = [
 ];
 var COFFEE_DATA = [
   CoffeeModel(
-    id: 1,
-    coffeeName: "TocoToco",
-    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    distric: "",
+    id: "1",
+    name: "TocoToco",
+    street: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
     description:
         "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
-    avatar:
+    image:
         "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
     rate: 5,
   ),
   CoffeeModel(
-    id: 2,
-    coffeeName: "Coffe House",
-    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    distric: "",
+    id: "2",
+    name: "Coffe House",
+    street: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
     description:
         "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
-    avatar: "https://bloganchoi.com/wp-content/uploads/2019/12/ha-dong.jpg",
+    image: "https://bloganchoi.com/wp-content/uploads/2019/12/ha-dong.jpg",
     rate: 4,
   ),
   CoffeeModel(
-    id: 3,
-    coffeeName: "GongCha",
-    address: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
+    distric: "",
+    id: "3",
+    name: "GongCha",
+    street: "45 đường Số 5 - Cứ xá Bình Thới, Quận 11, Hồ Chí Minh",
     description:
         "Thương hiệu Gong Cha được công ty TNHH Golden Trust chính thức đưa vào hoạt động tại thị trường Việt Nam từ ngày 11/10/2014. Trải qua hơn năm năm hoạt động, công ty TNHH Golden Trust – đơn vị nhượng quyền độc quyền của Gong Cha tại Việt Nam, đã đưa thương hiệu phát triển nhanh chóng và trở thành một trong những điểm đến thân thuộc của các bạn trẻ yêu thích văn hóa trà sữa và mong muốn trải nghiệm sản phẩm trà uy tín chất lượng với nguồn gốc xuất xứ rõ ràng.",
-    avatar:
+    image:
         "https://gongcha.com.vn/wp-content/uploads/2018/03/Banner-Trang-Ch%E1%BB%A7-k%E1%BA%BF-%C4%91%E1%BB%8Ba-ch%E1%BB%89-CH-800x380-01.jpg",
     rate: 3,
   ),
   CoffeeModel(
-    id: 4,
-    coffeeName: "TocoToco",
-    address: "45 đường Số 5 - Cứ xá Bình Thới",
+    distric: "",
+    id: "4",
+    name: "TocoToco",
+    street: "45 đường Số 5 - Cứ xá Bình Thới",
     description:
         "Xin chào, tôi là Cônng. Tôi có hơn bốn mươi năm kinh nghiệm giảng dạy.",
-    avatar:
+    image:
         "https://tea-3.lozi.vn/v1/images/resized/tocotoco-bubble-tea-bien-hoa-thanh-pho-bien-hoa-dong-nai-1615989552428021525-eatery-avatar-1625939657?w=640&type=s",
     rate: 5,
   ),

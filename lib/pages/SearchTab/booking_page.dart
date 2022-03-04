@@ -4,6 +4,8 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 import 'package:twe/components/menuFooter.dart';
+import 'package:twe/models/booking.dart';
+import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class BookingPage extends StatelessWidget {
@@ -11,7 +13,6 @@ class BookingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     var coffee = COFFEE_DATA[1];
     return Scaffold(
         appBar: AppBar(
@@ -143,7 +144,7 @@ class BookingPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                provider.getBookingSubject,
+                                provider.getBookingSubject.subjectName,
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontWeight: FontWeight.w400,
@@ -254,59 +255,63 @@ class BookingPage extends StatelessWidget {
                               .toList(),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.only(right: 15, left: 15, bottom: 15),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                              top: BorderSide(
-                                  color: Colors.black12, width: 1.0)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 25),
-                              child: Text(
-                                "Tổng tiền",
-                                style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(top: 25),
-                                  child: Text(
-                                    "100.000 ₫",
-                                    style: TextStyle(
-                                        fontFamily: "Roboto",
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    "90 phút",
-                                    style: TextStyle(
-                                        fontFamily: "Roboto",
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black45,
-                                        fontSize: 14),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   margin:
+                      //       EdgeInsets.only(right: 15, left: 15, bottom: 15),
+                      //   decoration: const BoxDecoration(
+                      //     border: Border(
+                      //         top: BorderSide(
+                      //             color: Colors.black12, width: 1.0)),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Container(
+                      //         padding: EdgeInsets.only(top: 25),
+                      //         child: Text(
+                      //           "Tổng tiền",
+                      //           style: TextStyle(
+                      //               fontFamily: "Roboto",
+                      //               fontWeight: FontWeight.w500,
+                      //               fontSize: 20),
+                      //         ),
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           Container(
+                      //             padding: EdgeInsets.only(top: 25),
+                      //             child: Text(
+                      //               "100.000 ₫",
+                      //               style: TextStyle(
+                      //                   fontFamily: "Roboto",
+                      //                   fontWeight: FontWeight.w500,
+                      //                   fontSize: 18),
+                      //             ),
+                      //           ),
+                      //           Container(
+                      //             padding: EdgeInsets.only(top: 5),
+                      //             child: Text(
+                      //               "90 phút",
+                      //               style: TextStyle(
+                      //                   fontFamily: "Roboto",
+                      //                   fontWeight: FontWeight.w500,
+                      //                   color: Colors.black45,
+                      //                   fontSize: 14),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
+                          // Navigator.of(context)
+                          //     .popUntil((route) => route.isFirst);
+                          //     provider.setListMentorInviteEmpty();
+                          // Navigator.of(context).pushNamed("/successful");
+                          createSession(
+                              provider.getBooking, provider.getListMentorInvite, provider.getUid);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,
@@ -331,5 +336,14 @@ class BookingPage extends StatelessWidget {
             ),
           );
         }));
+  }
+
+  void createSession(BookingModel booking, List<MentorModel> listMentorInvite, String uid) {
+    print(booking.coffee.id);
+    print(booking.date);
+    print(booking.slot);
+    print(uid);
+    print(booking.subject.subjectId);
+    print(listMentorInvite.length);
   }
 }

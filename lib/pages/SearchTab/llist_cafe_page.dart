@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
@@ -9,15 +10,59 @@ import 'package:twe/routes.dart';
 
 class _ListCoffeePage extends State<ListCoffeePage> {
   String query = '';
-  late List<CoffeeModel> coffeeList;
+  List<CoffeeModel> coffeeList = [];
   final _controller = TextEditingController();
   String inputText = "";
   bool isSearch = false;
+  bool _isLoading = true;
+  bool isListFull = false;
+
+  int page = 1;
 
   @override
   void initState() {
     super.initState();
     coffeeList = COFFEE_DATA;
+    // _fetch();
+  }
+
+  _fetch() async {
+    setState(() {
+      _isLoading = true;
+    });
+    List<CoffeeModel> coffees = [];
+    List<CoffeeModel> newList = [];
+    ApiServices.getListCoffeePagination(page, 4).then((item) => {
+      print(item),
+          if (item != null)
+            {
+              coffees = item,
+              if (coffees.isEmpty)
+                {
+                  setState(() {
+                    isListFull = true;
+                    _isLoading = false;
+                  })
+                }
+              else
+                {
+                  newList = [...coffeeList, ...coffees],
+                  setState(() {
+                    _isLoading = false;
+                    coffeeList = newList;
+                    page++;
+                  })
+                }
+            }
+          else
+            {
+              setState(() {
+                _isLoading = false;
+                isListFull = true;
+                coffeeList = [];
+              })
+            }
+        });
   }
 
   Widget _buildSearchField() {

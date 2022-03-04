@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/components/SearchSession/mySession.dart';
 import 'package:twe/components/SearchSession/sessionItem.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/session.dart';
 import 'package:twe/provider/appProvider.dart';
@@ -18,6 +20,8 @@ class _ListSessionPage extends State<ListSessionPage> {
   int checkedInit = 0;
   bool isSearch = false;
   String inputText = "";
+  late MajorModel majorFilter;
+
   late List<SessionModel> listSession = [
     SessionModel(
         mentorName: MENTOR_DATA[0].fullname,
@@ -127,6 +131,25 @@ class _ListSessionPage extends State<ListSessionPage> {
     // futureMentor = fetchData();
   }
 
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ModalFilter(
+            onSeletedMajor: (major) => {
+              setState(() {
+                filterMentorByMajorName(major.majorName);
+                majorFilter = major;
+              })
+            },
+          );
+        });
+  }
+
+  void filterMentorByMajorName(String majorName) {}
   @override
   void dispose() {
     super.dispose();
@@ -213,24 +236,83 @@ class _ListSessionPage extends State<ListSessionPage> {
                         Row(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(
+                              margin: EdgeInsets.only(
                                   left: 15, top: 10, bottom: 10),
-                              width: 100,
+                              width: 110,
+                              height: 40,
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: MaterialColors.primary,
-                                  textStyle: TextStyle(color: Colors.white),
-                                  shadowColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: MaterialColors.primary,
+                                    textStyle: TextStyle(color: Colors.white),
+                                    shadowColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  "Bộ lọc",
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ),
+                                  onPressed: () {
+                                    _Modal(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Bộ lọc",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontFamily: "Roboto",
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.filter_alt_outlined,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 15, top: 10, bottom: 10),
+                              width: 110,
+                              height: 40,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white,
+                                    textStyle: TextStyle(
+                                        color: MaterialColors.primary),
+                                    shadowColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18),
+                                        side: BorderSide(
+                                            color: MaterialColors.primary,
+                                            width: 1)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Sắp xếp",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: MaterialColors.primary,
+                                            fontFamily: "Roboto",
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.sort_by_alpha,
+                                          color: MaterialColors.primary,
+                                          size: 20,
+                                        ),
+                                      )
+                                    ],
+                                  )),
                             ),
                             (checkedInit == 0
                                 ? Text("")

@@ -72,7 +72,7 @@ class _ListMentorPage extends State<ListMentorPage> {
               scrollController.position.maxScrollExtent &&
           !_isLoading &&
           !isListFull) {
-        print(query);
+        // print(query);
         _fetch();
       }
     });
@@ -169,6 +169,47 @@ class _ListMentorPage extends State<ListMentorPage> {
                   },
                 ),
               ] else ...[
+                InkWell(
+                    onTap: () => showListMentorInvite(),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          Icon(
+                            Icons.person_rounded,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topRight,
+                            margin: EdgeInsets.only(top: 5),
+                            child: Container(
+                              width: 15,
+                              height: 15,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffc32c37),
+                                  border: Border.all(
+                                      color: MaterialColors.primary, width: 1)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Center(child: Consumer<AppProvider>(
+                                    builder: (context, provider, child) {
+                                  return Text(
+                                    provider.getListMentorInvite.length
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.white),
+                                  );
+                                })),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
                 IconButton(
                   icon: Icon(
                     Icons.search,
@@ -312,7 +353,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                       })
                     ],
                   ),
-                  (widget.isMentorTab == false
+                  (widget.isMentorTab == false && !_isLoading
                       ? Positioned(
                           bottom: 0,
                           child: Container(
@@ -365,7 +406,7 @@ class _ListMentorPage extends State<ListMentorPage> {
             this.query = query;
             listMentor = value;
             _isLoading = false;
-            print(listMentor);
+            // print(listMentor);
           }),
         });
   }

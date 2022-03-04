@@ -276,7 +276,13 @@ class _HomePage extends State<HomePage> {
                     return Padding(
                       //child: SessionCard(session: mentor)
                       padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(child: SessionCard(session: session)),
+                      child: Container(
+                          child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/session');
+                        },
+                        child: SessionCard(session: session),
+                      )),
                     );
                   }),
                 ),
