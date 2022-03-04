@@ -114,12 +114,13 @@ class _FeedBack extends State<FeedBack> {
                 ),
               ),
               Expanded(
-                  flex: 5,
+                  flex: 4,
                   child: Container(
+                    width: 300,
                     padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
                     child: Text(
                       widget.feedbackContent,
-                      maxLines: 5,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 13, fontFamily: "Roboto"),
                     ),

@@ -97,264 +97,70 @@ class _MyMentorTab extends State<MyMentorTab> {
                           direction: Axis.horizontal,
                           spacing: 20,
                           runSpacing: 20,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image(
-                                      // color:70olors.red,
-                                      width: 180,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                      image:
-                                          NetworkImage(MENTOR_DATA[2].image!),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Text(MENTOR_DATA[0].fullname!,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 170,
-                                          margin: const EdgeInsets.only(top: 0),
-                                          child: Text(
-                                            MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString() +
-                                                ", " +
-                                                MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString(),
-                                            maxLines: 2,
+                          children: listMentor
+                              .map(
+                                (mentor) => Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image(
+                                          // color:70olors.red,
+                                          width: 180,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(mentor.image!),
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        margin:
+                                            EdgeInsets.only(top: 5, left: 5),
+                                        child: Text(mentor.fullname!,
                                             style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: 'Roboto',
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey[700],
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              width: 180,
-                              height: 260,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image(
-                                      // color:70olors.red,
-                                      width: 180,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                      image:
-                                          NetworkImage(MENTOR_DATA[1].image!),
-                                    ),
+                                              fontSize: 16.0,
+                                              fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w500,
+                                            )),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(top: 5, left: 5),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 170,
+                                              margin:
+                                                  const EdgeInsets.only(top: 0),
+                                              child: Text(
+                                                mentor.listMajor![0].toString(),
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontFamily: 'Roboto',
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey[700],
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Text(MENTOR_DATA[0].fullname!,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 170,
-                                          margin: const EdgeInsets.only(top: 0),
-                                          child: Text(
-                                            MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString() +
-                                                ", " +
-                                                MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString(),
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: 'Roboto',
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey[700],
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              width: 180,
-                              height: 260,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image(
-                                      // color:70olors.red,
-                                      width: 180,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                      image:
-                                          NetworkImage(MENTOR_DATA[0].image!),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Text(MENTOR_DATA[0].fullname!,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 170,
-                                          margin: const EdgeInsets.only(top: 0),
-                                          child: Text(
-                                            MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString() +
-                                                ", " +
-                                                MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString(),
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: 'Roboto',
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey[700],
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              width: 180,
-                              height: 260,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image(
-                                      // color:70olors.red,
-                                      width: 180,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                      image:
-                                          NetworkImage(MENTOR_DATA[2].image!),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Text(MENTOR_DATA[0].fullname!,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5, left: 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 170,
-                                          margin: const EdgeInsets.only(top: 0),
-                                          child: Text(
-                                            MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString() +
-                                                ", " +
-                                                MENTOR_DATA[0]
-                                                    .listMajor![0]
-                                                    .toString(),
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: 'Roboto',
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey[700],
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              width: 180,
-                              height: 260,
-                            ),
-                          ]),
+                                  width: 180,
+                                  height: 260,
+                                ),
+                              )
+                              .toList()),
                     )))));
   }
 }

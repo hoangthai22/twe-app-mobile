@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 
 class CoffeeModel {
-  int id;
-  String coffeeName;
-  String description;
-  String address;
-  String avatar;
-  double rate;
+  String? id;
+  String? name;
+  String? description;
+  String? street;
+  String? distric;
+  String? image;
+  double? rate;
 
   CoffeeModel({
     required this.id,
-    required this.coffeeName,
-    required this.address,
+    required this.name,
+    required this.street,
+    required this.distric,
     required this.description,
-    required this.avatar,
-    required this.rate,
+    required this.image,
+     this.rate,
   });
+
+  factory CoffeeModel.fromJson(Map<String, dynamic> json) {
+    return CoffeeModel(
+      id: json['id'],
+      name: json['name'],
+      street: json['street'],
+      distric: json['distric'],
+      description: json['description'],
+      image: json['image'],
+    );
+  }
 }

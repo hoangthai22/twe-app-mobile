@@ -6,17 +6,20 @@ import 'package:twe/models/major.dart';
 import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 
 class ModalFilter extends StatefulWidget {
-  late final ValueChanged<String> onSeletedMajor;
+  late final ValueChanged<MajorModel> onSeletedMajor;
   ModalFilter({required this.onSeletedMajor});
   @override
   State<StatefulWidget> createState() => _ModalFilter();
 }
 
 class _ModalFilter extends State<ModalFilter> {
-  String majorId = "";
+  String majorSelected = "";
+  late MajorModel major;
   List<MajorModel> majors = [];
   callbackFnc() {
-    widget.onSeletedMajor(majorId.toString());
+    if (majorSelected != "") {
+      widget.onSeletedMajor(major);
+    }
   }
 
   @override
@@ -24,7 +27,6 @@ class _ModalFilter extends State<ModalFilter> {
     // TODO: implement initState
     super.initState();
     ApiServices.getMajors().then((value) => {
-          print(value),
           setState(() {
             majors = value;
           }),
@@ -65,12 +67,12 @@ class _ModalFilter extends State<ModalFilter> {
                     if (majors.length > 0)
                       ...majors
                           .map(
-                            (major) => MyRadioListTile<int>(
-                              value: major.majorId,
-                              groupValue: majorId,
-                              leading: major.majorName,
-                              onChanged: (value) =>
-                                  setState(() => majorId = value!),
+                            (majorItem) => MyRadioListTile<int>(
+                              value: majorItem.majorId,
+                              groupValue: majorSelected,
+                              leading: majorItem.majorName,
+                              onChanged: (value) => setState(() =>
+                                  {majorSelected = value!, major = majorItem}),
                             ),
                           )
                           .toList()
@@ -104,7 +106,7 @@ class _ModalFilter extends State<ModalFilter> {
                       ),
                       onPressed: () {
                         setState(() {
-                          majorId = "";
+                          majorSelected = "";
                         });
                       },
                       child: Text(

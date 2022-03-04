@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:io';
+import 'package:twe/models/coffee.dart';
+import 'package:twe/models/feedback.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
@@ -89,11 +91,73 @@ class ApiServices {
       );
       if (response.statusCode == 200) {
         List<dynamic> body = convert.jsonDecode(response.body);
-        List<SubjectModel> subjectModel =
+        List<SubjectModel> listSubjects =
             body.map((dynamic item) => SubjectModel.fromJson(item)).toList();
-        return subjectModel;
+        return listSubjects;
       } else if (response.statusCode == 404) {
         return [];
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getListMentorBymajorName(
+      String majorName, int page, int limit) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/mentors/filter?major=${majorName}&pageIndex=${page}&pageSize=${limit}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<MentorModel> listMentors =
+            body.map((dynamic item) => MentorModel.fromJson(item)).toList();
+        return listMentors;
+      } else if (response.statusCode == 404) {
+        List<MentorModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getListFeebackByMentorId(
+      String mentorId, int page, int limit) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/mentors/feedbacks/${mentorId}?pageIndex=${page}&pageSize=${limit}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<FeedbackModel> listFeedback =
+            body.map((dynamic item) => FeedbackModel.fromJson(item)).toList();
+        return listFeedback;
+      } else if (response.statusCode == 404) {
+        List<FeedbackModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getListCoffeePagination(int page, int limit) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/cafe?pageIndex=${page}&pageSize=${limit}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<CoffeeModel> listCoffee =
+            body.map((dynamic item) => CoffeeModel.fromJson(item)).toList();
+        return listCoffee;
+      } else if (response.statusCode == 404) {
+        List<CoffeeModel> list = [];
+        return list;
       }
     } catch (e) {
       print('Error with status code: ${e}');
