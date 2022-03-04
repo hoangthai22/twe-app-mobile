@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/common/utils.dart';
@@ -31,14 +32,38 @@ class _CreateSessionPage extends State<CreateSessionPage> {
   List<MajorModel> majorList = [];
   List<SubjectModel> subList = [];
   SubjectModel isSelectSubject =
-      new SubjectModel(subjectId: 0, majorId: 0, subjectName: "");
+      new SubjectModel(subjectId: "", majorId: "", subjectName: "");
 
   @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
-    majorList = MAJOR_DATA;
+    // majorList = MAJOR_DATA;
+    _fetch();
     subList = [];
+  }
+
+  _fetch() async {
+    ApiServices.getMajors().then((item) => {
+          if (item != null)
+            {
+              setState(() {
+                majorList = item;
+              })
+            }
+        });
+  }
+
+  getsubjectByMajorId(String id) async {
+    ApiServices.getSubjectBymajorId(id).then((item) => {
+          print("item: $item"),
+          if (item != null)
+            {
+              setState(() {
+                subList = item;
+              })
+            }
+        });
   }
 
   @override
@@ -237,8 +262,11 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                             ? true
                                             : false),
                                     onTap: () {
+                                      print("e.majorId: ${e.majorId}");
+
                                       setState(() {
-                                        final subs = SUBJECT_DATA.where((sub) {
+                                        getsubjectByMajorId(e.majorId);
+                                        final subs = subList.where((sub) {
                                           return sub.majorId == e.majorId;
                                         }).toList();
                                         isSelectMajor = e;
@@ -307,7 +335,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                               EdgeInsets.only(top: 25, bottom: 15, left: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: isSelectSubject.subjectId != 0
+                              primary: isSelectSubject.subjectId != ""
                                   ? MaterialColors.primary
                                   : MaterialColors.primary.withOpacity(0.5),
                               shape: RoundedRectangleBorder(
@@ -319,7 +347,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                               style:
                                   TextStyle(fontFamily: "Roboto", fontSize: 16),
                             ),
-                            onPressed: () => isSelectSubject.subjectId != 0
+                            onPressed: () => isSelectSubject.subjectId != ""
                                 ? {
                                     provider.setBookingDate(
                                         "${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}"),

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
+import 'package:twe/models/subject.dart';
 
 class ApiServices {
   static const baseURL = 'https://theweekendexpertise.azurewebsites.net/api/v1';
@@ -73,6 +74,24 @@ class ApiServices {
         List<MajorModel> majorModel =
             body.map((dynamic item) => MajorModel.fromJson(item)).toList();
         return majorModel;
+      } else if (response.statusCode == 404) {
+        return [];
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getSubjectBymajorId(String id) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${baseURL}/subjects/MajorId?majorId=${id}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<SubjectModel> subjectModel =
+            body.map((dynamic item) => SubjectModel.fromJson(item)).toList();
+        return subjectModel;
       } else if (response.statusCode == 404) {
         return [];
       }

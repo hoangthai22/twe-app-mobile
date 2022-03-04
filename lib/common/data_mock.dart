@@ -70,11 +70,11 @@ var MENTOR_DATA = [
 ];
 
 var SUBJECT_DATA = [
-  SubjectModel(subjectId: 1, majorId: 1, subjectName: "Database"),
-  SubjectModel(subjectId: 2, majorId: 1, subjectName: "Programing"),
-  SubjectModel(subjectId: 3, majorId: 2, subjectName: "Nhật 1"),
-  SubjectModel(subjectId: 4, majorId: 2, subjectName: "Nhật 2"),
-  SubjectModel(subjectId: 5, majorId: 3, subjectName: "Anh 3"),
+  SubjectModel(subjectId: "1", majorId: "1", subjectName: "Database"),
+  SubjectModel(subjectId: "2", majorId: "1", subjectName: "Programing"),
+  SubjectModel(subjectId: "3", majorId: "2", subjectName: "Nhật 1"),
+  SubjectModel(subjectId: "4", majorId: "2", subjectName: "Nhật 2"),
+  SubjectModel(subjectId: "5", majorId: "3", subjectName: "Anh 3"),
 ];
 var MAJOR_DATA = [
   MajorModel(majorId: "1", majorName: "Kỹ thuật phầm mềm"),

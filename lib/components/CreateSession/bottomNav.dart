@@ -17,8 +17,9 @@ class BottomNavMentorDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 45,
+        height: 55,
         padding: EdgeInsets.only(left: 15, right: 15),
+       
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
@@ -27,6 +28,7 @@ class BottomNavMentorDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
+                 margin: EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     color: checkInvited
                         ? MaterialColors.primary.withOpacity(0.5)

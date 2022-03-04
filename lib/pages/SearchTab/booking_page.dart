@@ -307,6 +307,8 @@ class BookingPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
+                              provider.setListMentorInviteEmpty();
+                          Navigator.of(context).pushNamed("/successful");
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,

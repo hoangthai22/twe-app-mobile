@@ -5,8 +5,8 @@ import 'package:twe/models/subject.dart';
 class FilterModal extends StatefulWidget {
   // final List<String> filterSub;
   final List<SubjectModel> subList;
-  final ValueChanged<int> onGetSub;
-  int checkedInit;
+  final ValueChanged<String> onGetSub;
+  String checkedInit;
 
   FilterModal(
       {Key? key,
@@ -77,7 +77,7 @@ class _FilterModal extends State<FilterModal> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            widget.checkedInit = 0;
+                            widget.checkedInit = "";
                             cachbackFunc();
                           });
                         },
@@ -145,10 +145,10 @@ class _FilterModal extends State<FilterModal> {
                                               setState(() {
                                                 if (item.subjectId ==
                                                     widget.checkedInit) {
-                                                  widget.checkedInit = 0;
+                                                  widget.checkedInit = "";
                                                 } else {
                                                   widget.checkedInit =
-                                                      item.subjectId;
+                                                      item.subjectId.toString();
                                                 }
                                                 // cachbackFunc();
                                               });
@@ -160,10 +160,10 @@ class _FilterModal extends State<FilterModal> {
                                                 setState(() {
                                                   if (item.subjectId ==
                                                       widget.checkedInit) {
-                                                    widget.checkedInit = 0;
+                                                    widget.checkedInit = "";
                                                   } else {
                                                     widget.checkedInit =
-                                                        item.subjectId;
+                                                        item.subjectId.toString();
                                                   }
                                                   // cachbackFunc();
                                                 });
