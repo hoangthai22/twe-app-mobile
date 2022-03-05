@@ -279,7 +279,8 @@ class _HomePage extends State<HomePage> {
                       child: Container(
                           child: InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/session');
+                          Navigator.of(context).pushNamed('/session',
+                              arguments: session["id"]);
                         },
                         child: SessionCard(session: session),
                       )),

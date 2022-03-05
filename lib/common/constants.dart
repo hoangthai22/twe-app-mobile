@@ -11,7 +11,7 @@ const SLOT = [
 ];
 
 class MaterialColors {
-  static const Color primary = Color(0xff107163);
+  static const Color primary = Color(0xff00AA13);
   static const Color error = Color.fromRGBO(244, 67, 54, 1.0);
   static const Color success = Color.fromRGBO(76, 175, 80, 1.0);
   static const Color warning = Color.fromRGBO(255, 152, 0, 1.0);

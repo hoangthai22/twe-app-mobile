@@ -1,23 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:twe/components/Session/infoClass.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
 import 'package:twe/pages/AccountTab/contact_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
+import 'package:twe/pages/AccountTab/my_session_page.dart';
+import 'package:twe/pages/AccountTab/nofication_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
 import 'package:twe/pages/HomeTab/ranking_page.dart';
 import 'package:twe/pages/HomeTab/suggest_session_page.dart';
+import 'package:twe/pages/LoginPage/login_page.dart';
+import 'package:twe/pages/LoginPage/sign_in.dart';
 import 'package:twe/pages/SearchTab/booking_page.dart';
 import 'package:twe/pages/SearchTab/coffee_detail_page.dart';
 import 'package:twe/pages/SearchTab/create_session_page.dart';
 import 'package:twe/pages/SearchTab/list_mentor_page.dart';
 import 'package:twe/pages/SearchTab/llist_cafe_page.dart';
 import 'package:twe/pages/SearchTab/mentor_detail_page.dart';
-import 'package:twe/pages/LoginPage/login_page.dart';
-import 'package:twe/pages/LoginPage/sign_in.dart';
-import 'package:twe/pages/AccountTab/nofication_page.dart';
+import 'package:twe/pages/SearchTab/session_detail_main_page.dart';
 import 'package:twe/pages/SearchTab/successful_page.dart';
 
 class RouteGenerator {
@@ -83,7 +84,19 @@ class RouteGenerator {
       case '/successful':
         return MaterialPageRoute(builder: (_) => SuccessfulPage());
       case '/session':
-        return MaterialPageRoute(builder: (_) => InfoClass());
+        return MaterialPageRoute(
+            builder: (_) => SessionDetailMainPage(
+                  isRequestTab: true,
+                  sessionId: (args.toString()),
+                ));
+      case '/session-request':
+        return MaterialPageRoute(
+            builder: (_) => SessionDetailMainPage(
+                  isRequestTab: true,
+                  sessionId: (args.toString()),
+                ));
+      case '/my-session':
+        return MaterialPageRoute(builder: (_) => MySessionPage());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

@@ -60,7 +60,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                 ),
               ],
             ),
-            margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+            margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
             // padding: EdgeInsets.all(10),
             child: InkWell(
                 onTap: () => onClick(),
@@ -235,7 +235,7 @@ class _CoffeeItem extends State<CoffeeItem> {
         ] else if (!widget.isTabPage && widget.isButton) ...[
           Positioned(
               right: 25,
-              bottom: 20,
+              top: 10,
               child: Container(
                 width: 120,
                 height: 40,

@@ -26,7 +26,10 @@ class SessionItem extends StatelessWidget {
         margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
         // padding: EdgeInsets.all(10),
         child: InkWell(
-          onTap: () => onClick(),
+          onTap: () => {
+            Navigator.of(context)
+                .pushNamed('/session', arguments: session.sessionId)
+          },
           child: Stack(
             children: [
               Container(
@@ -142,7 +145,7 @@ class SessionItem extends StatelessWidget {
                                 child: Text(
                                     COFFEE_DATA[0].name! +
                                         ", " +
-                                        COFFEE_DATA[0].distric!,
+                                        COFFEE_DATA[0].street!,
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400)),

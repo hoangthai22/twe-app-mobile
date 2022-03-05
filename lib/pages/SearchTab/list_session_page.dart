@@ -51,7 +51,7 @@ class _ListSessionPage extends State<ListSessionPage> {
     SessionModel(
         mentorName: MENTOR_DATA[0].fullname,
         description: MENTOR_DATA[0].description,
-        sessionId: "1",
+        sessionId: "2",
         subject: "Kỹ Thuật Phần Mềm",
         date: "2022-02-20, 09:00 - 10:30",
         slot: 1,
@@ -64,7 +64,7 @@ class _ListSessionPage extends State<ListSessionPage> {
     SessionModel(
         mentorName: MENTOR_DATA[0].fullname,
         description: MENTOR_DATA[0].description,
-        sessionId: "1",
+        sessionId: "3",
         subject: "Kỹ Thuật Phần Mềm",
         slot: 1,
         date: "2022-02-20, 09:00 - 10:30",
