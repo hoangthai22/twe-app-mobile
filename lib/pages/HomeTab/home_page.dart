@@ -95,7 +95,7 @@ class _HomePage extends State<HomePage> {
                             margin: EdgeInsets.only(top: 0),
                             child: Row(children: [
                               Container(
-                                width: 45,
+                                width: 60,
                                 child: Image.asset(
                                   'assets/logo_transparent.png',
                                   fit: BoxFit.cover,
@@ -110,12 +110,12 @@ class _HomePage extends State<HomePage> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                "learn",
+                                "Learn",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w400),
+                                    fontWeight: FontWeight.w700),
                               ),
                             ]),
                           ),
@@ -248,7 +248,7 @@ class _HomePage extends State<HomePage> {
                       Padding(
                         padding: EdgeInsets.only(top: 30, bottom: 20),
                         child: Text(
-                          "Gợi ý cho bạn!",
+                          "Danh mục buổi học thích hợp với bạn",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 16,
@@ -295,7 +295,7 @@ class _HomePage extends State<HomePage> {
                       Padding(
                         padding: EdgeInsets.only(top: 30, bottom: 20),
                         child: Text(
-                          "Top Mentor của tháng!",
+                          "Mentor nổi bật",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 16,
