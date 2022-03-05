@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MySession extends StatelessWidget {
-  const MySession({Key? key}) : super(key: key);
+class MySessionPage extends StatelessWidget {
+  const MySessionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

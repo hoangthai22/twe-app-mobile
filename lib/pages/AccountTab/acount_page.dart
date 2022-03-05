@@ -41,6 +41,8 @@ class _AccountPage extends State<AccountPage> {
       Navigator.pushNamed(context, '/history');
     } else if (item == btnSetting[ButtonSetting.contact].toString()) {
       Navigator.pushNamed(context, '/contact');
+    } else if (item == btnSetting[ButtonSetting.sessions].toString()) {
+      Navigator.pushNamed(context, '/my-session');
     }
     // } else if (index == btnSetting[ButtonSetting.history]) {
     //   Navigator.pushNamed(context, '/history');
