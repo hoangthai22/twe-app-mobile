@@ -5,6 +5,7 @@ import 'package:twe/main.dart';
 import 'package:twe/pages/AccountTab/contact_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
+import 'package:twe/pages/AccountTab/member_detail_page.dart';
 import 'package:twe/pages/AccountTab/my_session_page.dart';
 import 'package:twe/pages/AccountTab/nofication_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
@@ -97,6 +98,8 @@ class RouteGenerator {
                 ));
       case '/my-session':
         return MaterialPageRoute(builder: (_) => MySessionPage());
+      case '/member-detail':
+        return MaterialPageRoute(builder: (_) => MemberDetailPage());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
