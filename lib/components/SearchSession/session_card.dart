@@ -128,6 +128,29 @@ class SessionCard extends StatelessWidget {
               children: [
                 Container(
                   child: Icon(
+                    IconData(0xe743, fontFamily: 'MaterialIcons'),
+                    size: 22,
+                    color: MaterialColors.primary,
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    session["mentor"] ?? "",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.normal),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: Icon(
                     IconData(0xef68, fontFamily: 'MaterialIcons'),
                     color: MaterialColors.primary,
                     size: 22,
@@ -145,31 +168,8 @@ class SessionCard extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(5),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: Icon(
-                    IconData(0xe743, fontFamily: 'MaterialIcons'),
-                    size: 22,
-                    color: MaterialColors.primary,
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    session["mentor"] ?? "",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.normal),
-                  ),
-                )
-              ],
-            ),
-          ),
           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: EdgeInsets.all(5),
