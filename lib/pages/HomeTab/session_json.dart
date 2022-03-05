@@ -6,9 +6,9 @@ const List sessionItems = [
         "https://d3mxt5v3yxgcsr.cloudfront.net/courses/5819/course_5819_image.jpg",
     "date": " 01/03/2022",
     "time": " 07:00 - 09:00",
-    "mentor": " Lâm Hữu Khánh Phương",
-    "address": "Moda coffee",
-    "price": "250000"
+    "mentor": " Lại Đức Hùng",
+    "address": "Moda Coffee",
+    "price": "1000000"
   },
   { "id":"2",
     "name": "Inheritance",
@@ -16,9 +16,9 @@ const List sessionItems = [
         "https://codelearn.io/Upload/Blog/tinh-ke-thua-trong-OOP-63729699128.2913.jpg",
     "date": " 02/03/2022",
     "time": " 07:00 - 09:00",
-    "mentor": " Nguyễn Thế Hoàng",
-    "address": "Hightland coffee",
-    "price": "250000"
+    "mentor": " Lâm Hữu Khánh Phương",
+    "address": "Hightland Coffee",
+    "price": "750000"
   },
   { "id":"3",
     "name": "Go",
@@ -26,8 +26,8 @@ const List sessionItems = [
         "https://teky.edu.vn/blog/wp-content/uploads/2021/07/ngon-ngu-golang-la-gi.jpg",
     "date": " 03/03/2022",
     "time": " 13:00 - 14:30",
-    "mentor": " Lại Đức Hùng",
-    "address": "Gongcha coffee",
+    "mentor": " Phạm Công Thành",
+    "address": "Gongcha Coffee",
     "price": "500000"
   },
   {
@@ -37,8 +37,8 @@ const List sessionItems = [
     "date": " 03/03/2022",
     "time": " 13:00 - 14:30",
     "mentor": " Nguyễn Thế Hoàng",
-    "address": "Hightland coffee",
-    "price": "520000"
+    "address": "Hightland Coffee",
+    "price": "500000"
   }
 ];
 
@@ -64,5 +64,42 @@ const List mentorItems = [
     "name": "Phạm Công Thành",
     "image":
         "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/50505637_2207916202806049_2190673615790276608_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=y-wS1ilfH-wAX9NBKBm&_nc_ht=scontent.fsgn5-8.fna&oh=00_AT-nNpPTxN1K_X-Lh5ccPcUsTU5fwJp4tixMcX5R0jLPCQ&oe=62436660"
+  },
+];
+
+const List sessionSuggestItem = [
+  {
+    "name": "Human-Computer Interaction",
+    "image":
+        "https://lambanner.com/wp-content/uploads/2016/10/lambanner-27-banner-quang-cao-cong-ngher-1130x570.png"
+  },
+  {
+    "name": "Software Architecture and Design",
+    "image":
+        "https://images.viblo.asia/cfc8e176-69c5-4eb8-92df-1e6233813e21.png"
+  },
+];
+const List sessionSuggestItem1 = [
+  {
+    "name": "Mobile Programming",
+    "image":
+        "https://lambanner.com/wp-content/uploads/2016/11/lambanner-huong-dan-thiet-ke-banner-tren-mang-hien-thi-google.png"
+  },
+  {
+    "name": "Database Systems",
+    "image":
+        "https://s3.amazonaws.com/omiweb/wp-content/uploads/2017/11/07130440/ytmarketing.jpg"
+  },
+];
+const List sessionSuggestItem2 = [
+  {
+    "name": "Project Management",
+    "image":
+        "https://sas-production-uploads.s3.eu-west-2.amazonaws.com/article_main_img/tool/large_313101385.png"
+  },
+  {
+    "name": "Capstone Project",
+    "image":
+        "https://www.teachervision.com/sites/default/files/styles/scale600w/public/vocab-intro-images/subjects-featured-image.png"
   },
 ];
