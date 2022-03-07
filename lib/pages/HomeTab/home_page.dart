@@ -225,6 +225,7 @@ class _HomePage extends State<HomePage> {
               ),
               Stack(
                 children: [
+                  Padding(padding: EdgeInsets.only(bottom: 40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -240,6 +241,112 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
+
+              Stack(
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 231, 218, 218),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(padding: EdgeInsets.only(top: 0.0)),
+                        /* Container(
+            width: 100,
+            height: 150,
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Image.network(getImageNetwork(session["icon"]))),
+          ),*/
+
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.assignment_turned_in_rounded,
+                                            color:
+                                                Color.fromARGB(255, 7, 23, 172),
+                                            size: 25,
+                                          ),
+                                          Text(
+                                            " Buổi học của ngày hôm nay",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 7, 23, 172),
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "          Buổi học với Lại Đức Hùng",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "          Hôm nay, 10:00 - 11:30 am",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "          Địa điểm, Moda coffee",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+
               Stack(
                 children: [
                   Row(
@@ -261,7 +368,14 @@ class _HomePage extends State<HomePage> {
                         },
                         child: Container(
                           padding: EdgeInsets.only(top: 30, bottom: 20),
-                          child: Text("Xem thêm"),
+                          child: Text(
+                            "Xem thêm",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: MaterialColors.primary,
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       )
                     ],
@@ -279,8 +393,8 @@ class _HomePage extends State<HomePage> {
                       child: Container(
                           child: InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/session',
-                              arguments: session["id"]);
+                          Navigator.of(context)
+                              .pushNamed('/session', arguments: session["id"]);
                         },
                         child: SessionCard(session: session),
                       )),
@@ -309,7 +423,14 @@ class _HomePage extends State<HomePage> {
                         },
                         child: Container(
                           padding: EdgeInsets.only(top: 30, bottom: 20),
-                          child: Text("Xem thêm"),
+                          child: Text(
+                            "Xem thêm",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: MaterialColors.primary,
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       )
                     ],
