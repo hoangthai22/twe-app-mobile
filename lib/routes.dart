@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:twe/components/app.dart';
 import 'package:twe/main.dart';
 import 'package:twe/pages/AccountTab/contact_page.dart';
+import 'package:twe/pages/AccountTab/feedback_session_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
 import 'package:twe/pages/AccountTab/member_detail_page.dart';
@@ -100,6 +101,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MySessionPage());
       case '/member-detail':
         return MaterialPageRoute(builder: (_) => MemberDetailPage());
+      case '/feedback-history':
+        return MaterialPageRoute(
+            builder: (_) => FeedbackSessionPage(
+                  historyId: (args.toString()),
+                ));
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

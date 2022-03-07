@@ -6,7 +6,7 @@ import 'package:twe/components/CreateSession/mentorItemInvite.dart';
 import 'package:twe/components/SearchCoffee/coffeeItem.dart';
 
 class FeedbackSessionPage extends StatefulWidget {
-  final int historyId;
+  final String historyId;
 
   FeedbackSessionPage({Key? key, required this.historyId}) : super(key: key);
   @override
@@ -116,11 +116,11 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
             ),
             Container(
                 margin: EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border(
                       bottom: BorderSide(width: 1, color: Colors.black12),
-                      top: BorderSide(width: 1, color: Colors.black12),
                     )),
                 child: CoffeeItem(
                   isButton: false,
@@ -129,8 +129,8 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                   onSubmit: (coffee) {},
                   isTabPage: false,
                   isStar: false,
-                  heightImg: 80,
-                  widthImg: 80,
+                  heightImg: 130,
+                  widthImg: 100,
                 )),
             Container(
               padding: EdgeInsets.all(15),
