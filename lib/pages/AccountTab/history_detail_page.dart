@@ -266,7 +266,12 @@ class HistoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.of(context).pushNamed(
+                          '/feedback-history',
+                          arguments: historyId,
+                        )
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: MaterialColors.primary,
                         textStyle: TextStyle(color: Colors.white),

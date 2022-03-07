@@ -101,6 +101,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MySessionPage());
       case '/member-detail':
         return MaterialPageRoute(builder: (_) => MemberDetailPage());
+      case '/feedback-history':
+        return MaterialPageRoute(
+            builder: (_) => FeedbackSessionPage(
+                  historyId: (args.toString()),
+                ));
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
