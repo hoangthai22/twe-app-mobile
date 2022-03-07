@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
-import 'package:twe/common/utils.dart';
-import 'package:twe/components/Feedback/feedback.dart';
 import 'package:twe/components/SearchMentor/feedback_tab.dart';
 import 'package:twe/components/SearchMentor/infoTab.dart';
 import 'package:twe/components/SearchMentor/sessionMentorTab.dart';
@@ -27,10 +24,10 @@ class CustomTabMentor extends StatefulWidget {
             text: ("Thông tin"),
           ),
           Tab(
-            text: ("Đánh giá"),
+            text: ("Lịch biểu"),
           ),
           Tab(
-            text: ("Lịch dạy"),
+            text: ("Đánh giá"),
           ),
         ],
       );
@@ -70,9 +67,9 @@ class _CustomTabMentor extends State<CustomTabMentor> {
             InfoTab(
               mentor: widget.mentor,
             ),
+            SessionMentorTab(),
             FeedbackTab(
                 listFeedback: listFeedback, rate: widget.mentor.rate! + .0),
-            SessionMentorTab()
           ],
         ),
       ),

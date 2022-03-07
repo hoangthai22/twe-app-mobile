@@ -75,7 +75,7 @@ class _AppBarSearchMentor extends State<AppBarSearchMentor> {
                 autofocus: false,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Tìm một gia sư',
+                    hintText: 'Tìm một Mentor',
                     suffixIcon: hidingIcon()),
               ),
             )),

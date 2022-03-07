@@ -40,7 +40,7 @@ const Map<ButtonSetting, String> btnSetting = {
   ButtonSetting.nofi: 'Thông báo',
   ButtonSetting.history: 'Lịch sử',
   ButtonSetting.sessions: 'Buổi học của tôi',
-  ButtonSetting.favorite: 'Gia sư Yêu thích',
+  ButtonSetting.favorite: 'Mentor Yêu thích',
   ButtonSetting.contact: 'Liên hệ với chúng tôi',
   ButtonSetting.logout: 'Đăng xuất',
 };

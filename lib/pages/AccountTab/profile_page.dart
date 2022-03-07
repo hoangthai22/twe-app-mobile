@@ -68,11 +68,10 @@ class _ProfilePage extends State<ProfilePage> {
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: MaterialColors.primary,
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: Colors.white, width: 3)
-                                
-                          ),
+                              color: MaterialColors.primary,
+                              borderRadius: BorderRadius.circular(50),
+                              border:
+                                  Border.all(color: Colors.white, width: 3)),
                           child: Icon(
                             Icons.edit,
                             color: Colors.white,
@@ -213,37 +212,40 @@ class _ProfilePage extends State<ProfilePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (valid) {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Cập nhật thành công')),
-                          );
-                          handleSubmit();
-                        }
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: valid
-                          ? MaterialColors.primary
-                          : MaterialColors.primary.withOpacity(0.5),
-                      textStyle: TextStyle(color: Colors.white),
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Container(
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (valid) {
+                            if (_formKey.currentState!.validate()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Cập nhật thành công')),
+                              );
+                              handleSubmit();
+                            }
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: valid
+                              ? MaterialColors.primary
+                              : MaterialColors.primary.withOpacity(0.5),
+                          textStyle: TextStyle(color: Colors.white),
+                          shadowColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          "Cập nhật",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      "Cập nhật",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
+                    )),
               ],
             ),
           ),

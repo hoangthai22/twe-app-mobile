@@ -265,29 +265,32 @@ class HistoryDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () => {
-                        Navigator.of(context).pushNamed(
-                          '/feedback-history',
-                          arguments: historyId,
-                        )
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: MaterialColors.primary,
-                        textStyle: TextStyle(color: Colors.white),
-                        shadowColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
+                    Container(
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () => {
+                          Navigator.of(context).pushNamed(
+                            '/feedback-history',
+                            arguments: historyId,
+                          )
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: MaterialColors.primary,
+                          textStyle: TextStyle(color: Colors.white),
+                          shadowColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          "Đánh giá",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
-                      child: Text(
-                        "Đánh giá",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
+                    )
                   ],
                 ),
               )
