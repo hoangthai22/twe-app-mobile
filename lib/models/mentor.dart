@@ -11,10 +11,18 @@ class MentorModel {
   int? price;
   String? birthday;
   bool? status;
-  int? rate;
+  double? rate;
   List<dynamic>? listCertificate;
   List<dynamic>? listMajor;
   List<dynamic>? listSkill;
+
+  static double checkDouble(dynamic value) {
+    if (value is String) {
+      return double.parse(value);
+    } else {
+      return value.toDouble();
+    }
+  }
 
   MentorModel(
       {this.id,
@@ -43,7 +51,7 @@ class MentorModel {
       price: json['price'],
       image: json['image'],
       birthday: json['birthday'],
-      rate: json['rate'],
+      rate: json['rate'] == null ? 0.0 : json['rate'].toDouble(),
       status: json['status'],
       listMajor: json['listMajor'],
       listSkill: json['listSkill'],

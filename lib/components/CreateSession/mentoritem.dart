@@ -167,7 +167,7 @@ class MentorItem extends StatelessWidget {
                                                     color: Colors.amber,
                                                   );
                                                 }).toList(),
-                                              Container(child: Text(" (5.0)",style: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500),),)
+                                              Container(child: Text(" (${mentor.rate})",style: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500),),)
                                             ]),
                                           )),
                                         ]),

@@ -106,7 +106,7 @@ class MemberRequestItem extends StatelessWidget {
             width: 120,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black12,
+                  primary: MaterialColors.muted,
                   textStyle: TextStyle(color: Colors.white),
                   shadowColor: Colors.white,
                   shape: RoundedRectangleBorder(
