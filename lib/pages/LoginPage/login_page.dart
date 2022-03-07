@@ -68,7 +68,7 @@ class _LoginPage extends State<LoginPage> {
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Text(
-              "Tìm gia sư cho bạn",
+              "Tìm Mentor cho bạn",
               style: TextStyle(
                 fontFamily: "Roboto",
                 fontSize: 14,

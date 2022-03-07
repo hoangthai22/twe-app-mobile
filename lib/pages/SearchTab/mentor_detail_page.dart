@@ -52,56 +52,10 @@ class _MentorDetailPage extends State<MentorDetailPage> {
     Navigator.pop(context);
     // return _ModalBottom(context);
   }
-
-  // void onRedirect(context) {
-  //   widget.onPush(widget.mentorId);
-  // }
-
-  void _ModalBottom(context) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
-        builder: (BuildContext bc) {
-          return ScheduleModal(
-              onGetSlot: (i) => setState(() {
-                    slot = SLOT[i];
-                    slotNumber = i + 1;
-                  }),
-              onGetDate: (d) => {
-                    setState(() {
-                      String YYYY_MM_DD = d.toIso8601String().split('T').first;
-                      date = YYYY_MM_DD;
-                    }),
-                  });
-        });
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: BackButton(
-      //     color: Colors.white,
-      //   ),
-      //   toolbarHeight: 65,
-      //   centerTitle: true,
-      //   title: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Text(
-      //         "Thông tin Mentor",
-      //         style: TextStyle(
-      //           color: Colors.white,
-      //           fontFamily: "Roboto",
-      //           // fontSize: 18,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      //   backgroundColor: MaterialColors.primary,
-      // ),
       body: Stack(
         alignment: Alignment.center,
         children: [

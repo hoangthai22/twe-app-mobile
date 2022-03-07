@@ -7,6 +7,7 @@ import 'package:twe/pages/AccountTab/feedback_session_page.dart';
 import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
 import 'package:twe/pages/AccountTab/member_detail_page.dart';
+import 'package:twe/pages/AccountTab/my_session_main_page.dart';
 import 'package:twe/pages/AccountTab/my_session_page.dart';
 import 'package:twe/pages/AccountTab/nofication_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
@@ -98,7 +99,7 @@ class RouteGenerator {
                   sessionId: (args.toString()),
                 ));
       case '/my-session':
-        return MaterialPageRoute(builder: (_) => MySessionPage());
+        return MaterialPageRoute(builder: (_) => MyMeetingMainPage());
       case '/member-detail':
         return MaterialPageRoute(builder: (_) => MemberDetailPage());
       case '/feedback-history':
