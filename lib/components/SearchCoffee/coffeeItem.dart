@@ -209,7 +209,7 @@ class _CoffeeItem extends State<CoffeeItem> {
         if (widget.isTabPage && widget.isButton) ...[
           Positioned(
               right: 30,
-              bottom: 20,
+              bottom: 30,
               child: Container(
                 width: 100,
                 height: 40,

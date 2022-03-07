@@ -58,7 +58,7 @@ class HistoryDetailPage extends StatelessWidget {
                       onSubmit: (coffee) {},
                       isTabPage: false,
                       isStar: true,
-                      heightImg: 110,
+                      heightImg: 130,
                       widthImg: 110)),
               Container(
                 decoration: BoxDecoration(
