@@ -116,10 +116,10 @@ class MemberRequestItem extends StatelessWidget {
                 child: Text(
                   "Hủy bỏ",
                   style: TextStyle(
-                      color: Colors.black54,
                       fontFamily: 'Roboto',
                       fontSize: 15,
-                      fontWeight: FontWeight.w700),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
                 ),
                 onPressed: () => {}),
           ),

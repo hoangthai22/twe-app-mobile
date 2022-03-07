@@ -33,7 +33,7 @@ class BottomNavMentorDetail extends StatelessWidget {
                     color: checkInvited
                         ? MaterialColors.primary.withOpacity(0.5)
                         : MaterialColors.primary,
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
                   // width: 180,
                   width: MediaQuery.of(context).size.width * 0.9,
