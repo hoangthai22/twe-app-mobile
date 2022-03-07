@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/Loading/loading.dart';
-import 'package:twe/components/SearchMentor/mentor_card.dart';
+import 'package:twe/components/SearchMentor/mentorCard.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
 import 'package:twe/components/SearchSession/session_card.dart';

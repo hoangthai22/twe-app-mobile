@@ -4,6 +4,7 @@ import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/utils.dart';
 import 'package:twe/components/Feedback/feedback.dart';
+import 'package:twe/components/SearchMentor/customMentorTab.dart';
 import 'package:twe/components/SearchMentor/scheduleModal.dart';
 import 'package:twe/models/feedback.dart';
 import 'package:twe/models/mentor.dart';
@@ -37,9 +38,10 @@ class _MentorDetailPage extends State<MentorDetailPage> {
             listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
           })
         });
-
+    print(widget.mentorId);
     ApiServices.getListFeebackByMentorId(widget.mentorId, 1, 3)
         .then((value) => {
+              print(value),
               setState(() {
                 listFeedback = value;
               })
@@ -79,26 +81,27 @@ class _MentorDetailPage extends State<MentorDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          color: Colors.white,
-        ),
-        toolbarHeight: 65,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Thông tin Mentor",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Roboto",
-                // fontSize: 18,
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: MaterialColors.primary,
-      ),
+      // appBar: AppBar(
+      //   leading: BackButton(
+      //     color: Colors.white,
+      //   ),
+      //   toolbarHeight: 65,
+      //   centerTitle: true,
+      //   title: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       Text(
+      //         "Thông tin Mentor",
+      //         style: TextStyle(
+      //           color: Colors.white,
+      //           fontFamily: "Roboto",
+      //           // fontSize: 18,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      //   backgroundColor: MaterialColors.primary,
+      // ),
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -115,18 +118,20 @@ class _MentorDetailPage extends State<MentorDetailPage> {
             Container(
                 color: Colors.white,
                 child: ListView(
-                  padding: const EdgeInsets.only(
-                      right: 15, left: 15, top: 15, bottom: 30),
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 0, bottom: 30),
                   children: [
+                    ClipRRect(
+                        child: Image(
+                      // color:70olors.red,
+                      height: 130,
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/images%2F275131878_1363339264094920_2110274767432423810_n.jpg?alt=media&token=615fadd0-f8e9-4a64-b5e8-4f96f4f60247"),
+                    )),
                     Container(
-                        decoration: BoxDecoration(color: Colors.white),
                         alignment: Alignment.center,
-                        child: CircleAvatar(
-                          radius: 60, // Image radius
-                          backgroundImage: NetworkImage(mentor.image!),
-                        )),
-                    Container(
-                        padding: const EdgeInsets.only(top: 15, bottom: 10),
+                        padding: const EdgeInsets.only(top: 45, bottom: 10),
                         child: Text(
                           mentor.fullname!,
                           style: TextStyle(
@@ -137,10 +142,10 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                         )),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 130,
+                          width: 150,
                           height: 20,
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,7 +157,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                                       ...listRate.map((e) {
                                         return Icon(
                                           Icons.star,
-                                          size: 18,
+                                          size: 22,
                                           color: Colors.amber,
                                         );
                                       }).toList(),
@@ -160,13 +165,13 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                                       ...listRateEmpty.map((e) {
                                         return Icon(
                                           Icons.star_border,
-                                          size: 18,
+                                          size: 22,
                                           color: Colors.amber,
                                         );
                                       }).toList(),
                                     Container(
                                       child: Text(
-                                        " (5.0)",
+                                        " (${mentor.rate! + .0})",
                                         style: TextStyle(
                                             fontFamily: "Roboto",
                                             fontWeight: FontWeight.w500),
@@ -181,14 +186,14 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                           child: const Icon(
                             Icons.price_change_outlined,
                             color: MaterialColors.primary,
-                            size: 20.0,
+                            size: 22.0,
                           ),
                         ),
                         Container(
                             child: Text(
-                          "~${mentor.price!}.000/buổi",
+                          "${mentor.price!}/buổi",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Roboto',
                           ),
@@ -196,425 +201,12 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       ],
                     ),
                     Container(
-                      height: 50,
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                                child: Container(
-                                    height: 35,
-                                    child: ListView(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        children: mentor.listMajor!
-                                            .map(
-                                              (item) => Container(
-                                                margin: EdgeInsets.only(
-                                                  right: 5,
-                                                  top: 5,
-                                                ),
-                                                padding: EdgeInsets.all(7),
-                                                decoration: BoxDecoration(
-                                                  color: MaterialColors.primary,
-                                                  border: Border.all(
-                                                      color: MaterialColors
-                                                          .primary,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                child: Text(
-                                                  item,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                            .toList())))
-                          ]),
-                    ),
-                    Container(
-                        decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.black12, width: 1.0)),
-                        ),
-                        padding: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: Text(
-                          mentor.description!,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Roboto',
-                          ),
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: GFAccordion(
-                        titlePadding: EdgeInsets.all(0),
-                        margin: EdgeInsets.all(0),
-                        collapsedTitleBackgroundColor: Colors.white,
-                        expandedTitleBackgroundColor: Colors.white,
-                        title: 'Thông tin về tôi',
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                        ),
-                        collapsedIcon: Icon(
-                          Icons.keyboard_arrow_down,
-                          size: 32,
-                        ),
-                        expandedIcon: Icon(
-                          Icons.keyboard_arrow_up,
-                          size: 32,
-                        ),
-                        contentChild: Container(
-                            // height: 470,
-                            constraints: BoxConstraints(
-                              minHeight: 400,
-                              minWidth: double.infinity,
-                            ),
-                            child: ListView(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: const Icon(
-                                          Icons.schedule,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              Text(
-                                                "Ngày sinh",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Text(
-                                                  mentor.birthday!,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.phone,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              Text(
-                                                "Số điện thoại",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Text(
-                                                  mentor.phone!,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.language,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              const Text(
-                                                "Ngôn ngữ",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: const Text(
-                                                  "Tiếng Việt",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.school,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              const Text(
-                                                "Chuyên ngành",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Text(
-                                                  getMajorString(
-                                                      mentor.listMajor!),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.subject,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              const Text(
-                                                "Kỹ năng",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Text(
-                                                  skill,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.black12, width: 1.0)),
-                                  ),
-                                  padding: const EdgeInsets.only(
-                                      top: 15, bottom: 25),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.cast_for_education,
-                                          color: MaterialColors.primary,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: ListView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            children: [
-                                              const Text(
-                                                "Kinh nghiệm làm việc",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Roboto',
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                ),
-                                                child: Text(
-                                                  mentor.description!,
-                                                  maxLines: 6,
-                                                  style: TextStyle(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: 14),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )),
+                      height: MediaQuery.of(context).size.height - 280,
+                      width: MediaQuery.of(context).size.width,
+                      child: CustomTabMentor(
+                        mentor: mentor,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Text(
-                        "Nhận xét của học sinh (${listFeedback.length})",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 170,
-                      width: 300,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: listFeedback
-                              .map(
-                                (feedback) => FeedBack(
-                                  avatar: feedback.memberImage!,
-                                  userId: 1,
-                                  userName: feedback.memberName!,
-                                  feedbackContent: feedback.feedbackOfMentor!,
-                                  time: feedback.dateMentorFeedback!,
-                                ),
-                              )
-                              .toList()),
-                    )
                   ],
                 )),
             Positioned(
@@ -634,9 +226,19 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                     //           }),
                     // );
                     Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 50,
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                   child: ElevatedButton(
-                    child: Text(checkInvited ? ("Đã Mời") : ("Mời")),
+                    child: Text(
+                      checkInvited ? ("Đã Mời") : ("Lên lịch học"),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500),
+                    ),
                     style: ElevatedButton.styleFrom(
                       primary: checkInvited
                           ? MaterialColors.primary.withOpacity(0.5)
@@ -657,6 +259,40 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                 );
               }),
             )
+          ],
+          if (!isLoading) ...[
+            Positioned(
+              top: 60,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 54.0,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(mentor.image!),
+                  radius: 50.0,
+                ),
+              ),
+            ),
+            Positioned(
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white38,
+                ),
+                child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 24,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ),
+              top: 30,
+              left: 15,
+            ),
           ]
         ],
       ),
