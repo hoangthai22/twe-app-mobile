@@ -209,7 +209,7 @@ class SessionItem extends StatelessWidget {
                           textStyle: TextStyle(color: Colors.white),
                           shadowColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18)),
+                              borderRadius: BorderRadius.circular(12)),
                         ),
                         child: Container(
                           child: Row(

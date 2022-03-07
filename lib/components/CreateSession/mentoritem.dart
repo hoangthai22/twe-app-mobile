@@ -34,7 +34,6 @@ class MentorItem extends StatelessWidget {
     var listRate = [for (var i = 1; i <= mentor.rate!; i++) i];
     var listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
 
-   
     return Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -132,7 +131,8 @@ class MentorItem extends StatelessWidget {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Roboto',
-                                                                  color: Colors.white,
+                                                                  color: Colors
+                                                                      .white,
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
@@ -167,7 +167,15 @@ class MentorItem extends StatelessWidget {
                                                     color: Colors.amber,
                                                   );
                                                 }).toList(),
-                                              Container(child: Text(" (${mentor.rate})",style: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500),),)
+                                              Container(
+                                                child: Text(
+                                                  " (${mentor.rate})",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              )
                                             ]),
                                           )),
                                         ]),
@@ -193,42 +201,20 @@ class MentorItem extends StatelessWidget {
                       ),
                     ],
                   )),
-              (isBtnInvite == true
-                  ? Consumer<AppProvider>(builder: (context, provider, child) {
-                      var checkInvited =
-                          provider.getListMentorInvite.contains(mentor);
-                      return Positioned(
-                          right: 15,
-                          top: 30,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: checkInvited
-                                  ? MaterialColors.primary.withOpacity(0.5)
-                                  : MaterialColors.primary,
-                              textStyle: TextStyle(color: Colors.white),
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child:
-                                checkInvited ? Text("Đã Mời") : Text("Mời"),
-                            onPressed: () => checkInvited ? null : onRedirect(),
-                          ));
-                    })
-                  : Container()),
               Positioned(
                   bottom: 10,
                   left: 10,
                   child: Container(
-                    width: MediaQuery.of(context).size.width - 50,
+                    width: isBtnInvite
+                        ? MediaQuery.of(context).size.width * 0.425
+                        : MediaQuery.of(context).size.width - 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: MaterialColors.primary,
                         textStyle: TextStyle(color: Colors.white),
                         shadowColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       child: Text(
@@ -241,7 +227,40 @@ class MentorItem extends StatelessWidget {
                       ),
                       onPressed: () => onClick(),
                     ),
-                  ))
+                  )),
+              (isBtnInvite == true
+                  ? Consumer<AppProvider>(builder: (context, provider, child) {
+                      provider.getListMentorInvite.length > 0
+                          ? print(provider.getListMentorInvite[0].id)
+                          : print("object");
+                      print(mentor.id);
+                      var checkInvited =
+                          provider.getListMentorInvite.contains(mentor);
+                      return Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.425,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: checkInvited
+                                    ? MaterialColors.primary.withOpacity(0.5)
+                                    : MaterialColors.primary,
+                                textStyle: TextStyle(color: Colors.white),
+                                shadowColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              child: checkInvited
+                                  ? Text("Đã Mời")
+                                  : Text("Mời"),
+                              onPressed: () =>
+                                  checkInvited ? null : onRedirect(),
+                            ),
+                          ));
+                    })
+                  : Container()),
             ],
           ),
         ));
