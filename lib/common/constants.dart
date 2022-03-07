@@ -15,7 +15,7 @@ class MaterialColors {
   static const Color error = Color.fromRGBO(244, 67, 54, 1.0);
   static const Color success = Color.fromRGBO(76, 175, 80, 1.0);
   static const Color warning = Color.fromRGBO(255, 152, 0, 1.0);
-  static const Color muted = Color.fromRGBO(151, 151, 151, 1.0);
+  static const Color muted = Color(0xff7D7C99);
 }
 
 class HistoryColor {

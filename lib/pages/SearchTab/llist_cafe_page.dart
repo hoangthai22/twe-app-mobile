@@ -22,8 +22,8 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   @override
   void initState() {
     super.initState();
-    coffeeList = COFFEE_DATA;
-    // _fetch();
+    // coffeeList = COFFEE_DATA;
+    _fetch();
   }
 
   _fetch() async {
@@ -32,7 +32,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     });
     List<CoffeeModel> coffees = [];
     List<CoffeeModel> newList = [];
-    ApiServices.getListCoffeePagination(page, 4).then((item) => {
+    ApiServices.getListCoffeePagination(page, 10).then((item) => {
       print(item),
           if (item != null)
             {

@@ -128,7 +128,7 @@ class ApiServices {
     try {
       var response = await http.get(
         Uri.parse(
-            '${baseURL}/mentors/feedbacks/${mentorId}?pageIndex=${page}&pageSize=${limit}'),
+            '${baseURL}/mentors/feedback/${mentorId}?pageIndex=${page}&pageSize=${limit}'),
       );
       if (response.statusCode == 200) {
         List<dynamic> body = convert.jsonDecode(response.body);

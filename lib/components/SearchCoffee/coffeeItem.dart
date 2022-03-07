@@ -234,53 +234,17 @@ class _CoffeeItem extends State<CoffeeItem> {
               ))
         ] else if (!widget.isTabPage && widget.isButton) ...[
           Positioned(
-              right: 25,
-              top: 10,
-              child: Container(
-                width: 120,
-                height: 40,
-                child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        isLike = true;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      textStyle: TextStyle(color: Colors.white),
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          side: BorderSide(
-                              color: isLike
-                                  ? MaterialColors.primary
-                                  : Colors.black38,
-                              width: 1)),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            isLike ? Icons.favorite : Icons.favorite_outline,
-                            size: 24,
-                            color:
-                                isLike ? MaterialColors.primary : Colors.black,
-                          ),
-                        ),
-                        Text(
-                          "Yêu thích",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: isLike
-                                  ? MaterialColors.primary
-                                  : Colors.black,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )),
-              ))
+            right: 30,
+            top: 20,
+            child: Container(
+              margin: EdgeInsets.only(right: 5),
+              child: Icon(
+                isLike ? Icons.favorite : Icons.favorite_outline,
+                size: 32,
+                color: isLike ? MaterialColors.primary : Colors.black,
+              ),
+            ),
+          )
         ]
       ],
     );

@@ -10,9 +10,10 @@ class MentorPageMainTab extends StatefulWidget {
         labelColor: MaterialColors.primary,
         indicatorWeight: 2,
         labelStyle: TextStyle(
-            fontFamily: "Roboto", fontSize: 16, fontWeight: FontWeight.w400),
+            fontFamily: "Roboto", fontSize: 16, fontWeight: FontWeight.w600),
         indicatorColor: Color(0xff107162),
-        unselectedLabelColor: Colors.black,
+        unselectedLabelColor: Colors.black54,
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
         tabs: [
           Tab(
             text: ("Đề xuất"),

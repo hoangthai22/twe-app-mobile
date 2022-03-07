@@ -12,7 +12,9 @@ class MentorModel {
   String? birthday;
   bool? status;
   int? rate;
+  List<dynamic>? listCertificate;
   List<dynamic>? listMajor;
+  List<dynamic>? listSkill;
 
   MentorModel(
       {this.id,
@@ -26,7 +28,9 @@ class MentorModel {
       this.birthday,
       this.status,
       this.rate,
-      this.listMajor});
+      this.listMajor,
+      this.listSkill,
+      this.listCertificate});
 
   factory MentorModel.fromJson(Map<String, dynamic> json) {
     return MentorModel(
@@ -42,6 +46,8 @@ class MentorModel {
       rate: json['rate'],
       status: json['status'],
       listMajor: json['listMajor'],
+      listSkill: json['listSkill'],
+      listCertificate: json['listCertificate'],
     );
   }
 }
