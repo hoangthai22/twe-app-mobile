@@ -14,7 +14,7 @@ var MENTOR_DATA = [
           "Xin chào! Tôi có khoảng 5 năm kinh nghiệm dạy người lớn và trẻ em. Tôi kiên nhẫn, hiểu biết và thân thiện. Tôi thích giúp mọi người thực hành tiếng Anh của họ bằng cách trò chuyện thú vị về nhiều chủ đề. Tôi hy vọng sẽ nói chuyện với bạn sớm!!",
       image:
           "https://camblyavatars.s3.amazonaws.com/5e1652f28e140d1c194ba446s200?h=2905bf5571661770dcd05f9e812b1e50",
-      rate: 4,
+      rate: 5,
       address: "",
       birthday: "",
       phone: "",
