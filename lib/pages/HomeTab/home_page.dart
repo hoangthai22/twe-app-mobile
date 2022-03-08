@@ -1,20 +1,14 @@
-import 'dart:async';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
-import 'package:twe/components/Loading/loading.dart';
 import 'package:twe/components/SearchMentor/mentorCard.dart';
-import 'package:twe/models/mentor.dart';
-import 'package:twe/pages/HomeTab/padding.dart';
 import 'package:twe/components/SearchSession/session_card.dart';
+import 'package:twe/models/session.dart';
+import 'package:twe/pages/HomeTab/padding.dart';
 import 'package:twe/pages/HomeTab/session_json.dart';
-import 'package:twe/provider/appProvider.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:skeletons/skeletons.dart';
 
 const riveFile = 'assets/loading.riv';
 const home1 = 'assets/home1.png';
@@ -27,49 +21,32 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   bool _isLoading = true;
   int test = 0;
-  late Future<List<MentorModel>> futureMentor;
-
-  List<MentorModel> parseProducts(String responseBody) {
-    final parsed =
-        convert.json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<MentorModel>((json) => MentorModel.fromJson(json))
-        .toList();
-  }
-
-  Future<List<MentorModel>> fetchData() async {
-    final response = await http.get(Uri.parse(
-        'https://theweekendexpertisewebapi.azurewebsites.net/api/v1/mentors?pageIndex=1&pageSize=3'));
-    if (response.statusCode == 200) {
-      // print("data: ${MentorModel.fromJson(convert.jsonDecode(response.body))}");
-      return parseProducts(response.body);
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
-
+  List<SessionModel> meetings = [];
   @override
   void initState() {
-    // loadData();
-    // futureMentor = fetchData();
-    // futureMentor.then((vallue) => {print(vallue.toList()[0])});
-
     super.initState();
+    _fetch();
+  }
 
-    //dang code
+  _fetch() async {
+    setState(() {
+      _isLoading = true;
+    });
+    ApiServices.getListMeetingRecommendByUserId(
+            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", 1, 3)
+        .then((item) => {
+              if (item != null)
+                {
+                  setState(() {
+                    meetings = item;
+                    _isLoading = false;
+                  })
+                }
+            });
   }
 
   @override
   Widget build(BuildContext context) {
-    //print("Home");
-    /* return Scaffold(
-      backgroundColor: Colors.blue,
-      body: _isLoading
-          ? Loading()
-          : Center(
-              child: Text("List session"),
-            ),
-    */
     return Scaffold(
         appBar: AppBar(
             elevation: 0.8,
@@ -81,7 +58,7 @@ class _HomePage extends State<HomePage> {
             excludeHeaderSemantics: true,
             flexibleSpace: SafeArea(
                 child: Container(
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: EdgeInsets.only(left: 0, right: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,9 +72,9 @@ class _HomePage extends State<HomePage> {
                             margin: EdgeInsets.only(top: 0),
                             child: Row(children: [
                               Container(
-                                width: 60,
+                                width: 70,
                                 child: Image.asset(
-                                  'assets/logo_transparent.png',
+                                  'assets/coctrensach5.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -144,35 +121,6 @@ class _HomePage extends State<HomePage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              // Container(
-              //   padding: EdgeInsets.only(right: 15, left: 30, top: 20),
-              //   child: Text(
-              //     "Hi Hoàng Thái! ",
-              //     style: TextStyle(
-              //         fontFamily: "Roboto",
-              //         fontSize: 22,
-              //         fontWeight: FontWeight.w700),
-              //   ),
-              // ),
-              // Container(
-              //   color: MaterialColors.primary,
-              //   padding: EdgeInsets.only(right: 15, left: 15),
-              //   child: Container(
-              //     margin: EdgeInsets.symmetric(vertical: 20),
-              //     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              //     decoration: BoxDecoration(
-              //       color: Colors.white,
-              //       borderRadius: BorderRadius.circular(29.5),
-              //     ),
-              //     child: TextField(
-              //       decoration: InputDecoration(
-              //         hintText: "Search",
-              //         icon: Icon(Icons.search),
-              //         border: InputBorder.none,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Container(
                 child: Row(
                   children: <Widget>[
@@ -241,7 +189,6 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
-
               Stack(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 30)),
@@ -346,7 +293,6 @@ class _HomePage extends State<HomePage> {
                   )
                 ],
               ),
-
               Stack(
                 children: [
                   Row(
@@ -382,24 +328,59 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(sessionItems.length, (index) {
-                    var session = sessionItems[index];
-                    return Padding(
-                      //child: SessionCard(session: mentor)
-                      padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(
-                          child: InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed('/session', arguments: session["id"]);
-                        },
-                        child: SessionCard(session: session),
+              Skeleton(
+                isLoading: _isLoading,
+                skeleton: Row(children: [
+                  Container(
+                      width: 250,
+                      height: 314,
+                      child: SkeletonItem(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            borderRadius: BorderRadius.circular(10),
+                            width: double.infinity,
+                            minHeight: MediaQuery.of(context).size.height / 8,
+                            maxHeight: MediaQuery.of(context).size.height / 3,
+                          ),
+                        ),
                       )),
-                    );
-                  }),
+                  SizedBox(
+                    height: 10,
+                    width: 20,
+                  ),
+                  Container(
+                      width: 250,
+                      height: 314,
+                      child: SkeletonItem(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            width: double.infinity,
+                            minHeight: MediaQuery.of(context).size.height / 8,
+                            maxHeight: MediaQuery.of(context).size.height / 3,
+                          ),
+                        ),
+                      )),
+                ]),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: [
+                    if (meetings.isNotEmpty)
+                      ...meetings
+                          .map((item) => Padding(
+                                //child: SessionCard(session: mentor)
+                                padding: const EdgeInsets.only(
+                                    right: rightMainPadding),
+                                child: Container(
+                                    child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed('/session',
+                                        arguments: item.sessionId);
+                                  },
+                                  child: SessionCard(session: item),
+                                )),
+                              ))
+                          .toList()
+                  ]),
                 ),
               ),
               Stack(

@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:table_calendar/table_calendar.dart';
+import 'package:twe/common/constants.dart';
 
 /// Example event class.
 class Event {
@@ -48,9 +49,6 @@ final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
-
-
-
 //generate String major from list major
 getMajorString(List majorList) {
   var majors = "";
@@ -63,4 +61,23 @@ getMajorString(List majorList) {
     }
   }
   return majors;
+}
+
+getSlot(int slot) {
+  switch (slot) {
+    case 1:
+      return SLOT[0];
+    case 2:
+      return SLOT[1];
+    case 3:
+      return SLOT[2];
+    case 4:
+      return SLOT[3];
+    case 5:
+      return SLOT[4];
+    case 6:
+      return SLOT[5];
+    
+    default:
+  }
 }

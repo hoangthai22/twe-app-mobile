@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/pages/HomeTab/session_json.dart';
 
+import '../../models/session.dart';
 import '../../pages/HomeTab/help.dart';
 
 class SessionCard extends StatelessWidget {
-  final session;
+  final SessionModel session;
   final double width;
 
   const SessionCard({
@@ -17,6 +19,7 @@ class SessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(session);
     return Container(
       //padding: EdgeInsets.all(0),
       // width: this.width,
@@ -49,7 +52,7 @@ class SessionCard extends StatelessWidget {
                 ),
                 child: Image(
                   fit: BoxFit.cover,
-                  image: NetworkImage(getImageNetwork(session["image"])),
+                  image: NetworkImage(getImageNetwork(session.image)),
                 )),
           ),
           Container(
@@ -58,7 +61,7 @@ class SessionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  session["name"] ?? "",
+                  session.subject!,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: Colors.black,
@@ -85,7 +88,7 @@ class SessionCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(left: 5),
                       child: Text(
-                        session["date"] ?? "",
+                        session.date ?? "",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),
@@ -110,7 +113,7 @@ class SessionCard extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        session["time"] ?? "",
+                        getSlot(session.slot!),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),
@@ -134,8 +137,9 @@ class SessionCard extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  margin: const EdgeInsets.only(left: 5),
                   child: Text(
-                    session["mentor"] ?? "",
+                    session.mentorName!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.normal),
@@ -159,7 +163,7 @@ class SessionCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   child: Text(
-                    session["address"] ?? "",
+                    session.cafeName.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.normal),
@@ -182,8 +186,9 @@ class SessionCard extends StatelessWidget {
                             color: MaterialColors.primary,
                             size: 22)),
                     Container(
+                      margin: const EdgeInsets.only(left: 5),
                       child: Text(
-                        session["price"] ?? "",
+                        session.price.toString(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),
@@ -196,28 +201,18 @@ class SessionCard extends StatelessWidget {
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.only(bottom: 5, right: 10),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: CircleAvatar(
-                        radius: 13,
-                        backgroundImage: NetworkImage(MENTOR_DATA[0].image!),
-                      ),
-                    ),
-                    Container(
-                      child: CircleAvatar(
-                        radius: 13,
-                        backgroundImage: NetworkImage(MENTOR_DATA[1].image!),
-                      ),
-                    ),
-                    Container(
-                      child: CircleAvatar(
-                        radius: 13,
-                        backgroundImage: NetworkImage(MENTOR_DATA[2].image!),
-                      ),
-                    ),
-                  ],
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: session.listMemberImage!
+                        .map(
+                          (item) => Container(
+                            child: CircleAvatar(
+                              radius: 13,
+                              backgroundImage:
+                                  NetworkImage(item),
+                            ),
+                          ),
+                        )
+                        .toList()),
               )
             ],
           )
