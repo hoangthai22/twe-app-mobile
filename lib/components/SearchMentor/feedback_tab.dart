@@ -41,7 +41,7 @@ class FeedbackTab extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(bottom: 5),
                       child: Text(
-                        "Đánh giá của học viên",
+                        "Đánh giá của Member",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 18,
@@ -109,7 +109,7 @@ class FeedbackTab extends StatelessWidget {
               else ...[
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only( left: 20),
+                  padding: const EdgeInsets.only(left: 20),
                   color: Colors.white,
                   height: 50,
                   child: Text(

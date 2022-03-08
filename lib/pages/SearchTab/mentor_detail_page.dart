@@ -52,7 +52,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
     Navigator.pop(context);
     // return _ModalBottom(context);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +187,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                   child: ElevatedButton(
                     child: Text(
-                      checkInvited ? ("Đã Mời") : ("Lên lịch học"),
+                      checkInvited ? ("Đã Mời") : ("Lên lịch meetup"),
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'Roboto',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:twe/common/constants.dart';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 
 class CoffeeItem extends StatefulWidget {
   CoffeeModel coffee;

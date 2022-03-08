@@ -1,4 +1,4 @@
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 
 class NoficationModel {
   late int id;

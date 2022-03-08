@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/pages/HomeTab/session_json.dart';
+import 'package:twe/pages/HomeTab/meetup_json.dart';
 
 import '../../pages/HomeTab/help.dart';
 

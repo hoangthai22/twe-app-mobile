@@ -89,13 +89,13 @@ class _NoficationPage extends State<NoficationPage> {
                       margin: EdgeInsets.all(15),
                     ),
                     NoficationItem(
-                      title: "Buổi học đã được xác nhận",
+                      title: "Meetup đã được xác nhận",
                       content: TextSpan(
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: "Roboto",
                           ),
-                          text: "Buổi học của bạn đã được quán ",
+                          text: "Meetup của bạn đã được quán ",
                           children: [
                             TextSpan(
                                 text: "TocoToco",
@@ -108,13 +108,13 @@ class _NoficationPage extends State<NoficationPage> {
                       image: COFFEE_DATA[0].image!,
                     ),
                     NoficationItem(
-                      title: "Buổi học đã được xác nhận",
+                      title: "Meetup đã được xác nhận",
                       content: TextSpan(
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: "Roboto",
                           ),
-                          text: "Buổi học của bạn đã được giảng viên ",
+                          text: "Meetup của bạn đã được giảng viên ",
                           children: [
                             TextSpan(
                                 text: "Phạm Văn Dương",

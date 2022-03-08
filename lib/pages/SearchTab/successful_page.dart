@@ -35,7 +35,7 @@ class _SuccessfulPage extends State<SuccessfulPage> {
               margin: EdgeInsets.only(top: 10),
               child: Center(
                 child: Text(
-                  "Tạo buổi học thành công!",
+                  "Tạo buổi meetup thành công!",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -55,7 +55,8 @@ class _SuccessfulPage extends State<SuccessfulPage> {
                       fontWeight: FontWeight.w400,
                       fontFamily: "Roboto",
                     ),
-                    text: "Buổi học của bạn sẽ được diễn ra vào lúc ",
+                    text:
+                        "Buổi meetup của bạn sẽ được diễn ra vào lúc ",
                     children: [
                       TextSpan(
                           text: "2022-02-02, 07:00 - 09:00",

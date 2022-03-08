@@ -157,7 +157,7 @@ class InfoClass extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Giảng Viên',
+                  'Mentor',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

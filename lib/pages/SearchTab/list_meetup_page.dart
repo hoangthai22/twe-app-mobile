@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/modalFilter.dart';
-import 'package:twe/components/SearchSession/mySession.dart';
-import 'package:twe/components/SearchSession/sessionItem.dart';
+import 'package:twe/components/SearchSession/myMeetup.dart';
+import 'package:twe/components/SearchSession/meetupItem.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
-import 'package:twe/models/session.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class _ListSessionPage extends State<ListSessionPage> {
@@ -161,7 +161,7 @@ class _ListSessionPage extends State<ListSessionPage> {
       autofocus: true,
       controller: _controller,
       decoration: const InputDecoration(
-        hintText: 'Tìm một buổi học...',
+        hintText: 'Tìm một buổi meetup...',
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.white30),
       ),
@@ -184,8 +184,9 @@ class _ListSessionPage extends State<ListSessionPage> {
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title:
-                isSearch ? _buildSearchField() : Text("Chọn một buổi học"),
+            title: isSearch
+                ? _buildSearchField()
+                : Text("Chọn một buổi meetup"),
             backgroundColor: MaterialColors.primary,
             actions: <Widget>[
               if (isSearch) ...[

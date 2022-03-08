@@ -87,7 +87,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                 ),
               ),
               Text(
-                "Tạo buổi học",
+                "Tạo buổi meetup",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: "Roboto",

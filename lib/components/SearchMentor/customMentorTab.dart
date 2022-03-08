@@ -3,7 +3,7 @@ import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/SearchMentor/feedback_tab.dart';
 import 'package:twe/components/SearchMentor/infoTab.dart';
-import 'package:twe/components/SearchMentor/sessionMentorTab.dart';
+import 'package:twe/components/SearchMentor/MeetupMentorTab.dart';
 import 'package:twe/models/feedback.dart';
 import 'package:twe/models/mentor.dart';
 

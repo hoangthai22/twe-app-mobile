@@ -22,7 +22,7 @@ class ListMentorInvite extends StatelessWidget {
                 child: Container(
                     padding: const EdgeInsets.all(20),
                     child: const Text(
-                      "Danh sách giáo viên",
+                      "Danh sách Mentor",
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 18,
