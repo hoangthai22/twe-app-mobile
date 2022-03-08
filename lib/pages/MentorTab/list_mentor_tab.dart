@@ -305,7 +305,7 @@ class _ListMentorTab extends State<ListMentorTab>
                                 textStyle: TextStyle(color: Colors.white),
                                 shadowColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               onPressed: () => {

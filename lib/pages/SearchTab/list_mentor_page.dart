@@ -367,7 +367,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                                 textStyle: TextStyle(color: Colors.white),
                                 shadowColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               onPressed: () => {
