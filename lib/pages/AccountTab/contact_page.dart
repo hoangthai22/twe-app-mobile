@@ -44,7 +44,7 @@ class _ContactState extends State<Contact> {
                         child: Image.asset('assets/logo_transparent.png'),
                       ),
                       Text(
-                        "Toad Study",
+                        "Cóc Lên !",
                         style: TextStyle(
                             color: Color.fromARGB(255, 14, 105, 17),
                             fontFamily: "Roboto",
@@ -72,7 +72,7 @@ class _ContactState extends State<Contact> {
                     child: Row(children: [
                       Padding(padding: EdgeInsets.only(top: 35)),
                       Text(
-                        "Email: toadstudy@gmail.com",
+                        "Email: CocLen@gmail.com",
                         style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontFamily: "Roboto",

@@ -8,7 +8,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
-import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
+import 'package:twe/components/SearchCoffee/appbarSearchLocation.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/models/session.dart';
+import 'package:twe/models/meetup.dart';
 
 class SessionItem extends StatelessWidget {
   late SessionModel session;
@@ -78,7 +78,7 @@ class SessionItem extends StatelessWidget {
                                       size: 22, color: MaterialColors.primary),
                                   Container(
                                     margin: EdgeInsets.only(left: 5),
-                                    child: Text("300.000 / buổi học",
+                                    child: Text("300.000 / buổi",
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400)),

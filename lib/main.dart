@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 void main() async {
   FlutterNativeSplash.removeAfter(initialization);
 
@@ -33,14 +34,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
-        title: 'TWE',
+        title: 'CocLen',
         theme: ThemeData(
             scaffoldBackgroundColor: const Color(0xFFEFEFEF),
             textTheme: GoogleFonts.robotoTextTheme(
               Theme.of(context)
                   .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
             )),
-            builder: EasyLoading.init(),
+        builder: EasyLoading.init(),
         // home: App(),
       ),
     );

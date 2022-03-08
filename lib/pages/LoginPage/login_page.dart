@@ -57,10 +57,10 @@ class _LoginPage extends State<LoginPage> {
                 ),
               ),
               Text(
-                "The Weekend Expertise",
+                "Cóc Lên !",
                 style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700),
               )
             ],
@@ -71,7 +71,7 @@ class _LoginPage extends State<LoginPage> {
               "Tìm Mentor cho bạn",
               style: TextStyle(
                 fontFamily: "Roboto",
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
               ),
@@ -80,10 +80,10 @@ class _LoginPage extends State<LoginPage> {
           Container(
             padding: EdgeInsets.only(top: 15),
             child: Text(
-              "Tạo một buổi học cùng Mentor yêu thích một cách nhanh chóng ",
+              "Tạo một buổi meetup cùng Mentor yêu thích một cách nhanh chóng ",
               style: TextStyle(
                 fontFamily: "Roboto",
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.black54,
               ),

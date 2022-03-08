@@ -39,7 +39,7 @@ const Map<ButtonSetting, String> btnSetting = {
   ButtonSetting.account: 'Tài khoản',
   ButtonSetting.nofi: 'Thông báo',
   ButtonSetting.history: 'Lịch sử',
-  ButtonSetting.sessions: 'Buổi học của tôi',
+  ButtonSetting.sessions: 'Meetup của tôi',
   ButtonSetting.favorite: 'Mentor Yêu thích',
   ButtonSetting.contact: 'Liên hệ với chúng tôi',
   ButtonSetting.logout: 'Đăng xuất',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/models/session.dart';
+import 'package:twe/models/meetup.dart';
 
 class MySession extends StatelessWidget {
   late SessionModel session;
@@ -33,7 +33,7 @@ class MySession extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 10, left: 15, bottom: 5),
                   child: Text(
-                    "Buổi học của bạn hiện tại",
+                    "Meetup của bạn hiện tại",
                     style: TextStyle(
                         fontSize: 17,
                         fontFamily: "Roboto",
@@ -197,7 +197,7 @@ class MySession extends StatelessWidget {
             right: 25,
             top: 10,
             child: InkWell(
-              onTap: (){},
+              onTap: () {},
               child: Icon(
                 Icons.close,
                 size: 24,

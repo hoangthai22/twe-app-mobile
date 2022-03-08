@@ -48,16 +48,6 @@ class MemberDetailPage extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          /*if (isLoading) ...[
-            Center(
-                child: Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3.0,
-                      color: MaterialColors.primary,
-                    )))
-          ],*/
-          //if (!isLoading) ...[
           Container(
               color: Colors.white,
               child: ListView(
@@ -84,23 +74,124 @@ class MemberDetailPage extends StatelessWidget {
                         ),
                       )),
                   Container(
+                    child: Row(children: <Widget>[
+                      Padding(padding: EdgeInsets.only(left: 100, bottom: 20)),
+                      Column(children: <Widget>[
+                        Icon(Icons.facebook,
+                            size: 40, color: Color.fromARGB(255, 28, 134, 238)),
+                        Text('Facebook'),
+                      ]),
+                      Column(children: <Widget>[
+                        Text('   '),
+                      ]),
+                      Column(children: <Widget>[
+                        Icon(Icons.mark_chat_unread_sharp,
+                            size: 40,
+                            color: Color.fromARGB(255, 128, 148, 119)),
+                        Text('   Zalo  '),
+                      ]),
+                      Column(children: <Widget>[
+                        Text('   '),
+                      ]),
+                      Column(children: <Widget>[
+                        Icon(Icons.mark_as_unread_sharp,
+                            size: 40, color: Color.fromARGB(214, 235, 11, 11)),
+                        Text('Email'),
+                      ]),
+                    ]),
+                  ),
+                  Container(
                       decoration: const BoxDecoration(
                         border: Border(
                             bottom:
                                 BorderSide(color: Colors.black12, width: 1.0)),
                       ),
-                      padding: const EdgeInsets.only(left: 45, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 40, top: 10),
                       child: Text(
                         "Chim đại bàng chọn cô độc để làm chủ bầu trời",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
+                      )),
+                  Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.black12, width: 1.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 10, top: 10),
+                      child: Text(
+                        "Học tại: FPT University",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
+                      )),
+                  Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.black12, width: 1.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 10, top: 10),
+                      child: Text(
+                        "Chuyên Ngành: Kỹ Thuật Phầm Mềm",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
+                      )),
+                  Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.black12, width: 1.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 10, top: 10),
+                      child: Text(
+                        "Niên Khóa: K14",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
+                      )),
+                  Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.black12, width: 1.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 10, top: 10),
+                      child: Text(
+                        "Đến từ: Quảng Ngãi",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Roboto',
+                        ),
+                      )),
+                  Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.black12, width: 1.0)),
+                      ),
+                      padding:
+                          const EdgeInsets.only(left: 35, bottom: 10, top: 10),
+                      child: Text(
+                        "Từng làm : IT SUPPORT HELP DESK (Member of Hardware and Network FPT Club - Support for Students and Staffs in University)",
+                        style: TextStyle(
+                          fontSize: 15,
                           fontFamily: 'Roboto',
                         ),
                       )),
                 ],
               )),
-
-          ///]
         ],
       ),
     );

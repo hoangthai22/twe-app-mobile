@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/common/utils.dart';
-import 'package:twe/pages/HomeTab/session_json.dart';
-
-import '../../models/session.dart';
+import 'package:twe/models/meetup.dart';
 import '../../pages/HomeTab/help.dart';
 
 class SessionCard extends StatelessWidget {

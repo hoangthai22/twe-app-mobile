@@ -8,7 +8,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
-import 'package:twe/components/SearchCoffee/appbarSearchCoffee.dart';
+import 'package:twe/components/SearchCoffee/appbarSearchLocation.dart';
 import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
@@ -33,7 +33,6 @@ class _ListMentorTab extends State<ListMentorTab>
   _fetch() async {
     setState(() {
       _isLoading = true;
-      
     });
     List<MentorModel> mentors = [];
     List<MentorModel> newList = [];
@@ -234,7 +233,7 @@ class _ListMentorTab extends State<ListMentorTab>
                                                 page = 1;
                                                 listMentor = [];
                                               });
-                                               _fetch();
+                                              _fetch();
                                             },
                                             child: const Icon(
                                               Icons.highlight_remove_rounded,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';

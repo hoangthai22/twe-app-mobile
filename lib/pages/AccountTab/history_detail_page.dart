@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/mentorItemInvite.dart';
-import 'package:twe/components/SearchCoffee/coffeeItem.dart';
+import 'package:twe/components/SearchCoffee/locationItem.dart';
 
 class HistoryDetailPage extends StatelessWidget {
   const HistoryDetailPage({

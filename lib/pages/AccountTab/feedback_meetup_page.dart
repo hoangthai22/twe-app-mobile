@@ -3,7 +3,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/mentorItemInvite.dart';
-import 'package:twe/components/SearchCoffee/coffeeItem.dart';
+import 'package:twe/components/SearchCoffee/locationItem.dart';
 
 class FeedbackSessionPage extends StatefulWidget {
   final String historyId;
@@ -32,7 +32,7 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Đánh giá buổi học",
+              "Đánh giá buổi meetup",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Roboto",
@@ -108,7 +108,7 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                                   fontSize: 14,
                                   color: Colors.black.withOpacity(0.4)),
                               hintText:
-                                  "Hãy phản hồi về những điều bạn thích về buổi học này nhé."),
+                                  "Hãy phản hồi về những điều bạn thích về buổi meetup này nhé."),
                         ),
                       ))
                 ],
@@ -175,7 +175,7 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                                   fontSize: 14,
                                   color: Colors.black.withOpacity(0.4)),
                               hintText:
-                                  "Hãy phản hồi về những điều bạn thích về quán coffee này nhé."),
+                                  "Hãy phản hồi về những điều bạn thích về địa điểm này nhé."),
                         ),
                       ))
                 ],

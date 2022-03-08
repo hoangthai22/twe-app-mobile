@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/Session/listMemberRequest.dart';
-import 'package:twe/pages/SearchTab/session_detail_info_page.dart';
-import 'package:twe/pages/SearchTab/session_detail_member_page.dart';
-import 'package:twe/pages/SearchTab/session_detail_request_page.dart';
+import 'package:twe/pages/SearchTab/meetup_detail_info_page.dart';
+import 'package:twe/pages/SearchTab/meetup_detail_member_page.dart';
+import 'package:twe/pages/SearchTab/meetup_detail_request_page.dart';
 
 class SessionDetailMainPage extends StatefulWidget {
   TabBar get _tabBar => TabBar(
@@ -44,7 +44,7 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
       length: widget.isRequestTab ? 3 : 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Chi tiết khóa học"),
+          title: Text("Chi tiết Meetup"),
           backgroundColor: MaterialColors.primary,
           bottom: PreferredSize(
             preferredSize: widget._tabBar.preferredSize,

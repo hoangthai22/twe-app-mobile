@@ -5,7 +5,7 @@ import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Feedback/feedback.dart';
 import 'package:twe/components/CreateSession/bottomNav.dart';
 import 'package:twe/components/SearchMentor/scheduleModal.dart';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';

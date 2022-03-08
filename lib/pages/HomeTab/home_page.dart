@@ -1,14 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/SearchMentor/mentorCard.dart';
-import 'package:twe/components/SearchSession/session_card.dart';
-import 'package:twe/models/session.dart';
+import 'package:twe/models/meetup.dart';
+import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
-import 'package:twe/pages/HomeTab/session_json.dart';
-import 'package:skeletons/skeletons.dart';
+import 'package:twe/components/SearchSession/meetup_card.dart';
+import 'package:twe/pages/HomeTab/meetup_json.dart';
+import 'package:twe/provider/appProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import 'package:carousel_slider/carousel_slider.dart';
 
 const riveFile = 'assets/loading.riv';
 const home1 = 'assets/home1.png';
@@ -79,7 +85,7 @@ class _HomePage extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "Toad ",
+                                "Cóc ",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -87,7 +93,7 @@ class _HomePage extends State<HomePage> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                "Learn",
+                                "Lên!",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -124,7 +130,7 @@ class _HomePage extends State<HomePage> {
               Container(
                 child: Row(
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(bottom: 35)),
+                    Padding(padding: EdgeInsets.only(bottom: 40)),
                     Text(
                       "Tuần nay có gì mới!",
                       style: TextStyle(
@@ -299,9 +305,9 @@ class _HomePage extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        padding: EdgeInsets.only(top: 0, bottom: 20),
                         child: Text(
-                          "Danh mục buổi học thích hợp với bạn",
+                          "Meetup thích hợp",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 16,
@@ -313,7 +319,7 @@ class _HomePage extends State<HomePage> {
                           Navigator.pushNamed(context, "/suggest-session");
                         },
                         child: Container(
-                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          padding: EdgeInsets.only(top: 0, bottom: 20),
                           child: Text(
                             "Xem thêm",
                             style: TextStyle(

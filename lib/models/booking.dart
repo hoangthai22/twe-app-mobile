@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/models/subject.dart';
 
 class BookingModel {

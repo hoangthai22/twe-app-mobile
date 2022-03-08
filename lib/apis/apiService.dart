@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:io';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/models/feedback.dart';
 import 'package:twe/models/major.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
-import 'package:twe/models/session.dart';
 import 'package:twe/models/subject.dart';
 
 class ApiServices {

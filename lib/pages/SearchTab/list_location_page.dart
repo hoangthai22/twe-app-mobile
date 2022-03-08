@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/SearchCoffee/coffeeItem.dart';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/components/SearchCoffee/locationItem.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
 
@@ -33,7 +33,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     List<CoffeeModel> coffees = [];
     List<CoffeeModel> newList = [];
     ApiServices.getListCoffeePagination(page, 10).then((item) => {
-      print(item),
+          print(item),
           if (item != null)
             {
               coffees = item,

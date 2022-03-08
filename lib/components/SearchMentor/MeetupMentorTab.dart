@@ -147,7 +147,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                               ),
                             ),
                             child: Text(
-                              "Lên lịch học",
+                              "Lên lịch meetup",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
@@ -214,7 +214,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                               ),
                             ),
                             child: Text(
-                              "Lên lịch học",
+                              "Lên lịch meetup",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
@@ -281,7 +281,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                               ),
                             ),
                             child: Text(
-                              "Lên lịch học",
+                              "Lên lịch meetup",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
