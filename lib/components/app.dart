@@ -10,8 +10,8 @@ import 'package:twe/models/notification.dart';
 import 'package:twe/pages/AccountTab/acount_page.dart';
 import 'package:twe/pages/HomeTab/home_page.dart';
 import 'package:twe/pages/MentorTab/mentor_page_main_tab.dart';
-import 'package:twe/pages/SearchTab/list_session_page.dart';
-import 'package:twe/pages/SearchTab/llist_cafe_page.dart';
+import 'package:twe/pages/SearchTab/list_meetup_page.dart';
+import 'package:twe/pages/SearchTab/list_location_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class App extends StatefulWidget {

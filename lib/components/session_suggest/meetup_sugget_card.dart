@@ -86,7 +86,7 @@ class Session_Sugget_Card extends StatelessWidget {
                           }).toList(),
                         Container(
                           child: Text(
-                            " (4.0)",
+                            " (5.0)",
                             style: TextStyle(
                                 fontFamily: "Roboto",
                                 fontWeight: FontWeight.w500),

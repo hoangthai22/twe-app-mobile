@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/widget_span.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/mentorItemInvite.dart';
-import 'package:twe/components/SearchCoffee/coffeeItem.dart';
+import 'package:twe/components/SearchCoffee/locationItem.dart';
 
 class SessionDetailPage extends StatelessWidget {
   bool status = true;
@@ -141,7 +141,7 @@ class SessionDetailPage extends StatelessWidget {
                         Title(
                             color: Colors.black,
                             child: Text(
-                              '500,000 VND / buổi học',
+                              '500,000 VND / buổi',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: "Roboto",
@@ -340,7 +340,7 @@ class SessionDetailPage extends StatelessWidget {
                       Container(
                         // margin: EdgeInsets.only(bottom: 10),
                         child: Text(
-                          'Giảng viên đã mời',
+                          'Mentor đã mời',
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: "Roboto",
@@ -411,7 +411,7 @@ class SessionDetailPage extends StatelessWidget {
                       Container(
                         // margin: EdgeInsets.only(bottom: 10),
                         child: Text(
-                          'Giảng viên',
+                          'Mentor',
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: "Roboto",

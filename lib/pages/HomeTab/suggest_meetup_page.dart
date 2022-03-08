@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
-import 'package:twe/pages/HomeTab/session_json.dart';
+import 'package:twe/pages/HomeTab/meetup_json.dart';
 
 import '../../common/constants.dart';
-import '../../components/session_suggest/session_sugget_card.dart';
+import '../../components/session_suggest/meetup_sugget_card.dart';
 
 class SuggestSessionPage extends StatefulWidget {
   @override
@@ -39,7 +39,7 @@ class _SuggestSessionPage extends State<SuggestSessionPage> {
                           //margin: EdgeInsets.only(left: 150),
                           child: Row(children: [
                             Text(
-                              "Buổi học",
+                              "Meetup",
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontSize: 22,

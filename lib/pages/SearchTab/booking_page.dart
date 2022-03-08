@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
-import 'package:twe/components/SearchCoffee/coffeeItem.dart';
+import 'package:twe/components/SearchCoffee/locationItem.dart';
 import 'package:twe/components/menuFooter.dart';
 import 'package:twe/models/booking.dart';
 import 'package:twe/models/mentor.dart';
@@ -308,10 +308,10 @@ class BookingPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
-                              provider.setListMentorInviteEmpty();
+                          provider.setListMentorInviteEmpty();
                           Navigator.of(context).pushNamed("/successful");
-                          createSession(
-                              provider.getBooking, provider.getListMentorInvite, provider.getUid);
+                          createSession(provider.getBooking,
+                              provider.getListMentorInvite, provider.getUid);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,
@@ -338,7 +338,8 @@ class BookingPage extends StatelessWidget {
         }));
   }
 
-  void createSession(BookingModel booking, List<MentorModel> listMentorInvite, String uid) {
+  void createSession(
+      BookingModel booking, List<MentorModel> listMentorInvite, String uid) {
     print(booking.coffee.id);
     print(booking.date);
     print(booking.slot);

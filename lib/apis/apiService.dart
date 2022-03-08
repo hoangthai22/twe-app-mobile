@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:io';
-import 'package:twe/models/coffee.dart';
+import 'package:twe/models/location.dart';
 import 'package:twe/models/feedback.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
@@ -147,8 +147,7 @@ class ApiServices {
   static Future<dynamic> getListCoffeePagination(int page, int limit) async {
     try {
       var response = await http.get(
-        Uri.parse(
-            '${baseURL}/cafe?pageIndex=${page}&pageSize=${limit}'),
+        Uri.parse('${baseURL}/cafe?pageIndex=${page}&pageSize=${limit}'),
       );
       if (response.statusCode == 200) {
         List<dynamic> body = convert.jsonDecode(response.body);

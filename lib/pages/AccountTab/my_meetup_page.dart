@@ -6,8 +6,8 @@ class MySessionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-          child: TextButton(child: Text("My session"), onPressed: (){})),
+      child:
+          Center(child: TextButton(child: Text("My Meetup"), onPressed: () {})),
     );
   }
 }

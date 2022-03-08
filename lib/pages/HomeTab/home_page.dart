@@ -8,8 +8,8 @@ import 'package:twe/components/Loading/loading.dart';
 import 'package:twe/components/SearchMentor/mentorCard.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
-import 'package:twe/components/SearchSession/session_card.dart';
-import 'package:twe/pages/HomeTab/session_json.dart';
+import 'package:twe/components/SearchSession/meetup_card.dart';
+import 'package:twe/pages/HomeTab/meetup_json.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -102,7 +102,7 @@ class _HomePage extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                "Toad ",
+                                "Cóc ",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -110,7 +110,7 @@ class _HomePage extends State<HomePage> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                "Learn",
+                                "Lên!",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -173,10 +173,98 @@ class _HomePage extends State<HomePage> {
               //     ),
               //   ),
               // ),
+
+              Stack(
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 231, 218, 218),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(padding: EdgeInsets.only(top: 0.0)),
+                        /* Container(
+            width: 100,
+            height: 150,
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Image.network(getImageNetwork(session["icon"]))),
+          ),*/
+
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.assignment_turned_in_rounded,
+                                            color:
+                                                Color.fromARGB(255, 7, 23, 172),
+                                            size: 25,
+                                          ),
+                                          Text(
+                                            " Meetup hôm nay",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 7, 23, 172),
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "          Meetup với Lại Đức Hùng",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "          10:00 - 11:30 am, tại Moda Coffee, Nguyễn Oanh",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
               Container(
                 child: Row(
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(bottom: 35)),
+                    Padding(padding: EdgeInsets.only(bottom: 40)),
                     Text(
                       "Tuần nay có gì mới!",
                       style: TextStyle(
@@ -244,118 +332,13 @@ class _HomePage extends State<HomePage> {
 
               Stack(
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 30)),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 231, 218, 218),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 0.0)),
-                        /* Container(
-            width: 100,
-            height: 150,
-            child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-                child: Image.network(getImageNetwork(session["icon"]))),
-          ),*/
-
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                      margin: const EdgeInsets.only(left: 5),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.assignment_turned_in_rounded,
-                                            color:
-                                                Color.fromARGB(255, 7, 23, 172),
-                                            size: 25,
-                                          ),
-                                          Text(
-                                            " Buổi học của ngày hôm nay",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 7, 23, 172),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            "          Buổi học với Lại Đức Hùng",
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "          Hôm nay, 10:00 - 11:30 am",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "          Địa điểm, Moda coffee",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-
-              Stack(
-                children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        padding: EdgeInsets.only(top: 0, bottom: 20),
                         child: Text(
-                          "Danh mục buổi học thích hợp với bạn",
+                          "Meetup thích hợp",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 16,
@@ -367,7 +350,7 @@ class _HomePage extends State<HomePage> {
                           Navigator.pushNamed(context, "/suggest-session");
                         },
                         child: Container(
-                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          padding: EdgeInsets.only(top: 0, bottom: 20),
                           child: Text(
                             "Xem thêm",
                             style: TextStyle(

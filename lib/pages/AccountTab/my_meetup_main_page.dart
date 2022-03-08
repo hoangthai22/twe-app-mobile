@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
-import 'package:twe/pages/AccountTab/my_session_page.dart';
+import 'package:twe/pages/AccountTab/my_meetup_page.dart';
 import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 import 'package:twe/pages/MentorTab/my_mentor_tab.dart';
 import 'package:twe/pages/SearchTab/list_mentor_page.dart';
@@ -11,7 +11,6 @@ class MyMeetingMainPage extends StatefulWidget {
         labelColor: MaterialColors.primary,
         isScrollable: true,
         indicatorWeight: 2,
-        
         labelStyle: TextStyle(
             fontFamily: "Roboto", fontSize: 16, fontWeight: FontWeight.w600),
         indicatorColor: Color(0xff107162),
@@ -53,7 +52,7 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
       autofocus: true,
       controller: _controller,
       decoration: const InputDecoration(
-        hintText: 'Tìm một Meeting...',
+        hintText: 'Tìm một Meetup...',
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.white30),
       ),
@@ -68,7 +67,7 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
   }
 
   Widget _buildTitleAppbar() {
-    return Text("Meeting của tôi");
+    return Text("Meetup của tôi");
   }
 
   Widget build(BuildContext context) {
