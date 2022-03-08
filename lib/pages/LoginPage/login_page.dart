@@ -99,7 +99,7 @@ class _LoginPage extends State<LoginPage> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 50,
+            height: 45,
             margin: EdgeInsets.only(top: 25),
             child: ElevatedButton(
               onPressed: () {
@@ -111,14 +111,14 @@ class _LoginPage extends State<LoginPage> {
               style: ElevatedButton.styleFrom(
                 primary: MaterialColors.primary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
               child: Text(
                 "Đăng Nhập",
                 style: TextStyle(
                   fontFamily: "Roboto",
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -127,25 +127,25 @@ class _LoginPage extends State<LoginPage> {
           Container(
             margin: EdgeInsets.only(top: 15, bottom: 15),
             width: MediaQuery.of(context).size.width,
-            height: 50,
+            height: 45,
             child: ElevatedButton(
               onPressed: () {
                 // context.read<AppProvider>().setUserLogin("hoangthai123");
                 // context.read<AppProvider>().setIsLogin();
                 // Navigator.pop(context);
-                Navigator.pushNamed(context, '/sign-in');
+                Navigator.pushNamed(context, '/register');
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(12),
                     side: BorderSide(width: 1, color: MaterialColors.primary)),
               ),
               child: Text(
                 "Đăng Ký",
                 style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: MaterialColors.primary),
               ),

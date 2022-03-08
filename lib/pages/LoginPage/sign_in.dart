@@ -23,29 +23,11 @@ class _SignInPage extends State<SignInPage> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  Timer? _timer;
-  late double _progress;
-
   @override
   void initState() {
     // checkUserAuth();
     super.initState();
-    print("object");
   }
-
-  // checkUserAuth() async {
-  //   try {
-  //     User user = await auth.currentUser!;
-  //     if (user != null) {
-  //       context.read<AppProvider>().setUserLogin(user.email);
-  //       context.read<AppProvider>().setIsLogin();
-  //       // Navigator.pop(context);
-  //       Navigator.pushNamed(context, '/home');
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   signIn() {
     String email = _email.text;
@@ -174,8 +156,8 @@ class _SignInPage extends State<SignInPage> {
             ),
             padding: EdgeInsets.only(left: 20, bottom: 5, top: 5),
             decoration: BoxDecoration(
-                color: MaterialColors.primary.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(50)),
+                color: MaterialColors.primary.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(12)),
             child: TextFormField(
               cursorColor: MaterialColors.primary,
               controller: _email,
@@ -193,8 +175,8 @@ class _SignInPage extends State<SignInPage> {
             margin: EdgeInsets.only(top: 10),
             padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
             decoration: BoxDecoration(
-                color: MaterialColors.primary.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(50)),
+                color: MaterialColors.primary.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(12)),
             child: TextField(
               controller: _pass,
               decoration: InputDecoration(
@@ -223,14 +205,14 @@ class _SignInPage extends State<SignInPage> {
               style: ElevatedButton.styleFrom(
                 primary: MaterialColors.primary,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(12),
                     side: BorderSide(width: 1, color: MaterialColors.primary)),
               ),
               child: Text(
                 "Đăng nhập",
                 style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.white),
               ),
@@ -267,7 +249,7 @@ class _SignInPage extends State<SignInPage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(12),
                       side: BorderSide(width: 1, color: Colors.grey)),
                 ),
                 child: Row(
@@ -276,7 +258,7 @@ class _SignInPage extends State<SignInPage> {
                       child: Icon(
                         Icons.facebook_rounded,
                         color: Colors.blue[700],
-                        size: 28,
+                        size: 30,
                       ),
                       padding: EdgeInsets.only(right: 10, left: 10),
                     ),
@@ -284,7 +266,7 @@ class _SignInPage extends State<SignInPage> {
                       "Tiếp tục với Facebook",
                       style: TextStyle(
                           fontFamily: "Roboto",
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
@@ -300,7 +282,7 @@ class _SignInPage extends State<SignInPage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(12),
                       side: BorderSide(width: 1, color: Colors.grey)),
                 ),
                 child: Row(
@@ -317,7 +299,7 @@ class _SignInPage extends State<SignInPage> {
                       "Tiếp tục với Google",
                       style: TextStyle(
                           fontFamily: "Roboto",
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
