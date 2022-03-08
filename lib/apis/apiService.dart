@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:twe/models/location.dart';
 import 'package:twe/models/feedback.dart';
 import 'package:twe/models/major.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
 import 'package:twe/models/subject.dart';
@@ -156,6 +157,28 @@ class ApiServices {
         return listCoffee;
       } else if (response.statusCode == 404) {
         List<CoffeeModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> getListMeetingRecommendByUserId(
+      String userId, int page, int limit) async {
+    //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/sessions/home?memberId=${userId}&pageIndex=${page}&pageSize=${limit}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<SessionModel> listMeeting =
+            body.map((dynamic item) => SessionModel.fromJson(item)).toList();
+        return listMeeting;
+      } else if (response.statusCode == 404) {
+        List<SessionModel> list = [];
         return list;
       }
     } catch (e) {

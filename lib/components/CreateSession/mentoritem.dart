@@ -7,12 +7,11 @@ import 'package:twe/common/utils.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
-class MentorItem extends StatelessWidget {
+class MentorItem extends StatefulWidget {
   MentorModel mentor;
   late final ValueChanged<String> onPush;
   late final onSubmit;
   late final isBtnInvite;
-
   MentorItem(
       {Key? key,
       required this.mentor,
@@ -22,17 +21,24 @@ class MentorItem extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _MentorItem();
+}
+
+class _MentorItem extends State<MentorItem> {
+  bool isLike = false;
+
+  @override
   Widget build(BuildContext context) {
     void onClick() {
-      onPush(mentor.id!);
+      widget.onPush(widget.mentor.id!);
     }
 
     void onRedirect() {
-      onSubmit();
+      widget.onSubmit();
     }
 
-    var listRate = [for (var i = 1; i <= mentor.rate!; i++) i];
-    var listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
+    var listRate = [for (var i = 1; i <= widget.mentor.rate!; i++) i];
+    var listRateEmpty = [for (var i = 1; i <= 5 - widget.mentor.rate!; i++) i];
 
     return Container(
         decoration: BoxDecoration(
@@ -54,7 +60,7 @@ class MentorItem extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                  height: 190,
+                  height: 220,
                   decoration: const BoxDecoration(),
                   margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: ListView(
@@ -70,7 +76,7 @@ class MentorItem extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 35, // Image radius
                                     backgroundImage:
-                                        NetworkImage(mentor.image!),
+                                        NetworkImage(widget.mentor.image!),
                                   ))),
                           Expanded(
                               flex: 3,
@@ -80,7 +86,7 @@ class MentorItem extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      mentor.fullname!,
+                                      widget.mentor.fullname!,
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -94,13 +100,51 @@ class MentorItem extends StatelessWidget {
                                         children: <Widget>[
                                           Expanded(
                                               child: Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            child: Row(children: [
+                                              if (listRate.length > 0)
+                                                ...listRate.map((e) {
+                                                  return Icon(
+                                                    Icons.star,
+                                                    size: 18,
+                                                    color: Colors.amber,
+                                                  );
+                                                }).toList(),
+                                              if (listRateEmpty.length > 0)
+                                                ...listRateEmpty.map((e) {
+                                                  return Icon(
+                                                    Icons.star_border,
+                                                    size: 18,
+                                                    color: Colors.amber,
+                                                  );
+                                                }).toList(),
+                                              Container(
+                                                child: Text(
+                                                  " (${widget.mentor.rate})",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              )
+                                            ]),
+                                          )),
+                                        ]),
+                                    Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 3),
                                                   height: 35,
                                                   child: ListView(
                                                       shrinkWrap: true,
                                                       scrollDirection:
                                                           Axis.horizontal,
-                                                      children: mentor
-                                                          .listMajor!
+                                                      children: widget
+                                                          .mentor.listMajor!
                                                           .map(
                                                             (item) => Container(
                                                               margin: EdgeInsets
@@ -143,69 +187,114 @@ class MentorItem extends StatelessWidget {
                                                           )
                                                           .toList())))
                                         ]),
-                                    Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Expanded(
-                                              child: Container(
-                                            margin: EdgeInsets.only(top: 5),
-                                            child: Row(children: [
-                                              if (listRate.length > 0)
-                                                ...listRate.map((e) {
-                                                  return Icon(
-                                                    Icons.star,
-                                                    size: 18,
-                                                    color: Colors.amber,
-                                                  );
-                                                }).toList(),
-                                              if (listRateEmpty.length > 0)
-                                                ...listRateEmpty.map((e) {
-                                                  return Icon(
-                                                    Icons.star_border,
-                                                    size: 18,
-                                                    color: Colors.amber,
-                                                  );
-                                                }).toList(),
-                                              Container(
-                                                child: Text(
-                                                  " (${mentor.rate})",
-                                                  style: TextStyle(
-                                                      fontFamily: "Roboto",
+                                    Container(
+                                      // height: 50,
+                                      child: Wrap(
+                                          // scrollDirection: Axis.horizontal,
+                                          spacing: 7,
+                                          children: widget
+                                              .mentor.listCertificate!
+                                              .map(
+                                                (item) => Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 7),
+                                                  padding: EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                        color: MaterialColors
+                                                            .primary,
+                                                        width: 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  child: Text(
+                                                    item.toString(),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      color: MaterialColors
+                                                          .primary,
+                                                      fontSize: 12,
                                                       fontWeight:
-                                                          FontWeight.w500),
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
                                                 ),
                                               )
-                                            ]),
-                                          )),
-                                        ]),
+                                              .toList()),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        widget.mentor.slogan!,
+                                        maxLines: 2,
+                                        style: const TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Colors.black87,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Roboto',
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ))
+                              )),
                         ],
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        width: MediaQuery.of(context).size.width * 1,
-                        child: Text(mentor.description!,
-                            maxLines: 2,
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                      ),
+                      // Container(
+                      //   // height: 50,
+                      //   child: Wrap(
+                      //       // scrollDirection: Axis.horizontal,
+                      //       spacing: 7,
+                      //       children: mentor.listCertificate!
+                      //           .map(
+                      //             (item) => Container(
+                      //               margin: EdgeInsets.only(top: 15),
+                      //               padding: EdgeInsets.all(8),
+                      //               decoration: BoxDecoration(
+                      //                 color: Colors.white,
+                      //                 border: Border.all(
+                      //                     color: MaterialColors.primary,
+                      //                     width: 1),
+                      //                 borderRadius: BorderRadius.circular(10.0),
+                      //               ),
+                      //               child: Text(
+                      //                 item.toString(),
+                      //                 style: TextStyle(
+                      //                   fontFamily: 'Roboto',
+                      //                   color: MaterialColors.primary,
+                      //                   fontSize: 12,
+                      //                   fontWeight: FontWeight.w400,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           )
+                      //           .toList()),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top: 10),
+                      //   width: MediaQuery.of(context).size.width * 1,
+                      //   child: Text(mentor.slogan!,
+                      //       maxLines: 2,
+                      //       style: const TextStyle(
+                      //         fontFamily: 'Roboto',
+                      //         color: Colors.black,
+                      //         fontWeight: FontWeight.w400,
+                      //         fontSize: 15,
+                      //         overflow: TextOverflow.ellipsis,
+                      //       )),
+                      // ),
                     ],
                   )),
               Positioned(
                   bottom: 10,
                   left: 10,
                   child: Container(
-                    width: isBtnInvite
+                    width: widget.isBtnInvite
                         ? MediaQuery.of(context).size.width * 0.425
                         : MediaQuery.of(context).size.width - 50,
                     child: ElevatedButton(
@@ -228,14 +317,34 @@ class MentorItem extends StatelessWidget {
                       onPressed: () => onClick(),
                     ),
                   )),
-              (isBtnInvite == true
+              Positioned(
+                  right: 10,
+                  top: 10,
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isLike = true;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 5),
+                      child: Icon(
+                        isLike
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        size: 32,
+                        color: isLike ? Colors.red : Colors.black87,
+                      ),
+                    ),
+                  )),
+              (widget.isBtnInvite == true
                   ? Consumer<AppProvider>(builder: (context, provider, child) {
                       provider.getListMentorInvite.length > 0
                           ? print(provider.getListMentorInvite[0].id)
                           : print("object");
-                      print(mentor.id);
+                      print(widget.mentor.id);
                       var checkInvited =
-                          provider.getListMentorInvite.contains(mentor);
+                          provider.getListMentorInvite.contains(widget.mentor);
                       return Positioned(
                           right: 10,
                           bottom: 10,

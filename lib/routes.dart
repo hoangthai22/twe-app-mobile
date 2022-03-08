@@ -14,6 +14,7 @@ import 'package:twe/pages/AccountTab/profile_page.dart';
 import 'package:twe/pages/HomeTab/ranking_page.dart';
 import 'package:twe/pages/HomeTab/suggest_meetup_page.dart';
 import 'package:twe/pages/LoginPage/login_page.dart';
+import 'package:twe/pages/LoginPage/register.dart';
 import 'package:twe/pages/LoginPage/sign_in_page.dart';
 import 'package:twe/pages/SearchTab/booking_page.dart';
 import 'package:twe/pages/SearchTab/location_detail_page.dart';
@@ -36,6 +37,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/sign-in':
         return MaterialPageRoute(builder: (_) => SignInPage());
+      case '/register':
+        return MaterialPageRoute(builder: (_) => RegisterPage());
       case '/home':
         return MaterialPageRoute(builder: (_) => App());
       case '/create-session':

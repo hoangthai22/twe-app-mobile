@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/components/SearchSession/myMeetup.dart';
 import 'package:twe/components/SearchSession/meetupItem.dart';
@@ -21,6 +23,7 @@ class _ListSessionPage extends State<ListSessionPage> {
   bool isSearch = false;
   String inputText = "";
   late MajorModel majorFilter;
+  List<SessionModel> meetings = [];
 
   late List<SessionModel> listSession = [
     SessionModel(
@@ -80,45 +83,23 @@ class _ListSessionPage extends State<ListSessionPage> {
     setState(() {
       _isLoading = true;
     });
-    List<MentorModel> mentors = [];
-    List<MentorModel> newList = [];
-    // ApiServices.getListMentorPagination(page, 4).then((item) => {
-    //       if (item != null)
-    //         {
-    //           mentors = item,
-    //           if (mentors.isEmpty)
-    //             {
-    //               setState(() {
-    //                 isListFull = true;
-    //                 _isLoading = false;
-    //               })
-    //             }
-    //           else
-    //             {
-    //               newList = [...listSession, ...mentors],
-    //               setState(() {
-    //                 _isLoading = false;
-    //                 listSession = newList;
-    //                 page++;
-    //               })
-    //             }
-    //         }
-    //       else
-    //         {
-    //           setState(() {
-    //             _isLoading = false;
-    //             isListFull = true;
-    //             listSession = [];
-    //           })
-    //         }
-    //     });
+    ApiServices.getListMeetingRecommendByUserId(
+            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", 1, 5)
+        .then((item) => {
+              if (item != null)
+                {
+                  setState(() {
+                    meetings = item;
+                    _isLoading = false;
+                  })
+                }
+            });
   }
 
   @override
   void initState() {
     super.initState();
-
-    // _fetch();
+    _fetch();
     // scrollController.addListener(() {
     //   if (scrollController.position.pixels >=
     //           scrollController.position.maxScrollExtent &&
@@ -386,39 +367,11 @@ class _ListSessionPage extends State<ListSessionPage> {
                                       scrollDirection: Axis.horizontal,
                                       shrinkWrap: true,
                                       children: [
-                                        if (listSession.length > 0)
-                                          ...listSession
+                                        if (meetings.isNotEmpty)
+                                          ...meetings
                                               .map((SessionModel session) =>
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                      border: Border.all(
-                                                          color: Colors
-                                                              .grey.shade400,
-                                                          width: 1),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.grey
-                                                              .withOpacity(0.1),
-                                                          spreadRadius: 3,
-                                                          blurRadius: 5,
-                                                          offset: Offset(0,
-                                                              2), // changes position of shadow
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    margin: EdgeInsets.only(
-                                                        left: 15,
-                                                        bottom: 15,
-                                                        top: 15),
-                                                    width: 170,
-                                                    child:
-                                                        _buildSessionItemRecommen(
-                                                            session),
-                                                  ))
+                                                  buildMeetingRecommend(
+                                                      session))
                                               .toList(),
                                       ]),
                                 )
@@ -495,6 +448,27 @@ class _ListSessionPage extends State<ListSessionPage> {
     );
   }
 
+  Widget buildMeetingRecommend(session) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade400, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 2), // changes position of shadow
+          ),
+        ],
+      ),
+      margin: EdgeInsets.only(left: 15, bottom: 15, top: 15),
+      width: 170,
+      child: _buildSessionItemRecommen(session),
+    );
+  }
+
   void searchBar(String query) {
     setState(() {
       _isLoading = true;
@@ -539,7 +513,7 @@ Widget _buildSessionItemRecommen(SessionModel session) {
           margin: EdgeInsets.only(top: 5),
           child: Center(
             child: Text(
-              "${session.member!.length.toString()}/5 thành viên",
+              "${session.listMemberImage!.length.toString()}/5 thành viên",
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -553,7 +527,7 @@ Widget _buildSessionItemRecommen(SessionModel session) {
           margin: EdgeInsets.only(top: 5),
           child: Center(
             child: Text(
-              "09:00 - 10:30",
+              getSlot(session.slot!),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

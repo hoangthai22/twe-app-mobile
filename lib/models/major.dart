@@ -1,7 +1,7 @@
 class MajorModel {
   String majorId;
   String majorName;
-  String? status;
+  bool? status;
 
   MajorModel({required this.majorId, required this.majorName, this.status});
 

@@ -10,6 +10,7 @@ class MentorModel {
   String? sex;
   int? price;
   String? birthday;
+  String? slogan;
   bool? status;
   double? rate;
   List<dynamic>? listCertificate;
@@ -32,6 +33,7 @@ class MentorModel {
       this.sex,
       this.phone,
       this.price,
+      this.slogan,
       this.image,
       this.birthday,
       this.status,
@@ -50,6 +52,7 @@ class MentorModel {
       phone: json['phone'],
       price: json['price'],
       image: json['image'],
+      slogan: json['slogan'],
       birthday: json['birthday'],
       rate: json['rate'] == null ? 0.0 : json['rate'].toDouble(),
       status: json['status'],
