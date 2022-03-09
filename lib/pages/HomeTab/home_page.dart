@@ -39,7 +39,7 @@ class _HomePage extends State<HomePage> {
       _isLoading = true;
     });
     ApiServices.getListMeetingRecommendByUserId(
-            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", 1, 3)
+            "38e24a19-db44-44e8-bf5b-eb2e595906db", 1, 3)
         .then((item) => {
               if (item != null)
                 {
@@ -78,14 +78,15 @@ class _HomePage extends State<HomePage> {
                             margin: EdgeInsets.only(top: 0),
                             child: Row(children: [
                               Container(
-                                width: 70,
+                                width: 85,
+                                height: 65,
                                 child: Image.asset(
                                   'assets/coctrensach5.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
                               Text(
-                                "Cóc ",
+                                "Toad ",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -93,7 +94,7 @@ class _HomePage extends State<HomePage> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Text(
-                                "Lên!",
+                                "Learn",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
@@ -127,74 +128,6 @@ class _HomePage extends State<HomePage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Padding(padding: EdgeInsets.only(bottom: 40)),
-                    Text(
-                      "Tuần nay có gì mới!",
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700),
-                    )
-                  ],
-                ),
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 220.0,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                ),
-                items: [1, 2, 3, 4].map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        child:
-                            Image.asset('assets/home1.png', fit: BoxFit.cover),
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(padding: EdgeInsets.only(bottom: 30)),
-                      Text(
-                        "Hot giảm giá cùng bạn bè đến ngay!",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Padding(padding: EdgeInsets.only(bottom: 40)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Nhập mã FPTSTUDENT để được giảm ngay 10%",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  ),
-                ],
-              ),
               Stack(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 30)),
@@ -236,7 +169,7 @@ class _HomePage extends State<HomePage> {
                                             size: 25,
                                           ),
                                           Text(
-                                            " Buổi học của ngày hôm nay",
+                                            " Buổi meetup của ngày hôm nay",
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                                 color: Color.fromARGB(
@@ -253,7 +186,7 @@ class _HomePage extends State<HomePage> {
                         Container(
                           margin: const EdgeInsets.only(left: 5),
                           child: Text(
-                            "          Buổi học với Lại Đức Hùng",
+                            "          Meetup với Lại Đức Hùng",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
@@ -267,24 +200,7 @@ class _HomePage extends State<HomePage> {
                             children: [
                               Container(
                                 child: Text(
-                                  "          Hôm nay, 10:00 - 11:30 am",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "          Địa điểm, Moda coffee",
+                                  "          Lúc 10:00 - 11:30 am, tại Moda coffee, Nguyễn Oanh",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -297,6 +213,73 @@ class _HomePage extends State<HomePage> {
                       ],
                     ),
                   )
+                ],
+              ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(bottom: 40)),
+                    Text(
+                      "Tuần nay có gì mới!",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    )
+                  ],
+                ),
+              ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 220.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  enlargeCenterPage: true,
+                ),
+                items: [1, 2, 3, 4].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: Image.asset('assets/11.jpg', fit: BoxFit.cover),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(padding: EdgeInsets.only(bottom: 30)),
+                      Text(
+                        "Hot giảm giá cùng bạn bè đến ngay!",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Padding(padding: EdgeInsets.only(bottom: 40)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nhập mã FPTSTUDENT để được giảm ngay 10%",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      )
+                    ],
+                  ),
                 ],
               ),
               Stack(

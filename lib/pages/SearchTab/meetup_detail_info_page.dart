@@ -69,7 +69,7 @@ class SessionDetailPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Môn học',
+                        'Chủ đề',
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: "Roboto",
