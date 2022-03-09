@@ -19,6 +19,7 @@ class HistoryPage extends StatelessWidget {
         leading: BackButton(
           color: Colors.white,
         ),
+        centerTitle: true,
         toolbarHeight: 65,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

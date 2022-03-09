@@ -9,6 +9,8 @@ class SessionModel {
   final String? image;
   final List? member;
   final String? cafeName;
+  final String? cafeStreet;
+  final String? cafeDistric;
   final bool? isJoin;
   final List? listMemberImage;
 
@@ -16,6 +18,8 @@ class SessionModel {
       {this.description,
       this.mentorName,
       this.subject,
+      this.cafeDistric,
+      this.cafeStreet,
       this.date,
       this.cafeName,
       this.slot,
@@ -39,6 +43,8 @@ class SessionModel {
       price: json['price'] == null ? 0.0 : json['price'].toDouble(),
       image: json['subjectImage'],
       cafeName: json['cafeName'],
+      cafeStreet: json['cafeStreet'],
+      cafeDistric: json['cafeDistric'],
     );
   }
 }

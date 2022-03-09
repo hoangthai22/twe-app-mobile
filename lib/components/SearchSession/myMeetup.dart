@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/models/meetup.dart';
 
 class MySession extends StatelessWidget {
@@ -11,7 +12,7 @@ class MySession extends StatelessWidget {
     return Stack(
       children: [
         Container(
-            height: 295,
+            height: 300,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -31,7 +32,7 @@ class MySession extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10, left: 15, bottom: 5),
+                  margin: EdgeInsets.only(top: 10, left: 15, bottom: 10),
                   child: Text(
                     "Meetup của bạn hiện tại",
                     style: TextStyle(
@@ -50,18 +51,22 @@ class MySession extends StatelessWidget {
                 // ),
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Image(
-                    // color:70olors.red,
-                    height: 150,
-                    fit: BoxFit.cover,
-                    image: NetworkImage(session.image!),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
                   ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image(
+                        height: 150,
+                        fit: BoxFit.cover,
+                        image: NetworkImage(session.image!),
+                      )),
                 ),
                 Container(
                     // color: Colors.amber,
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    margin: EdgeInsets.only(left: 10, right: 10, top: 5),
+                    margin: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,7 +115,7 @@ class MySession extends StatelessWidget {
                                       size: 18, color: Colors.green[700]),
                                 ),
                                 Text(
-                                  session.date!.split(",")[1],
+                                  getSlot(session.slot!),
                                   style: TextStyle(
                                       color: Colors.green[700],
                                       fontWeight: FontWeight.w600,

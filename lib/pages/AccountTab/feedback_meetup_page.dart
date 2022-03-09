@@ -28,11 +28,12 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
           color: Colors.white,
         ),
         toolbarHeight: 65,
+        centerTitle: true,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Đánh giá buổi meetup",
+              "Đánh giá meetup",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Roboto",

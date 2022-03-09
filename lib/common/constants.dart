@@ -19,11 +19,11 @@ class MaterialColors {
 }
 
 class HistoryColor {
-  static Color red = Colors.red.withOpacity(0.6);
-  static Color green = Colors.green.withOpacity(0.6);
-  static Color blue = Colors.blue.withOpacity(0.6);
-  static Color pink = Colors.pink.withOpacity(0.6);
-  static Color orange = Colors.orange.withOpacity(0.6);
+  static Color red = Colors.red.withOpacity(0.5);
+  static Color green = Colors.green.withOpacity(0.5);
+  static Color blue = Colors.blue.withOpacity(0.5);
+  static Color pink = Colors.pink.withOpacity(0.5);
+  static Color orange = Colors.orange.withOpacity(0.5);
 }
 
 enum ButtonSetting {

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
@@ -13,7 +16,9 @@ import 'package:twe/models/meetup.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class _ListSessionPage extends State<ListSessionPage> {
-  bool _isLoading = true;
+  bool _isLoadingMeetupRecommend = true;
+  bool _isLoadingMeetups = true;
+  bool _isLoadingCircle = true;
   bool isListFull = false;
   int page = 1;
   String query = '';
@@ -23,65 +28,13 @@ class _ListSessionPage extends State<ListSessionPage> {
   bool isSearch = false;
   String inputText = "";
   late MajorModel majorFilter;
-  List<SessionModel> meetings = [];
+  List<SessionModel> meetingsRecommend = [];
 
-  late List<SessionModel> listSession = [
-    SessionModel(
-        mentorName: MENTOR_DATA[0].fullname,
-        description: MENTOR_DATA[0].description,
-        sessionId: "1",
-        subject: "Lập trình Java",
-        date: "2022-02-20, 09:00 - 10:30",
-        slot: 1,
-        image: "https://www.koudaiyingwen.com/fe/static/landing_page/chat.webp",
-        member: [
-          MENTOR_DATA[0].fullname,
-          MENTOR_DATA[1].fullname,
-        ]),
-    SessionModel(
-        mentorName: MENTOR_DATA[0].fullname,
-        description: MENTOR_DATA[0].description,
-        sessionId: "1",
-        subject: "Kỹ Thuật Phần Mềm",
-        date: "2022-02-20, 09:00 - 10:30",
-        slot: 1,
-        image:
-            "https://thumbs.dreamstime.com/b/teamwork-concept-stack-business-hands-cooperation-teamwork-group-partnership-team-buidding-team-building-concept-stack-109416474.jpg",
-        member: [
-          MENTOR_DATA[0].fullname,
-          MENTOR_DATA[1].fullname,
-        ]),
-    SessionModel(
-        mentorName: MENTOR_DATA[0].fullname,
-        description: MENTOR_DATA[0].description,
-        sessionId: "2",
-        subject: "Kỹ Thuật Phần Mềm",
-        date: "2022-02-20, 09:00 - 10:30",
-        slot: 1,
-        image:
-            "https://img.freepik.com/free-vector/candidate-hr-manager-having-job-interview_179970-732.jpg?size=626&ext=jpg",
-        member: [
-          MENTOR_DATA[0].fullname,
-          MENTOR_DATA[1].fullname,
-        ]),
-    SessionModel(
-        mentorName: MENTOR_DATA[0].fullname,
-        description: MENTOR_DATA[0].description,
-        sessionId: "3",
-        subject: "Kỹ Thuật Phần Mềm",
-        slot: 1,
-        date: "2022-02-20, 09:00 - 10:30",
-        image:
-            "https://thumbs.dreamstime.com/b/job-interview-hr-manager-office-work-vector-flat-illustration-174794726.jpg",
-        member: [
-          MENTOR_DATA[0].fullname,
-          MENTOR_DATA[1].fullname,
-        ]),
-  ];
+  late List<SessionModel> listMeetups = [];
 
-  _fetch() async {
+  _getListRecommend() async {
     setState(() {
-      _isLoading = true;
+      _isLoadingMeetupRecommend = true;
     });
     ApiServices.getListMeetingRecommendByUserId(
             "12c9cd48-8cb7-4145-8fd9-323e20b329dd", 1, 5)
@@ -89,8 +42,51 @@ class _ListSessionPage extends State<ListSessionPage> {
               if (item != null)
                 {
                   setState(() {
-                    meetings = item;
-                    _isLoading = false;
+                    meetingsRecommend = item;
+                    _isLoadingMeetupRecommend = false;
+                  })
+                }
+            });
+  }
+
+  _getListAllMeetup() async {
+    List<SessionModel> meetings = [];
+    List<SessionModel> newList = [];
+    setState(() {
+      _isLoadingCircle = true;
+    });
+    ApiServices.getListAllMeetingPaginationByUserId(
+            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", page, 3)
+        .then((item) => {
+              if (item != null)
+                {
+                  meetings = item,
+                  if (meetings.isEmpty)
+                    {
+                      setState(() {
+                        isListFull = true;
+                        _isLoadingMeetups = false;
+                        _isLoadingCircle = false;
+                      })
+                    }
+                  else
+                    {
+                      newList = [...listMeetups, ...meetings],
+                      setState(() {
+                        _isLoadingMeetups = false;
+                        _isLoadingCircle = false;
+                        listMeetups = newList;
+                        page++;
+                      })
+                    }
+                }
+              else
+                {
+                  setState(() {
+                    _isLoadingMeetups = false;
+                    _isLoadingCircle = false;
+                    isListFull = true;
+                    listMeetups = [];
                   })
                 }
             });
@@ -99,16 +95,16 @@ class _ListSessionPage extends State<ListSessionPage> {
   @override
   void initState() {
     super.initState();
-    _fetch();
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels >=
-    //           scrollController.position.maxScrollExtent &&
-    //       !_isLoading &&
-    //       !isListFull) {
-    //     print(query);
-    //     // _fetch();
-    //   }
-    // });
+    _getListRecommend();
+    _getListAllMeetup();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !_isLoadingCircle &&
+          !isListFull) {
+        _getListAllMeetup();
+      }
+    });
     // futureMentor = fetchData();
   }
 
@@ -360,58 +356,129 @@ class _ListSessionPage extends State<ListSessionPage> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.only(right: 15),
-                                  height: 255,
-                                  child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      children: [
-                                        if (meetings.isNotEmpty)
-                                          ...meetings
-                                              .map((SessionModel session) =>
-                                                  buildMeetingRecommend(
-                                                      session))
-                                              .toList(),
-                                      ]),
-                                )
+                                Skeleton(
+                                    isLoading: _isLoadingMeetupRecommend,
+                                    skeleton: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                            children: [1, 2, 3]
+                                                .map(
+                                                  (e) => Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 15,
+                                                          bottom: 15,
+                                                          right: 0,
+                                                          left: 15),
+                                                      width: 170,
+                                                      height: 225,
+                                                      child: SkeletonItem(
+                                                        child: SkeletonAvatar(
+                                                          style:
+                                                              SkeletonAvatarStyle(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            width:
+                                                                double.infinity,
+                                                            minHeight: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                8,
+                                                            maxHeight: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                3,
+                                                          ),
+                                                        ),
+                                                      )),
+                                                )
+                                                .toList())),
+                                    child: Container(
+                                      padding: EdgeInsets.only(right: 15),
+                                      height: 255,
+                                      child: ListView(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          children: [
+                                            if (meetingsRecommend.isNotEmpty)
+                                              ...meetingsRecommend
+                                                  .map((SessionModel session) =>
+                                                      buildMeetingRecommend(
+                                                          session))
+                                                  .toList(),
+                                          ]),
+                                    )),
                               ],
                             )),
-                        MySession(session: listSession[2]),
-                        Consumer<AppProvider>(
-                            builder: (context, provider, child) {
-                          return ListView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              children: [
-                                if (listSession.length > 0)
-                                  ...listSession
-                                      .map(
-                                          (SessionModel session) => SessionItem(
+                        if (!_isLoadingMeetups) ...[
+                          MySession(session: listMeetups[2]),
+                        ],
+                        Skeleton(
+                            isLoading: _isLoadingMeetups,
+                            skeleton: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Column(
+                                    children: [1, 2, 3]
+                                        .map(
+                                          (e) => Container(
+                                              margin: EdgeInsets.only(
+                                                  right: 15,
+                                                  bottom: 10,
+                                                  left: 15),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 245,
+                                              child: SkeletonItem(
+                                                child: SkeletonAvatar(
+                                                  style: SkeletonAvatarStyle(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    width: double.infinity,
+                                                    minHeight:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            8,
+                                                    maxHeight:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            3,
+                                                  ),
+                                                ),
+                                              )),
+                                        )
+                                        .toList())),
+                            child: Consumer<AppProvider>(
+                                builder: (context, provider, child) {
+                              return ListView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: [
+                                    if (listMeetups.length > 0)
+                                      ...listMeetups
+                                          .map((SessionModel session) =>
+                                              SessionItem(
                                                 session: session,
                                               ))
-                                      .toList(),
-                                // if (_isLoading) ...[
-                                //   Center(
-                                //       child: Container(
-                                //           margin: EdgeInsets.only(bottom: 10),
-                                //           child: CircularProgressIndicator(
-                                //             strokeWidth: 3.0,
-                                //             color: MaterialColors.primary,
-                                //           )))
-                                // ],
-                                // if (listSession.length == 0 && !_isLoading) ...[
-                                //   Container(
-                                //     height:
-                                //         MediaQuery.of(context).size.height - 200,
-                                //     color: Colors.white,
-                                //     child: Center(
-                                //       child: Text("Không tìm thấy Mentor nào"),
-                                //     ),
-                                //   )
-                                // ]
-                              ]);
-                        })
+                                          .toList(),
+                                    if (_isLoadingCircle) ...[
+                                      Center(
+                                          child: Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 3.0,
+                                                color: MaterialColors.primary,
+                                              )))
+                                    ],
+                                  ]);
+                            })),
                       ],
                     ),
                   ),
@@ -471,14 +538,14 @@ class _ListSessionPage extends State<ListSessionPage> {
 
   void searchBar(String query) {
     setState(() {
-      _isLoading = true;
-      listSession = [];
+      _isLoadingMeetupRecommend = true;
+      listMeetups = [];
     });
     // ApiServices.getListMentorBySearchKey(query).then((value) => {
     //       setState(() {
     //         this.query = query;
     //         listMentor = value;
-    //         _isLoading = false;
+    //         _isLoadingMeetupRecommend = false;
     //         print(listMentor);
     //       }),
     //     });

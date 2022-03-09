@@ -3,6 +3,7 @@ import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
@@ -17,6 +18,7 @@ import 'package:twe/provider/appProvider.dart';
 class _ListMentorTab extends State<ListMentorTab>
     with AutomaticKeepAliveClientMixin<ListMentorTab> {
   bool _isLoading = true;
+  bool _isLoadingCircle = true;
   bool isListFull = false;
   bool _isChecked = false;
   int page = 1;
@@ -32,7 +34,7 @@ class _ListMentorTab extends State<ListMentorTab>
 
   _fetch() async {
     setState(() {
-      _isLoading = true;
+      _isLoadingCircle = true;
     });
     List<MentorModel> mentors = [];
     List<MentorModel> newList = [];
@@ -44,6 +46,7 @@ class _ListMentorTab extends State<ListMentorTab>
                 {
                   setState(() {
                     isListFull = true;
+                    _isLoadingCircle = false;
                     _isLoading = false;
                   })
                 }
@@ -52,6 +55,7 @@ class _ListMentorTab extends State<ListMentorTab>
                   newList = [...listMentor, ...mentors],
                   setState(() {
                     _isLoading = false;
+                    _isLoadingCircle = false;
                     listMentor = newList;
                     page++;
                   })
@@ -61,6 +65,7 @@ class _ListMentorTab extends State<ListMentorTab>
             {
               setState(() {
                 _isLoading = false;
+                _isLoadingCircle = false;
                 isListFull = true;
                 listMentor = [];
               })
@@ -76,7 +81,7 @@ class _ListMentorTab extends State<ListMentorTab>
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
-          !_isLoading &&
+          !_isLoadingCircle &&
           !isListFull) {
         // print(query);
         _fetch();
@@ -246,50 +251,97 @@ class _ListMentorTab extends State<ListMentorTab>
                                 )),
                         ],
                       ),
-                      Consumer<AppProvider>(
-                          builder: (context, provider, child) {
-                        return ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children: [
-                              if (listMentor.length > 0)
-                                ...listMentor
-                                    .map((MentorModel mentor) => MentorItem(
-                                          mentor: mentor,
-                                          onPush: (mentorId) {
-                                            Navigator.of(context).pushNamed(
-                                              '/mentor-detail',
-                                              arguments: mentorId,
-                                            );
-                                          },
-                                          isBtnInvite: !widget.isMentorTab,
-                                          onSubmit: () {
-                                            provider
-                                                .setListMentorInvite(mentor);
-                                          },
-                                        ))
-                                    .toList(),
-                              if (_isLoading) ...[
-                                Center(
-                                    child: Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 3.0,
-                                          color: MaterialColors.primary,
-                                        )))
-                              ],
-                              if (listMentor.length == 0 && !_isLoading) ...[
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 250,
-                                  color: Colors.white,
-                                  child: Center(
-                                    child: Text("Không tìm thấy Mentor nào"),
-                                  ),
-                                )
-                              ]
-                            ]);
-                      })
+                      Skeleton(
+                          isLoading: _isLoading,
+                          skeleton: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                  children: [1, 2, 3]
+                                      .map(
+                                        (e) => Container(
+                                            margin: EdgeInsets.only(
+                                                right: 15,
+                                                bottom: 10,
+                                                left: 15),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 230,
+                                            child: SkeletonItem(
+                                              child: SkeletonAvatar(
+                                                style: SkeletonAvatarStyle(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  width: double.infinity,
+                                                  minHeight:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          8,
+                                                  maxHeight:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          3,
+                                                ),
+                                              ),
+                                            )),
+                                      )
+                                      .toList())),
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 0),
+                            child: Consumer<AppProvider>(
+                                builder: (context, provider, child) {
+                              return ListView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: [
+                                    if (listMentor.length > 0)
+                                      ...listMentor
+                                          .map((MentorModel mentor) =>
+                                              MentorItem(
+                                                mentor: mentor,
+                                                onPush: (mentorId) {
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                    '/mentor-detail',
+                                                    arguments: mentorId,
+                                                  );
+                                                },
+                                                isBtnInvite:
+                                                    !widget.isMentorTab,
+                                                onSubmit: () {
+                                                  provider.setListMentorInvite(
+                                                      mentor);
+                                                },
+                                              ))
+                                          .toList(),
+                                    if (_isLoadingCircle) ...[
+                                      Center(
+                                          child: Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 3.0,
+                                                color: MaterialColors.primary,
+                                              )))
+                                    ],
+                                    if (listMentor.length == 0 &&
+                                        !_isLoadingCircle) ...[
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                200,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: Text(
+                                              "Không tìm thấy Mentor nào"),
+                                        ),
+                                      )
+                                    ]
+                                  ]);
+                            }),
+                          )),
                     ],
                   ),
                   (widget.isMentorTab == false

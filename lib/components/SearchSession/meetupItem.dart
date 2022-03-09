@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/models/meetup.dart';
 
 class SessionItem extends StatelessWidget {
@@ -47,12 +48,11 @@ class SessionItem extends StatelessWidget {
                               color: Colors.blue.shade400,
                               borderRadius: BorderRadius.circular(10)),
                           child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
                               child: Image(
-                            // color:70olors.red,
-                            height: 250,
-                            fit: BoxFit.cover,
-                            image: NetworkImage(session.image!),
-                          )),
+                                fit: BoxFit.cover,
+                                image: NetworkImage(session.image!),
+                              )),
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
@@ -78,7 +78,8 @@ class SessionItem extends StatelessWidget {
                                       size: 22, color: MaterialColors.primary),
                                   Container(
                                     margin: EdgeInsets.only(left: 5),
-                                    child: Text("300.000 / buổi",
+                                    child: Text(
+                                        "${session.price!.toInt()} / buổi",
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400)),
@@ -112,7 +113,7 @@ class SessionItem extends StatelessWidget {
                                     size: 20, color: MaterialColors.primary),
                               ),
                               Text(
-                                session.date!.split(",")[0],
+                                session.date!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontFamily: "Roboto",
@@ -124,7 +125,7 @@ class SessionItem extends StatelessWidget {
                                     size: 20, color: MaterialColors.primary),
                               ),
                               Text(
-                                session.date!.split(",")[1],
+                                getSlot(session.slot!),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontFamily: "Roboto",
@@ -143,9 +144,7 @@ class SessionItem extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width - 90,
                                 margin: EdgeInsets.only(left: 5),
                                 child: Text(
-                                    COFFEE_DATA[0].name! +
-                                        ", " +
-                                        COFFEE_DATA[0].street!,
+                                    "${session.cafeName}, số 45 Cư xá Bình Thới - ${session.cafeStreet!}, ${session.cafeDistric!}",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400)),
@@ -187,7 +186,7 @@ class SessionItem extends StatelessWidget {
                           topLeft: Radius.circular(30),
                         )),
                     child: Text(
-                      "3/5 thành viên",
+                      "${session.listMemberImage!.length}/5 thành viên",
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Roboto',
@@ -222,7 +221,7 @@ class SessionItem extends StatelessWidget {
                                     size: 20, color: Colors.white),
                               ),
                               Text(
-                                "Tham gia (còn 2 chỗ trống)",
+                                "Tham gia (còn ${5 - session.listMemberImage!.length} chỗ trống)",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Roboto',

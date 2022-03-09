@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
+import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/models/location.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
@@ -14,25 +18,35 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   final _controller = TextEditingController();
   String inputText = "";
   bool isSearch = false;
-  bool _isLoading = true;
+  bool _isLoadingCircle = true;
+  bool _isLoadingCoffee = true;
   bool isListFull = false;
-
+  final ScrollController scrollController = ScrollController();
   int page = 1;
+  int checkedInit = 0;
 
   @override
   void initState() {
     super.initState();
-    // coffeeList = COFFEE_DATA;
+
     _fetch();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !_isLoadingCircle &&
+          !isListFull) {
+        _fetch();
+      }
+    });
   }
 
   _fetch() async {
     setState(() {
-      _isLoading = true;
+      _isLoadingCircle = true;
     });
     List<CoffeeModel> coffees = [];
     List<CoffeeModel> newList = [];
-    ApiServices.getListCoffeePagination(page, 10).then((item) => {
+    ApiServices.getListCoffeePagination(page, 5).then((item) => {
           print(item),
           if (item != null)
             {
@@ -41,14 +55,16 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                 {
                   setState(() {
                     isListFull = true;
-                    _isLoading = false;
+                    _isLoadingCircle = false;
+                    _isLoadingCoffee = false;
                   })
                 }
               else
                 {
                   newList = [...coffeeList, ...coffees],
                   setState(() {
-                    _isLoading = false;
+                    _isLoadingCircle = false;
+                    _isLoadingCoffee = false;
                     coffeeList = newList;
                     page++;
                   })
@@ -57,12 +73,19 @@ class _ListCoffeePage extends State<ListCoffeePage> {
           else
             {
               setState(() {
-                _isLoading = false;
+                _isLoadingCircle = false;
+                _isLoadingCoffee = false;
                 isListFull = true;
                 coffeeList = [];
               })
             }
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   Widget _buildSearchField() {
@@ -166,6 +189,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: ListView(
+            controller: scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -173,103 +197,216 @@ class _ListCoffeePage extends State<ListCoffeePage> {
               Row(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                    width: 100,
+                    margin: EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                    width: 110,
+                    height: 40,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: MaterialColors.primary,
-                        textStyle: TextStyle(color: Colors.white),
-                        shadowColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
+                        style: ElevatedButton.styleFrom(
+                          primary: MaterialColors.primary,
+                          textStyle: TextStyle(color: Colors.white),
+                          shadowColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        // _ModalBottom(context);
-                      },
-                      child: Text(
-                        "Bộ lọc",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
+                        onPressed: () {
+                          _Modal(context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Bộ lọc",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Icon(
+                                Icons.filter_alt_outlined,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            )
+                          ],
+                        )),
                   ),
-                  // (checkedInit == 0
-                  //     ? Text("")
-                  //     : Container(
-                  //         padding: EdgeInsets.only(left: 15),
-                  //         child: ElevatedButton(
-                  //             style: ElevatedButton.styleFrom(
-                  //               primary: Colors.white70,
-                  //               textStyle: TextStyle(color: Colors.blue),
-                  //               shadowColor: Colors.white,
-                  //               side: BorderSide(color: Colors.blue, width: 1),
-                  //               shape: RoundedRectangleBorder(
-                  //                 borderRadius: BorderRadius.circular(18),
-                  //               ),
-                  //             ),
-                  //             onPressed: () {},
-                  //             child: Row(
-                  //               children: [
-                  //                 Container(
-                  //                   margin: EdgeInsets.only(right: 5),
-                  //                   child: Text(
-                  //                     "${subList.where((element) => element.subjectId == checkedInit).toList()[0].subjectName}",
-                  //                     style: TextStyle(color: Colors.blue),
-                  //                   ),
-                  //                 ),
-                  //                 InkWell(
-                  //                   onTap: () {
-                  //                     setState(() {
-
-                  //                     });
-                  //                   },
-                  //                   child: const Icon(
-                  //                     Icons.highlight_remove_rounded,
-                  //                     color: Colors.blue,
-                  //                     size: 24,
-                  //                   ),
-                  //                 )
-                  //               ],
-                  //             )),
-                  //       )),
+                  Container(
+                    margin: EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                    width: 110,
+                    height: 40,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          textStyle: TextStyle(color: MaterialColors.primary),
+                          shadowColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              side: BorderSide(
+                                  color: MaterialColors.primary, width: 1)),
+                        ),
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Sắp xếp",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: MaterialColors.primary,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Icon(
+                                Icons.sort_by_alpha,
+                                color: MaterialColors.primary,
+                                size: 20,
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                  (checkedInit == 0
+                      ? Text("")
+                      : Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.white70,
+                                textStyle: TextStyle(color: Colors.blue),
+                                shadowColor: Colors.white,
+                                side: BorderSide(color: Colors.blue, width: 1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    child: Text(
+                                      "",
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        checkedInit = 0;
+                                      });
+                                    },
+                                    child: const Icon(
+                                      Icons.highlight_remove_rounded,
+                                      color: Colors.blue,
+                                      size: 24,
+                                    ),
+                                  )
+                                ],
+                              )),
+                        )),
                 ],
               ),
-              Container(
-                  // height: 900,
-                  child: Consumer<AppProvider>(
-                      builder: (context, provider, child) {
-                return ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  // scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: coffeeList.length,
-                  itemBuilder: (context, index) {
-                    return CoffeeItem(
-                        coffee: coffeeList[index],
-                        onPush: (coffeeId) {
-                          Navigator.of(context).pushNamed(
-                            '/coffee-detail',
-                            arguments: coffeeId,
-                          );
-                        },
-                        onSubmit: (coffee) {
-                          Navigator.of(context).pushNamed(
-                            '/list-mentor',
-                            arguments: ScreenArguments(false),
-                          );
-                          provider.setBookingCoffee(coffee);
-                        },
-                        isButton: true,
-                        isTabPage: !widget.isCoffeeTab,
-                        isStar: true,
-                        heightImg: 150,
-                        widthImg: 120);
-                  },
-                );
-              }))
+              Skeleton(
+                  isLoading: _isLoadingCoffee,
+                  skeleton: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                          children: [1, 2, 3]
+                              .map(
+                                (e) => Container(
+                                    margin: EdgeInsets.only(
+                                        right: 15, bottom: 20, left: 15),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 150,
+                                    child: SkeletonItem(
+                                      child: SkeletonAvatar(
+                                        style: SkeletonAvatarStyle(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          width: double.infinity,
+                                          minHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              8,
+                                          maxHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              3,
+                                        ),
+                                      ),
+                                    )),
+                              )
+                              .toList())),
+                  child: Container(
+                      // height: 900,
+                      child: Consumer<AppProvider>(
+                          builder: (context, provider, child) {
+                    return ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        if (coffeeList.isNotEmpty)
+                          ...coffeeList
+                              .map((item) => CoffeeItem(
+                                  coffee: item,
+                                  onPush: (coffeeId) {
+                                    Navigator.of(context).pushNamed(
+                                      '/coffee-detail',
+                                      arguments: coffeeId,
+                                    );
+                                  },
+                                  onSubmit: (coffee) {
+                                    Navigator.of(context).pushNamed(
+                                      '/list-mentor',
+                                      arguments: ScreenArguments(false),
+                                    );
+                                    provider.setBookingCoffee(coffee);
+                                  },
+                                  isButton: true,
+                                  isTabPage: !widget.isCoffeeTab,
+                                  isStar: true,
+                                  heightImg: 150,
+                                  widthImg: 120))
+                              .toList(),
+                        if (_isLoadingCircle) ...[
+                          Center(
+                              child: Container(
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3.0,
+                                    color: MaterialColors.primary,
+                                  )))
+                        ],
+                      ],
+                    );
+                  }))),
             ],
           ),
         ));
+  }
+
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ModalFilter(
+            onSeletedMajor: (major) => {
+              setState(() {
+        
+                // majorFilter = major;
+              })
+            },
+          );
+        });
   }
 
   void searchBar(String query) {
