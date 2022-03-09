@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,18 +27,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  bool _isLoading = true;
+  bool _isLoadingMeetup = true;
+  bool _isLoadingMentorTopRank = true;
   int test = 0;
   List<SessionModel> meetings = [];
+  List<MentorModel> mentorsTopRank = [];
+  List<String> vouchers = [];
   @override
   void initState() {
     super.initState();
     _fetch();
+    _getMentorTOpRank();
+    getListVoucher();
+  }
+
+  getListVoucher() {
+    ApiServices.getListVoucherHome().then((value) => {
+          setState(() {
+            vouchers = value;
+          })
+        });
   }
 
   _fetch() async {
     setState(() {
-      _isLoading = true;
+      _isLoadingMeetup = true;
     });
     ApiServices.getListMeetingRecommendByUserId(
             "38e24a19-db44-44e8-bf5b-eb2e595906db", 1, 3)
@@ -45,10 +60,25 @@ class _HomePage extends State<HomePage> {
                 {
                   setState(() {
                     meetings = item;
-                    _isLoading = false;
+                    _isLoadingMeetup = false;
                   })
                 }
             });
+  }
+
+  _getMentorTOpRank() async {
+    setState(() {
+      _isLoadingMentorTopRank = true;
+    });
+    ApiServices.getListMentorTopRank(1, 3).then((item) => {
+          if (item != null)
+            {
+              setState(() {
+                mentorsTopRank = item;
+                _isLoadingMentorTopRank = false;
+              })
+            }
+        });
   }
 
   @override
@@ -128,6 +158,79 @@ class _HomePage extends State<HomePage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
+<<<<<<< HEAD
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(bottom: 40)),
+                    Text(
+                      "Tuần nay có gì mới!",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    )
+                  ],
+                ),
+              ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 220.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  enlargeCenterPage: true,
+                  
+                ),
+                items: vouchers.map((item) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          child: Image(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(item),
+                      ));
+                    },
+                  );
+                }).toList(),
+              ),
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(padding: EdgeInsets.only(bottom: 30)),
+                      Text(
+                        "Hot giảm giá cùng bạn bè đến ngay!",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Padding(padding: EdgeInsets.only(bottom: 40)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nhập mã FPTSTUDENT để được giảm ngay 10%",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+=======
+>>>>>>> 024e41061b85aae35d5f9e58f8589466cd605e51
               Stack(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 30)),
@@ -141,17 +244,6 @@ class _HomePage extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(padding: EdgeInsets.only(top: 0.0)),
-                        /* Container(
-            width: 100,
-            height: 150,
-            child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-                child: Image.network(getImageNetwork(session["icon"]))),
-          ),*/
-
                         Row(
                           children: [
                             Container(
@@ -318,38 +410,46 @@ class _HomePage extends State<HomePage> {
                 ],
               ),
               Skeleton(
-                isLoading: _isLoading,
-                skeleton: Row(children: [
-                  Container(
-                      width: 250,
-                      height: 314,
-                      child: SkeletonItem(
-                        child: SkeletonAvatar(
-                          style: SkeletonAvatarStyle(
-                            borderRadius: BorderRadius.circular(10),
-                            width: double.infinity,
-                            minHeight: MediaQuery.of(context).size.height / 8,
-                            maxHeight: MediaQuery.of(context).size.height / 3,
-                          ),
+                isLoading: _isLoadingMeetup,
+                skeleton: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Container(
+                            width: 250,
+                            height: 314,
+                            child: SkeletonItem(
+                              child: SkeletonAvatar(
+                                style: SkeletonAvatarStyle(
+                                  borderRadius: BorderRadius.circular(10),
+                                  width: double.infinity,
+                                  minHeight:
+                                      MediaQuery.of(context).size.height / 8,
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height / 3,
+                                ),
+                              ),
+                            )),
+                        SizedBox(
+                          height: 10,
+                          width: 20,
                         ),
-                      )),
-                  SizedBox(
-                    height: 10,
-                    width: 20,
-                  ),
-                  Container(
-                      width: 250,
-                      height: 314,
-                      child: SkeletonItem(
-                        child: SkeletonAvatar(
-                          style: SkeletonAvatarStyle(
-                            width: double.infinity,
-                            minHeight: MediaQuery.of(context).size.height / 8,
-                            maxHeight: MediaQuery.of(context).size.height / 3,
-                          ),
-                        ),
-                      )),
-                ]),
+                        Container(
+                            width: 250,
+                            height: 314,
+                            child: SkeletonItem(
+                              child: SkeletonAvatar(
+                                style: SkeletonAvatarStyle(
+                                  width: double.infinity,
+                                  minHeight:
+                                      MediaQuery.of(context).size.height / 8,
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height / 3,
+                                ),
+                              ),
+                            )),
+                      ],
+                    )),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
@@ -407,17 +507,46 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(sessionItems.length, (index) {
-                    var mentor = mentorItems[index];
-                    return Padding(
-                      //child: SessionCard(session: mentor)
-                      padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(child: MentorCard(mentor: mentor)),
-                    );
-                  }),
+              Skeleton(
+                isLoading: _isLoadingMentorTopRank,
+                skeleton: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: [1, 2, 3]
+                            .map(
+                              (e) => Container(
+                                  margin:
+                                      EdgeInsets.only(right: 20, bottom: 15),
+                                  width: 200,
+                                  height: 250,
+                                  child: SkeletonItem(
+                                    child: SkeletonAvatar(
+                                      style: SkeletonAvatarStyle(
+                                        borderRadius: BorderRadius.circular(10),
+                                        width: double.infinity,
+                                        minHeight:
+                                            MediaQuery.of(context).size.height /
+                                                8,
+                                        maxHeight:
+                                            MediaQuery.of(context).size.height /
+                                                3,
+                                      ),
+                                    ),
+                                  )),
+                            )
+                            .toList())),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: mentorsTopRank
+                          .map((item) => Padding(
+                                //child: SessionCard(session: mentor)
+                                padding: const EdgeInsets.only(
+                                    right: rightMainPadding),
+                                child:
+                                    Container(child: MentorCard(mentor: item)),
+                              ))
+                          .toList()),
                 ),
               ),
             ],

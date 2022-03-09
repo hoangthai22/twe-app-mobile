@@ -41,12 +41,13 @@ class HistoryItem extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 5, bottom: 5),
       width: MediaQuery.of(context).size.width * 1,
-      height: 90,
+      height: 110,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-              height: 60,
-              width: 60,
+              height: 80,
+              width: 80,
               // width:  MediaQuery.of(context).size.width * 1,
               // padding: EdgeInsets.only(right: 15, left: 15),
               margin: EdgeInsets.only(right: 10, left: 10),
@@ -61,14 +62,14 @@ class HistoryItem extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Roboto",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
                 ),
               )),
           Container(
             padding: EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -76,21 +77,14 @@ class HistoryItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: Icon(
-                        Icons.school,
-                        size: 20,
-                        color: MaterialColors.primary,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1 - 180,
+                      width: MediaQuery.of(context).size.width * 1 - 200,
+                      margin: EdgeInsets.only(bottom: 5),
                       child: Text(
                         history.subject.subjectName,
                         style: TextStyle(
                             fontFamily: "Roboto",
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
                       ),
                     )
                   ],
@@ -100,7 +94,7 @@ class HistoryItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 10),
+                      margin: EdgeInsets.only(right: 10, bottom: 5),
                       child: Icon(
                         Icons.timer,
                         size: 20,
@@ -108,7 +102,8 @@ class HistoryItem extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1 - 180,
+                      margin: EdgeInsets.only(bottom: 5),
+                      width: MediaQuery.of(context).size.width * 1 - 200,
                       child: Text(
                         "08:30 - 10:00 AM",
                         maxLines: 1,
@@ -134,7 +129,7 @@ class HistoryItem extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1 - 180,
+                      width: MediaQuery.of(context).size.width * 1 - 200,
                       child: Text(
                         history.mentor.fullname!,
                         maxLines: 1,
@@ -150,7 +145,10 @@ class HistoryItem extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.arrow_forward_ios,size: 18,)
+          Icon(
+            Icons.arrow_forward_ios,
+            size: 18,
+          )
         ],
       ),
     );

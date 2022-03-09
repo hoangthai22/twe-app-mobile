@@ -26,6 +26,7 @@ class HistoryDetailPage extends StatelessWidget {
             color: Colors.white,
           ),
           toolbarHeight: 65,
+          centerTitle: true,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,19 +1,23 @@
+import 'dart:async';
 import 'dart:convert' as convert;
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchLocation.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class _ListMentorPage extends State<ListMentorPage> {
   bool _isLoading = true;
+  bool _isLoadingCircle = true;
   bool isListFull = false;
   int page = 1;
   String query = '';
@@ -23,10 +27,12 @@ class _ListMentorPage extends State<ListMentorPage> {
   final _controller = TextEditingController();
   String inputText = "";
   bool isSearch = false;
+  late MajorModel majorFilter;
+  late String majorId = "";
 
   _fetch() async {
     setState(() {
-      _isLoading = true;
+      _isLoadingCircle = true;
     });
     List<MentorModel> mentors = [];
     List<MentorModel> newList = [];
@@ -38,6 +44,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                 {
                   setState(() {
                     isListFull = true;
+                    _isLoadingCircle = false;
                     _isLoading = false;
                   })
                 }
@@ -46,6 +53,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                   newList = [...listMentor, ...mentors],
                   setState(() {
                     _isLoading = false;
+                    _isLoadingCircle = false;
                     listMentor = newList;
                     page++;
                   })
@@ -55,6 +63,7 @@ class _ListMentorPage extends State<ListMentorPage> {
             {
               setState(() {
                 _isLoading = false;
+                _isLoadingCircle = false;
                 isListFull = true;
                 listMentor = [];
               })
@@ -70,7 +79,7 @@ class _ListMentorPage extends State<ListMentorPage> {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
-          !_isLoading &&
+          !_isLoadingCircle &&
           !isListFull) {
         // print(query);
         _fetch();
@@ -241,39 +250,98 @@ class _ListMentorPage extends State<ListMentorPage> {
                       Row(
                         children: <Widget>[
                           Container(
-                            padding:
+                            margin:
                                 EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                            width: 100,
+                            width: 110,
+                            height: 40,
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: MaterialColors.primary,
-                                textStyle: TextStyle(color: Colors.white),
-                                shadowColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
+                                style: ElevatedButton.styleFrom(
+                                  primary: MaterialColors.primary,
+                                  textStyle: TextStyle(color: Colors.white),
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
                                 ),
-                              ),
-                              onPressed: () {
-                                _Modal(context);
-                              },
-                              child: Text(
-                                "Bộ lọc",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
+                                onPressed: () {
+                                  _Modal(context);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Bộ lọc",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.filter_alt_outlined,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                )),
                           ),
-                          (checkedInit == 0
+                          Container(
+                            margin:
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                            width: 110,
+                            height: 40,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  textStyle:
+                                      TextStyle(color: MaterialColors.primary),
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      side: BorderSide(
+                                          color: MaterialColors.primary,
+                                          width: 1)),
+                                ),
+                                onPressed: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Sắp xếp",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: MaterialColors.primary,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.sort_by_alpha,
+                                        color: MaterialColors.primary,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                          (majorId == ""
                               ? Text("")
                               : Container(
+                                  height: 40,
                                   padding: EdgeInsets.only(left: 15),
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.white70,
-                                        textStyle:
-                                            TextStyle(color: Colors.blue),
+                                        primary: Colors.white,
+                                        textStyle: TextStyle(
+                                            color: MaterialColors.primary),
                                         shadowColor: Colors.white,
                                         side: BorderSide(
-                                            color: Colors.blue, width: 1),
+                                            color: MaterialColors.primary,
+                                            width: 1),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(18),
@@ -285,20 +353,26 @@ class _ListMentorPage extends State<ListMentorPage> {
                                           Container(
                                             margin: EdgeInsets.only(right: 5),
                                             child: Text(
-                                              "",
-                                              style:
-                                                  TextStyle(color: Colors.blue),
+                                              majorFilter.majorName,
+                                              style: TextStyle(
+                                                  color: MaterialColors.primary,
+                                                  fontSize: 14,
+                                                  fontFamily: "Roboto",
+                                                  fontWeight: FontWeight.w400),
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
                                               setState(() {
-                                                checkedInit = 0;
+                                                majorId = "";
+                                                page = 1;
+                                                listMentor = [];
                                               });
+                                              _fetch();
                                             },
                                             child: const Icon(
                                               Icons.highlight_remove_rounded,
-                                              color: Colors.blue,
+                                              color: MaterialColors.primary,
                                               size: 24,
                                             ),
                                           )
@@ -307,50 +381,97 @@ class _ListMentorPage extends State<ListMentorPage> {
                                 )),
                         ],
                       ),
-                      Consumer<AppProvider>(
-                          builder: (context, provider, child) {
-                        return ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children: [
-                              if (listMentor.length > 0)
-                                ...listMentor
-                                    .map((MentorModel mentor) => MentorItem(
-                                          mentor: mentor,
-                                          onPush: (mentorId) {
-                                            Navigator.of(context).pushNamed(
-                                              '/mentor-detail',
-                                              arguments: mentorId,
-                                            );
-                                          },
-                                          isBtnInvite: !widget.isMentorTab,
-                                          onSubmit: () {
-                                            provider
-                                                .setListMentorInvite(mentor);
-                                          },
-                                        ))
-                                    .toList(),
-                              if (_isLoading) ...[
-                                Center(
-                                    child: Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 3.0,
-                                          color: MaterialColors.primary,
-                                        )))
-                              ],
-                              if (listMentor.length == 0 && !_isLoading) ...[
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 200,
-                                  color: Colors.white,
-                                  child: Center(
-                                    child: Text("Không tìm thấy Mentor nào"),
-                                  ),
-                                )
-                              ]
-                            ]);
-                      })
+                      Skeleton(
+                          isLoading: _isLoading,
+                          skeleton: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                  children: [1, 2, 3]
+                                      .map(
+                                        (e) => Container(
+                                            margin: EdgeInsets.only(
+                                                right: 15,
+                                                bottom: 10,
+                                                left: 15),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 230,
+                                            child: SkeletonItem(
+                                              child: SkeletonAvatar(
+                                                style: SkeletonAvatarStyle(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  width: double.infinity,
+                                                  minHeight:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          8,
+                                                  maxHeight:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          3,
+                                                ),
+                                              ),
+                                            )),
+                                      )
+                                      .toList())),
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 50),
+                            child: Consumer<AppProvider>(
+                                builder: (context, provider, child) {
+                              return ListView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: [
+                                    if (listMentor.length > 0)
+                                      ...listMentor
+                                          .map((MentorModel mentor) =>
+                                              MentorItem(
+                                                mentor: mentor,
+                                                onPush: (mentorId) {
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                    '/mentor-detail',
+                                                    arguments: mentorId,
+                                                  );
+                                                },
+                                                isBtnInvite:
+                                                    !widget.isMentorTab,
+                                                onSubmit: () {
+                                                  provider.setListMentorInvite(
+                                                      mentor);
+                                                },
+                                              ))
+                                          .toList(),
+                                    if (_isLoadingCircle) ...[
+                                      Center(
+                                          child: Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 3.0,
+                                                color: MaterialColors.primary,
+                                              )))
+                                    ],
+                                    if (listMentor.length == 0 &&
+                                        !_isLoadingCircle) ...[
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                200,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: Text(
+                                              "Không tìm thấy Mentor nào"),
+                                        ),
+                                      )
+                                    ]
+                                  ]);
+                            }),
+                          )),
                     ],
                   ),
                   (widget.isMentorTab == false && !_isLoading

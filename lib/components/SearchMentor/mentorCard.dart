@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/meetup_json.dart';
 
 import '../../pages/HomeTab/help.dart';
 
 class MentorCard extends StatelessWidget {
-  final mentor;
+  final MentorModel mentor;
   final double width;
 
   const MentorCard({
@@ -18,13 +19,13 @@ class MentorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var listRate = [for (var i = 1; i <= MENTOR_DATA[0].rate!; i++) i];
-    var listRateEmpty = [for (var i = 1; i <= 5 - MENTOR_DATA[0].rate!; i++) i];
+    var listRate = [for (var i = 1; i <= mentor.rate!; i++) i];
+    var listRateEmpty = [for (var i = 1; i <= 5 - mentor.rate!; i++) i];
     return Stack(
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "/mentor-detail", arguments: "m1");
+            Navigator.pushNamed(context, "/mentor-detail", arguments: mentor.id);
           },
           child: Container(
             //padding: EdgeInsets.all(0),
@@ -59,7 +60,7 @@ class MentorCard extends StatelessWidget {
                       ),
                       child: Image(
                         fit: BoxFit.cover,
-                        image: NetworkImage(getImageNetwork(mentor["image"])),
+                        image: NetworkImage(getImageNetwork(mentor.image)),
                       )),
                 ),
                 Container(
@@ -68,7 +69,7 @@ class MentorCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        mentor["name"] ?? "",
+                        mentor.fullname ?? "",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black,
@@ -103,7 +104,11 @@ class MentorCard extends StatelessWidget {
                             }).toList(),
                           Container(
                             child: Text(
+<<<<<<< HEAD
+                              " (${mentor.rate})",
+=======
                               " (5.0)",
+>>>>>>> 024e41061b85aae35d5f9e58f8589466cd605e51
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w500),
@@ -142,21 +147,6 @@ class MentorCard extends StatelessWidget {
             ),
           ),
         )
-        // Positioned(
-        //     right: 0,
-        //     top: 10,
-        //     child: Container(
-        //       alignment: Alignment.center,
-        //       height: 30,
-        //       width: 60,
-        //       decoration: BoxDecoration(
-        //           color: Colors.amber[500],
-        //           borderRadius: BorderRadius.only(
-        //             topLeft: Radius.circular(18),
-        //             bottomLeft: Radius.circular(18),
-        //           )),
-        //       child: Icon(Icons.fla)
-        //     ))
       ],
     );
   }

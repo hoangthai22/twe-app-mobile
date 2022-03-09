@@ -6,7 +6,7 @@ import 'package:twe/components/CreateSession/mentorItemInvite.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
 
 class SessionDetailPage extends StatelessWidget {
-  bool status = true;
+  bool status = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
