@@ -158,7 +158,6 @@ class _HomePage extends State<HomePage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-<<<<<<< HEAD
               Container(
                 child: Row(
                   children: <Widget>[
@@ -179,7 +178,6 @@ class _HomePage extends State<HomePage> {
                   autoPlay: true,
                   viewportFraction: 1,
                   enlargeCenterPage: true,
-                  
                 ),
                 items: vouchers.map((item) {
                   return Builder(
@@ -229,8 +227,6 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
-=======
->>>>>>> 024e41061b85aae35d5f9e58f8589466cd605e51
               Stack(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 30)),
