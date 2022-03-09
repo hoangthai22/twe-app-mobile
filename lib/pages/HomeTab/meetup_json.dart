@@ -1,6 +1,6 @@
 const List sessionItems = [
   {
-    "id":"1",
+    "id": "1",
     "name": "Clean Code",
     "image":
         "https://d3mxt5v3yxgcsr.cloudfront.net/courses/5819/course_5819_image.jpg",
@@ -10,7 +10,8 @@ const List sessionItems = [
     "address": "Moda Coffee",
     "price": "1000000"
   },
-  { "id":"2",
+  {
+    "id": "2",
     "name": "Inheritance",
     "image":
         "https://codelearn.io/Upload/Blog/tinh-ke-thua-trong-OOP-63729699128.2913.jpg",
@@ -20,7 +21,8 @@ const List sessionItems = [
     "address": "Hightland Coffee",
     "price": "750000"
   },
-  { "id":"3",
+  {
+    "id": "3",
     "name": "Go",
     "image":
         "https://teky.edu.vn/blog/wp-content/uploads/2021/07/ngon-ngu-golang-la-gi.jpg",
@@ -31,7 +33,7 @@ const List sessionItems = [
     "price": "500000"
   },
   {
-     "id":"4",
+    "id": "4",
     "name": "Data Model Diagram",
     "image": "https://i.ytimg.com/vi/Xx_d1tRduzI/maxresdefault.jpg",
     "date": " 03/03/2022",

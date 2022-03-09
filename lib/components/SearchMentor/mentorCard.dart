@@ -104,7 +104,11 @@ class MentorCard extends StatelessWidget {
                             }).toList(),
                           Container(
                             child: Text(
+<<<<<<< HEAD
                               " (${mentor.rate})",
+=======
+                              " (5.0)",
+>>>>>>> 024e41061b85aae35d5f9e58f8589466cd605e51
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w500),
