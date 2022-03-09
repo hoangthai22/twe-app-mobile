@@ -161,7 +161,7 @@ class SessionCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   child: Text(
-                    session.cafeName.toString(),
+                    session.cafeName.toString() + " /Khoảng cách 1.4km",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.normal),
@@ -186,7 +186,7 @@ class SessionCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(left: 5),
                       child: Text(
-                        session.price.toString(),
+                        session.price.toString() + " vnd/buổi ",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),
@@ -195,7 +195,7 @@ class SessionCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              /*Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.only(bottom: 5, right: 10),
                 child: Row(
@@ -205,15 +205,57 @@ class SessionCard extends StatelessWidget {
                           (item) => Container(
                             child: CircleAvatar(
                               radius: 13,
-                              backgroundImage:
-                                  NetworkImage(item),
+                              backgroundImage: NetworkImage(item),
                             ),
                           ),
                         )
                         .toList()),
-              )
+              )*/
             ],
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                        child: Icon(
+                            IconData(0xe2eb, fontFamily: 'MaterialIcons'),
+                            color: MaterialColors.primary,
+                            size: 22)),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        " 3/5 Thành viên   ",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      margin: EdgeInsets.only(bottom: 5, right: 10),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: session.listMemberImage!
+                              .map(
+                                (item) => Container(
+                                  child: CircleAvatar(
+                                    radius: 13,
+                                    backgroundImage: NetworkImage(item),
+                                  ),
+                                ),
+                              )
+                              .toList()),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
