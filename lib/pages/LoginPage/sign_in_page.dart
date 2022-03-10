@@ -121,7 +121,7 @@ class _SignInPage extends State<SignInPage> {
                   child: InkWell(
                 child: Icon(
                   Icons.arrow_back,
-                  size: 28,
+                  size: 35,
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -133,9 +133,9 @@ class _SignInPage extends State<SignInPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(right: 5),
-                    width: 45,
+                    width: 60,
                     child: Image.asset(
-                      'assets/logo_transparent.png',
+                      'assets/coctrensach5.png',
                       fit: BoxFit.cover,
                     ),
                   ),

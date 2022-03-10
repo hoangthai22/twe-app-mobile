@@ -88,6 +88,8 @@ flutter:
     - assets/success.png
     - assets/coctrensach5.png
     - assets/11.jpg
+    - welcome.PNG
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

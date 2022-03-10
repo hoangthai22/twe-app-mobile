@@ -50,14 +50,14 @@ class _LoginPage extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 40,
+                width: 75,
                 child: Image.asset(
-                  'assets/logo_transparent.png',
+                  'assets/coctrensach5.png',
                   fit: BoxFit.cover,
                 ),
               ),
               Text(
-                "Cóc Lên !",
+                "Toad Learn !",
                 style: TextStyle(
                     fontFamily: "Roboto",
                     fontSize: 20,
@@ -80,7 +80,7 @@ class _LoginPage extends State<LoginPage> {
           Container(
             padding: EdgeInsets.only(top: 15),
             child: Text(
-              "Tạo một buổi meetup cùng Mentor yêu thích một cách nhanh chóng ",
+              "Tạo một buổi meetup cùng Mentor yêu thích một cách nhanh chóng với địa điểm tốt nhất cho bạn.",
               style: TextStyle(
                 fontFamily: "Roboto",
                 fontSize: 16,
@@ -93,7 +93,7 @@ class _LoginPage extends State<LoginPage> {
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(top: 20, bottom: 20),
             child: Image.asset(
-              'assets/support.png',
+              'assets/welcome.PNG',
               fit: BoxFit.cover,
             ),
           ),
