@@ -87,6 +87,15 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  checkIsInviteMentor(mentor) {
+    for (var item in getListMentorInvite) {
+      if (item.id == mentor.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   bool get getIsLogin => isLogin;
   List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;

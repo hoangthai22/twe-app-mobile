@@ -37,22 +37,29 @@ class _ProfilePage extends State<ProfilePage> {
     print("name: ${_address.text}");
     print("name: ${_date.text}");
     ApiServices.putUpdateProfileByUserId(UserModel(
-        id: "hoangthai@gmail.com",
-        fullname: _name.text,
-        sex: _sex,
-        phone: _phone.text,
-        image:
-            "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/members%2F177630271_2900197300241115_353909334207364766_n.jpg?alt=media&token=51a2e073-b6ff-41bc-be41-c8cc1f73e5a2",
-        majorName: _major,
-        address: _address.text,
-        birthday: _date.text)).then((value) => {
-          if(value!=null){
-            print(value),
-            print("thanh cong")
-          }else{
-             print("that bai")
-          }
-        });
+            id: "hoangthai@gmail.com",
+            fullname: _name.text,
+            sex: _sex,
+            phone: _phone.text,
+            image:
+                "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/members%2F177630271_2900197300241115_353909334207364766_n.jpg?alt=media&token=51a2e073-b6ff-41bc-be41-c8cc1f73e5a2",
+            majorName: _major,
+            address: _address.text,
+            birthday: _date.text))
+        .then((value) => {
+              if (value != null)
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Cập nhật thành công')),
+                  )
+                }
+              else
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Đã xảy ra lỗi')),
+                  )
+                }
+            });
   }
 
   getListMajor() {
@@ -330,8 +337,14 @@ class _ProfilePage extends State<ProfilePage> {
                               );
                             }).then((selectedDate) {
                           if (selectedDate != null) {
+                            var month = selectedDate.month < 10
+                                ? ("0${selectedDate.month}")
+                                : selectedDate.month;
+                            var day = selectedDate.day < 10
+                                ? ("0${selectedDate.day}")
+                                : selectedDate.day;
                             _date.text =
-                                "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}";
+                                "${selectedDate.year}-${month}-${day}";
                             setState(() {
                               String date = _date.text;
                               if (date.isEmpty || date.length == 0) {
@@ -364,11 +377,6 @@ class _ProfilePage extends State<ProfilePage> {
                             onPressed: () {
                               if (valid) {
                                 if (_formKey.currentState!.validate()) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('Cập nhật thành công')),
-                                  );
                                   handleSubmit();
                                 }
                               }

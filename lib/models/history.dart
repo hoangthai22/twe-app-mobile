@@ -5,22 +5,31 @@ import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
 
 class HistoryModel {
-  int id;
-  int slot;
-  String date;
-  SubjectModel subject;
-  MajorModel major;
-  MentorModel mentor;
-
-  CoffeeModel coffee;
+  String? id;
+  int? slot;
+  String? date;
+  String? subjectName;
+  // MajorModel? major;
+  String? mentor;
+  // CoffeeModel? coffee;
 
   HistoryModel({
-    required this.id,
-    required this.coffee,
-    required this.major,
-    required this.subject,
-    required this.date,
-    required this.mentor,
-    required this.slot,
+    this.id,
+    // this.coffee,
+    // this.major,
+    this.subjectName,
+    this.date,
+    this.mentor,
+    this.slot,
   });
+
+  factory HistoryModel.fromJson(Map<String, dynamic> json) {
+    return HistoryModel(
+      id: json['sessionId'],
+      date: json['date'],
+      subjectName: json['subjectName'],
+      mentor: json['mentorName'],
+      slot: json['slot'],
+    );
+  }
 }

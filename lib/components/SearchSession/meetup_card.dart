@@ -41,7 +41,7 @@ class SessionCard extends StatelessWidget {
                 child: Image.network(getImageNetwork(session["icon"]))),
           ),*/
           Container(
-            width: 250,
+            // width: 250,
             height: 140,
             child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -72,14 +72,14 @@ class SessionCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(left: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                         child: Icon(
-                      IconData(0xf051f, fontFamily: 'MaterialIcons'),
+                      Icons.calendar_month,
                       size: 20,
                       color: MaterialColors.primary,
                     )),
@@ -96,15 +96,15 @@ class SessionCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(left: 5, right: 5),
                       child: Icon(
-                        IconData(0xf518, fontFamily: 'MaterialIcons'),
+                        Icons.timer,
                         size: 20,
                         color: MaterialColors.primary,
                       ),
@@ -123,13 +123,13 @@ class SessionCard extends StatelessWidget {
             ],
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   child: Icon(
-                    IconData(0xe743, fontFamily: 'MaterialIcons'),
+                    Icons.account_circle,
                     size: 22,
                     color: MaterialColors.primary,
                   ),
@@ -147,13 +147,13 @@ class SessionCard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   child: Icon(
-                    IconData(0xef68, fontFamily: 'MaterialIcons'),
+                    Icons.coffee,
                     color: MaterialColors.primary,
                     size: 22,
                   ),
@@ -161,7 +161,7 @@ class SessionCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   child: Text(
-                    session.cafeName.toString() + " /Khoảng cách 1.4km",
+                    session.cafeName.toString() + " / Khoảng cách 1.4km",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.normal),
@@ -174,15 +174,13 @@ class SessionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                        child: Icon(
-                            IconData(0xf58f, fontFamily: 'MaterialIcons'),
-                            color: MaterialColors.primary,
-                            size: 22)),
+                        child: Icon(Icons.price_change,
+                            color: MaterialColors.primary, size: 22)),
                     Container(
                       margin: const EdgeInsets.only(left: 5),
                       child: Text(
@@ -217,19 +215,17 @@ class SessionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                        child: Icon(
-                            IconData(0xe2eb, fontFamily: 'MaterialIcons'),
-                            color: MaterialColors.primary,
-                            size: 22)),
+                        child: Icon(Icons.group,
+                            color: MaterialColors.primary, size: 22)),
                     Container(
                       margin: const EdgeInsets.only(left: 5),
                       child: Text(
-                        " 3/5 Thành viên   ",
+                        " ${session.listMemberImage!.length}/5 Thành viên   ",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),

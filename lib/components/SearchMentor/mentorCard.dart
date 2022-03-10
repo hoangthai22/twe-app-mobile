@@ -4,6 +4,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/meetup_json.dart';
+import 'package:twe/routes.dart';
 
 import '../../pages/HomeTab/help.dart';
 
@@ -25,7 +26,8 @@ class MentorCard extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "/mentor-detail", arguments: mentor.id);
+            Navigator.pushNamed(context, "/mentor-detail",
+                arguments: ScreenArgumentsIsTab(true, mentor.id));
           },
           child: Container(
             //padding: EdgeInsets.all(0),
@@ -104,11 +106,7 @@ class MentorCard extends StatelessWidget {
                             }).toList(),
                           Container(
                             child: Text(
-<<<<<<< HEAD
                               " (${mentor.rate})",
-=======
-                              " (5.0)",
->>>>>>> 024e41061b85aae35d5f9e58f8589466cd605e51
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w500),

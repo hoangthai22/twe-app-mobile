@@ -6,14 +6,21 @@ import 'package:twe/components/Session/memberItem.dart';
 import 'package:twe/models/mentor.dart';
 
 class ListMember extends StatefulWidget {
+  List members;
+  ListMember({required this.members});
   @override
   State<StatefulWidget> createState() => _ListMember();
 }
 
 class _ListMember extends State<ListMember> {
-  List<MentorModel> list = [MENTOR_DATA[0], MENTOR_DATA[1], MENTOR_DATA[2]];
+  // List<MentorModel> list = [MENTOR_DATA[0], MENTOR_DATA[1], MENTOR_DATA[2]];
+
   @override
   Widget build(BuildContext context) {
+    List listMentorInvite = widget.members.map((dynamic item) {
+      return item;
+    }).toList();
+
     return Container(
         margin: EdgeInsets.only(top: 15),
         child: Column(children: [
@@ -36,11 +43,14 @@ class _ListMember extends State<ListMember> {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             child: Column(
-                children: list.map((member) {
-              var index = list.indexOf(member);
+                children: widget.members.map((dynamic item) {
+              var index = widget.members.indexOf(item);
               return MemberItem(
-                  item: member,
-                  isBorderBottom: index == list.length-1 ? false : true);
+                  id: item["id"],
+                  majorName: item["majorName"],
+                  memberName: item["name"],
+                  image: item["image"],
+                  isBorderBottom: index == widget.members.length - 1 ? false : true);
             }).toList()),
           )
         ]));

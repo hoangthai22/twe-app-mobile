@@ -17,14 +17,6 @@ class MentorModel {
   List<dynamic>? listMajor;
   List<dynamic>? listSkill;
 
-  static double checkDouble(dynamic value) {
-    if (value is String) {
-      return double.parse(value);
-    } else {
-      return value.toDouble();
-    }
-  }
-
   MentorModel(
       {this.id,
       this.fullname,
@@ -45,7 +37,7 @@ class MentorModel {
   factory MentorModel.fromJson(Map<String, dynamic> json) {
     return MentorModel(
       id: json['id'],
-      fullname: json['fullname'],
+      fullname: json['fullname'] == null ? json['name'] : json['fullname'],
       address: json['address'],
       description: json['description'],
       sex: json['sex'],

@@ -1,3 +1,5 @@
+import 'package:twe/models/location.dart';
+
 class SessionModel {
   final String? sessionId;
   final String? subject;
@@ -6,20 +8,30 @@ class SessionModel {
   final int? slot;
   final double? price;
   final String? description;
+  final String? majorId;
+  final String? majorName;
   final String? image;
   final List? member;
+  final List? listMentorInvite;
   final String? cafeName;
   final String? cafeStreet;
   final String? cafeDistric;
+  final Map<String, dynamic>? cafe;
   final bool? isJoin;
   final List? listMemberImage;
+  final List? listMember;
+  final int? status;
 
   SessionModel(
       {this.description,
       this.mentorName,
+      this.majorId,
+      this.majorName,
+      this.listMentorInvite,
       this.subject,
       this.cafeDistric,
       this.cafeStreet,
+      this.cafe,
       this.date,
       this.cafeName,
       this.slot,
@@ -28,6 +40,8 @@ class SessionModel {
       this.isJoin,
       this.listMemberImage,
       this.member,
+      this.status,
+      this.listMember,
       this.sessionId});
 
   factory SessionModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +50,8 @@ class SessionModel {
       mentorName: json['mentorName'],
       description: json['description'],
       subject: json['subjectName'],
+      majorName: json['majorName'],
+      majorId: json['majorId'],
       isJoin: json['isJoin'],
       listMemberImage: json['listMemberImage'],
       slot: json['slot'],
@@ -45,6 +61,10 @@ class SessionModel {
       cafeName: json['cafeName'],
       cafeStreet: json['cafeStreet'],
       cafeDistric: json['cafeDistric'],
+      listMentorInvite: json['listMentor'],
+      listMember: json['listMember'],
+      cafe: json['cafe'],
+      status: json['status'],
     );
   }
 }
