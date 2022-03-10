@@ -14,6 +14,7 @@ import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class _ListMentorTab extends State<ListMentorTab>
     with AutomaticKeepAliveClientMixin<ListMentorTab> {
@@ -117,139 +118,144 @@ class _ListMentorTab extends State<ListMentorTab>
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin:
-                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                            width: 110,
-                            height: 40,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: MaterialColors.primary,
-                                  textStyle: TextStyle(color: Colors.white),
-                                  shadowColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  _Modal(context);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Bộ lọc",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 5),
-                                      child: Icon(
-                                        Icons.filter_alt_outlined,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                    )
-                                  ],
-                                )),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                            width: 110,
-                            height: 40,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  textStyle:
-                                      TextStyle(color: MaterialColors.primary),
-                                  shadowColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 15, top: 10, bottom: 10),
+                              width: 110,
+                              height: 40,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: MaterialColors.primary,
+                                    textStyle: TextStyle(color: Colors.white),
+                                    shadowColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18),
-                                      side: BorderSide(
-                                          color: MaterialColors.primary,
-                                          width: 1)),
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Sắp xếp",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: MaterialColors.primary,
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w500),
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 5),
-                                      child: Icon(
-                                        Icons.sort_by_alpha,
-                                        color: MaterialColors.primary,
-                                        size: 20,
+                                  ),
+                                  onPressed: () {
+                                    _Modal(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Bộ lọc",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontFamily: "Roboto",
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                    )
-                                  ],
-                                )),
-                          ),
-                          (majorId == ""
-                              ? Text("")
-                              : Container(
-                                  height: 40,
-                                  padding: EdgeInsets.only(left: 15),
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,
-                                        textStyle: TextStyle(
-                                            color: MaterialColors.primary),
-                                        shadowColor: Colors.white,
+                                      Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.filter_alt_outlined,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 15, top: 10, bottom: 10),
+                              width: 110,
+                              height: 40,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white,
+                                    textStyle: TextStyle(
+                                        color: MaterialColors.primary),
+                                    shadowColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18),
                                         side: BorderSide(
                                             color: MaterialColors.primary,
-                                            width: 1),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18),
-                                        ),
+                                            width: 1)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Sắp xếp",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: MaterialColors.primary,
+                                            fontFamily: "Roboto",
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                      onPressed: () {},
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(right: 5),
-                                            child: Text(
-                                              majorFilter.majorName,
-                                              style: TextStyle(
-                                                  color: MaterialColors.primary,
-                                                  fontSize: 14,
-                                                  fontFamily: "Roboto",
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                majorId = "";
-                                                page = 1;
-                                                listMentor = [];
-                                              });
-                                              _fetch();
-                                            },
-                                            child: const Icon(
-                                              Icons.highlight_remove_rounded,
+                                      Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.sort_by_alpha,
+                                          color: MaterialColors.primary,
+                                          size: 20,
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ),
+                            (majorId == ""
+                                ? Text("")
+                                : Container(
+                                    height: 40,
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          textStyle: TextStyle(
+                                              color: MaterialColors.primary),
+                                          shadowColor: Colors.white,
+                                          side: BorderSide(
                                               color: MaterialColors.primary,
-                                              size: 24,
+                                              width: 1),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18),
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              child: Text(
+                                                majorFilter.majorName,
+                                                style: TextStyle(
+                                                    color:
+                                                        MaterialColors.primary,
+                                                    fontSize: 14,
+                                                    fontFamily: "Roboto",
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
                                             ),
-                                          )
-                                        ],
-                                      )),
-                                )),
-                        ],
+                                            InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  majorId = "";
+                                                  page = 1;
+                                                  listMentor = [];
+                                                });
+                                                _fetch();
+                                              },
+                                              child: const Icon(
+                                                Icons.highlight_remove_rounded,
+                                                color: MaterialColors.primary,
+                                                size: 24,
+                                              ),
+                                            )
+                                          ],
+                                        )),
+                                  )),
+                          ],
+                        ),
                       ),
                       Skeleton(
                           isLoading: _isLoading,
@@ -302,11 +308,11 @@ class _ListMentorTab extends State<ListMentorTab>
                                               MentorItem(
                                                 mentor: mentor,
                                                 onPush: (mentorId) {
-                                                  Navigator.of(context)
-                                                      .pushNamed(
-                                                    '/mentor-detail',
-                                                    arguments: mentorId,
-                                                  );
+                                                  Navigator.of(context).pushNamed(
+                                                      '/mentor-detail',
+                                                      arguments:
+                                                          ScreenArgumentsIsTab(
+                                                              true, mentorId));
                                                 },
                                                 isBtnInvite:
                                                     !widget.isMentorTab,
@@ -436,8 +442,9 @@ class _ListMentorTab extends State<ListMentorTab>
 
 class ListMentorTab extends StatefulWidget {
   late final isMentorTab;
+  late final isFavoriteMentorTab;
 
-  ListMentorTab({required this.isMentorTab});
+  ListMentorTab({required this.isMentorTab, required this.isFavoriteMentorTab});
 
   @override
   _ListMentorTab createState() => _ListMentorTab();

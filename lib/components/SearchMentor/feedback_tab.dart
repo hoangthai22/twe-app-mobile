@@ -32,7 +32,7 @@ class FeedbackTab extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border(
-                      bottom: BorderSide(color: Colors.black26, width: 1)),
+                      bottom: BorderSide(color: Colors.black12, width: 1)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

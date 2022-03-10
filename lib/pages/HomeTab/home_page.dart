@@ -7,16 +7,10 @@ import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/SearchMentor/mentorCard.dart';
+import 'package:twe/components/SearchSession/meetup_card.dart';
 import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
-import 'package:twe/components/SearchSession/meetup_card.dart';
-import 'package:twe/pages/HomeTab/meetup_json.dart';
-import 'package:twe/provider/appProvider.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-import 'package:carousel_slider/carousel_slider.dart';
 
 const riveFile = 'assets/loading.riv';
 const home1 = 'assets/home1.png';
@@ -398,7 +392,7 @@ class _HomePage extends State<HomePage> {
                     child: Row(
                       children: [
                         Container(
-                            width: 250,
+                            width: 275,
                             height: 314,
                             child: SkeletonItem(
                               child: SkeletonAvatar(

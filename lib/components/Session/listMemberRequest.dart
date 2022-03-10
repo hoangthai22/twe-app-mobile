@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Session/memberItem.dart';
@@ -7,19 +8,32 @@ import 'package:twe/components/Session/memberRequestItem.dart';
 import 'package:twe/models/mentor.dart';
 
 class ListMemberRequest extends StatefulWidget {
+  String meetingId;
+  ListMemberRequest({required this.meetingId});
   @override
   State<StatefulWidget> createState() => _ListMemberRequest();
 }
 
 class _ListMemberRequest extends State<ListMemberRequest> {
-  List<MentorModel> list = [
-    MENTOR_DATA[0],
-    MENTOR_DATA[1],
-    MENTOR_DATA[2],
-    MENTOR_DATA[1],
-    MENTOR_DATA[0],
-    MENTOR_DATA[0]
-  ];
+  List listMemberRequest = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getListMemberRequest(widget.meetingId);
+  }
+
+  getListMemberRequest(String id) {
+    ApiServices.getListMemberRequest(id).then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                listMemberRequest = value;
+              })
+            }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
@@ -44,11 +58,15 @@ class _ListMemberRequest extends State<ListMemberRequest> {
           color: Colors.white,
           width: MediaQuery.of(context).size.width,
           child: Column(
-              children: list.map((member) {
-            var index = list.indexOf(member);
+              children: listMemberRequest.map((dynamic item) {
+            var index = listMemberRequest.indexOf(item);
             return MemberRequestItem(
-                item: member,
-                isBorderBottom: index == list.length - 1 ? false : true);
+                id: item["id"],
+                majorName: item["majorName"],
+                memberName: item["name"],
+                image: item["image"],
+                isBorderBottom:
+                    index == listMemberRequest.length - 1 ? false : true);
           }).toList()),
         )
       ])

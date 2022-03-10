@@ -343,8 +343,9 @@ class _MentorItem extends State<MentorItem> {
                           ? print(provider.getListMentorInvite[0].id)
                           : print("object");
                       print(widget.mentor.id);
+
                       var checkInvited =
-                          provider.getListMentorInvite.contains(widget.mentor);
+                          provider.checkIsInviteMentor(widget.mentor);
                       return Positioned(
                           right: 10,
                           bottom: 10,

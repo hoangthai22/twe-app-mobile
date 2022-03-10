@@ -34,6 +34,7 @@ class _CoffeeItem extends State<CoffeeItem> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isTabPage);
     void onClick() {
       widget.onPush(widget.coffee.id!);
     }

@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Setting/historyItem.dart';
+import 'package:twe/models/history.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HistoryPage();
   const HistoryPage({Key? key}) : super(key: key);
+}
+
+class _HistoryPage extends State<HistoryPage> {
   onPush(context, historyId) {
     Navigator.of(context).pushNamed(
       '/history-detail',
       arguments: historyId,
     );
+  }
+
+  List<HistoryModel> listHistory = [];
+
+  getListHistory() {
+    ApiServices.getListHistory("I8WUeMVF3KTDcChKbCwyyUqw6g72", 1, 3)
+        .then((value) => {
+              if (value != null) print(value),
+              {
+                setState(() {
+                  listHistory = value;
+                })
+              }
+            });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getListHistory();
   }
 
   @override
@@ -42,11 +69,14 @@ class HistoryPage extends StatelessWidget {
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            children: HISTORY_DATA
-                .map((history) => InkWell(
-                    onTap: () => onPush(context, history.id),
-                    child: HistoryItem(history: history)))
-                .toList()),
+            children: [
+              if (listHistory.isNotEmpty)
+                ...listHistory
+                    .map((history) => InkWell(
+                        onTap: () => onPush(context, history.id),
+                        child: HistoryItem(history: history)))
+                    .toList()
+            ]),
       ),
     );
   }
