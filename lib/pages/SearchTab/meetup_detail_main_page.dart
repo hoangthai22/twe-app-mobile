@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/Session/listMemberRequest.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/pages/SearchTab/meetup_detail_info_page.dart';
 import 'package:twe/pages/SearchTab/meetup_detail_member_page.dart';
 import 'package:twe/pages/SearchTab/meetup_detail_request_page.dart';
@@ -37,31 +39,62 @@ class SessionDetailMainPage extends StatefulWidget {
 }
 
 class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
+  late SessionModel meeting;
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
-    print("Id: " + widget.sessionId);
     return DefaultTabController(
       length: widget.isRequestTab ? 3 : 2,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Chi tiết Meetup"),
-          backgroundColor: MaterialColors.primary,
-          bottom: PreferredSize(
-            preferredSize: widget._tabBar.preferredSize,
-            child: ColoredBox(
-              color: Colors.white,
-              child: widget._tabBar,
+          appBar: AppBar(
+            title: Text("Chi tiết Meetup"),
+            backgroundColor: MaterialColors.primary,
+            bottom: PreferredSize(
+              preferredSize: widget._tabBar.preferredSize,
+              child: ColoredBox(
+                color: Colors.white,
+                child: widget._tabBar,
+              ),
             ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            SessionDetailPage(),
-            SessionMemberPage(),
-            if (widget.isRequestTab) ...[SessionMemberRequestPage()],
-          ],
-        ),
-      ),
+          body: isLoading
+              ? Center(
+                  child: Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3.0,
+                        color: MaterialColors.primary,
+                      )))
+              : TabBarView(
+                  children: [
+                    SessionDetailPage(meetingInfo: meeting),
+                    SessionMemberPage(
+                      members: meeting.listMember!,
+                    ),
+                    if (widget.isRequestTab) ...[
+                      SessionMemberRequestPage(
+                        meetingId: meeting.sessionId!,
+                      )
+                    ],
+                  ],
+                )),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ApiServices.getMeetingDetailByMeetingId(
+            "I8WUeMVF3KTDcChKbCwyyUqw6g72", widget.sessionId)
+        .then((value) => {
+              if (value != null)
+                {
+                  setState(() {
+                    meeting = value;
+                    isLoading = false;
+                  })
+                }
+            });
   }
 }

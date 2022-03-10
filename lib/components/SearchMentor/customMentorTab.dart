@@ -9,7 +9,8 @@ import 'package:twe/models/mentor.dart';
 
 class CustomTabMentor extends StatefulWidget {
   MentorModel mentor;
-  CustomTabMentor({required this.mentor});
+  bool isTab;
+  CustomTabMentor({required this.mentor, required this.isTab});
 
   TabBar get _tabBar => TabBar(
         labelColor: MaterialColors.primary,
@@ -23,9 +24,11 @@ class CustomTabMentor extends StatefulWidget {
           Tab(
             text: ("Thông tin"),
           ),
-          Tab(
-            text: ("Lịch biểu"),
-          ),
+          if (isTab) ...[
+            Tab(
+              text: ("Lịch biểu"),
+            ),
+          ],
           Tab(
             text: ("Đánh giá"),
           ),
@@ -53,7 +56,7 @@ class _CustomTabMentor extends State<CustomTabMentor> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return DefaultTabController(
-      length: 3,
+      length: widget.isTab ? 3 : 2,
       child: Scaffold(
         appBar: new PreferredSize(
           preferredSize: widget._tabBar.preferredSize,
@@ -67,7 +70,7 @@ class _CustomTabMentor extends State<CustomTabMentor> {
             InfoTab(
               mentor: widget.mentor,
             ),
-            SessionMentorTab(),
+            if (widget.isTab) ...[SessionMentorTab()],
             FeedbackTab(
                 listFeedback: listFeedback, rate: widget.mentor.rate! + .0),
           ],

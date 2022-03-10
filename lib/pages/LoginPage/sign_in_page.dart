@@ -76,6 +76,7 @@ class _SignInPage extends State<SignInPage> {
             Navigator.pushReplacementNamed(context, '/home');
           }
         }).catchError((onError) {
+          EasyLoading.dismiss();
           showDialog(
               context: context,
               builder: (build) {
@@ -96,8 +97,10 @@ class _SignInPage extends State<SignInPage> {
       } on FirebaseAuthException catch (e) {
         print('Failed with error code: ${e.code}');
         print(e.message);
+        EasyLoading.dismiss();
       } catch (e) {
         print(e);
+        EasyLoading.dismiss();
         rethrow;
       }
     }

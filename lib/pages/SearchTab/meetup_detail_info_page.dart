@@ -2,13 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/widget_span.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/components/CreateSession/mentorItemInvite.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
+import 'package:twe/models/location.dart';
+import 'package:twe/models/meetup.dart';
+import 'package:twe/models/mentor.dart';
 
 class SessionDetailPage extends StatelessWidget {
-  bool status = false;
+  late SessionModel meetingInfo;
+  SessionDetailPage({required this.meetingInfo});
+  bool status = true;
   @override
   Widget build(BuildContext context) {
+    List<MentorModel> listMentorInvite =
+        meetingInfo.listMentorInvite!.map((dynamic item) {
+      print(item);
+      return MentorModel.fromJson(item);
+    }).toList();
+
+    CoffeeModel coffee = CoffeeModel.fromJson(meetingInfo.cafe!);
+
     return Scaffold(
         body: Container(
       color: Colors.white,
@@ -50,7 +64,7 @@ class SessionDetailPage extends StatelessWidget {
                         Title(
                             color: Colors.black,
                             child: Text(
-                              'Kĩ thuật phần mềm',
+                              meetingInfo.majorName!,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: "Roboto",
@@ -93,7 +107,7 @@ class SessionDetailPage extends StatelessWidget {
                         Title(
                             color: Colors.black,
                             child: Text(
-                              'Java',
+                              meetingInfo.subject!,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: "Roboto",
@@ -141,7 +155,7 @@ class SessionDetailPage extends StatelessWidget {
                         Title(
                             color: Colors.black,
                             child: Text(
-                              '500,000 VND / buổi',
+                              '${meetingInfo.price} VND / buổi',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: "Roboto",
@@ -236,7 +250,7 @@ class SessionDetailPage extends StatelessWidget {
                             Title(
                                 color: Colors.black,
                                 child: Text(
-                                  '2022-02-02',
+                                  meetingInfo.date!,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "Roboto",
@@ -256,7 +270,7 @@ class SessionDetailPage extends StatelessWidget {
                             Title(
                                 color: Colors.black,
                                 child: Text(
-                                  '07:00 - 08:30',
+                                  getSlot(meetingInfo.slot!),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "Roboto",
@@ -312,7 +326,7 @@ class SessionDetailPage extends StatelessWidget {
                             Title(
                                 color: Colors.black,
                                 child: Text(
-                                  'Đang chờ Mentor xác nhận',
+                                  getStatusString(meetingInfo.status!),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "Roboto",
@@ -361,7 +375,7 @@ class SessionDetailPage extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              children: [MENTOR_DATA[0], MENTOR_DATA[1]]
+              children: listMentorInvite
                   .map(
                     (mentor) => Container(
                       width: 120,
@@ -447,7 +461,7 @@ class SessionDetailPage extends StatelessWidget {
           ),
         ),
         CoffeeItem(
-            coffee: COFFEE_DATA[0],
+            coffee: coffee,
             onPush: (e) {},
             isTabPage: false,
             onSubmit: (e) {},

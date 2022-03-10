@@ -7,16 +7,20 @@ class CoffeeModel {
   String? street;
   String? distric;
   String? image;
+  String? openTime;
+  String? closeTime;
   double? rate;
 
   CoffeeModel({
-    required this.id,
-    required this.name,
-    required this.street,
-    required this.distric,
-    required this.description,
-    required this.image,
-     this.rate,
+    this.id,
+    this.name,
+    this.street,
+    this.closeTime,
+    this.openTime,
+    this.distric,
+    this.description,
+    this.image,
+    this.rate,
   });
 
   factory CoffeeModel.fromJson(Map<String, dynamic> json) {
@@ -27,6 +31,9 @@ class CoffeeModel {
       distric: json['distric'],
       description: json['description'],
       image: json['image'],
+      openTime: json['openTime'],
+      closeTime: json['closeTime'],
+      rate: json['rate'] == null ? 0.0 : json['rate'].toDouble(),
     );
   }
 }

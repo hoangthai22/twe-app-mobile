@@ -7,6 +7,8 @@ import 'package:twe/components/Session/listMemberRequest.dart';
 import 'package:twe/models/mentor.dart';
 
 class SessionMemberPage extends StatefulWidget {
+  List members;
+  SessionMemberPage({required this.members});
   @override
   State<StatefulWidget> createState() => _SessionMemberPage();
 }
@@ -14,6 +16,8 @@ class SessionMemberPage extends StatefulWidget {
 class _SessionMemberPage extends State<SessionMemberPage> {
   @override
   Widget build(BuildContext context) {
-    return ListMember();
+    return ListMember(
+      members: widget.members,
+    );
   }
 }

@@ -14,6 +14,7 @@ import 'package:twe/components/SearchCoffee/appbarSearchLocation.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class _ListMentorPage extends State<ListMentorPage> {
   bool _isLoading = true;
@@ -435,7 +436,9 @@ class _ListMentorPage extends State<ListMentorPage> {
                                                   Navigator.of(context)
                                                       .pushNamed(
                                                     '/mentor-detail',
-                                                    arguments: mentorId,
+                                                    arguments:
+                                                        ScreenArgumentsIsTab(
+                                                            false, mentor.id),
                                                   );
                                                 },
                                                 isBtnInvite:

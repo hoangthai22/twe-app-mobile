@@ -103,8 +103,13 @@ class _MentorPageMainTab extends State<MentorPageMainTab> {
             ]
           ],
         ),
-        body: TabBarView(
-            children: [ListMentorTab(isMentorTab: true), MyMentorTab()]),
+        body: TabBarView(children: [
+          ListMentorTab(
+            isMentorTab: true,
+            isFavoriteMentorTab: false,
+          ),
+          ListMentorTab(isMentorTab: true, isFavoriteMentorTab: true),
+        ]),
       ),
     );
   }

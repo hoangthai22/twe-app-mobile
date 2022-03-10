@@ -4,6 +4,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/meetup_json.dart';
+import 'package:twe/routes.dart';
 
 import '../../pages/HomeTab/help.dart';
 
@@ -26,7 +27,7 @@ class MentorCard extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.pushNamed(context, "/mentor-detail",
-                arguments: mentor.id);
+                arguments: ScreenArgumentsIsTab(true, mentor.id));
           },
           child: Container(
             //padding: EdgeInsets.all(0),

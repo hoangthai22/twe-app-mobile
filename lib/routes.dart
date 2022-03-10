@@ -64,9 +64,12 @@ class RouteGenerator {
                   isMentorTab: argument.isTab,
                 ));
       case '/mentor-detail':
+        ScreenArgumentsIsTab argument = args as ScreenArgumentsIsTab;
+
         return MaterialPageRoute(
             builder: (_) => MentorDetailPage(
-                  mentorId: (args.toString()),
+                  isMentorTab: argument.isTab!,
+                  mentorId: (argument.id!),
                 ));
       case '/confirm-booking':
         return MaterialPageRoute(builder: (_) => BookingPage());
@@ -133,5 +136,14 @@ class RouteGenerator {
 class ScreenArguments {
   final bool isTab;
 
-  ScreenArguments(this.isTab);
+  ScreenArguments(
+    this.isTab,
+  );
+}
+
+class ScreenArgumentsIsTab {
+  final String? id;
+  final bool? isTab;
+
+  ScreenArgumentsIsTab(this.isTab, this.id);
 }

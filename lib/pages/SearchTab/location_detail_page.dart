@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/Feedback/feedback.dart';
@@ -21,13 +22,24 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
     super.initState();
     skill = "";
     coffee = COFFEE_DATA[2];
+    // getLocationDetailById();
+  }
+
+  getLocationDetailById() {
+    ApiServices.getDetailLocationById(widget.coffeeId.toString())
+        .then((value) => {
+              if (value != null)
+                {
+                  setState(() {
+                    coffee = value;
+                  })
+                }
+            });
   }
 
   void onSubmit(context) {
     return _ModalBottom(context);
   }
-
-  void onRedirect(context) {}
 
   void _ModalBottom(context) {
     showModalBottomSheet(
@@ -51,21 +63,10 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print(widget.isCoffeeTab);
     var listRate = [for (var i = 1; i <= coffee.rate!; i++) i];
     print("idCoffee: ${widget.coffeeId}");
     return Scaffold(
-        // appBar: AppBar(
-        //   leading: BackButton(color: Colors.black),
-        //   backgroundColor: Colors.white,
-        //   title: Text(
-        //     'Coffee',
-        //     style: TextStyle(
-        //       color: Colors.black,
-        //       fontSize: 17,
-        //       fontFamily: 'Roboto',
-        //     ),
-        //   ),
-        // ),
         body: Container(
           color: Colors.white,
           child: ListView(
@@ -207,8 +208,9 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                     ],
                   )),
               Container(
-                  padding: const EdgeInsets.only(top: 10, bottom: 15),
-                  margin: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    bottom: 15,
                     right: 15,
                     left: 15,
                   ),
@@ -240,26 +242,89 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                       ),
                     ],
                   )),
-              Container(
-                padding: const EdgeInsets.only(
-                    top: 15, bottom: 15, left: 15, right: 15),
-                child: Text(
-                  "Nhận xét (2)",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(bottom: 5, left: 18, top: 15),
+                    child: Text(
+                      "Đánh giá",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                          bottom: BorderSide(color: Colors.black12, width: 1)),
+                    ),
+                    padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (listRate.length > 0)
+                          ...listRate.map((e) {
+                            return Icon(
+                              Icons.star,
+                              size: 22,
+                              color: Colors.amber,
+                            );
+                          }).toList(),
+                        if (listRate.length > 0)
+                          ...listRate.map((e) {
+                            return Icon(
+                              Icons.star_border,
+                              size: 22,
+                              color: Colors.amber,
+                            );
+                          }).toList(),
+                        Container(
+                          margin: EdgeInsets.only(left: 10, right: 5),
+                          child: Text(
+                            "${listRate.length}/5",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: MaterialColors.primary,
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                            ),
+                          ),
+                        ),
+                        Text(
+                          " (${5} đánh giá)",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontFamily: 'Roboto',
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               Container(
-                height: 200,
+                color: Colors.amber,
                 width: 300,
                 margin: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
                 child: ListView(
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
+                    FeedBack(
+                      avatar: coffee.image!,
+                      userId: 1,
+                      userName: "Hoang Thai Hoang Thai Hoang Thai ",
+                      feedbackContent: coffee.description!,
+                      time: "22:20, 11 thg 1, 2022",
+                    ),
                     FeedBack(
                       avatar: coffee.image!,
                       userId: 1,

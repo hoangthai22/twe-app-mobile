@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:twe/models/historyModel.dart';
 import 'package:twe/models/location.dart';
-import 'package:twe/models/history.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/nofication.dart';
@@ -132,7 +131,7 @@ var COFFEE_DATA = [
 ];
 
 var HISTORY_DATA = [
-  HistoryModel(
+  HistoryItemModel(
       id: 1,
       coffee: COFFEE_DATA[2],
       major: MAJOR_DATA[0],
@@ -140,7 +139,7 @@ var HISTORY_DATA = [
       date: "22/01/2022",
       mentor: MENTOR_DATA[1],
       slot: 1),
-  HistoryModel(
+  HistoryItemModel(
       id: 3,
       coffee: COFFEE_DATA[0],
       major: MAJOR_DATA[0],
@@ -148,7 +147,7 @@ var HISTORY_DATA = [
       date: "02/07/2022",
       mentor: MENTOR_DATA[1],
       slot: 3),
-  HistoryModel(
+  HistoryItemModel(
       id: 4,
       coffee: COFFEE_DATA[0],
       major: MAJOR_DATA[0],
@@ -156,7 +155,7 @@ var HISTORY_DATA = [
       date: "19/02/2022",
       mentor: MENTOR_DATA[0],
       slot: 2),
-  HistoryModel(
+  HistoryItemModel(
       id: 5,
       coffee: COFFEE_DATA[1],
       major: MAJOR_DATA[1],
@@ -164,7 +163,7 @@ var HISTORY_DATA = [
       date: "19/1/2022",
       mentor: MENTOR_DATA[0],
       slot: 4),
-  HistoryModel(
+  HistoryItemModel(
       id: 2,
       coffee: COFFEE_DATA[1],
       major: MAJOR_DATA[2],

@@ -158,61 +158,82 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       height: MediaQuery.of(context).size.height - 280,
                       width: MediaQuery.of(context).size.width,
                       child: CustomTabMentor(
+                        isTab: widget.isMentorTab,
                         mentor: mentor,
                       ),
                     ),
                   ],
                 )),
-            Positioned(
-              bottom: 0,
-              child: Consumer<AppProvider>(builder: (context, provider, child) {
-                var checkInvited =
-                    provider.getListMentorInvite.contains(mentor);
-                return
-                    //  Container(
-                    //   color: Colors.white,
-                    //   child: BottomNavMentorDetail(
-                    //       checkInvited: checkInvited,
-                    //       title: checkInvited ? ("Đã Mời") : ("Mời"),
-                    //       onRedirect: () => {
-                    //             checkInvited ? null : onSubmit(context),
-                    //             provider.setListMentorInvite(mentor)
-                    //           }),
-                    // );
-                    Container(
-                  height: 50,
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  padding:
-                      EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                  child: ElevatedButton(
-                    child: Text(
-                      checkInvited ? ("Đã Mời") : ("Lên lịch meetup"),
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w500),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: checkInvited
-                          ? MaterialColors.primary.withOpacity(0.5)
-                          : MaterialColors.primary,
-                      textStyle: TextStyle(color: Colors.white),
-                      shadowColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {
-                      checkInvited ? null : onSubmit(context);
-                      checkInvited
-                          ? null
-                          : provider.setListMentorInvite(mentor);
-                    },
-                  ),
-                );
-              }),
-            )
+            widget.isMentorTab
+                ? Positioned(
+                    bottom: 0,
+                    child: Consumer<AppProvider>(
+                        builder: (context, provider, child) {
+                      return Container(
+                        height: 50,
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
+                        child: ElevatedButton(
+                          child: Text(
+                            ("Lên lịch meetup"),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: MaterialColors.primary,
+                            textStyle: TextStyle(color: Colors.white),
+                            shadowColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () {},
+                        ),
+                      );
+                    }),
+                  )
+                : Positioned(
+                    bottom: 0,
+                    child: Consumer<AppProvider>(
+                        builder: (context, provider, child) {
+                      var checkInvited = provider.checkIsInviteMentor(mentor);
+
+                      return Container(
+                        height: 50,
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
+                        child: ElevatedButton(
+                          child: Text(
+                            checkInvited ? ("Bỏ mời") : ("Mời tham gia"),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: checkInvited
+                                ? MaterialColors.primary.withOpacity(0.5)
+                                : MaterialColors.primary,
+                            textStyle: TextStyle(color: Colors.white),
+                            shadowColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () {
+                            checkInvited ? provider.removeMentor(mentor) :
+                            provider.setListMentorInvite(mentor);
+                          },
+                        ),
+                      );
+                    }),
+                  )
           ],
           if (!isLoading) ...[
             Positioned(
@@ -256,10 +277,9 @@ class _MentorDetailPage extends State<MentorDetailPage> {
 
 class MentorDetailPage extends StatefulWidget {
   final String mentorId;
+  final bool isMentorTab;
 
-  const MentorDetailPage({
-    required this.mentorId,
-  });
+  const MentorDetailPage({required this.mentorId, required this.isMentorTab});
 
   @override
   _MentorDetailPage createState() => _MentorDetailPage();

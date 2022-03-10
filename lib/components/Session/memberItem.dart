@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
-import 'package:twe/models/mentor.dart';
 
 class MemberItem extends StatelessWidget {
-  late MentorModel item;
+  late String memberName;
+  late String majorName;
+  late String id;
+  late String image;
   late bool isBorderBottom;
 
-  MemberItem({required this.item, required this.isBorderBottom});
+  MemberItem(
+      {required this.memberName,
+      required this.majorName,
+      required this.image,
+      required this.id,
+      required this.isBorderBottom});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class MemberItem extends StatelessWidget {
                 margin: EdgeInsets.only(right: 15),
                 child: CircleAvatar(
                   radius: 30, // Image radius
-                  backgroundImage: NetworkImage(item.image!),
+                  backgroundImage: NetworkImage(image),
                 ),
               ),
               Column(
@@ -40,7 +47,7 @@ class MemberItem extends StatelessWidget {
                   Title(
                       color: Colors.black,
                       child: Text(
-                        item.fullname!,
+                      memberName,
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 16,
@@ -61,7 +68,7 @@ class MemberItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            item.listMajor![0].toString(),
+                            majorName,
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontFamily: 'Roboto',

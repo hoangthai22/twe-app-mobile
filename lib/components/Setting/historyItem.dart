@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/models/history.dart';
+import 'package:twe/models/historyModel.dart';
 
 class HistoryItem extends StatelessWidget {
   late HistoryModel history;
@@ -53,12 +54,12 @@ class HistoryItem extends StatelessWidget {
               margin: EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
                 color: convertColorHistory(
-                    int.parse(history.date.substring(0, 2))),
+                    int.parse(history.date!.substring(0, 2))),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(
                 child: Text(
-                  history.date.substring(0, history.date.length - 5),
+                  history.date!.substring(0, history.date!.length - 5),
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: "Roboto",
@@ -80,7 +81,7 @@ class HistoryItem extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 1 - 200,
                       margin: EdgeInsets.only(bottom: 5),
                       child: Text(
-                        history.subject.subjectName,
+                        history.subjectName!,
                         style: TextStyle(
                             fontFamily: "Roboto",
                             fontSize: 18,
@@ -131,7 +132,7 @@ class HistoryItem extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * 1 - 200,
                       child: Text(
-                        history.mentor.fullname!,
+                        history.mentor!,
                         maxLines: 1,
                         style: TextStyle(
                             fontFamily: "Roboto",
