@@ -81,9 +81,9 @@ class _RegisterPage extends State<RegisterPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Đăng ký thành công')),
           );
-           setState(() {
-              errorText = "";
-            });
+          setState(() {
+            errorText = "";
+          });
         } on FirebaseAuthException catch (e) {
           print(e.code);
           if (e.code.toString().endsWith("email-already-in-use")) {
@@ -128,7 +128,7 @@ class _RegisterPage extends State<RegisterPage> {
                               child: InkWell(
                             child: Icon(
                               Icons.arrow_back,
-                              size: 28,
+                              size: 35,
                             ),
                             onTap: () {
                               Navigator.pop(context);
@@ -140,9 +140,9 @@ class _RegisterPage extends State<RegisterPage> {
                             children: [
                               Container(
                                 margin: EdgeInsets.only(right: 5),
-                                width: 45,
+                                width: 60,
                                 child: Image.asset(
-                                  'assets/logo_transparent.png',
+                                  'assets/coctrensach5.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
