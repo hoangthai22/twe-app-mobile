@@ -184,7 +184,7 @@ class SessionCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(left: 5),
                       child: Text(
-                        session.price.toString() + " vnd/buổi ",
+                        session.price.toString() + "00 vnd/buổi ",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.normal),
