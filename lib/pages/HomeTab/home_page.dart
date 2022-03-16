@@ -213,7 +213,8 @@ class _HomePage extends State<HomePage> {
                             children: [
                               Container(
                                 child: Text(
-                                  "          Lúc 10:00 - 11:30 am, tại Moda coffee, Nguyễn Oanh",
+                                  /* "          Lúc 10:00 - 11:30 am, tại Moda coffee, Nguyễn Oanh", */
+                                  "          Lúc 10:00 - 11:30 am",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -233,7 +234,7 @@ class _HomePage extends State<HomePage> {
                   children: <Widget>[
                     Padding(padding: EdgeInsets.only(bottom: 40)),
                     Text(
-                      "Tuần nay có gì mới!",
+                      "Giảm giá tuần nay!",
                       style: TextStyle(
                           fontFamily: "Roboto",
                           fontSize: 16,
@@ -244,7 +245,7 @@ class _HomePage extends State<HomePage> {
               ),
               CarouselSlider(
                 options: CarouselOptions(
-                  height: 220.0,
+                  height: 180.0,
                   autoPlay: true,
                   viewportFraction: 1,
                   enlargeCenterPage: true,
@@ -255,7 +256,9 @@ class _HomePage extends State<HomePage> {
                       return Container(
                           child: Image(
                         fit: BoxFit.cover,
-                        image: NetworkImage(item),
+                        /* image: NetworkImage(item), */
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/Voucher%2Fimage_2022-03-11_214843.png?alt=media&token=49a81c3b-969e-49d0-a18e-0a27dcf64ec8"),
                       ));
                     },
                   );
@@ -269,7 +272,7 @@ class _HomePage extends State<HomePage> {
                     children: [
                       Padding(padding: EdgeInsets.only(bottom: 30)),
                       Text(
-                        "Hot giảm giá cùng bạn bè đến ngay!",
+                        "Hot giảm giá cùng bạn bè học ngay!",
                         style: TextStyle(
                             fontFamily: "Roboto",
                             fontSize: 16,
@@ -279,42 +282,8 @@ class _HomePage extends State<HomePage> {
                   ),
                 ],
               ),
-              Stack(
-                children: [
-                  Padding(padding: EdgeInsets.only(bottom: 40)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Nhập mã FPTSTUDENT để được giảm ngay 10%",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 220.0,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                ),
-                items: [1, 2, 3, 4].map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        child: Image.asset('assets/11.jpg', fit: BoxFit.cover),
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-              Stack(
+
+              /* Stack(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -322,7 +291,7 @@ class _HomePage extends State<HomePage> {
                     children: [
                       Padding(padding: EdgeInsets.only(bottom: 30)),
                       Text(
-                        "Bạn không muốn rớt môn!",
+                        "",
                         style: TextStyle(
                             fontFamily: "Roboto",
                             fontSize: 16,
@@ -331,32 +300,15 @@ class _HomePage extends State<HomePage> {
                     ],
                   ),
                 ],
-              ),
-              Stack(
-                children: [
-                  Padding(padding: EdgeInsets.only(bottom: 40)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Ôn tập ngay hôm nay",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+              ), */
+
               Stack(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 0, bottom: 20),
+                        padding: EdgeInsets.only(top: 25, bottom: 20),
                         child: Text(
                           "Meetup thích hợp",
                           style: TextStyle(
@@ -370,7 +322,7 @@ class _HomePage extends State<HomePage> {
                           Navigator.pushNamed(context, "/suggest-session");
                         },
                         child: Container(
-                          padding: EdgeInsets.only(top: 0, bottom: 20),
+                          padding: EdgeInsets.only(top: 25, bottom: 20),
                           child: Text(
                             "Xem thêm",
                             style: TextStyle(
@@ -448,7 +400,7 @@ class _HomePage extends State<HomePage> {
                   ]),
                 ),
               ),
-              Stack(
+              /* Stack(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -482,13 +434,49 @@ class _HomePage extends State<HomePage> {
                     ],
                   ),
                 ],
+              ), */
+
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text(
+                          "Meetup nổi bật",
+                          style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      /* InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/ranking");
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text(
+                            "Xem thêm",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: MaterialColors.primary,
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ) */
+                    ],
+                  ),
+                ],
               ),
               Skeleton(
                 isLoading: _isLoadingMentorTopRank,
                 skeleton: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                        children: [1, 2, 3]
+                        children: [1, 2, 3, 4]
                             .map(
                               (e) => Container(
                                   margin:
@@ -525,19 +513,27 @@ class _HomePage extends State<HomePage> {
                           .toList()),
                 ),
               ),
+
+              /* Stack(
+                children: [
+                  Padding(padding: EdgeInsets.only(bottom: 40)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nhập mã FPTSTUDENT để được giảm ngay 10%",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      )
+                    ],
+                  ),
+                ],
+              ), */
             ],
           ),
         ));
   }
 }
-/*
-Stack(
-                children: [
-                  Row(
-                    children: List.generate(3, (index) {
-                      var session = sessionItems[index];
-                      return Container(child: SessionCard(session: session));
-                    }),
-                  )
-                ],
-              ),*/

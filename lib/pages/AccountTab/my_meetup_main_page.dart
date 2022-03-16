@@ -6,6 +6,12 @@ import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 import 'package:twe/pages/MentorTab/my_mentor_tab.dart';
 import 'package:twe/pages/SearchTab/list_mentor_page.dart';
 
+import 'meetup_cancel.dart';
+import 'meetup_done.dart';
+import 'meetup_going.dart';
+import 'meetup_wait_location.dart';
+import 'meetup_wait_mentor.dart';
+
 class MyMeetingMainPage extends StatefulWidget {
   TabBar get _tabBar => const TabBar(
         labelColor: MaterialColors.primary,
@@ -119,11 +125,11 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
         ),
         body: TabBarView(children: [
           MySessionPage(),
-          MySessionPage(),
-          MySessionPage(),
-          MySessionPage(),
-          MySessionPage(),
-          MySessionPage(),
+          MySessionPageWaiteLocation(),
+          MySessionPageWaiteMentor(),
+          MySessionPageGoing(),
+          MySessionPageDone(),
+          MySessionPageCancel(),
         ]),
       ),
     );

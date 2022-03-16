@@ -394,7 +394,8 @@ class SessionDetailPage extends StatelessWidget {
                             // width: 150,
                             margin: EdgeInsets.only(top: 10),
                             child: Text(
-                              mentor.fullname!,
+                              //mentor.fullname!,
+                              "Lai Duc Hung",
                               maxLines: 1,
                               style: TextStyle(
                                   fontSize: 12,
