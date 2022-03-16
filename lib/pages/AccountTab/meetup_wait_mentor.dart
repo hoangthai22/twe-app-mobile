@@ -36,11 +36,11 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                   border: Border(
                       bottom: BorderSide(color: Colors.black12, width: 1.0)),
                 ),
-                padding: const EdgeInsets.only(bottom: 15, top: 15, left: 15),
+                padding: const EdgeInsets.only(bottom: 15, top: 15, left: 240),
                 child: Text(
-                  "Đang đợi Mentor",
+                  "Chờ Mentor",
                   style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 18,
                     fontFamily: 'Roboto',
                   ),
                 )),
@@ -81,7 +81,7 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                                 padding:
                                     const EdgeInsets.only(top: 50, right: 15),
                                 child: CircleAvatar(
-                                  radius: 35, // Image radius
+                                  radius: 45, // Image radius
                                   backgroundImage: NetworkImage(
                                       "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/subject%2Flambanner-ky-thuat-thiet-ke-banner-1024x527.png?alt=media&token=35f11e4c-c1cd-49d8-9067-b1a712bc520f"),
                                 ))),
@@ -95,12 +95,26 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Chủ đề Meetup: Clean Code",
+                                    "Clean Code",
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
                                       fontFamily: 'Roboto',
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "Lúc: 07:00 - 09:00 (17/03/2022)",
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.black87,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'Roboto',
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -120,7 +134,7 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
                                     child: Text(
-                                      "Giá: 500.000 vnd",
+                                      "Tại: Moda Coffee",
                                       maxLines: 2,
                                       style: const TextStyle(
                                         overflow: TextOverflow.ellipsis,
@@ -144,25 +158,25 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 150, left: 40),
+                    padding: EdgeInsets.only(top: 170, left: 50),
                     child: FlatButton(
                       child: Text(
-                        'Chi tiết Meetup',
+                        'Hủy Meetup',
                         style: TextStyle(fontSize: 16.0),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: MaterialColors.primary,
+                      color: Color.fromARGB(255, 128, 187, 123),
                       textColor: Colors.white,
                       onPressed: () {},
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 150, left: 40),
+                    padding: EdgeInsets.only(top: 170, left: 50),
                     child: FlatButton(
                       child: Text(
-                        'Hủy Meetup',
+                        'Xem chi tiết',
                         style: TextStyle(fontSize: 16.0),
                       ),
                       shape: RoundedRectangleBorder(
