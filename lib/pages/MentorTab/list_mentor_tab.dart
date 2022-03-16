@@ -18,8 +18,8 @@ import 'package:twe/routes.dart';
 
 class _ListMentorTab extends State<ListMentorTab>
     with AutomaticKeepAliveClientMixin<ListMentorTab> {
-  bool _isLoading = true;
-  bool _isLoadingCircle = true;
+  bool _isLoading = false;
+  bool _isLoadingCircle = false;
   bool isListFull = false;
   bool _isChecked = false;
   int page = 1;
@@ -34,9 +34,16 @@ class _ListMentorTab extends State<ListMentorTab>
   bool get wantKeepAlive => true;
 
   _fetch() async {
-    setState(() {
-      _isLoadingCircle = true;
-    });
+    if (page > 1) {
+      setState(() {
+        _isLoadingCircle = true;
+      });
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+    }
+
     List<MentorModel> mentors = [];
     List<MentorModel> newList = [];
     ApiServices.getListMentorPagination(page, 4).then((item) => {
@@ -55,8 +62,8 @@ class _ListMentorTab extends State<ListMentorTab>
                 {
                   newList = [...listMentor, ...mentors],
                   setState(() {
-                    _isLoading = false;
                     _isLoadingCircle = false;
+                    _isLoading = false;
                     listMentor = newList;
                     page++;
                   })
@@ -65,8 +72,8 @@ class _ListMentorTab extends State<ListMentorTab>
           else
             {
               setState(() {
-                _isLoading = false;
                 _isLoadingCircle = false;
+                _isLoading = false;
                 isListFull = true;
                 listMentor = [];
               })
@@ -77,24 +84,29 @@ class _ListMentorTab extends State<ListMentorTab>
   @override
   void initState() {
     super.initState();
-    // listMentor = MENTOR_DATA;
-    _fetch();
-    scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
-          !_isLoadingCircle &&
-          !isListFull) {
-        // print(query);
-        _fetch();
-      }
-    });
+    if (widget.isFilterBtn) {
+      _fetch();
+      scrollController.addListener(() {
+        if (scrollController.position.pixels >=
+                scrollController.position.maxScrollExtent &&
+            !_isLoadingCircle &&
+            !isListFull) {
+          // print(query);
+          _fetch();
+        }
+      });
+    } else
+      searchBar(widget.searchKey!);
+
     // futureMentor = fetchData();
   }
 
   @override
   void dispose() {
     super.dispose();
-    scrollController.dispose();
+    if (widget.isFilterBtn) {
+      scrollController.dispose();
+    }
   }
 
   void showListMentorInvite() {
@@ -118,145 +130,152 @@ class _ListMentorTab extends State<ListMentorTab>
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15, top: 10, bottom: 10),
-                              width: 110,
-                              height: 40,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: MaterialColors.primary,
-                                    textStyle: TextStyle(color: Colors.white),
-                                    shadowColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    _Modal(context);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Bộ lọc",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                            fontFamily: "Roboto",
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5),
-                                        child: Icon(
-                                          Icons.filter_alt_outlined,
-                                          color: Colors.white,
-                                          size: 20,
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15, top: 10, bottom: 10),
-                              width: 110,
-                              height: 40,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    textStyle: TextStyle(
-                                        color: MaterialColors.primary),
-                                    shadowColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
+                      if (widget.isFilterBtn) ...[
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: 15, top: 10, bottom: 10),
+                                width: 110,
+                                height: 40,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: MaterialColors.primary,
+                                      textStyle: TextStyle(color: Colors.white),
+                                      shadowColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(18),
-                                        side: BorderSide(
-                                            color: MaterialColors.primary,
-                                            width: 1)),
-                                  ),
-                                  onPressed: () {},
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Sắp xếp",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: MaterialColors.primary,
-                                            fontFamily: "Roboto",
-                                            fontWeight: FontWeight.w500),
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5),
-                                        child: Icon(
-                                          Icons.sort_by_alpha,
-                                          color: MaterialColors.primary,
-                                          size: 20,
+                                    ),
+                                    onPressed: () {
+                                      _Modal(context);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Bộ lọc",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                              fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w500),
                                         ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            (majorId == ""
-                                ? Text("")
-                                : Container(
-                                    height: 40,
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          textStyle: TextStyle(
-                                              color: MaterialColors.primary),
-                                          shadowColor: Colors.white,
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Icon(
+                                            Icons.filter_alt_outlined,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: 15, top: 10, bottom: 10),
+                                width: 110,
+                                height: 40,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.white,
+                                      textStyle: TextStyle(
+                                          color: MaterialColors.primary),
+                                      shadowColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
                                           side: BorderSide(
                                               color: MaterialColors.primary,
-                                              width: 1),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18),
-                                          ),
+                                              width: 1)),
+                                    ),
+                                    onPressed: () {},
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Sắp xếp",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: MaterialColors.primary,
+                                              fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w500),
                                         ),
-                                        onPressed: () {},
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(right: 5),
-                                              child: Text(
-                                                majorFilter.majorName,
-                                                style: TextStyle(
-                                                    color:
-                                                        MaterialColors.primary,
-                                                    fontSize: 14,
-                                                    fontFamily: "Roboto",
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  majorId = "";
-                                                  page = 1;
-                                                  listMentor = [];
-                                                });
-                                                _fetch();
-                                              },
-                                              child: const Icon(
-                                                Icons.highlight_remove_rounded,
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Icon(
+                                            Icons.sort_by_alpha,
+                                            color: MaterialColors.primary,
+                                            size: 20,
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                              (majorId == ""
+                                  ? Text("")
+                                  : Container(
+                                      height: 40,
+                                      padding: EdgeInsets.only(left: 15),
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Colors.white,
+                                            textStyle: TextStyle(
+                                                color: MaterialColors.primary),
+                                            shadowColor: Colors.white,
+                                            side: BorderSide(
                                                 color: MaterialColors.primary,
-                                                size: 24,
+                                                width: 1),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 5),
+                                                child: Text(
+                                                  majorFilter.majorName,
+                                                  style: TextStyle(
+                                                      color: MaterialColors
+                                                          .primary,
+                                                      fontSize: 14,
+                                                      fontFamily: "Roboto",
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        )),
-                                  )),
-                          ],
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    majorId = "";
+                                                    page = 1;
+                                                    listMentor = [];
+                                                  });
+                                                  _fetch();
+                                                },
+                                                child: const Icon(
+                                                  Icons
+                                                      .highlight_remove_rounded,
+                                                  color: MaterialColors.primary,
+                                                  size: 24,
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                    )),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                       Skeleton(
                           isLoading: _isLoading,
                           skeleton: SingleChildScrollView(
@@ -266,6 +285,8 @@ class _ListMentorTab extends State<ListMentorTab>
                                       .map(
                                         (e) => Container(
                                             margin: EdgeInsets.only(
+                                                top:
+                                                    widget.isFilterBtn ? 0 : 20,
                                                 right: 15,
                                                 bottom: 10,
                                                 left: 15),
@@ -295,7 +316,8 @@ class _ListMentorTab extends State<ListMentorTab>
                                       )
                                       .toList())),
                           child: Container(
-                            margin: EdgeInsets.only(bottom: 0),
+                            margin: EdgeInsets.only(
+                                top: widget.isFilterBtn ? 0 : 20),
                             child: Consumer<AppProvider>(
                                 builder: (context, provider, child) {
                               return ListView(
@@ -337,7 +359,7 @@ class _ListMentorTab extends State<ListMentorTab>
                                       Container(
                                         height:
                                             MediaQuery.of(context).size.height -
-                                                200,
+                                                250,
                                         color: Colors.white,
                                         child: Center(
                                           child: Text(
@@ -426,14 +448,13 @@ class _ListMentorTab extends State<ListMentorTab>
 
   void searchBar(String query) {
     setState(() {
-      _isLoading = true;
+      _isLoadingCircle = true;
       listMentor = [];
     });
     ApiServices.getListMentorBySearchKey(query).then((value) => {
           setState(() {
-            this.query = query;
             listMentor = value;
-            _isLoading = false;
+            _isLoadingCircle = false;
             // print(listMentor);
           }),
         });
@@ -441,10 +462,16 @@ class _ListMentorTab extends State<ListMentorTab>
 }
 
 class ListMentorTab extends StatefulWidget {
-  late final isMentorTab;
-  late final isFavoriteMentorTab;
+  final bool isMentorTab;
+  final bool isFavoriteMentorTab;
+  final bool isFilterBtn;
+  final String? searchKey;
 
-  ListMentorTab({required this.isMentorTab, required this.isFavoriteMentorTab});
+  ListMentorTab(
+      {required this.isMentorTab,
+      required this.isFavoriteMentorTab,
+      this.searchKey,
+      required this.isFilterBtn});
 
   @override
   _ListMentorTab createState() => _ListMentorTab();

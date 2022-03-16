@@ -186,6 +186,25 @@ class ApiServices {
     }
   }
 
+  static Future<dynamic> getListCoffeeByKeySearch(String key) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${baseURL}/cafe/name?name=${key}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<CoffeeModel> listCoffee =
+            body.map((dynamic item) => CoffeeModel.fromJson(item)).toList();
+        return listCoffee;
+      } else if (response.statusCode == 404) {
+        List<CoffeeModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
   static Future<dynamic> getDetailLocationById(String locationId) async {
     var coffeeModel = Completer<CoffeeModel>();
     var body;
@@ -206,6 +225,8 @@ class ApiServices {
   static Future<dynamic> getListMeetingRecommendByUserId(
       String userId, int page, int limit) async {
     //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    print(userId);
+
     try {
       var response = await http.get(
         Uri.parse(
@@ -215,6 +236,7 @@ class ApiServices {
         List<dynamic> body = convert.jsonDecode(response.body);
         List<SessionModel> listMeeting =
             body.map((dynamic item) => SessionModel.fromJson(item)).toList();
+        print(listMeeting.length);
         return listMeeting;
       } else if (response.statusCode == 404) {
         List<SessionModel> list = [];
@@ -305,7 +327,7 @@ class ApiServices {
     try {
       var response = await http.get(
         Uri.parse(
-            '${baseURL}/histories/I8WUeMVF3KTDcChKbCwyyUqw6g72?pageIndex=${page}&pageSize=${limit}'),
+            '${baseURL}/histories/${id}?pageIndex=${page}&pageSize=${limit}'),
       );
       if (response.statusCode == 200) {
         List<dynamic> body = convert.jsonDecode(response.body);

@@ -4,6 +4,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 import 'package:twe/pages/MentorTab/my_mentor_tab.dart';
 import 'package:twe/pages/SearchTab/list_mentor_page.dart';
+import 'package:twe/routes.dart';
 
 class MentorPageMainTab extends StatefulWidget {
   TabBar get _tabBar => TabBar(
@@ -42,7 +43,11 @@ class _MentorPageMainTab extends State<MentorPageMainTab> {
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.white30),
       ),
-      onSubmitted: (value) {},
+      onSubmitted: (value) {
+        Navigator.pushNamed(context, "/search-result",
+            arguments:
+                ScreenArgumentsSearchReuslt(keySearch: value, type: "mentor"));
+      },
       onChanged: (text) {
         setState(() {
           inputText = text;
@@ -107,8 +112,13 @@ class _MentorPageMainTab extends State<MentorPageMainTab> {
           ListMentorTab(
             isMentorTab: true,
             isFavoriteMentorTab: false,
+            isFilterBtn: true,
           ),
-          ListMentorTab(isMentorTab: true, isFavoriteMentorTab: true),
+          ListMentorTab(
+            isMentorTab: true,
+            isFavoriteMentorTab: true,
+            isFilterBtn: true,
+          ),
         ]),
       ),
     );

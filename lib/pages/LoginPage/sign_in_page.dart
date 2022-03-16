@@ -60,6 +60,7 @@ class _SignInPage extends State<SignInPage> {
             .then((value) async {
           if (value.user != null) {
             String? fcmToken = await messaging.getToken();
+            print("fcmToken: ${fcmToken}");
             User user = value.user!;
             db.collection("users").doc(user.uid).set({
               'email': user.email,

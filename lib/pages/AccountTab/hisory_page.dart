@@ -6,9 +6,10 @@ import 'package:twe/components/Setting/historyItem.dart';
 import 'package:twe/models/history.dart';
 
 class HistoryPage extends StatefulWidget {
+  String userId;
   @override
   State<StatefulWidget> createState() => _HistoryPage();
-  const HistoryPage({Key? key}) : super(key: key);
+  HistoryPage({Key? key, required this.userId}) : super(key: key);
 }
 
 class _HistoryPage extends State<HistoryPage> {
@@ -20,17 +21,18 @@ class _HistoryPage extends State<HistoryPage> {
   }
 
   List<HistoryModel> listHistory = [];
+  bool isLoading = true;
 
   getListHistory() {
-    ApiServices.getListHistory("I8WUeMVF3KTDcChKbCwyyUqw6g72", 1, 3)
-        .then((value) => {
-              if (value != null) print(value),
-              {
-                setState(() {
-                  listHistory = value;
-                })
-              }
-            });
+    ApiServices.getListHistory(widget.userId, 1, 3).then((value) => {
+          if (value != null) print(value),
+          {
+            setState(() {
+              listHistory = value;
+              isLoading = false;
+            })
+          }
+        });
   }
 
   @override
@@ -63,21 +65,43 @@ class _HistoryPage extends State<HistoryPage> {
         ),
         backgroundColor: MaterialColors.primary,
       ),
-      body: Container(
-        margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-        child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: [
-              if (listHistory.isNotEmpty)
-                ...listHistory
-                    .map((history) => InkWell(
-                        onTap: () => onPush(context, history.id),
-                        child: HistoryItem(history: history)))
-                    .toList()
-            ]),
-      ),
+      body: isLoading
+          ? Center(
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.0,
+                    color: MaterialColors.primary,
+                  )))
+          : Container(
+              margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+              child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    if (listHistory.isNotEmpty)
+                      ...listHistory
+                          .map((history) => InkWell(
+                              onTap: () => onPush(context, history.id),
+                              child: HistoryItem(history: history)))
+                          .toList()
+                    else ...[
+                      Container(
+                        height: MediaQuery.of(context).size.height - 100,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                            child: Text(
+                          "Chưa có meeting nào!",
+                          style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 18,
+                          ),
+                        )),
+                      )
+                    ]
+                  ]),
+            ),
     );
   }
 }

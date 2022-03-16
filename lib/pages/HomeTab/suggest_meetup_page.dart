@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
 import 'package:twe/pages/HomeTab/meetup_json.dart';
+import 'package:twe/provider/appProvider.dart';
 
 import '../../common/constants.dart';
 import '../../components/session_suggest/meetup_sugget_card.dart';
@@ -12,6 +16,32 @@ class SuggestSessionPage extends StatefulWidget {
 }
 
 class _SuggestSessionPage extends State<SuggestSessionPage> {
+  List<SessionModel> meetings = [];
+  bool _isLoadingMeetup = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var provider = Provider.of<AppProvider>(context, listen: false);
+    _fetch(provider.getUid);
+  }
+
+  _fetch(String userId) async {
+    setState(() {
+      _isLoadingMeetup = true;
+    });
+    ApiServices.getListMeetingRecommendByUserId(userId, 1, 10).then((item) => {
+          if (item != null)
+            {
+              setState(() {
+                meetings = item;
+                _isLoadingMeetup = false;
+                print(meetings.length);
+              })
+            }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,51 +94,54 @@ class _SuggestSessionPage extends State<SuggestSessionPage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: List.generate(sessionSuggestItem.length, (index) {
+              //       var mentor = sessionSuggestItem[index];
+              //       return Padding(
+              //         //child: SessionCard(session: mentor)
+              //         padding: const EdgeInsets.only(right: rightMainPadding),
+              //         child: Container(
+              //             child:
+              //                 Session_Sugget_Card(session_sugget_card: mentor)),
+              //       );
+              //     }),
+              //   ),
+              // ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(sessionSuggestItem.length, (index) {
-                    var mentor = sessionSuggestItem[index];
-                    return Padding(
-                      //child: SessionCard(session: mentor)
-                      padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(
-                          child:
-                              Session_Sugget_Card(session_sugget_card: mentor)),
-                    );
-                  }),
-                ),
+                child: Wrap(children: [
+                  if (_isLoadingMeetup)
+                    ...[]
+                  else
+                    ...meetings
+                        .map((meeting) => Padding(
+                              //child: SessionCard(session: mentor)
+                              padding: const EdgeInsets.only(
+                                  right: rightMainPadding),
+                              child: Container(
+                                  child: Session_Sugget_Card(
+                                      session_sugget_card: meeting)),
+                            ))
+                        .toList()
+                ]),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(sessionSuggestItem1.length, (index) {
-                    var mentor1 = sessionSuggestItem1[index];
-                    return Padding(
-                      //child: SessionCard(session: mentor)
-                      padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(
-                          child: Session_Sugget_Card(
-                              session_sugget_card: mentor1)),
-                    );
-                  }),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(sessionSuggestItem2.length, (index) {
-                    var mentor2 = sessionSuggestItem2[index];
-                    return Padding(
-                      //child: SessionCard(session: mentor)
-                      padding: const EdgeInsets.only(right: rightMainPadding),
-                      child: Container(
-                          child: Session_Sugget_Card(
-                              session_sugget_card: mentor2)),
-                    );
-                  }),
-                ),
-              ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: List.generate(sessionSuggestItem2.length, (index) {
+              //       var mentor2 = sessionSuggestItem2[index];
+              //       return Padding(
+              //         //child: SessionCard(session: mentor)
+              //         padding: const EdgeInsets.only(right: rightMainPadding),
+              //         child: Container(
+              //             child: Session_Sugget_Card(
+              //                 session_sugget_card: mentor2)),
+              //       );
+              //     }),
+              //   ),
+              // ),
             ]),
       ),
     );

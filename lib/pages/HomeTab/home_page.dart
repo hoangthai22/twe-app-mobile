@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
@@ -11,6 +12,7 @@ import 'package:twe/components/SearchSession/meetup_card.dart';
 import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/pages/HomeTab/padding.dart';
+import 'package:twe/provider/appProvider.dart';
 
 const riveFile = 'assets/loading.riv';
 const home1 = 'assets/home1.png';
@@ -27,10 +29,12 @@ class _HomePage extends State<HomePage> {
   List<SessionModel> meetings = [];
   List<MentorModel> mentorsTopRank = [];
   List<String> vouchers = [];
+
   @override
   void initState() {
     super.initState();
-    _fetch();
+    var provider = Provider.of<AppProvider>(context, listen: false);
+    _fetch(provider.getUid);
     _getMentorTOpRank();
     getListVoucher();
   }
@@ -43,21 +47,20 @@ class _HomePage extends State<HomePage> {
         });
   }
 
-  _fetch() async {
+  _fetch(String userId) async {
     setState(() {
       _isLoadingMeetup = true;
     });
-    ApiServices.getListMeetingRecommendByUserId(
-            "38e24a19-db44-44e8-bf5b-eb2e595906db", 1, 3)
-        .then((item) => {
-              if (item != null)
-                {
-                  setState(() {
-                    meetings = item;
-                    _isLoadingMeetup = false;
-                  })
-                }
-            });
+    ApiServices.getListMeetingRecommendByUserId(userId, 1, 3).then((item) => {
+          if (item != null)
+            {
+              setState(() {
+                meetings = item;
+                print(meetings.length);
+                _isLoadingMeetup = false;
+              })
+            }
+        });
   }
 
   _getMentorTOpRank() async {
@@ -82,7 +85,7 @@ class _HomePage extends State<HomePage> {
             elevation: 0.8,
             brightness: Brightness.light,
             backgroundColor: MaterialColors.primary,
-            toolbarHeight: 65,
+            toolbarHeight: 55,
             automaticallyImplyLeading: false,
             primary: false,
             excludeHeaderSemantics: true,
@@ -102,8 +105,8 @@ class _HomePage extends State<HomePage> {
                             margin: EdgeInsets.only(top: 0),
                             child: Row(children: [
                               Container(
-                                width: 85,
-                                height: 65,
+                                width: 75,
+                                height: 50,
                                 child: Image.asset(
                                   'assets/coctrensach5.png',
                                   fit: BoxFit.cover,
@@ -127,15 +130,20 @@ class _HomePage extends State<HomePage> {
                               ),
                             ]),
                           ),
-                          Container(
-                              // margin: EdgeInsets.only(left: 0),
-                              margin: EdgeInsets.only(top: 0),
-                              width: 28,
-                              child: Icon(
-                                Icons.notifications,
-                                color: Colors.white,
-                                size: 32,
-                              )),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/notification");
+                            },
+                            child: Container(
+                                // margin: EdgeInsets.only(left: 0),
+                                margin: EdgeInsets.only(top: 0),
+                                width: 28,
+                                child: Icon(
+                                  Icons.notifications,
+                                  color: Colors.white,
+                                  size: 32,
+                                )),
+                          )
                         ],
                       ),
                     ],
