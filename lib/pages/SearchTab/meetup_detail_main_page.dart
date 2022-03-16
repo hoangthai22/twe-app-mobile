@@ -24,7 +24,7 @@ class SessionDetailMainPage extends StatefulWidget {
           ),
           if (isRequestTab) ...[
             Tab(
-              text: ("Yêu cầu (4)"),
+              text: ("Yêu cầu"),
             ),
           ]
         ],

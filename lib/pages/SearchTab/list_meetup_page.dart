@@ -414,7 +414,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                               ],
                             )),
                         if (!_isLoadingMeetups) ...[
-                          MySession(session: listMeetups[2]),
+                          //MySession(session: listMeetups[2]),
                         ],
                         Skeleton(
                             isLoading: _isLoadingMeetups,

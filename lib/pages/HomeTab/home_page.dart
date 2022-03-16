@@ -213,7 +213,8 @@ class _HomePage extends State<HomePage> {
                             children: [
                               Container(
                                 child: Text(
-                                  "          Lúc 10:00 - 11:30 am, tại Moda coffee, Nguyễn Oanh",
+                                  /* "          Lúc 10:00 - 11:30 am, tại Moda coffee, Nguyễn Oanh", */
+                                  "          Lúc 10:00 - 11:30 am",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -226,6 +227,59 @@ class _HomePage extends State<HomePage> {
                       ],
                     ),
                   )
+                ],
+              ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(bottom: 40)),
+                    Text(
+                      "Giảm giá tuần nay!",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    )
+                  ],
+                ),
+              ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 180.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  enlargeCenterPage: true,
+                ),
+                items: vouchers.map((item) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          child: Image(
+                        fit: BoxFit.cover,
+                        /* image: NetworkImage(item), */
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/Voucher%2Fimage_2022-03-11_214843.png?alt=media&token=49a81c3b-969e-49d0-a18e-0a27dcf64ec8"),
+                      ));
+                    },
+                  );
+                }).toList(),
+              ),
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(padding: EdgeInsets.only(bottom: 30)),
+                      Text(
+                        "Hot giảm giá cùng bạn bè học ngay!",
+                        style: TextStyle(
+                            fontFamily: "Roboto",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  ),
                 ],
               ),
 
@@ -346,7 +400,7 @@ class _HomePage extends State<HomePage> {
                   ]),
                 ),
               ),
-              Stack(
+              /* Stack(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -380,13 +434,49 @@ class _HomePage extends State<HomePage> {
                     ],
                   ),
                 ],
+              ), */
+
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 20),
+                        child: Text(
+                          "Meetup nổi bật",
+                          style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      /* InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/ranking");
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text(
+                            "Xem thêm",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: MaterialColors.primary,
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ) */
+                    ],
+                  ),
+                ],
               ),
               Skeleton(
                 isLoading: _isLoadingMentorTopRank,
                 skeleton: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                        children: [1, 2, 3]
+                        children: [1, 2, 3, 4]
                             .map(
                               (e) => Container(
                                   margin:
@@ -423,58 +513,8 @@ class _HomePage extends State<HomePage> {
                           .toList()),
                 ),
               ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Padding(padding: EdgeInsets.only(bottom: 40)),
-                    Text(
-                      "Giảm giá tuần nay!",
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700),
-                    )
-                  ],
-                ),
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 165.0,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                ),
-                items: vouchers.map((item) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                          child: Image(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(item),
-                      ));
-                    },
-                  );
-                }).toList(),
-              ),
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(padding: EdgeInsets.only(bottom: 30)),
-                      Text(
-                        "Hot giảm giá cùng bạn bè đến ngay!",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Stack(
+
+              /* Stack(
                 children: [
                   Padding(padding: EdgeInsets.only(bottom: 40)),
                   Row(
@@ -491,20 +531,9 @@ class _HomePage extends State<HomePage> {
                     ],
                   ),
                 ],
-              ),
+              ), */
             ],
           ),
         ));
   }
 }
-/*
-Stack(
-                children: [
-                  Row(
-                    children: List.generate(3, (index) {
-                      var session = sessionItems[index];
-                      return Container(child: SessionCard(session: session));
-                    }),
-                  )
-                ],
-              ),*/
