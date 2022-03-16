@@ -8,7 +8,6 @@ import 'package:twe/pages/AccountTab/hisory_page.dart';
 import 'package:twe/pages/AccountTab/history_detail_page.dart';
 import 'package:twe/pages/AccountTab/member_detail_page.dart';
 import 'package:twe/pages/AccountTab/my_meetup_main_page.dart';
-import 'package:twe/pages/AccountTab/my_meetup_page.dart';
 import 'package:twe/pages/AccountTab/nofication_page.dart';
 import 'package:twe/pages/AccountTab/profile_page.dart';
 import 'package:twe/pages/HomeTab/ranking_page.dart';
@@ -17,12 +16,13 @@ import 'package:twe/pages/LoginPage/login_page.dart';
 import 'package:twe/pages/LoginPage/register.dart';
 import 'package:twe/pages/LoginPage/sign_in_page.dart';
 import 'package:twe/pages/SearchTab/booking_page.dart';
-import 'package:twe/pages/SearchTab/location_detail_page.dart';
 import 'package:twe/pages/SearchTab/create_meetup_page.dart';
-import 'package:twe/pages/SearchTab/list_mentor_page.dart';
 import 'package:twe/pages/SearchTab/list_location_page.dart';
-import 'package:twe/pages/SearchTab/mentor_detail_page.dart';
+import 'package:twe/pages/SearchTab/list_mentor_page.dart';
+import 'package:twe/pages/SearchTab/location_detail_page.dart';
 import 'package:twe/pages/SearchTab/meetup_detail_main_page.dart';
+import 'package:twe/pages/SearchTab/mentor_detail_page.dart';
+import 'package:twe/pages/SearchTab/search_result_page.dart';
 import 'package:twe/pages/SearchTab/successful_page.dart';
 
 class RouteGenerator {
@@ -80,7 +80,10 @@ class RouteGenerator {
       case '/profile':
         return MaterialPageRoute(builder: (_) => ProfilePage());
       case '/history':
-        return MaterialPageRoute(builder: (_) => HistoryPage());
+        return MaterialPageRoute(
+            builder: (_) => HistoryPage(
+                  userId: args.toString(),
+                ));
       case '/history-detail':
         return MaterialPageRoute(
             builder: (_) => HistoryDetailPage(
@@ -95,19 +98,26 @@ class RouteGenerator {
       case '/session':
         return MaterialPageRoute(
             builder: (_) => SessionDetailMainPage(
-                  isRequestTab: true,
                   sessionId: (args.toString()),
                 ));
       case '/session-request':
         return MaterialPageRoute(
             builder: (_) => SessionDetailMainPage(
-                  isRequestTab: true,
                   sessionId: (args.toString()),
                 ));
       case '/my-session':
         return MaterialPageRoute(builder: (_) => MyMeetingMainPage());
       case '/member-detail':
         return MaterialPageRoute(builder: (_) => MemberDetailPage());
+      case '/search-result':
+        ScreenArgumentsSearchReuslt argumentsSearchReuslt =
+            args as ScreenArgumentsSearchReuslt;
+        return MaterialPageRoute(
+          builder: (_) => SearchResultPage(
+              keySearch: argumentsSearchReuslt.keySearch.toString(),
+              type: argumentsSearchReuslt.type.toString()),
+        );
+
       case '/feedback-history':
         return MaterialPageRoute(
             builder: (_) => FeedbackSessionPage(
@@ -146,4 +156,11 @@ class ScreenArgumentsIsTab {
   final bool? isTab;
 
   ScreenArgumentsIsTab(this.isTab, this.id);
+}
+
+class ScreenArgumentsSearchReuslt {
+  final String? keySearch;
+  final String? type;
+
+  ScreenArgumentsSearchReuslt({this.keySearch, this.type});
 }

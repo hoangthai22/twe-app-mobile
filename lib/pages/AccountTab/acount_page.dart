@@ -38,7 +38,7 @@ class _AccountPage extends State<AccountPage> {
     } else if (item == btnSetting[ButtonSetting.account].toString()) {
       Navigator.pushNamed(context, '/profile');
     } else if (item == btnSetting[ButtonSetting.history].toString()) {
-      Navigator.pushNamed(context, '/history');
+      Navigator.pushNamed(context, '/history', arguments: provider.getUid);
     } else if (item == btnSetting[ButtonSetting.contact].toString()) {
       Navigator.pushNamed(context, '/contact');
     } else if (item == btnSetting[ButtonSetting.sessions].toString()) {

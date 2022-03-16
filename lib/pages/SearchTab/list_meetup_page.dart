@@ -14,6 +14,7 @@ import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/meetup.dart';
 import 'package:twe/provider/appProvider.dart';
+import 'package:twe/routes.dart';
 
 class _ListSessionPage extends State<ListSessionPage> {
   bool _isLoadingMeetupRecommend = true;
@@ -32,34 +33,33 @@ class _ListSessionPage extends State<ListSessionPage> {
 
   late List<SessionModel> listMeetups = [];
 
-  _getListRecommend() async {
+  _getListRecommend(String userId) async {
     setState(() {
       _isLoadingMeetupRecommend = true;
     });
-    ApiServices.getListMeetingRecommendByUserId(
-            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", 1, 5)
-        .then((item) => {
-              if (item != null)
-                {
-                  setState(() {
-                    meetingsRecommend = item;
-                    _isLoadingMeetupRecommend = false;
-                  })
-                }
-            });
+
+    ApiServices.getListMeetingRecommendByUserId(userId, 1, 5).then((item) => {
+          if (item != null)
+            {
+              setState(() {
+                meetingsRecommend = item;
+                _isLoadingMeetupRecommend = false;
+              })
+            }
+        });
   }
 
-  _getListAllMeetup() async {
+  _getListAllMeetup(String userId) async {
     List<SessionModel> meetings = [];
     List<SessionModel> newList = [];
     setState(() {
       _isLoadingCircle = true;
     });
-    ApiServices.getListAllMeetingPaginationByUserId(
-            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", page, 3)
+    ApiServices.getListAllMeetingPaginationByUserId(userId, page, 3)
         .then((item) => {
               if (item != null)
                 {
+                  print(meetings.length),
                   meetings = item,
                   if (meetings.isEmpty)
                     {
@@ -94,15 +94,16 @@ class _ListSessionPage extends State<ListSessionPage> {
 
   @override
   void initState() {
+    var userId = context.read<AppProvider>().getUid;
     super.initState();
-    _getListRecommend();
-    _getListAllMeetup();
+    _getListRecommend(userId);
+    _getListAllMeetup(userId);
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
           !_isLoadingCircle &&
           !isListFull) {
-        _getListAllMeetup();
+        _getListAllMeetup(userId);
       }
     });
     // futureMentor = fetchData();
@@ -143,11 +144,14 @@ class _ListSessionPage extends State<ListSessionPage> {
         hintStyle: TextStyle(color: Colors.white30),
       ),
       onSubmitted: (value) {
-        searchBar(value);
+        // searchBar(value);
+        Navigator.pushNamed(context, "/search-result",
+            arguments:
+                ScreenArgumentsSearchReuslt(keySearch: value, type: "meeting"));
       },
       onChanged: (text) {
         setState(() {
-          inputText = text;
+          // inputText = text;
         });
       },
       style: const TextStyle(color: Colors.white, fontSize: 16.0),
@@ -414,7 +418,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                               ],
                             )),
                         if (!_isLoadingMeetups) ...[
-                          //MySession(session: listMeetups[2]),
+                          // MySession(session: listMeetups[2]),
                         ],
                         Skeleton(
                             isLoading: _isLoadingMeetups,

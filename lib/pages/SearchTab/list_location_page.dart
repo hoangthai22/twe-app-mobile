@@ -17,10 +17,12 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   List<CoffeeModel> coffeeList = [];
   final _controller = TextEditingController();
   String inputText = "";
-  bool isSearch = false;
+  bool isSearchTab = false;
+  bool isSearchKey = false;
   bool _isLoadingCircle = true;
   bool _isLoadingCoffee = true;
   bool isListFull = false;
+
   final ScrollController scrollController = ScrollController();
   int page = 1;
   int checkedInit = 0;
@@ -33,7 +35,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
-          !_isLoadingCircle &&
+          !_isLoadingCircle && !isSearchKey &&
           !isListFull) {
         _fetch();
       }
@@ -145,15 +147,13 @@ class _ListCoffeePage extends State<ListCoffeePage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: widget.isCoffeeTab,
-          title: isSearch ? _buildSearchField() : _buildTitleAppbar(),
+          title: isSearchTab ? _buildSearchField() : _buildTitleAppbar(),
           backgroundColor: MaterialColors.primary,
           actions: <Widget>[
-            if (isSearch) ...[
+            if (isSearchTab) ...[
               IconButton(
                 icon: Icon(
                   Icons.close,
@@ -163,7 +163,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                 onPressed: () {
                   // do something
                   setState(() {
-                    isSearch = false;
+                    isSearchTab = false;
                   });
                 },
               ),
@@ -177,7 +177,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                 onPressed: () {
                   // do something
                   setState(() {
-                    isSearch = true;
+                    isSearchTab = true;
                   });
                 },
               ),
@@ -392,33 +392,36 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   }
 
   void _Modal(context) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
-        builder: (BuildContext bc) {
-          return ModalFilter(
-            onSeletedMajor: (major) => {
-              setState(() {
-        
-                // majorFilter = major;
-              })
-            },
-          );
-        });
+    // showModalBottomSheet(
+    //     isScrollControlled: true,
+    //     context: context,
+    //     shape: const RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+    //     builder: (BuildContext bc) {
+    //       return ModalFilter(
+    //         onSeletedMajor: (major) => {
+    //           setState(() {
+    //             // majorFilter = major;
+    //           })
+    //         },
+    //       );
+    //     });
   }
 
   void searchBar(String query) {
-    final coffees = COFFEE_DATA.where((coffee) {
-      final nameLower = coffee.id.toString();
-      final searchLower = query.toLowerCase();
-      return nameLower == searchLower;
-    }).toList();
     setState(() {
-      this.query = query;
-      coffeeList = coffees;
+      _isLoadingCoffee = true;
     });
+    ApiServices.getListCoffeeByKeySearch(query).then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                coffeeList = value;
+                isSearchKey = true;
+                _isLoadingCoffee = false;
+              })
+            }
+        });
   }
 }
 

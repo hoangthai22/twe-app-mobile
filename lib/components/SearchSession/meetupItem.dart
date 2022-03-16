@@ -8,6 +8,84 @@ import 'package:twe/models/meetup.dart';
 class SessionItem extends StatelessWidget {
   late SessionModel session;
   void onClick() {}
+
+  Widget getIsJoinMessage(int status) {
+    switch (status) {
+      case 0:
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(right: 5),
+                child: Icon(Icons.person_add, size: 20, color: Colors.white),
+              ),
+              Text(
+                "Tham gia (còn ${5 - session.listMemberImage!.length} chỗ trống)",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        );
+      case 1:
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Đã Yêu cầu",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        );
+      case 2:
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Đã tham gia",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        );
+      default:
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(right: 5),
+                child: Icon(Icons.person_add, size: 20, color: Colors.white),
+              ),
+              Text(
+                "Tham gia (còn ${5 - session.listMemberImage!.length} chỗ trống)",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        );
+    }
+  }
+
   SessionItem({required this.session});
   @override
   Widget build(BuildContext context) {
@@ -204,32 +282,15 @@ class SessionItem extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          primary: MaterialColors.primary,
+                          primary: session.isJoin == 1 || session.isJoin == 2
+                              ? MaterialColors.primary.withOpacity(0.5)
+                              : MaterialColors.primary,
                           textStyle: TextStyle(color: Colors.white),
                           shadowColor: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                         ),
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 5),
-                                child: Icon(Icons.person_add,
-                                    size: 20, color: Colors.white),
-                              ),
-                              Text(
-                                "Tham gia (còn ${5 - session.listMemberImage!.length} chỗ trống)",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        )),
+                        child: getIsJoinMessage(session.isJoin!)),
                   ))
             ],
           ),

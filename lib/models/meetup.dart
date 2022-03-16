@@ -17,7 +17,8 @@ class SessionModel {
   final String? cafeStreet;
   final String? cafeDistric;
   final Map<String, dynamic>? cafe;
-  final bool? isJoin;
+  final int? isJoin;
+  final bool? isLead;
   final List? listMemberImage;
   final List? listMember;
   final int? status;
@@ -41,6 +42,7 @@ class SessionModel {
       this.listMemberImage,
       this.member,
       this.status,
+      this.isLead,
       this.listMember,
       this.sessionId});
 
@@ -65,6 +67,7 @@ class SessionModel {
       listMember: json['listMember'],
       cafe: json['cafe'],
       status: json['status'],
+      isLead: json['isLead'],
     );
   }
 }

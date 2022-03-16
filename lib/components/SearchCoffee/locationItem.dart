@@ -43,8 +43,8 @@ class _CoffeeItem extends State<CoffeeItem> {
       widget.onSubmit(widget.coffee);
     }
 
-    var listRate = [for (var i = 1; i <= 5; i++) i];
-
+    var listRate = [for (var i = 1; i <= widget.coffee.rate!; i++) i];
+    var listRateEmpty = [for (var i = 1; i <= 5 - widget.coffee.rate!; i++) i];
     return Stack(
       children: [
         Container(
@@ -116,17 +116,28 @@ class _CoffeeItem extends State<CoffeeItem> {
                             ),
                             if (widget.isStar) ...[
                               Expanded(
-                                  flex: 2,
-                                  child: Row(
-                                      children: listRate
-                                          .map(
-                                            (e) => Icon(
-                                              Icons.star,
-                                              size: 14,
-                                              color: Colors.amber,
-                                            ),
-                                          )
-                                          .toList())),
+                                flex: 2,
+                                child: Row(children: [
+                                  if (listRate.length > 0)
+                                    ...listRate
+                                        .map(
+                                          (e) => Icon(
+                                            Icons.star,
+                                            size: 17,
+                                            color: Colors.amber,
+                                          ),
+                                        )
+                                        .toList(),
+                                  if (listRateEmpty.length > 0)
+                                    ...listRateEmpty.map((e) {
+                                      return Icon(
+                                        Icons.star_border,
+                                        size: 17,
+                                        color: Colors.amber,
+                                      );
+                                    }).toList(),
+                                ]),
+                              )
                             ],
                             Expanded(
                               flex: 4,
@@ -184,7 +195,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                                                     EdgeInsets.only(left: 5),
                                                 alignment: Alignment.topLeft,
                                                 child: Text(
-                                                  "7:00 - 22:00",
+                                                  "${widget.coffee.openTime} - ${widget.coffee.closeTime}",
                                                   style: TextStyle(
                                                       fontSize: 13,
                                                       fontFamily: 'Roboto',

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/models/meetup.dart';
 import '../../pages/HomeTab/help.dart';
 
 class Session_Sugget_Card extends StatelessWidget {
-  final session_sugget_card;
+  final SessionModel session_sugget_card;
   final double width;
 
   const Session_Sugget_Card({
@@ -42,7 +43,7 @@ class Session_Sugget_Card extends StatelessWidget {
                     child: Image(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          getImageNetwork(session_sugget_card["image"])),
+                          getImageNetwork(session_sugget_card.image)),
                     )),
               ),
               Container(
@@ -51,7 +52,7 @@ class Session_Sugget_Card extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      session_sugget_card["name"] ?? "",
+                      session_sugget_card.subject ?? "",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.black,
@@ -112,7 +113,7 @@ class Session_Sugget_Card extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
-                      MENTOR_DATA[0].listMajor![0].toString(),
+                      session_sugget_card.mentorName!,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.white,
