@@ -85,14 +85,12 @@ getSlot(int slot) {
 getStatusString(int status) {
   switch (status) {
     case 0:
-      return "Đang chờ địa điểm xác nhận";
-    case 1:
       return "Đang chờ Mentor xác nhận";
-    case 2:
+    case 1:
       return "Meeting đã được xác nhận";
-    case 3:
+    case 2:
       return "Meeting đã hoàn thành";
-    case 4:
+    case 3:
       return "Meeting đã hủy";
     default:
       return "Đang xử lý";
