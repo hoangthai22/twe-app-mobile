@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/provider/appProvider.dart';
@@ -22,11 +23,58 @@ class _SignInPage extends State<SignInPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   void initState() {
     // checkUserAuth();
     super.initState();
+  }
+
+  Future<String?> signInwithGoogle() async {
+    try {
+      EasyLoading.show(
+        status: 'loading...',
+        maskType: EasyLoadingMaskType.clear,
+      );
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAccount? googleSignInAccount = googleUser;
+        final googleAuth = await googleSignInAccount!.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+        await auth.signInWithCredential(credential).then((value) => {
+              if (value.user != null)
+                {
+                  print(value.user!.email),
+                  print(value.user!.displayName),
+                  context
+                      .read<AppProvider>()
+                      .setUserLogin(value.user!.email.toString()),
+                  context
+                      .read<AppProvider>()
+                      .setUid(value.user!.uid.toString()),
+                  context.read<AppProvider>().setIsLogin(),
+                  // Navigator.pop(context);
+                  EasyLoading.dismiss(),
+                  Navigator.pushReplacementNamed(context, '/home'),
+                }
+            });
+      } else {
+        print("Loi roi");
+        EasyLoading.dismiss();
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      EasyLoading.dismiss();
+      throw e;
+    }
+  }
+
+  Future<void> signOutFromGoogle() async {
+    await _googleSignIn.signOut();
+    await auth.signOut();
   }
 
   signIn() {
@@ -282,7 +330,9 @@ class _SignInPage extends State<SignInPage> {
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  signInwithGoogle();
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   shape: RoundedRectangleBorder(

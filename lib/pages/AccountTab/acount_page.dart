@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/models/account.dart';
@@ -28,11 +29,17 @@ class _AccountPage extends State<AccountPage> {
         title: btnSetting[ButtonSetting.logout].toString(), icon: Icons.logout)
   ];
 
-  void onClick(item, provider) {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  void onClick(item, provider) async {
     if (item == btnSetting[ButtonSetting.logout].toString()) {
       FirebaseAuth auth = FirebaseAuth.instance;
-      auth.signOut().then((value) => provider.setIsLogout());
-      Navigator.pushNamed(context, '/');
+      await _googleSignIn.signOut();
+      await auth.signOut().then((value) => {
+            provider.setIsLogout(),
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/login', (Route<dynamic> route) => false)
+          });
     } else if (item == btnSetting[ButtonSetting.nofi].toString()) {
       Navigator.pushNamed(context, '/notification');
     } else if (item == btnSetting[ButtonSetting.account].toString()) {
