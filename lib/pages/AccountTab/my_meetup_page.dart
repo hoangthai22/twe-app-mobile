@@ -17,10 +17,11 @@ class MySessionPage extends StatelessWidget {
       child: ListView(children: [
         //MySessionPage(),
         MySessionPageWaiteLocation(),
-        MySessionPageWaiteMentor(),
-        MySessionPageGoing(),
-        MySessionPageDone(),
-        MySessionPageCancel(),
+        MySessionPageWaiteLocation(),
+        // MySessionPageWaiteMentor(),
+        // MySessionPageGoing(),
+        // MySessionPageDone(),
+        // MySessionPageCancel(),
       ]),
     );
   }

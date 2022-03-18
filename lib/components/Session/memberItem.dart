@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/components/SearchCoffee/modalFilter.dart';
+import 'package:twe/components/Session/modalInfo.dart';
 
-class MemberItem extends StatelessWidget {
+class MemberItem extends StatefulWidget {
   late String memberName;
   late String majorName;
   late String id;
@@ -16,16 +18,40 @@ class MemberItem extends StatelessWidget {
       required this.isBorderBottom});
 
   @override
+  State<StatefulWidget> createState() => _MemberItem();
+}
+
+class _MemberItem extends State<MemberItem> {
+  void showMemberInfo() {
+    return _Modal(context);
+  }
+
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ModalInfo(
+            id: widget.id,
+            isMember: true
+          );
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Stack(
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/member-detail');
+            showMemberInfo();
+            // Navigator.pushNamed(context, '/member-detail');
           },
           child: Container(
-            decoration: isBorderBottom
+            decoration: widget.isBorderBottom
                 ? const BoxDecoration(
                     border: Border(
                         bottom: BorderSide(color: Colors.black12, width: 1.0)),
@@ -37,7 +63,7 @@ class MemberItem extends StatelessWidget {
                 margin: EdgeInsets.only(right: 15),
                 child: CircleAvatar(
                   radius: 30, // Image radius
-                  backgroundImage: NetworkImage(image),
+                  backgroundImage: NetworkImage(widget.image),
                 ),
               ),
               Column(
@@ -47,7 +73,7 @@ class MemberItem extends StatelessWidget {
                   Title(
                       color: Colors.black,
                       child: Text(
-                      memberName,
+                        widget.memberName,
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 16,
@@ -68,7 +94,7 @@ class MemberItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            majorName,
+                            widget.majorName,
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontFamily: 'Roboto',

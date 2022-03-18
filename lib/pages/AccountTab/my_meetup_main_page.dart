@@ -125,8 +125,9 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
         ),
         body: TabBarView(children: [
           MySessionPage(),
+          MySessionPage(),
           MySessionPageWaiteLocation(),
-          MySessionPageWaiteMentor(),
+          // MySessionPageWaiteMentor(),
           MySessionPageGoing(),
           MySessionPageDone(),
           MySessionPageCancel(),

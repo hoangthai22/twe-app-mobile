@@ -254,19 +254,19 @@ class SessionItem extends StatelessWidget {
                   right: 0,
                   top: 15,
                   child: Container(
-                    height: 40,
+                    height: 50,
                     width: 110,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: MaterialColors.primary,
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          topLeft: Radius.circular(30),
+                          bottomLeft: Radius.circular(10),
+                          topLeft: Radius.circular(10),
                         )),
                     child: Text(
                       "${session.listMemberImage!.length}/5 thành viên",
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           fontFamily: 'Roboto',
                           color: Colors.white,
                           fontWeight: FontWeight.w400),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/components/Session/modalInfo.dart';
 import 'package:twe/models/mentor.dart';
 
-class MemberRequestItem extends StatelessWidget {
+class MemberRequestItem extends StatefulWidget {
   late String memberName;
   late String majorName;
   late String id;
@@ -17,6 +18,28 @@ class MemberRequestItem extends StatelessWidget {
       required this.isBorderBottom});
 
   @override
+  State<StatefulWidget> createState() {
+    return _MemberRequestItem();
+  }
+}
+
+class _MemberRequestItem extends State<MemberRequestItem> {
+  void showMemberInfo() {
+    return _Modal(context);
+  }
+
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ModalInfo(id: widget.id, isMember: false);
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Stack(
@@ -27,7 +50,7 @@ class MemberRequestItem extends StatelessWidget {
           },
           child: Container(
             height: 125,
-            decoration: isBorderBottom
+            decoration: widget.isBorderBottom
                 ? const BoxDecoration(
                     border: Border(
                         bottom: BorderSide(color: Colors.black12, width: 1.0)),
@@ -39,7 +62,7 @@ class MemberRequestItem extends StatelessWidget {
                 margin: EdgeInsets.only(right: 15),
                 child: CircleAvatar(
                   radius: 35, // Image radius
-                  backgroundImage: NetworkImage(image),
+                  backgroundImage: NetworkImage(widget.image),
                 ),
               ),
               Column(
@@ -49,7 +72,7 @@ class MemberRequestItem extends StatelessWidget {
                   Title(
                       color: Colors.black,
                       child: Text(
-                        memberName,
+                        widget.memberName,
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 16,
@@ -70,7 +93,7 @@ class MemberRequestItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            majorName,
+                            widget.majorName,
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontFamily: 'Roboto',
@@ -104,7 +127,7 @@ class MemberRequestItem extends StatelessWidget {
                       ),
                       Container(
                         width: 120,
-                        margin: EdgeInsets.only(left: 15,bottom: 5),
+                        margin: EdgeInsets.only(left: 15, bottom: 5),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: MaterialColors.muted,
