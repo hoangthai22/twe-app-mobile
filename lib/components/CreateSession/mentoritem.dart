@@ -294,6 +294,7 @@ class _MentorItem extends State<MentorItem> {
                   bottom: 10,
                   left: 10,
                   child: Container(
+                    height: 40,
                     width: widget.isBtnInvite
                         ? MediaQuery.of(context).size.width * 0.425
                         : MediaQuery.of(context).size.width - 50,
@@ -303,7 +304,7 @@ class _MentorItem extends State<MentorItem> {
                         textStyle: TextStyle(color: Colors.white),
                         shadowColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: Text(
@@ -350,6 +351,7 @@ class _MentorItem extends State<MentorItem> {
                           right: 10,
                           bottom: 10,
                           child: Container(
+                            height: 40,
                             width: MediaQuery.of(context).size.width * 0.425,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -359,7 +361,7 @@ class _MentorItem extends State<MentorItem> {
                                 textStyle: TextStyle(color: Colors.white),
                                 shadowColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                               child: checkInvited

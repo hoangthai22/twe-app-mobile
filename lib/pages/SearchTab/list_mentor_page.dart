@@ -490,8 +490,9 @@ class _ListMentorPage extends State<ListMentorPage> {
                         ? Positioned(
                             bottom: 0,
                             child: Container(
+                              height: 50,
                               color: Colors.white,
-                              padding: EdgeInsets.only(left: 5, right: 5),
+                              padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
                               width: MediaQuery.of(context).size.width,
                               child: ElevatedButton(
                                 child: Text("Xác nhận"),

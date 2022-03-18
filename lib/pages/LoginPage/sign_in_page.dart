@@ -47,18 +47,25 @@ class _SignInPage extends State<SignInPage> {
         await auth.signInWithCredential(credential).then((value) => {
               if (value.user != null)
                 {
-                  print(value.user!.email),
-                  print(value.user!.displayName),
-                  context
-                      .read<AppProvider>()
-                      .setUserLogin(value.user!.email.toString()),
-                  context
-                      .read<AppProvider>()
-                      .setUid(value.user!.uid.toString()),
-                  context.read<AppProvider>().setIsLogin(),
-                  // Navigator.pop(context);
-                  EasyLoading.dismiss(),
-                  Navigator.pushReplacementNamed(context, '/home'),
+                  if (value.additionalUserInfo!.isNewUser)
+                    {
+                      Navigator.pushReplacementNamed(context, '/register'),
+                      EasyLoading.dismiss(),
+                      // auth.currentUser?.delete()
+                    }
+                  else
+                    {
+                      context
+                          .read<AppProvider>()
+                          .setUserLogin(value.user!.email.toString()),
+                      context
+                          .read<AppProvider>()
+                          .setUid(value.user!.uid.toString()),
+                      context.read<AppProvider>().setIsLogin(),
+                      // Navigator.pop(context);
+                      EasyLoading.dismiss(),
+                      Navigator.pushReplacementNamed(context, '/home'),
+                    }
                 }
             });
       } else {
@@ -114,7 +121,7 @@ class _SignInPage extends State<SignInPage> {
               'email': user.email,
               'fcmToken': fcmToken,
             });
-
+            print(fcmToken);
             context
                 .read<AppProvider>()
                 .setUserLogin(value.user!.email.toString());

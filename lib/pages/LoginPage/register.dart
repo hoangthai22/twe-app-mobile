@@ -24,6 +24,7 @@ class _RegisterPage extends State<RegisterPage> {
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final TextEditingController _fullName = TextEditingController();
+  bool isRegisterSuccess = false;
   String _major = '';
   String _grade = '';
   List<MajorModel> listMajors = [MajorModel(majorId: "m1", majorName: "IT")];
@@ -44,11 +45,30 @@ class _RegisterPage extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+    if (auth.currentUser != null) {
+      print(auth.currentUser?.email);
+      var email = auth.currentUser?.email;
+      var name = auth.currentUser?.displayName;
+      setState(() {
+        _email.text = email!;
+        _fullName.text = name!;
+      });
+      print(auth.currentUser?.displayName);
+    }
     // ApiServices.getMajors().then((value) => {
     //       setState(
     //         () => {listMajors = value},
     //       )
     //     });
+  }
+
+  @override
+  void dispose() {
+    if (auth.currentUser != null && isRegisterSuccess == false) {
+      print("delete");
+      auth.currentUser?.delete();
+    }
+    super.dispose();
   }
 
   register() async {
@@ -73,10 +93,19 @@ class _RegisterPage extends State<RegisterPage> {
             status: 'loading...',
             maskType: EasyLoadingMaskType.clear,
           );
-          UserCredential credential = await auth.createUserWithEmailAndPassword(
-              email: email.toString(), password: pass.toString());
+          if (auth.currentUser != null) {
+            print("dang ky bang gmail");
+            setState(() {
+              isRegisterSuccess = true;
+            });
+          } else {
+            print("dang ky bang tk mk");
+            UserCredential credential =
+                await auth.createUserWithEmailAndPassword(
+                    email: email.toString(), password: pass.toString());
 
-          print("credential: ${credential.user!.email.toString()}");
+            print("credential: ${credential.user!.email.toString()}");
+          }
           EasyLoading.dismiss();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Đăng ký thành công')),
@@ -199,30 +228,32 @@ class _RegisterPage extends State<RegisterPage> {
                             ),
                             hintText: "Họ và tên"),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 0, bottom: 5, top: 5),
-                        child: CustomTextField(
-                            obscureText: true,
-                            controller: _pass,
-                            icon: Icon(
-                              Icons.lock_open_outlined,
-                              color: MaterialColors.primary,
-                              size: 28,
-                            ),
-                            hintText: "Mật khẩu"),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 0, bottom: 5, top: 5),
-                        child: CustomTextField(
-                            obscureText: true,
-                            controller: _confirmPass,
-                            icon: Icon(
-                              Icons.lock_open_outlined,
-                              color: MaterialColors.primary,
-                              size: 28,
-                            ),
-                            hintText: "Nhập lại mật khẩu"),
-                      ),
+                      if (auth.currentUser == null) ...[
+                        Container(
+                          padding: EdgeInsets.only(left: 0, bottom: 5, top: 5),
+                          child: CustomTextField(
+                              obscureText: true,
+                              controller: _pass,
+                              icon: Icon(
+                                Icons.lock_open_outlined,
+                                color: MaterialColors.primary,
+                                size: 28,
+                              ),
+                              hintText: "Mật khẩu"),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 0, bottom: 5, top: 5),
+                          child: CustomTextField(
+                              obscureText: true,
+                              controller: _confirmPass,
+                              icon: Icon(
+                                Icons.lock_open_outlined,
+                                color: MaterialColors.primary,
+                                size: 28,
+                              ),
+                              hintText: "Nhập lại mật khẩu"),
+                        ),
+                      ],
                       Container(
                         margin: EdgeInsets.only(top: 5),
                         padding: EdgeInsets.only(
