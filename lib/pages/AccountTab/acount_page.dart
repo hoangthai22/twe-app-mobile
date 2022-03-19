@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/models/account.dart';
+import 'package:twe/models/user.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class _AccountPage extends State<AccountPage> {
@@ -30,16 +34,43 @@ class _AccountPage extends State<AccountPage> {
   ];
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void onClick(item, provider) async {
     if (item == btnSetting[ButtonSetting.logout].toString()) {
+      EasyLoading.show(
+        status: 'loading...',
+        maskType: EasyLoadingMaskType.clear,
+      );
       FirebaseAuth auth = FirebaseAuth.instance;
       await _googleSignIn.signOut();
-      await auth.signOut().then((value) => {
-            provider.setIsLogout(),
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/login', (Route<dynamic> route) => false)
-          });
+      var docSnapshot =
+          await db.collection("users").doc(auth.currentUser!.uid).get();
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? data = docSnapshot.data();
+        var fcmToken = data?['fcmToken'];
+        var userId = auth.currentUser!.uid;
+        await db
+            .collection("users")
+            .doc(auth.currentUser!.uid)
+            .delete()
+            .then((value) => {
+                  auth.signOut().then((value) => {
+                        ApiServices.postLogoutToInsertFCM(userId, fcmToken)
+                            .then((value) => {
+                                  provider.setIsLogout(),
+                                  EasyLoading.dismiss(),
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      '/login', (Route<dynamic> route) => false)
+                                })
+                      })
+                });
+      }
     } else if (item == btnSetting[ButtonSetting.nofi].toString()) {
       Navigator.pushNamed(context, '/notification');
     } else if (item == btnSetting[ButtonSetting.account].toString()) {
@@ -60,6 +91,7 @@ class _AccountPage extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.read<AppProvider>().getAvatar);
     return Scaffold(
         appBar: AppBar(
             backgroundColor: MaterialColors.primary,
@@ -89,7 +121,7 @@ class _AccountPage extends State<AccountPage> {
                           child: CircleAvatar(
                             radius: 45, // Image radius
                             backgroundImage: NetworkImage(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4j5EsloB48DnxRWOYQKJxT01dGj6cVFEDPQ&usqp=CAU"),
+                                context.read<AppProvider>().getAvatar),
                           ),
                         )),
                     Expanded(

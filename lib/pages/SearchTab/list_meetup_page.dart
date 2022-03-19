@@ -119,7 +119,7 @@ class _ListSessionPage extends State<ListSessionPage> {
           return ModalFilter(
             onSeletedMajor: (major) => {
               setState(() {
-                filterMentorByMajorName(major.majorName);
+                filterMentorByMajorName(major.majorId);
                 majorFilter = major;
               })
             },
@@ -127,7 +127,32 @@ class _ListSessionPage extends State<ListSessionPage> {
         });
   }
 
-  void filterMentorByMajorName(String majorName) {}
+  void filterMentorByMajorName(String majorId) {
+    var userId = context.read<AppProvider>().getUid;
+    setState(() {
+      _isLoadingMeetups = true;
+    });
+    ApiServices.getLisMyMeetupByMajor(userId, majorId, 1, 20).then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                listMeetups = value;
+                _isLoadingMeetups = false;
+                isListFull = true;
+              })
+            }
+          else
+            {
+              setState(() {
+                _isLoadingMeetups = false;
+                _isLoadingCircle = false;
+                isListFull = true;
+                listMeetups = [];
+              })
+            }
+        });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -341,82 +366,85 @@ class _ListSessionPage extends State<ListSessionPage> {
                                   )),
                           ],
                         ),
-                        Container(
-                            height: 290,
-                            color: Colors.white,
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.only(bottom: 15),
-                            child: ListView(
-                              scrollDirection: Axis.vertical,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 15, left: 15),
-                                  child: Text(
-                                    "Bạn có thể thích những nhóm này đấy",
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontFamily: "Roboto",
-                                        fontWeight: FontWeight.w700),
+                        if (meetingsRecommend.isNotEmpty) ...[
+                          Container(
+                              height: 290,
+                              color: Colors.white,
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.only(bottom: 15),
+                              child: ListView(
+                                scrollDirection: Axis.vertical,
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 15, left: 15),
+                                    child: Text(
+                                      "Bạn có thể thích những nhóm này đấy",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
-                                ),
-                                Skeleton(
-                                    isLoading: _isLoadingMeetupRecommend,
-                                    skeleton: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                            children: [1, 2, 3]
-                                                .map(
-                                                  (e) => Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: 15,
-                                                          bottom: 15,
-                                                          right: 0,
-                                                          left: 15),
-                                                      width: 170,
-                                                      height: 225,
-                                                      child: SkeletonItem(
-                                                        child: SkeletonAvatar(
-                                                          style:
-                                                              SkeletonAvatarStyle(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            width:
-                                                                double.infinity,
-                                                            minHeight: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                8,
-                                                            maxHeight: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                3,
-                                                          ),
-                                                        ),
-                                                      )),
-                                                )
-                                                .toList())),
-                                    child: Container(
-                                      padding: EdgeInsets.only(right: 15),
-                                      height: 255,
-                                      child: ListView(
+                                  Skeleton(
+                                      isLoading: _isLoadingMeetupRecommend,
+                                      skeleton: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
-                                          shrinkWrap: true,
-                                          children: [
-                                            if (meetingsRecommend.isNotEmpty)
-                                              ...meetingsRecommend
-                                                  .map((SessionModel session) =>
-                                                      buildMeetingRecommend(
-                                                          session))
-                                                  .toList(),
-                                          ]),
-                                    )),
-                              ],
-                            )),
+                                          child: Row(
+                                              children: [1, 2, 3]
+                                                  .map(
+                                                    (e) => Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 15,
+                                                            bottom: 15,
+                                                            right: 0,
+                                                            left: 15),
+                                                        width: 170,
+                                                        height: 225,
+                                                        child: SkeletonItem(
+                                                          child: SkeletonAvatar(
+                                                            style:
+                                                                SkeletonAvatarStyle(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              width: double
+                                                                  .infinity,
+                                                              minHeight: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  8,
+                                                              maxHeight: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  3,
+                                                            ),
+                                                          ),
+                                                        )),
+                                                  )
+                                                  .toList())),
+                                      child: Container(
+                                        padding: EdgeInsets.only(right: 15),
+                                        height: 255,
+                                        child: ListView(
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            children: [
+                                              if (meetingsRecommend.isNotEmpty)
+                                                ...meetingsRecommend
+                                                    .map((SessionModel
+                                                            session) =>
+                                                        buildMeetingRecommend(
+                                                            session))
+                                                    .toList(),
+                                            ]),
+                                      )),
+                                ],
+                              )),
+                        ],
                         if (!_isLoadingMeetups) ...[
                           // MySession(session: listMeetups[2]),
                         ],
@@ -536,7 +564,7 @@ class _ListSessionPage extends State<ListSessionPage> {
       ),
       margin: EdgeInsets.only(left: 15, bottom: 15, top: 15),
       width: 170,
-      child: _buildSessionItemRecommen(session),
+      child: _buildSessionItemRecommen(session, context),
     );
   }
 
@@ -556,7 +584,7 @@ class _ListSessionPage extends State<ListSessionPage> {
   }
 }
 
-Widget _buildSessionItemRecommen(SessionModel session) {
+Widget _buildSessionItemRecommen(SessionModel session, context) {
   return ListView(
     physics: const NeverScrollableScrollPhysics(),
     children: [
@@ -611,17 +639,20 @@ Widget _buildSessionItemRecommen(SessionModel session) {
       Container(
         margin: EdgeInsets.only(left: 17, right: 17, top: 10),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/session",
+                arguments: session.sessionId);
+          },
           style: ElevatedButton.styleFrom(
             primary: MaterialColors.primary,
             textStyle: TextStyle(color: Colors.white),
             shadowColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           child: Text(
-            "Tham gia",
+            "Xem chi tiết",
             style: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Roboto',

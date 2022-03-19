@@ -51,9 +51,10 @@ class _HomePage extends State<HomePage> {
     setState(() {
       _isLoadingMeetup = true;
     });
-    ApiServices.getListMeetingRecommendByUserId(userId, 1, 3).then((item) => {
+    ApiServices.getListMeetingRecommendByUserId(userId, 1, 3).then((item) => {print(item),
           if (item != null)
             {
+              print(item),
               setState(() {
                 meetings = item;
                 print(meetings.length);

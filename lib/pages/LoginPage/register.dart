@@ -26,6 +26,7 @@ class _RegisterPage extends State<RegisterPage> {
   final TextEditingController _fullName = TextEditingController();
   bool isRegisterSuccess = false;
   String _major = '';
+  String _majorID = '';
   String _grade = '';
   List<MajorModel> listMajors = [MajorModel(majorId: "m1", majorName: "IT")];
   List<String> listGrade = [
@@ -55,11 +56,11 @@ class _RegisterPage extends State<RegisterPage> {
       });
       print(auth.currentUser?.displayName);
     }
-    // ApiServices.getMajors().then((value) => {
-    //       setState(
-    //         () => {listMajors = value},
-    //       )
-    //     });
+    ApiServices.getMajors().then((value) => {
+          setState(
+            () => {listMajors = value},
+          )
+        });
   }
 
   @override
@@ -95,16 +96,110 @@ class _RegisterPage extends State<RegisterPage> {
           );
           if (auth.currentUser != null) {
             print("dang ky bang gmail");
-            setState(() {
-              isRegisterSuccess = true;
-            });
+            String? fcmToken = await messaging.getToken();
+
+            ApiServices.postRegiter(
+                    auth.currentUser!.uid, fullName, email, _major)
+                .then((result) => {
+                      if (result != null)
+                        {
+                          setState(() {
+                            isRegisterSuccess = true;
+                          }),
+                          ApiServices.postLoginToInsertFCM(
+                                  auth.currentUser!.uid, fcmToken!)
+                              .then((role) => {
+                                    print("value: $role"),
+                                    if (role != null)
+                                      {
+                                        if (role == "1")
+                                          {
+                                            db
+                                                .collection("users")
+                                                .doc(auth.currentUser!.uid)
+                                                .set({
+                                              'email': auth.currentUser!.email,
+                                              'fcmToken': fcmToken,
+                                            }),
+                                            context
+                                                .read<AppProvider>()
+                                                .setUserLogin(auth
+                                                    .currentUser!.email
+                                                    .toString()),
+                                            context.read<AppProvider>().setUid(
+                                                auth.currentUser!.uid
+                                                    .toString()),
+                                            context
+                                                .read<AppProvider>()
+                                                .setIsLogin(),
+                                            // Navigator.pop(context);
+                                            EasyLoading.dismiss(),
+                                            Navigator.pushReplacementNamed(
+                                                context, '/home')
+                                          }
+                                      }
+                                  })
+                        }
+                    });
           } else {
             print("dang ky bang tk mk");
-            UserCredential credential =
-                await auth.createUserWithEmailAndPassword(
-                    email: email.toString(), password: pass.toString());
+            String? fcmToken = await messaging.getToken();
+            await auth
+                .createUserWithEmailAndPassword(
+                    email: email.toString(), password: pass.toString())
+                .then((value) => {
+                      ApiServices.postRegiter(
+                              auth.currentUser!.uid, fullName, email, _major)
+                          .then((result) => {
+                                if (result != null)
+                                  {
+                                    setState(() {
+                                      isRegisterSuccess = true;
+                                    }),
+                                    ApiServices.postLoginToInsertFCM(
+                                            auth.currentUser!.uid, fcmToken!)
+                                        .then((role) => {
+                                              print("value: $role"),
+                                              if (role != null)
+                                                {
+                                                  if (role == "1")
+                                                    {
+                                                      db
+                                                          .collection("users")
+                                                          .doc(auth
+                                                              .currentUser!.uid)
+                                                          .set({
+                                                        'email': auth
+                                                            .currentUser!.email,
+                                                        'fcmToken': fcmToken,
+                                                      }),
+                                                      context
+                                                          .read<AppProvider>()
+                                                          .setUserLogin(auth
+                                                              .currentUser!
+                                                              .email
+                                                              .toString()),
+                                                      context
+                                                          .read<AppProvider>()
+                                                          .setUid(auth
+                                                              .currentUser!.uid
+                                                              .toString()),
+                                                      context
+                                                          .read<AppProvider>()
+                                                          .setIsLogin(),
+                                                      // Navigator.pop(context);
+                                                      EasyLoading.dismiss(),
+                                                      Navigator
+                                                          .pushReplacementNamed(
+                                                              context, '/home')
+                                                    }
+                                                }
+                                            })
+                                  }
+                              })
+                    });
 
-            print("credential: ${credential.user!.email.toString()}");
+            // print("credential: ${credential.user!.email.toString()}");
           }
           EasyLoading.dismiss();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -288,7 +383,7 @@ class _RegisterPage extends State<RegisterPage> {
                                       },
                                       items: listMajors.map((value) {
                                         return DropdownMenuItem<String>(
-                                          value: value.majorName,
+                                          value: value.majorId,
                                           child: Text(value.majorName),
                                         );
                                       }).toList(),

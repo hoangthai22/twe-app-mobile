@@ -9,7 +9,7 @@ import 'package:twe/pages/SearchTab/list_mentor_page.dart';
 import 'meetup_cancel.dart';
 import 'meetup_done.dart';
 import 'meetup_going.dart';
-import 'meetup_wait_location.dart';
+import '../../components/Setting/my_meetup_item.dart';
 import 'meetup_wait_mentor.dart';
 
 class MyMeetingMainPage extends StatefulWidget {
@@ -26,9 +26,9 @@ class MyMeetingMainPage extends StatefulWidget {
           Tab(
             text: ("   Tất cả   "),
           ),
-          Tab(
-            text: ("Chờ Location"),
-          ),
+          // Tab(
+          //   text: ("Chờ Location"),
+          // ),
           Tab(
             text: ("Chờ Mentor"),
           ),
@@ -78,7 +78,7 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
 
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -125,12 +125,12 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
         ),
         body: TabBarView(children: [
           MySessionPage(),
-          MySessionPage(),
-          MySessionPageWaiteLocation(),
-          // MySessionPageWaiteMentor(),
+          MySessionPageWaiteMentor(),
           MySessionPageGoing(),
           MySessionPageDone(),
           MySessionPageCancel(),
+
+          // MySessionPageWaiteMentor(),
         ]),
       ),
     );

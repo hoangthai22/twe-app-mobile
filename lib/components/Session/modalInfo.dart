@@ -22,7 +22,8 @@ class _ModalInfo extends State<ModalInfo> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ApiServices.getProfileByUsername("hoangthai@gmail.com").then((value) => {
+    print(widget.id);
+    ApiServices.getProfileByUsername(widget.id).then((value) => {
           if (value != null)
             {
               setState(() {
@@ -68,8 +69,7 @@ class _ModalInfo extends State<ModalInfo> {
                     alignment: Alignment.center,
                     child: CircleAvatar(
                       radius: 50, // Image radius
-                      backgroundImage: NetworkImage(
-                          "https://scontent.fsgn5-13.fna.fbcdn.net/v/t1.6435-9/147955006_2884575991815693_2420536097391049087_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=OJ3O1Ydf4i0AX-Q5wH-&_nc_ht=scontent.fsgn5-13.fna&oh=00_AT-bFdF07rgEFkGrDu-wkXoxYzhnO_CE48W1Ar6C8CstQg&oe=624B7B54"),
+                      backgroundImage: NetworkImage(member.image!),
                     )),
                 Container(
                     padding:
@@ -177,6 +177,9 @@ class _ModalInfo extends State<ModalInfo> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 15,
+                        ),
                         Text(
                           member.majorName!,
                           style: TextStyle(
@@ -198,7 +201,7 @@ class _ModalInfo extends State<ModalInfo> {
                           height: 15,
                         ),
                         Text(
-                          member.birthday!,
+                          member.birthday ?? "",
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Roboto',
@@ -210,7 +213,7 @@ class _ModalInfo extends State<ModalInfo> {
                         Container(
                           width: 150,
                           child: Text(
-                            member.address!,
+                            member.address ?? "",
                             style: TextStyle(
                               fontSize: 16,
                               fontFamily: 'Roboto',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/location.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/subject.dart';
 
 class BookingModel {
@@ -7,11 +8,11 @@ class BookingModel {
   late int slot;
   late String date;
   late SubjectModel subject;
-  late String major;
+  late MajorModel major;
   late double price;
   late String mentorId;
   late String userId;
   late CoffeeModel coffee;
 
-  BookingModel({required this.id});
+  BookingModel({required this.id, required this.slot, required this.date});
 }

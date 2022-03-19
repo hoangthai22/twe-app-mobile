@@ -30,7 +30,7 @@ class _ListMember extends State<ListMember> {
             child: Title(
                 color: Colors.black,
                 child: Text(
-                  "Thành viên (3/5)",
+                  "Thành viên (${widget.members.length}/5)",
                   style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 18,

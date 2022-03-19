@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/widget_span.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/common/utils.dart';
@@ -8,9 +11,12 @@ import 'package:twe/components/SearchCoffee/locationItem.dart';
 import 'package:twe/models/location.dart';
 import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/provider/appProvider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SessionDetailPage extends StatelessWidget {
   late SessionModel meetingInfo;
+
   SessionDetailPage({required this.meetingInfo});
   bool status = true;
   @override
@@ -470,26 +476,53 @@ class SessionDetailPage extends StatelessWidget {
             heightImg: 130,
             widthImg: 120,
             isButton: false),
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
-          width: MediaQuery.of(context).size.width,
-          child: ElevatedButton(
-            child: Text(
-              "Yêu cầu tham gia",
-              style: TextStyle(fontFamily: "Roboto", fontSize: 16),
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: MaterialColors.primary,
-              textStyle: TextStyle(color: Colors.white),
-              shadowColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+        Consumer<AppProvider>(builder: (context, provider, child) {
+          return Container(
+            color: Colors.white,
+            height: 50,
+            padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton(
+              child: Text(
+                getStatusStringIsJoin(meetingInfo.isJoin!),
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500),
               ),
+              style: ElevatedButton.styleFrom(
+                primary: meetingInfo.isJoin! == 0
+                    ? MaterialColors.primary
+                    : MaterialColors.primary.withOpacity(.5),
+                textStyle: TextStyle(color: Colors.white),
+                shadowColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () => {
+                if (meetingInfo.isJoin! == 0)
+                  {
+                    EasyLoading.show(
+                      status: 'loading...',
+                      maskType: EasyLoadingMaskType.clear,
+                    ),
+                    ApiServices.postRequestJoinMeetup(
+                            meetingInfo.sessionId!, provider.getUid)
+                        .then((value) => {
+                              EasyLoading.dismiss(),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('Yêu cầu tham gia thành công')),
+                              ),
+                              Navigator.pop(context)
+                            }),
+                  }
+              },
             ),
-            onPressed: () => {},
-          ),
-        )
+          );
+        })
       ]),
     ));
   }

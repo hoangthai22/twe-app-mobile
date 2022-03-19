@@ -149,7 +149,7 @@ class _HistoryDetailPage extends State<HistoryDetailPage> {
                             padding:
                                 EdgeInsets.only(left: 15, right: 15, top: 10),
                             child: Text(
-                              "Môn học",
+                              "Chủ đề",
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w500,

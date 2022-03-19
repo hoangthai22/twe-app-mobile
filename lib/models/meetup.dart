@@ -48,7 +48,7 @@ class SessionModel {
 
   factory SessionModel.fromJson(Map<String, dynamic> json) {
     return SessionModel(
-      sessionId: json['sessionId'],
+      sessionId: json['sessionId'] == null ? json['id'] : json['sessionId'],
       mentorName: json['mentorName'],
       description: json['description'],
       subject: json['subjectName'],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/Session/modalInfo.dart';
 import 'package:twe/models/mentor.dart';
@@ -6,15 +7,18 @@ import 'package:twe/models/mentor.dart';
 class MemberRequestItem extends StatefulWidget {
   late String memberName;
   late String majorName;
+  late String meetingId;
   late String id;
   late String image;
   late bool isBorderBottom;
-
+  late ValueChanged<void> function;
   MemberRequestItem(
       {required this.image,
       required this.memberName,
       required this.majorName,
       required this.id,
+      required this.meetingId,
+      required this.function,
       required this.isBorderBottom});
 
   @override
@@ -37,6 +41,10 @@ class _MemberRequestItem extends State<MemberRequestItem> {
         builder: (BuildContext bc) {
           return ModalInfo(id: widget.id, isMember: false);
         });
+  }
+
+  hanldeCallback() {
+    widget.function("");
   }
 
   @override
@@ -112,7 +120,7 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                               textStyle: TextStyle(color: Colors.white),
                               shadowColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: Text(
@@ -123,7 +131,22 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600),
                             ),
-                            onPressed: () => {}),
+                            onPressed: () => {
+                                  ApiServices.putAcceptRequestMeetup(
+                                          widget.meetingId, widget.id)
+                                      .then((result) => {
+                                            if (result != null)
+                                              {
+                                                hanldeCallback(),
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      content: Text(
+                                                          'Đã xác nhận')),
+                                                )
+                                              }
+                                          })
+                                }),
                       ),
                       Container(
                         width: 120,
@@ -134,7 +157,7 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                               textStyle: TextStyle(color: Colors.white),
                               shadowColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: Text(

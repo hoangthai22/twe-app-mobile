@@ -155,7 +155,7 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                       ],
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height - 280,
+                      height: widget.isMentorTab ? MediaQuery.of(context).size.height - 230 : MediaQuery.of(context).size.height - 280,
                       width: MediaQuery.of(context).size.width,
                       child: CustomTabMentor(
                         isTab: widget.isMentorTab,
@@ -165,37 +165,38 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                   ],
                 )),
             widget.isMentorTab
-                ? Positioned(
-                    bottom: 0,
-                    child: Consumer<AppProvider>(
-                        builder: (context, provider, child) {
-                      return Container(
-                        height: 50,
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
-                        child: ElevatedButton(
-                          child: Text(
-                            ("Lên lịch meetup"),
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w500),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: MaterialColors.primary,
-                            textStyle: TextStyle(color: Colors.white),
-                            shadowColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                      );
-                    }),
-                  )
+                ? Text("")
+                // Positioned(
+                //     bottom: 0,
+                //     child: Consumer<AppProvider>(
+                //         builder: (context, provider, child) {
+                //       return Container(
+                //         height: 50,
+                //         color: Colors.white,
+                //         width: MediaQuery.of(context).size.width,
+                //         padding: EdgeInsets.only(
+                //             left: 10, right: 10, top: 5, bottom: 5),
+                //         child: ElevatedButton(
+                //           child: Text(
+                //             ("Lên lịch meetup"),
+                //             style: TextStyle(
+                //                 fontSize: 16,
+                //                 fontFamily: 'Roboto',
+                //                 fontWeight: FontWeight.w500),
+                //           ),
+                //           style: ElevatedButton.styleFrom(
+                //             primary: MaterialColors.primary,
+                //             textStyle: TextStyle(color: Colors.white),
+                //             shadowColor: Colors.white,
+                //             shape: RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(12),
+                //             ),
+                //           ),
+                //           onPressed: () {},
+                //         ),
+                //       );
+                //     }),
+                //   )
                 : Positioned(
                     bottom: 0,
                     child: Consumer<AppProvider>(
@@ -227,8 +228,9 @@ class _MentorDetailPage extends State<MentorDetailPage> {
                             ),
                           ),
                           onPressed: () {
-                            checkInvited ? provider.removeMentor(mentor) :
-                            provider.setListMentorInvite(mentor);
+                            checkInvited
+                                ? provider.removeMentor(mentor)
+                                : provider.setListMentorInvite(mentor);
                           },
                         ),
                       );

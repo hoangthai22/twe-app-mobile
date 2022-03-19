@@ -11,7 +11,7 @@ class Session_Sugget_Card extends StatelessWidget {
   const Session_Sugget_Card({
     Key? key,
     required this.session_sugget_card,
-    this.width = 180,
+    this.width = 200,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class Session_Sugget_Card extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 15),
+          margin: EdgeInsets.only(bottom: 1),
           width: this.width,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -34,7 +34,7 @@ class Session_Sugget_Card extends StatelessWidget {
               Padding(padding: EdgeInsets.only(top: 0.0)),
               Container(
                 width: 250,
-                height: 140,
+                height: 130,
                 child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),

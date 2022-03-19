@@ -70,7 +70,7 @@ class _CustomTabMentor extends State<CustomTabMentor> {
             InfoTab(
               mentor: widget.mentor,
             ),
-            if (widget.isTab) ...[SessionMentorTab()],
+            if (widget.isTab) ...[SessionMentorTab(mentor: widget.mentor,)],
             FeedbackTab(
                 listFeedback: listFeedback, rate: widget.mentor.rate! + .0),
           ],
