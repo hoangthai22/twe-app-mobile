@@ -5,13 +5,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/components/menuFooter.dart';
 import 'package:twe/models/notification.dart';
+import 'package:twe/models/user.dart';
 import 'package:twe/pages/AccountTab/acount_page.dart';
 import 'package:twe/pages/HomeTab/home_page.dart';
 import 'package:twe/pages/MentorTab/mentor_page_main_tab.dart';
-import 'package:twe/pages/SearchTab/list_meetup_page.dart';
 import 'package:twe/pages/SearchTab/list_location_page.dart';
+import 'package:twe/pages/SearchTab/list_meetup_page.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class App extends StatefulWidget {
@@ -69,18 +71,6 @@ class AppState extends State<App> {
     }
   }
 
-  // Future onSelectNotification(String payload) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (_) {
-  //       return new AlertDialog(
-  //         title: Text("Thông báo"),
-  //         content: Text("Push Notification : 123"),
-  //       );
-  //     },
-  //   );
-  // }
-
   Future<void> _showNotification(String title, String content) async {
     final AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('your channel id', 'your channel name',
@@ -89,8 +79,6 @@ class AppState extends State<App> {
             priority: Priority.high,
             icon: '@drawable/logo_transparent',
             tag: "TWE",
-            largeIcon:
-                DrawableResourceAndroidBitmap('@drawable/logo_transparent'),
             ticker: 'ticker');
 
     final NotificationDetails platformChannelSpecifics =
@@ -101,18 +89,40 @@ class AppState extends State<App> {
 
   @override
   void initState() {
-    // var initializationSettingsAndroid =
-    //     AndroidInitializationSettings('@mipmap/ic_launcher');
-    // var initializationSettingsIOS = IOSInitializationSettings();
-    // var initializationSettings = InitializationSettings(
-    //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = IOSInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
-    //     onSelectNotification: (value) {
-    //   onSelectNotification("123");
-    // });
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: (value) {
+      Navigator.pushNamed(context, "/notification");
+    });
+
     registerNotification();
+    checkForInitialMessage();
     super.initState();
+    UserModel user;
+    ApiServices.getProfileByUsername(context.read<AppProvider>().getUid)
+        .then((value) => {
+              print("value12321: $value"),
+              if (value != null)
+                {
+                  user = value,
+                  context.read<AppProvider>().setAvatar(user.image)
+                }
+            });
+  }
+
+  checkForInitialMessage() async {
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        Navigator.pushNamed(context, "/notification");
+      });
+    }
   }
 
   @override

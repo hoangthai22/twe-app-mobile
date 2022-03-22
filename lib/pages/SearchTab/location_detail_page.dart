@@ -241,7 +241,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                               margin: const EdgeInsets.only(left: 10),
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "25.000 ₫ - 100.000 ₫",
+                                coffee.price ?? "",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'Roboto',

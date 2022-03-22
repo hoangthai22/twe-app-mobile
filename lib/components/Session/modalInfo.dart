@@ -9,7 +9,13 @@ import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 class ModalInfo extends StatefulWidget {
   String id;
   bool isMember;
-  ModalInfo({required this.id, required this.isMember});
+  String meetupId;
+  late ValueChanged<void> function;
+  ModalInfo(
+      {required this.id,
+      required this.meetupId,
+      required this.isMember,
+      required this.function});
   @override
   State<StatefulWidget> createState() => _ModalInfo();
 }
@@ -22,7 +28,8 @@ class _ModalInfo extends State<ModalInfo> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ApiServices.getProfileByUsername("hoangthai@gmail.com").then((value) => {
+    print(widget.id);
+    ApiServices.getProfileByUsername(widget.id).then((value) => {
           if (value != null)
             {
               setState(() {
@@ -32,6 +39,10 @@ class _ModalInfo extends State<ModalInfo> {
               }),
             }
         });
+  }
+
+  hanldeCallback() {
+    widget.function("");
   }
 
   @override
@@ -55,6 +66,9 @@ class _ModalInfo extends State<ModalInfo> {
                           color: MaterialColors.primary,
                         )))
               ] else ...[
+                SizedBox(
+                  height: 10,
+                ),
                 Center(
                   child: Text("Thông tin thành viên",
                       style: TextStyle(
@@ -63,17 +77,19 @@ class _ModalInfo extends State<ModalInfo> {
                         fontWeight: FontWeight.w600,
                       )),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                     decoration: BoxDecoration(color: Colors.white),
                     alignment: Alignment.center,
                     child: CircleAvatar(
                       radius: 50, // Image radius
-                      backgroundImage: NetworkImage(
-                          "https://scontent.fsgn5-13.fna.fbcdn.net/v/t1.6435-9/147955006_2884575991815693_2420536097391049087_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=OJ3O1Ydf4i0AX-Q5wH-&_nc_ht=scontent.fsgn5-13.fna&oh=00_AT-bFdF07rgEFkGrDu-wkXoxYzhnO_CE48W1Ar6C8CstQg&oe=624B7B54"),
+                      backgroundImage: NetworkImage(member.image!),
                     )),
-                Container(
+                Container( alignment: Alignment.center,
                     padding:
-                        const EdgeInsets.only(left: 145, top: 20, bottom: 20),
+                        const EdgeInsets.only(left: 0, top: 20, bottom: 15),
                     child: Text(
                       member.fullname!,
                       style: TextStyle(
@@ -82,40 +98,100 @@ class _ModalInfo extends State<ModalInfo> {
                         fontFamily: 'Roboto',
                       ),
                     )),
-                Container(
-                  child: Row(children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 100, bottom: 20)),
-                    Column(children: <Widget>[
-                      Icon(Icons.facebook,
-                          size: 40, color: Color.fromARGB(255, 28, 134, 238)),
-                      Text('Facebook'),
-                    ]),
-                    Column(children: <Widget>[
-                      Text('   '),
-                    ]),
-                    Column(children: <Widget>[
-                      Icon(Icons.mark_chat_unread_sharp,
-                          size: 40, color: Color.fromARGB(255, 128, 148, 119)),
-                      Text('   Zalo  '),
-                    ]),
-                    Column(children: <Widget>[
-                      Text('   '),
-                    ]),
-                    Column(children: <Widget>[
-                      Icon(Icons.mark_as_unread_sharp,
-                          size: 40, color: Color.fromARGB(214, 235, 11, 11)),
-                      Text('Email'),
-                    ]),
-                  ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Icon(
+                        Icons.school,
+                        color: MaterialColors.primary,
+                      ),
+                      margin: EdgeInsets.only(right: 5),
+                    ),
+                    Text(
+                      member.majorName!,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                    Container(
+                      child: Icon(
+                        Icons.grade,
+                        color: MaterialColors.primary,
+                      ),
+                      margin: EdgeInsets.only(right: 5, left: 20),
+                    ),
+                    Text(
+                      "K14",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                    Container(
+                      child: Icon(
+                        Icons.date_range,
+                        color: MaterialColors.primary,
+                      ),
+                      margin: EdgeInsets.only(right: 5, left: 20),
+                    ),
+                    Text(
+                      member.birthday ?? "",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding:
+                                EdgeInsets.only(left: 0, top: 20, bottom: 20)),
+                        Column(children: <Widget>[
+                          Icon(Icons.facebook,
+                              size: 40,
+                              color: Color.fromARGB(255, 28, 134, 238)),
+                          Text('Facebook'),
+                        ]),
+                        Column(children: <Widget>[
+                          Text('   '),
+                        ]),
+                        Column(children: <Widget>[
+                          Icon(Icons.mark_chat_unread_sharp,
+                              size: 40,
+                              color: Color.fromARGB(255, 128, 148, 119)),
+                          Text('   Zalo  '),
+                        ]),
+                        Column(children: <Widget>[
+                          Text('   '),
+                        ]),
+                        Column(children: <Widget>[
+                          Icon(Icons.mark_as_unread_sharp,
+                              size: 40,
+                              color: Color.fromARGB(214, 235, 11, 11)),
+                          Text('Email'),
+                        ]),
+                      ]),
+                ),
+                Container(
+                    alignment: Alignment.center,
                     decoration: const BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(color: Colors.black12, width: 1.0)),
                     ),
                     padding: const EdgeInsets.only(bottom: 15, top: 10),
-                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    margin: EdgeInsets.only(bottom: 20),
                     child: Text(
                       "Chim đại bàng chọn cô độc để làm chủ bầu trời",
                       style: TextStyle(
@@ -123,104 +199,6 @@ class _ModalInfo extends State<ModalInfo> {
                         fontFamily: 'Roboto',
                       ),
                     )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Chuyên Ngành:",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Niên Khóa:",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Năm sinh:",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Địa chỉ:",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          member.majorName!,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "K14",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          member.birthday!,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Roboto',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 150,
-                          child: Text(
-                            member.address!,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
                 widget.isMember
                     ? Container(
                         width: MediaQuery.of(context).size.width * .5 - 20,
@@ -287,7 +265,23 @@ class _ModalInfo extends State<ModalInfo> {
                               ),
                               color: MaterialColors.primary,
                               textColor: Colors.white,
-                              onPressed: () {},
+                              onPressed: () {
+                                ApiServices.putAcceptRequestMeetup(
+                                        widget.meetupId, widget.id)
+                                    .then((result) => {
+                                          if (result != null)
+                                            {
+                                              hanldeCallback(),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                    content:
+                                                        Text('Đã xác nhận')),
+                                              ),
+                                              Navigator.pop(context)
+                                            }
+                                        });
+                              },
                             ),
                           ),
                         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/components/Session/modalInfo.dart';
 import 'package:twe/models/mentor.dart';
@@ -6,15 +7,18 @@ import 'package:twe/models/mentor.dart';
 class MemberRequestItem extends StatefulWidget {
   late String memberName;
   late String majorName;
+  late String meetingId;
   late String id;
   late String image;
   late bool isBorderBottom;
-
+  late ValueChanged<void> function;
   MemberRequestItem(
       {required this.image,
       required this.memberName,
       required this.majorName,
       required this.id,
+      required this.meetingId,
+      required this.function,
       required this.isBorderBottom});
 
   @override
@@ -24,9 +28,9 @@ class MemberRequestItem extends StatefulWidget {
 }
 
 class _MemberRequestItem extends State<MemberRequestItem> {
-  void showMemberInfo() {
-    return _Modal(context);
-  }
+  // void showMemberInfo() {
+  //   return _Modal(context);
+  // }
 
   void _Modal(context) {
     showModalBottomSheet(
@@ -35,8 +39,19 @@ class _MemberRequestItem extends State<MemberRequestItem> {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
-          return ModalInfo(id: widget.id, isMember: false);
+          return ModalInfo(
+            id: widget.id,
+            isMember: false,
+            meetupId: widget.meetingId,
+            function: (func) {
+              hanldeCallback();
+            },
+          );
         });
+  }
+
+  hanldeCallback() {
+    widget.function("");
   }
 
   @override
@@ -46,7 +61,8 @@ class _MemberRequestItem extends State<MemberRequestItem> {
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/member-detail');
+            // Navigator.pushNamed(context, '/member-detail');
+            _Modal(context);
           },
           child: Container(
             height: 125,
@@ -112,7 +128,7 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                               textStyle: TextStyle(color: Colors.white),
                               shadowColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: Text(
@@ -123,18 +139,33 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600),
                             ),
-                            onPressed: () => {}),
+                            onPressed: () => {
+                                  ApiServices.putAcceptRequestMeetup(
+                                          widget.meetingId, widget.id)
+                                      .then((result) => {
+                                            if (result != null)
+                                              {
+                                                hanldeCallback(),
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      content: Text(
+                                                          'Đã xác nhận')),
+                                                )
+                                              }
+                                          })
+                                }),
                       ),
                       Container(
                         width: 120,
-                        margin: EdgeInsets.only(left: 15, bottom: 5),
+                        margin: EdgeInsets.only(left: 15, bottom: 0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: MaterialColors.muted,
                               textStyle: TextStyle(color: Colors.white),
                               shadowColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: Text(
@@ -145,7 +176,22 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600),
                             ),
-                            onPressed: () => {}),
+                            onPressed: () => {
+                                  ApiServices.deleteRejectRequestMeetup(
+                                          widget.meetingId, widget.id)
+                                      .then((result) => {
+                                            if (result != null)
+                                              {
+                                                hanldeCallback(),
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      content: Text(
+                                                          'Đã hủy bỏ')),
+                                                )
+                                              }
+                                          })
+                                }),
                       ),
                     ],
                   )

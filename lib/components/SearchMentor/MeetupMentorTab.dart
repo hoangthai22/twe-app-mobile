@@ -1,14 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/models/mentor.dart';
+import 'package:twe/provider/appProvider.dart';
 
 class SessionMentorTab extends StatefulWidget {
+  MentorModel mentor;
+
+  SessionMentorTab({required this.mentor});
   @override
   State<StatefulWidget> createState() => _SessionMentorTab();
 }
 
 class _SessionMentorTab extends State<SessionMentorTab> {
   String date = DateTime.now().toString().split(" ")[0];
+  bool isLoading = true;
+  List<int> listSlot = [];
+  List<int> listSchedule = [1, 2, 3, 4, 5, 6];
+
+  getScheduleMentor(String date, String mentorID) {
+    listSchedule = [1, 2, 3, 4, 5, 6];
+    setState(() {
+      isLoading = true;
+    });
+    ApiServices.getScheduleMentorByDate(date, mentorID).then((value) => {
+          setState(() {
+            listSlot = value;
+
+            for (var item in listSlot) {
+              var index = listSchedule.indexWhere((element) => element == item);
+              listSchedule.remove(listSchedule[index]);
+            }
+            isLoading = false;
+          })
+        });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getScheduleMentor(date, widget.mentor.id!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +64,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                       initialDate: DateTime.now(),
                       firstDate: DateTime(1950, 1),
                       lastDate: DateTime(2023, 12),
+                      locale: Locale("vi", "VI"),
                       builder: (context, picker) {
                         return Theme(
                           //TODO: change colors
@@ -46,6 +83,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                     if (selectedDate != null) {
                       setState(() {
                         date = selectedDate.toString().split(" ")[0];
+                        getScheduleMentor(date, widget.mentor.id!);
                       });
                     }
                   });
@@ -90,207 +128,94 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                       )),
                 ),
               ),
-              Container(
-                height: 100,
-                width: 100,
-                margin: EdgeInsets.only(left: 10, top: 10, right: 10),
-                padding: EdgeInsets.only(left: 15, right: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Ngày 22 Tháng 3 (Thứ tư)",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Slot 2 (08:30 - 10:00) AM",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: MaterialColors.muted,
-                              textStyle: TextStyle(color: Colors.white),
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child: Text(
-                              "Lên lịch meetup",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            onPressed: () => {}),
-                      )
-                    ]),
-              ),
-              Container(
-                height: 100,
-                width: 100,
-                margin: EdgeInsets.only(left: 10, top: 10, right: 10),
-                padding: EdgeInsets.only(left: 15, right: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Ngày 22 Tháng 3 (Thứ tư)",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Slot 2 (08:30 - 10:00) AM",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: MaterialColors.primary,
-                              textStyle: TextStyle(color: Colors.white),
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child: Text(
-                              "Lên lịch meetup",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            onPressed: () => {}),
-                      )
-                    ]),
-              ),
-              Container(
-                height: 100,
-                width: 100,
-                margin: EdgeInsets.only(left: 10, top: 10, right: 10),
-                padding: EdgeInsets.only(left: 15, right: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Ngày 22 Tháng 3 (Thứ tư)",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Slot 2 (08:30 - 10:00) AM",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: MaterialColors.primary,
-                              textStyle: TextStyle(color: Colors.white),
-                              shadowColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child: Text(
-                              "Lên lịch meetup",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            onPressed: () => {}),
-                      )
-                    ]),
-              )
+              if (isLoading) ...[
+                Center(
+                    child: Container(
+                        margin: EdgeInsets.only(top: 30),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3.0,
+                          color: MaterialColors.primary,
+                        )))
+              ] else
+                ...listSchedule.map((e) => buildSlot(e)).toList()
             ]));
+  }
+
+  Widget buildSlot(int slot) {
+    return Container(
+      height: 100,
+      width: 100,
+      margin: EdgeInsets.only(left: 10, top: 10, right: 10),
+      padding: EdgeInsets.only(left: 15, right: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 2), // changes position of shadow
+          ),
+        ],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Ngày 22 Tháng 3",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Slot ${slot} (${getSlot(slot)}) AM",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Consumer<AppProvider>(builder: (context, provider, child) {
+              return Container(
+                height: 40,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: MaterialColors.primary,
+                      textStyle: TextStyle(color: Colors.white),
+                      shadowColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "Lên lịch meetup",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                    onPressed: () => {
+                          Navigator.pushNamed(context, "/create-session"),
+                          provider.setListMentorInvite(widget.mentor),
+                          provider.setBookingSlot(slot),
+                          provider.setBookingDate(date),
+                        }),
+              );
+            })
+          ]),
+    );
   }
 }

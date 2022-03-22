@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
@@ -8,9 +11,17 @@ import 'package:twe/models/booking.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
 
-class BookingPage extends StatelessWidget {
-  const BookingPage({Key? key}) : super(key: key);
+class BookingPage extends StatefulWidget {
+  BookingPage({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _BookingPage();
+  }
+}
 
+class _BookingPage extends State<BookingPage> {
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
     var coffee = COFFEE_DATA[1];
@@ -106,7 +117,7 @@ class BookingPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                provider.getBookingMajor,
+                                provider.getBookingMajor.majorName,
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontWeight: FontWeight.w400,
@@ -117,7 +128,7 @@ class BookingPage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                         child: Text(
-                          "Môn học",
+                          "Chủ đề",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w500,
@@ -306,12 +317,11 @@ class BookingPage extends StatelessWidget {
                       // ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
+                          List<MentorModel> listMentorInvite =
+                              provider.getListMentorInvite;
+                          createSession(context, provider.getBooking,
+                              listMentorInvite, provider.getUid);
                           provider.setListMentorInviteEmpty();
-                          Navigator.of(context).pushNamed("/successful");
-                          createSession(provider.getBooking,
-                              provider.getListMentorInvite, provider.getUid);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,
@@ -338,13 +348,55 @@ class BookingPage extends StatelessWidget {
         }));
   }
 
-  void createSession(
-      BookingModel booking, List<MentorModel> listMentorInvite, String uid) {
-    print(booking.coffee.id);
-    print(booking.date);
-    print(booking.slot);
-    print(uid);
-    print(booking.subject.subjectId);
-    print(listMentorInvite.length);
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  void createSession(context, BookingModel booking,
+      List<MentorModel> listMentorInvite, String uid) {
+    List<String> listStirng = [];
+    var email = auth.currentUser!.email;
+    EasyLoading.show(
+      status: 'loading...',
+      maskType: EasyLoadingMaskType.clear,
+    );
+    ApiServices.getProfileByUsername(email!).then((value) => {
+          if (value != null)
+            {
+              print(booking.coffee.id),
+              print(booking.date),
+              print(booking.slot),
+              print(uid),
+              print(booking.subject.subjectId),
+              print(booking.major.majorId),
+              print(value.fullname.toString()),
+              print(value.image.toString()),
+              print(listMentorInvite.length),
+
+              for (var item in listMentorInvite)
+                {listStirng.add(item.id.toString())},
+              // ApiServices.
+              print(listStirng),
+              print(["m1", "m2"]),
+              ApiServices.postCreateMeetup(
+                booking,
+                listStirng,
+                uid,
+                value.image.toString(),
+                value.fullname.toString(),
+              ).then((value) => {
+                    if (value != null)
+                      {
+                        EasyLoading.dismiss(),
+                        print("thanh cong"),
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst),
+                        Navigator.of(context).pushNamed("/successful")
+                      }
+                    else
+                      {EasyLoading.dismiss()}
+                  })
+            }
+          else
+            {EasyLoading.dismiss()}
+        });
   }
 }

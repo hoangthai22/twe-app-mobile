@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/mentorItemInvite.dart';
@@ -20,6 +22,31 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
   String textInputCoffee = '';
   bool isEmptyMentor = true;
   bool isEmptyCoffee = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  feedbackSubmit() {
+    print(ratingCoffee);
+    print(ratingMentor);
+    print(textInputMentor);
+    print(textInputMentor);
+    print(widget.historyId);
+    ApiServices.postFeedback(
+            auth.currentUser!.uid,
+            ratingMentor.toInt(),
+            ratingCoffee.toInt(),
+            textInputMentor,
+            textInputCoffee,
+            widget.historyId)
+        .then((value) => {
+          print(value),
+              if (value != null)
+                {
+                  print("thanh cong"),
+                  Navigator.pop(context),
+                  Navigator.pop(context),
+                }
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +91,8 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                 avatar: MENTOR_DATA[0].image!,
                 major: MAJOR_DATA[0].majorName,
                 isButtonCancel: false,
+                isRate: false,
+                rate: 0,
               ),
             ),
             Container(
@@ -204,11 +233,7 @@ class _FeedbackSessionPage extends State<FeedbackSessionPage> {
                       fontFamily: "Roboto"),
                 ),
                 onPressed: () => {
-                  if (!isEmptyMentor && !isEmptyCoffee)
-                    {
-                      print("coffe: ${textInputCoffee}"),
-                      print("mentor: ${textInputMentor}"),
-                    }
+                  if (!isEmptyMentor && !isEmptyCoffee) {feedbackSubmit()}
                 },
               ),
             )
