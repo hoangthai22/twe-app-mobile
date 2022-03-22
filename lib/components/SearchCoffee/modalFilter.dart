@@ -61,24 +61,25 @@ class _ModalFilter extends State<ModalFilter> {
                     )),
               ),
               Container(
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  children: [
-                    if (majors.length > 0)
-                      ...majors
-                          .map(
-                            (majorItem) => MyRadioListTile<int>(
-                              value: majorItem.majorId,
-                              groupValue: majorSelected,
-                              leading: majorItem.majorName,
-                              onChanged: (value) => setState(() =>
-                                  {majorSelected = value!, major = majorItem}),
-                            ),
-                          )
-                          .toList()
-                  ],
+                child: GridView.builder(
+                  itemCount: majors.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3.5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 5.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return MyRadioListTile<int>(
+                      value: majors[index].majorId,
+                      groupValue: majorSelected,
+                      leading: majors[index].majorName,
+                      onChanged: (value) => setState(() =>
+                          {majorSelected = value!, major = majors[index]}),
+                    );
+                  },
                 ),
-              ),
+                height: 500,
+              )
             ],
           ),
         ),

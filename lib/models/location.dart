@@ -10,11 +10,13 @@ class CoffeeModel {
   String? openTime;
   String? closeTime;
   double? rate;
+  String? price;
 
   CoffeeModel({
     this.id,
     this.name,
     this.street,
+    this.price,
     this.closeTime,
     this.openTime,
     this.distric,
@@ -32,6 +34,7 @@ class CoffeeModel {
       description: json['description'],
       image: json['image'],
       openTime: json['openTime'],
+      price: json['price'],
       closeTime: json['closeTime'],
       rate: json['rate'] == null ? 0.0 : json['rate'].toDouble(),
     );

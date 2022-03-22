@@ -21,7 +21,8 @@ class _ListMentorTab extends State<ListMentorTab>
   bool _isLoading = false;
   bool _isLoadingCircle = false;
   bool isListFull = false;
-  bool _isChecked = false;
+  bool _isSort = true;
+  bool _isSortList = false;
   int page = 1;
   String query = '';
   final ScrollController scrollController = ScrollController();
@@ -90,10 +91,15 @@ class _ListMentorTab extends State<ListMentorTab>
         if (scrollController.position.pixels >=
                 scrollController.position.maxScrollExtent &&
             !_isLoadingCircle &&
-            !isListFull) {
+            !isListFull &&
+            _isSortList == false) {
           // print(query);
           _fetch();
-        }
+        } else if (scrollController.position.pixels >=
+                scrollController.position.maxScrollExtent &&
+            !_isLoadingCircle &&
+            !isListFull &&
+            _isSortList == true) {}
       });
     } else
       searchBar(widget.searchKey!);
@@ -111,6 +117,33 @@ class _ListMentorTab extends State<ListMentorTab>
 
   void showListMentorInvite() {
     return _Modal(context);
+  }
+
+  sortingMentor() {
+    setState(() {
+      _isLoading = true;
+      listMentor = [];
+    });
+    var checkList = [];
+    ApiServices.getListMentorSortingPagination(_isSort, 1, 20).then((result) => {
+          if (result != null)
+            {
+              setState(() {
+                _isSort = !_isSort;
+                _isSortList = true;
+                _isLoading = false;
+                listMentor = result;
+              })
+            }
+          else
+            {
+              setState(() {
+                listMentor = [];
+                _isLoading = false;
+                // print(listMentor);
+              }),
+            }
+        });
   }
 
   @override
@@ -178,7 +211,7 @@ class _ListMentorTab extends State<ListMentorTab>
                               Container(
                                 margin: EdgeInsets.only(
                                     left: 15, top: 10, bottom: 10),
-                                width: 110,
+                                width: 127,
                                 height: 40,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -193,7 +226,9 @@ class _ListMentorTab extends State<ListMentorTab>
                                               color: MaterialColors.primary,
                                               width: 1)),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      sortingMentor();
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -210,6 +245,16 @@ class _ListMentorTab extends State<ListMentorTab>
                                           margin: EdgeInsets.only(left: 5),
                                           child: Icon(
                                             Icons.sort_by_alpha,
+                                            color: MaterialColors.primary,
+                                            size: 20,
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 0),
+                                          child: Icon(
+                                            _isSort
+                                                ? Icons.arrow_downward
+                                                : Icons.arrow_upward,
                                             color: MaterialColors.primary,
                                             size: 20,
                                           ),
@@ -425,7 +470,7 @@ class _ListMentorTab extends State<ListMentorTab>
       listMentor = [];
     });
     var checkList = [];
-    ApiServices.getListMentorBymajorName(majorName, 1, 10).then((value) => {
+    ApiServices.getListMentorBymajorName(majorName, 1, 20).then((value) => {
           checkList = value,
           if (checkList.isEmpty)
             {

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
@@ -21,23 +22,23 @@ class HistoryDetailPage extends StatefulWidget {
 class _HistoryDetailPage extends State<HistoryDetailPage> {
   late SessionModel meeting;
   bool isLoading = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getHistoryDetail();
+    getHistoryDetail(auth.currentUser!.uid);
   }
 
-  getHistoryDetail() {
-    ApiServices.getMeetingDetailByMeetingId(
-            "12c9cd48-8cb7-4145-8fd9-323e20b329dd", widget.historyId)
+  getHistoryDetail(String userId) {
+    ApiServices.getMeetingDetailByMeetingId(userId, widget.historyId)
         .then((value) => {
               if (value != null)
                 {
+                  print(value),
                   setState(() {
                     meeting = value;
                     isLoading = false;
-                    print(meeting.isLead);
                   })
                 }
             });
@@ -149,7 +150,7 @@ class _HistoryDetailPage extends State<HistoryDetailPage> {
                             padding:
                                 EdgeInsets.only(left: 15, right: 15, top: 10),
                             child: Text(
-                              "Môn học",
+                              "Chủ đề",
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w500,
@@ -251,10 +252,14 @@ class _HistoryDetailPage extends State<HistoryDetailPage> {
                               // onMentorDetail(MENTOR_DATA[0].id);
                             },
                             child: MentorItemInvite(
-                              mentorName: MENTOR_DATA[0].fullname!,
-                              avatar: MENTOR_DATA[0].image!,
-                              major: MAJOR_DATA[0].majorName,
+                              mentorName: meeting.listMentorInvite![0]["name"],
+                              avatar: meeting.listMentorInvite![0]["image"],
+                              major: "",
                               isButtonCancel: false,
+                              isRate: true,
+                              rate: double.parse(meeting.listMentorInvite![0]
+                                      ["rate"]
+                                  .toString()),
                             ),
                           ),
                           Container(
@@ -282,7 +287,7 @@ class _HistoryDetailPage extends State<HistoryDetailPage> {
                                     Container(
                                       padding: EdgeInsets.only(top: 25),
                                       child: Text(
-                                        "100.000 ₫",
+                                        "${meeting.price}00 ₫",
                                         style: TextStyle(
                                             fontFamily: "Roboto",
                                             fontWeight: FontWeight.w500,
@@ -305,32 +310,34 @@ class _HistoryDetailPage extends State<HistoryDetailPage> {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                Navigator.of(context).pushNamed(
-                                  '/feedback-history',
-                                  arguments: widget.historyId,
-                                )
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: MaterialColors.primary,
-                                textStyle: TextStyle(color: Colors.white),
-                                shadowColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                          if (!meeting.isFeed! && meeting.status == 2) ...[
+                            Container(
+                              height: 40,
+                              child: ElevatedButton(
+                                onPressed: () => {
+                                  Navigator.of(context).pushNamed(
+                                    '/feedback-history',
+                                    arguments: widget.historyId,
+                                  )
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: MaterialColors.primary,
+                                  textStyle: TextStyle(color: Colors.white),
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Đánh giá",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                              child: Text(
-                                "Đánh giá",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          )
+                            )
+                          ]
                         ],
                       ),
                     )

@@ -51,9 +51,10 @@ class _HomePage extends State<HomePage> {
     setState(() {
       _isLoadingMeetup = true;
     });
-    ApiServices.getListMeetingRecommendByUserId(userId, 1, 3).then((item) => {
+    ApiServices.getListMeetingRecommendByUserId(userId, 1, 3).then((item) => {print(item),
           if (item != null)
             {
+              print(item),
               setState(() {
                 meetings = item;
                 print(meetings.length);
@@ -108,7 +109,7 @@ class _HomePage extends State<HomePage> {
                                 width: 75,
                                 height: 50,
                                 child: Image.asset(
-                                  'assets/coctrensach5.png',
+                                  'assets/logo_transparent.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),

@@ -22,6 +22,7 @@ class SessionModel {
   final List? listMemberImage;
   final List? listMember;
   final int? status;
+  final bool? isFeed;
 
   SessionModel(
       {this.description,
@@ -33,6 +34,7 @@ class SessionModel {
       this.cafeDistric,
       this.cafeStreet,
       this.cafe,
+      this.isFeed,
       this.date,
       this.cafeName,
       this.slot,
@@ -48,7 +50,7 @@ class SessionModel {
 
   factory SessionModel.fromJson(Map<String, dynamic> json) {
     return SessionModel(
-      sessionId: json['sessionId'],
+      sessionId: json['sessionId'] == null ? json['id'] : json['sessionId'],
       mentorName: json['mentorName'],
       description: json['description'],
       subject: json['subjectName'],
@@ -68,6 +70,7 @@ class SessionModel {
       cafe: json['cafe'],
       status: json['status'],
       isLead: json['isLead'],
+      isFeed: json['isFeed'],
     );
   }
 }

@@ -7,11 +7,13 @@ class NoficationItem extends StatelessWidget {
   final String title;
   final String time;
   final String image;
+  final String date;
 
   NoficationItem(
       {required this.image,
       required this.content,
       required this.time,
+      required this.date,
       required this.title});
 
   @override
@@ -54,14 +56,20 @@ class NoficationItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5),
                     width: MediaQuery.of(context).size.width * 1 - 105,
-                    child: RichText(text: content)),
+                    child: RichText(
+                      text: content,
+                    )),
+                SizedBox(
+                  height: 3,
+                ),
                 Text(
-                  time,
+                  time.split(":")[0] + ":" + time.split(":")[1] + (date != ""
+                      ? ",  "+date
+                      : ""),
                   style: TextStyle(
-                    fontFamily: "Roboto",
-                    fontSize: 12,
-                    color: Colors.black54
-                  ),
+                      fontFamily: "Roboto",
+                      fontSize: 13,
+                      color: Colors.black54),
                 ),
               ],
             ),

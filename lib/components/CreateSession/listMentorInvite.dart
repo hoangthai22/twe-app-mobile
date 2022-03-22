@@ -36,6 +36,8 @@ class ListMentorInvite extends StatelessWidget {
                   children: provider.getListMentorInvite
                       .map(
                         (mentor) => MentorItemInvite(
+                            isRate: false,
+                            rate: 0,
                             avatar: mentor.image!,
                             mentorName: mentor.fullname!,
                             major: MAJOR_DATA[0].majorName,

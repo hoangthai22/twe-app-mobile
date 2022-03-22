@@ -11,6 +11,7 @@ import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/CreateSession/listMentorInvite.dart';
 import 'package:twe/components/CreateSession/mentoritem.dart';
 import 'package:twe/components/SearchCoffee/appbarSearchLocation.dart';
+import 'package:twe/components/SearchCoffee/modalFilter.dart';
 import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/provider/appProvider.dart';
@@ -20,6 +21,8 @@ class _ListMentorPage extends State<ListMentorPage> {
   bool _isLoading = true;
   bool _isLoadingCircle = true;
   bool isListFull = false;
+  bool _isSort = true;
+  bool _isSortList = false;
   int page = 1;
   String query = '';
   final ScrollController scrollController = ScrollController();
@@ -99,6 +102,17 @@ class _ListMentorPage extends State<ListMentorPage> {
     return _Modal(context);
   }
 
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ListMentorInvite();
+        });
+  }
+
   Widget _buildSearchField() {
     return TextField(
       autofocus: true,
@@ -152,6 +166,34 @@ class _ListMentorPage extends State<ListMentorPage> {
         ],
       );
     }
+  }
+
+  sortingMentor() {
+    setState(() {
+      _isLoading = true;
+      listMentor = [];
+    });
+    var checkList = [];
+    ApiServices.getListMentorSortingPagination(_isSort, 1, 20)
+        .then((result) => {
+              if (result != null)
+                {
+                  setState(() {
+                    _isSort = !_isSort;
+                    _isSortList = true;
+                    _isLoading = false;
+                    listMentor = result;
+                  })
+                }
+              else
+                {
+                  setState(() {
+                    listMentor = [];
+                    _isLoading = false;
+                    // print(listMentor);
+                  }),
+                }
+            });
   }
 
   @override
@@ -267,7 +309,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    _Modal(context);
+                                    _ModalFilter(context);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -308,7 +350,9 @@ class _ListMentorPage extends State<ListMentorPage> {
                                             color: MaterialColors.primary,
                                             width: 1)),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    sortingMentor();
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -492,7 +536,8 @@ class _ListMentorPage extends State<ListMentorPage> {
                             child: Container(
                               height: 50,
                               color: Colors.white,
-                              padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                              padding: EdgeInsets.only(
+                                  left: 5, right: 5, top: 5, bottom: 5),
                               width: MediaQuery.of(context).size.width,
                               child: ElevatedButton(
                                 child: Text("Xác nhận"),
@@ -518,14 +563,49 @@ class _ListMentorPage extends State<ListMentorPage> {
     );
   }
 
-  void _Modal(context) {
+  void _ModalFilter(context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
-          return ListMentorInvite();
+          return ModalFilter(
+            onSeletedMajor: (major) => {
+              setState(() {
+                filterMentorByMajorName(major.majorName);
+                majorFilter = major;
+                majorId = major.majorId;
+              })
+            },
+          );
+        });
+  }
+
+  void filterMentorByMajorName(String majorName) {
+    setState(() {
+      _isLoading = true;
+      listMentor = [];
+    });
+    var checkList = [];
+    ApiServices.getListMentorBymajorName(majorName, 1, 20).then((value) => {
+          checkList = value,
+          if (checkList.isEmpty)
+            {
+              setState(() {
+                isListFull = true;
+                listMentor = [];
+                _isLoading = false;
+              })
+            }
+          else
+            {
+              setState(() {
+                listMentor = value;
+                _isLoading = false;
+                // print(listMentor);
+              }),
+            }
         });
   }
 

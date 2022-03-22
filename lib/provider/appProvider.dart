@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:twe/models/booking.dart';
 import 'package:twe/models/location.dart';
+import 'package:twe/models/major.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:twe/models/subject.dart';
 
 class AppProvider with ChangeNotifier {
   String userId = "";
   String uid = "";
+  String avatar = "";
   bool isLogin = false;
   List<MentorModel> listMentorInvite = [];
 
-  BookingModel booking = BookingModel(id: "111111111");
+  BookingModel booking = BookingModel(
+    date: DateTime.now().toString().split(" ")[0],
+    slot: 0,
+    id: "111111111",
+  );
 
   void setIsLogin() {
     isLogin = true;
+    notifyListeners();
+  }
+
+  void setAvatar(img) {
+    avatar = img;
     notifyListeners();
   }
 
@@ -99,14 +110,15 @@ class AppProvider with ChangeNotifier {
   bool get getIsLogin => isLogin;
   List<MentorModel> get getListMentorInvite => listMentorInvite;
   String get getUserId => userId;
+  String get getAvatar => avatar;
   String get getUid => uid;
-  int get getBookingSlot => booking.slot;
+  int get getBookingSlot => booking.slot ?? 0;
   CoffeeModel get getBookingCoffee => booking.coffee;
   String get getBookingUserId => booking.userId;
   String get getBookingDate => booking.date;
   String get getBookingMentorId => booking.mentorId;
   SubjectModel get getBookingSubject => booking.subject;
-  String get getBookingMajor => booking.major;
+  MajorModel get getBookingMajor => booking.major;
   double get getBookingPrice => booking.price;
   BookingModel get getBooking => booking;
 }

@@ -28,10 +28,6 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
   Widget build(BuildContext context) {
     return isLoading
         ? Scaffold(
-            appBar: AppBar(
-              title: Text("Chi tiết Meetup"),
-              backgroundColor: MaterialColors.primary,
-            ),
             body: Center(
                 child: Container(
                     margin: EdgeInsets.only(bottom: 10),
@@ -45,6 +41,7 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
                 appBar: AppBar(
                   title: Text("Chi tiết Meetup"),
                   backgroundColor: MaterialColors.primary,
+                  centerTitle: true,
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(50.0),
                     child: ColoredBox(
@@ -67,7 +64,7 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
                           ),
                           if (meeting.isLead!) ...[
                             Tab(
-                              text: ("Yêu cầu (4)"),
+                              text: ("Yêu cầu"),
                             ),
                           ]
                         ],
@@ -79,8 +76,8 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
                   children: [
                     SessionDetailPage(meetingInfo: meeting),
                     SessionMemberPage(
-                      members: meeting.listMember!,
-                    ),
+                        sessionId: widget.sessionId,
+                        id: context.read<AppProvider>().getUid),
                     if (meeting.isLead!) ...[
                       SessionMemberRequestPage(
                         meetingId: meeting.sessionId!,
@@ -95,6 +92,8 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
   void initState() {
     var userId = context.read<AppProvider>().getUid;
     super.initState();
+    print("userId: $userId");
+    print("widget.sessionId: ${widget.sessionId}");
     ApiServices.getMeetingDetailByMeetingId(userId, widget.sessionId)
         .then((value) => {
               if (value != null)

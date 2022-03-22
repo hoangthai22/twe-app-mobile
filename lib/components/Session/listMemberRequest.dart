@@ -16,7 +16,7 @@ class ListMemberRequest extends StatefulWidget {
 
 class _ListMemberRequest extends State<ListMemberRequest> {
   List listMemberRequest = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -24,11 +24,13 @@ class _ListMemberRequest extends State<ListMemberRequest> {
   }
 
   getListMemberRequest(String id) {
+    print("chay");
     ApiServices.getListMemberRequest(id).then((value) => {
           if (value != null)
             {
               setState(() {
                 listMemberRequest = value;
+                isLoading = false;
               })
             }
         });
@@ -36,40 +38,46 @@ class _ListMemberRequest extends State<ListMemberRequest> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Column(children: [
-        Container(
-          margin: EdgeInsets.only(top: 15),
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(top: 15, left: 15),
-          child: Title(
-              color: Colors.black,
-              child: Text(
-                "Yêu cầu tham gia",
-                style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
-              )),
-          color: Colors.white,
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-          color: Colors.white,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-              children: listMemberRequest.map((dynamic item) {
-            var index = listMemberRequest.indexOf(item);
-            return MemberRequestItem(
-                id: item["id"],
-                majorName: item["majorName"],
-                memberName: item["name"],
-                image: item["image"],
-                isBorderBottom:
-                    index == listMemberRequest.length - 1 ? false : true);
-          }).toList()),
-        )
-      ])
-    ]);
+    return isLoading
+        ? Center(child: CircularProgressIndicator())
+        : ListView(children: [
+            Column(children: [
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: 15, left: 15),
+                child: Title(
+                    color: Colors.black,
+                    child: Text(
+                      "Yêu cầu tham gia",
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    )),
+                color: Colors.white,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                color: Colors.white,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                    children: listMemberRequest.map((dynamic item) {
+                  var index = listMemberRequest.indexOf(item);
+                  return MemberRequestItem(
+                      meetingId: widget.meetingId,
+                      id: item["id"],
+                      majorName: item["majorName"],
+                      memberName: item["name"],
+                      image: item["image"],
+                      function: (v) {
+                        getListMemberRequest(widget.meetingId);
+                      },
+                      isBorderBottom:
+                          index == listMemberRequest.length - 1 ? false : true);
+                }).toList()),
+              )
+            ])
+          ]);
   }
 }

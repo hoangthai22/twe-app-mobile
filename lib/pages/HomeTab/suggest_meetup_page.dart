@@ -46,13 +46,15 @@ class _SuggestSessionPage extends State<SuggestSessionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0.8,
-          brightness: Brightness.light,
+         
           backgroundColor: MaterialColors.primary,
-          toolbarHeight: 65,
+          toolbarHeight: 60,
           automaticallyImplyLeading: false,
-          primary: false,
-          excludeHeaderSemantics: true,
+          leading: BackButton(
+            color: Colors.white,
+          ),
+
+      
           flexibleSpace: SafeArea(
               child: Container(
             padding: EdgeInsets.only(left: 15, right: 15),
@@ -86,63 +88,67 @@ class _SuggestSessionPage extends State<SuggestSessionPage> {
             ),
           ))),
       body: Container(
-        padding: EdgeInsets.only(top: 10, right: 15, left: 15),
+        padding: EdgeInsets.only(
+          top: 10,
+          right: 15,
+          left: 15,
+        ),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(255, 241, 241, 241),
-        child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: [
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   child: Row(
-              //     children: List.generate(sessionSuggestItem.length, (index) {
-              //       var mentor = sessionSuggestItem[index];
-              //       return Padding(
-              //         //child: SessionCard(session: mentor)
-              //         padding: const EdgeInsets.only(right: rightMainPadding),
-              //         child: Container(
-              //             child:
-              //                 Session_Sugget_Card(session_sugget_card: mentor)),
-              //       );
-              //     }),
-              //   ),
-              // ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(children: [
-                  if (_isLoadingMeetup)
-                    ...[]
-                  else
-                    ...meetings
-                        .map((meeting) => Padding(
-                              //child: SessionCard(session: mentor)
-                              padding: const EdgeInsets.only(
-                                  right: rightMainPadding),
-                              child: Container(
-                                  child: Session_Sugget_Card(
-                                      session_sugget_card: meeting)),
-                            ))
-                        .toList()
-                ]),
-              ),
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   child: Row(
-              //     children: List.generate(sessionSuggestItem2.length, (index) {
-              //       var mentor2 = sessionSuggestItem2[index];
-              //       return Padding(
-              //         //child: SessionCard(session: mentor)
-              //         padding: const EdgeInsets.only(right: rightMainPadding),
-              //         child: Container(
-              //             child: Session_Sugget_Card(
-              //                 session_sugget_card: mentor2)),
-              //       );
-              //     }),
-              //   ),
-              // ),
-            ]),
+        child: Container(
+            padding: EdgeInsets.all(0.0),
+            child: GridView.builder(
+              itemCount: meetings.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.76,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 10.0),
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                    //child: SessionCard(session: mentor)
+                    padding: const EdgeInsets.only(right: 0),
+                    child: InkWell(
+                      child: Container(
+                          child: Session_Sugget_Card(
+                              session_sugget_card: meetings[index])),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/session",
+                            arguments: meetings[index].sessionId);
+                      },
+                    ));
+              },
+            )),
+        // CustomScrollView(
+        //   primary: false,
+        //   slivers: <Widget>[
+        //     SliverPadding(
+        //       padding: EdgeInsets.all(0),
+        //       sliver: SliverGrid.count(
+        //         crossAxisSpacing: 0,
+        //         childAspectRatio: .75,
+        //         mainAxisSpacing: 10,
+        //         crossAxisCount: 2,
+        //         children: <Widget>[
+        //           if (_isLoadingMeetup)
+        //             ...[]
+        //           else
+        //             ...meetings
+        //                 .map((meeting) => Padding(
+        //                       //child: SessionCard(session: mentor)
+        //                       padding: const EdgeInsets.only(
+        //                           right: rightMainPadding),
+        //                       child: Container(
+        //                           child: Session_Sugget_Card(
+        //                               session_sugget_card: meeting)),
+        //                     ))
+        //                 .toList(),
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // )
       ),
     );
   }

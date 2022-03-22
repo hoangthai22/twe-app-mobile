@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/provider/appProvider.dart';
 
@@ -41,7 +42,8 @@ class _SignInPage extends State<SignInPage> {
       if (googleUser != null) {
         final GoogleSignInAccount? googleSignInAccount = googleUser;
         final googleAuth = await googleSignInAccount!.authentication;
-
+        String? fcmToken = await messaging.getToken();
+        User user;
         final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
         await auth.signInWithCredential(credential).then((value) => {
@@ -55,16 +57,39 @@ class _SignInPage extends State<SignInPage> {
                     }
                   else
                     {
-                      context
-                          .read<AppProvider>()
-                          .setUserLogin(value.user!.email.toString()),
-                      context
-                          .read<AppProvider>()
-                          .setUid(value.user!.uid.toString()),
-                      context.read<AppProvider>().setIsLogin(),
-                      // Navigator.pop(context);
-                      EasyLoading.dismiss(),
-                      Navigator.pushReplacementNamed(context, '/home'),
+                      print("fcmToken: ${fcmToken}"),
+                      user = value.user!,
+                      ApiServices.postLoginToInsertFCM(user.uid, fcmToken!)
+                          .then((role) => {
+                                print("value: $role"),
+                                if (role != null)
+                                  {
+                                    if (role == "1")
+                                      {
+                                        db
+                                            .collection("users")
+                                            .doc(user.uid)
+                                            .set({
+                                          'email': user.email,
+                                          'fcmToken': fcmToken,
+                                        }),
+                                        context
+                                            .read<AppProvider>()
+                                            .setUserLogin(
+                                                value.user!.email.toString()),
+                                        context
+                                            .read<AppProvider>()
+                                            .setUid(value.user!.uid.toString()),
+                                        context
+                                            .read<AppProvider>()
+                                            .setIsLogin(),
+                                        // Navigator.pop(context);
+                                        EasyLoading.dismiss(),
+                                        Navigator.pushReplacementNamed(
+                                            context, '/home')
+                                      }
+                                  }
+                              })
                     }
                 }
             });
@@ -117,19 +142,31 @@ class _SignInPage extends State<SignInPage> {
             String? fcmToken = await messaging.getToken();
             print("fcmToken: ${fcmToken}");
             User user = value.user!;
-            db.collection("users").doc(user.uid).set({
-              'email': user.email,
-              'fcmToken': fcmToken,
-            });
-            print(fcmToken);
-            context
-                .read<AppProvider>()
-                .setUserLogin(value.user!.email.toString());
-            context.read<AppProvider>().setUid(value.user!.uid.toString());
-            context.read<AppProvider>().setIsLogin();
-            // Navigator.pop(context);
-            EasyLoading.dismiss();
-            Navigator.pushReplacementNamed(context, '/home');
+
+            ApiServices.postLoginToInsertFCM(user.uid, fcmToken!)
+                .then((role) => {
+                      print("value: $role"),
+                      if (role != null)
+                        {
+                          if (role == "1")
+                            {
+                              db.collection("users").doc(user.uid).set({
+                                'email': user.email,
+                                'fcmToken': fcmToken,
+                              }),
+                              context
+                                  .read<AppProvider>()
+                                  .setUserLogin(value.user!.email.toString()),
+                              context
+                                  .read<AppProvider>()
+                                  .setUid(value.user!.uid.toString()),
+                              context.read<AppProvider>().setIsLogin(),
+                              // Navigator.pop(context);
+                              EasyLoading.dismiss(),
+                              Navigator.pushReplacementNamed(context, '/home')
+                            }
+                        }
+                    });
           }
         }).catchError((onError) {
           EasyLoading.dismiss();
@@ -194,7 +231,7 @@ class _SignInPage extends State<SignInPage> {
                     margin: EdgeInsets.only(right: 5),
                     width: 60,
                     child: Image.asset(
-                      'assets/coctrensach5.png',
+                      'assets/logo_transparent.png',
                       fit: BoxFit.cover,
                     ),
                   ),

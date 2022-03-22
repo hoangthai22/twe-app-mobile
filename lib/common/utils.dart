@@ -96,3 +96,50 @@ getStatusString(int status) {
       return "Đang xử lý";
   }
 }
+
+getStatusStringInMyMeetup(int status, bool isLead) {
+  switch (status) {
+    case 0:
+      return "Chờ Mentor";
+    case 1:
+      if (isLead) {
+        return "Của tôi";
+      } else {
+        return "Góp mặt";
+      }
+    case 2:
+      return "Hoàn thành";
+    case 3:
+      return "Đã hủy";
+    default:
+      return "Đang xử lý";
+  }
+}
+
+getStatusStringIsJoin(int isJoin) {
+  switch (isJoin) {
+    case 0:
+      return "Yêu cầu tham gia";
+    case 1:
+      return "Đã yêu cầu";
+    case 2:
+      return "Đã tham gia";
+    default:
+      return "Đang xử lý";
+  }
+}
+
+getRole(int role){
+ switch (role) {
+    case 1:
+      return "User";
+    case 2:
+      return "Location";
+    case 3:
+      return "Mentor";
+    case 4:
+      return "Admin";
+    default:
+      return "Not found";
+  }
+}
