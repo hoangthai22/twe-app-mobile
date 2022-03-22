@@ -199,8 +199,7 @@ class _MeetupManagerState extends State<MySessionPageWaiteLocation> {
                                         ),
                                       ),
                                       ListTile(
-                                        title: Text(
-                                            "Thành viên trong nhóm quá ít!"),
+                                        title: Text("Tôi đang là F0"),
                                         leading: Radio(
                                           value: 2,
                                           groupValue: val,

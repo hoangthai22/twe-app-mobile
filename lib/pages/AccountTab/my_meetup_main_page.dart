@@ -27,7 +27,7 @@ class MyMeetingMainPage extends StatefulWidget {
             text: ("   Tất cả   "),
           ),
           Tab(
-            text: ("Chờ Location"),
+            text: ("Góp mặt  "),
           ),
           Tab(
             text: ("Chờ Mentor"),
@@ -125,9 +125,8 @@ class _MyMeetingMainPage extends State<MyMeetingMainPage> {
         ),
         body: TabBarView(children: [
           MySessionPage(),
-          MySessionPage(),
           MySessionPageWaiteLocation(),
-          // MySessionPageWaiteMentor(),
+          MySessionPageWaiteMentor(),
           MySessionPageGoing(),
           MySessionPageDone(),
           MySessionPageCancel(),

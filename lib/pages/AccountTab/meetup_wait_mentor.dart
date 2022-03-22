@@ -10,6 +10,8 @@ class MySessionPageWaiteMentor extends StatefulWidget {
 }
 
 class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
+  bool _value = false;
+  int val = -1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,44 +33,39 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
         //onTap: () => onClick(),
         child: Stack(
           children: [
-            Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: Colors.black12, width: 1.0)),
-                ),
-                padding: const EdgeInsets.only(bottom: 15, top: 15, left: 240),
-                child: Text(
-                  "Chờ Mentor",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
+            Positioned(
+              right: 0,
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: MaterialColors.primary,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        offset: Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
                   ),
-                )),
-            /* Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: Colors.black12, width: 1.0)),
-                ),
-                padding: const EdgeInsets.only(left: 220, bottom: 10, top: 10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(Icons.drive_file_rename_outline_sharp,
-                            size: 30, color: Color.fromARGB(255, 0, 26, 255)),
-                        Text(
-                          "Viết đánh giá",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Roboto',
-                              color: Color.fromARGB(255, 0, 26, 255)),
-                        )
-                      ]),
-                    ])), */
+                  padding: const EdgeInsets.only(
+                      top: 12, bottom: 12, right: 17, left: 17),
+                  child: Text(
+                    "Chờ ",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Roboto',
+                        color: Colors.white),
+                  )),
+            ),
             Container(
                 height: 220,
                 decoration: const BoxDecoration(),
-                margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                margin: const EdgeInsets.only(left: 10, right: 10, top: 0),
                 child: ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -79,7 +76,7 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                             flex: 1,
                             child: Container(
                                 padding:
-                                    const EdgeInsets.only(top: 50, right: 15),
+                                    const EdgeInsets.only(top: 20, right: 15),
                                 child: CircleAvatar(
                                   radius: 45, // Image radius
                                   backgroundImage: NetworkImage(
@@ -89,7 +86,7 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
                             flex: 3,
                             child: Container(
                               padding:
-                                  const EdgeInsets.only(top: 50, right: 15),
+                                  const EdgeInsets.only(top: 30, right: 15),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -158,29 +155,168 @@ class _MySessionPageCancel extends State<MySessionPageWaiteMentor> {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 170, left: 50),
+                    width: MediaQuery.of(context).size.width * .5 - 20,
+                    padding: EdgeInsets.only(top: 160, left: 10),
                     child: FlatButton(
+                      height: 40,
                       child: Text(
-                        'Hủy Meetup',
-                        style: TextStyle(fontSize: 16.0),
+                        'Hủy bỏ',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        side:
+                            BorderSide(color: MaterialColors.primary, width: 1),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      color: Color.fromARGB(255, 128, 187, 123),
-                      textColor: Colors.white,
-                      onPressed: () {},
+                      color: Colors.white,
+                      textColor: MaterialColors.primary,
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (build) {
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Text("Hủy Meetup",
+                                      textAlign: TextAlign.center),
+                                  content: SingleChildScrollView(
+                                    child: Column(children: [
+                                      ListTile(
+                                        title:
+                                            Text("Có việc bận đột xuất!"),
+                                        leading: Radio(
+                                          value: 1,
+                                          groupValue: val,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              val = int.parse(value.toString());
+                                            });
+                                          },
+                                          activeColor: Colors.green,
+                                        ),
+                                      ),
+                                      ListTile(
+                                        title: Text("Tôi đang là F0"),
+                                        leading: Radio(
+                                          value: 2,
+                                          groupValue: val,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              val = int.parse(value.toString());
+                                            });
+                                          },
+                                          activeColor: Colors.green,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            EdgeInsets.only(top: 10, bottom: 5),
+                                        width: 270,
+                                        child: Text("Lý do khác:"),
+                                      ),
+                                      Container(
+                                          height: 100,
+                                          child: Card(
+                                              color: Colors.white60,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: TextField(
+                                                  maxLines: 8,
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  decoration:
+                                                      InputDecoration.collapsed(
+                                                          hintStyle: TextStyle(
+                                                              fontFamily:
+                                                                  "Roboto",
+                                                              fontSize: 14,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.4)),
+                                                          hintText:
+                                                              "Nhập lý do của bạn."),
+                                                ),
+                                              )))
+                                    ]),
+                                  ),
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        FlatButton(
+                                            height: 40,
+                                            color: MaterialColors.primary,
+                                            onPressed: () {
+                                              Navigator.pop(build);
+                                            },
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: MaterialColors.primary,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Text(
+                                              "   Xác nhận  ",
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontFamily: "Roboto",
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500),
+                                            )),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        FlatButton(
+                                            height: 40,
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: MaterialColors.primary,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              Navigator.pop(build);
+                                            },
+                                            child: Text(
+                                              "    Hủy bỏ     ",
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontFamily: "Roboto",
+                                                  color: MaterialColors.primary,
+                                                  fontWeight: FontWeight.w500),
+                                            ))
+                                      ],
+                                    )
+                                  ],
+                                );
+                              });
+                            });
+                      },
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 170, left: 50),
+                    width: MediaQuery.of(context).size.width * .5 - 20,
+                    padding: EdgeInsets.only(top: 160, left: 10),
                     child: FlatButton(
+                      height: 40,
                       child: Text(
                         'Xem chi tiết',
-                        style: TextStyle(fontSize: 16.0),
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       color: MaterialColors.primary,
                       textColor: Colors.white,

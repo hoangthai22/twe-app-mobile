@@ -15,13 +15,11 @@ class MySessionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView(children: [
-        //MySessionPage(),
         MySessionPageWaiteLocation(),
-        MySessionPageWaiteLocation(),
-        // MySessionPageWaiteMentor(),
-        // MySessionPageGoing(),
-        // MySessionPageDone(),
-        // MySessionPageCancel(),
+        MySessionPageWaiteMentor(),
+        MySessionPageGoing(),
+        MySessionPageDone(),
+        MySessionPageCancel(),
       ]),
     );
   }
