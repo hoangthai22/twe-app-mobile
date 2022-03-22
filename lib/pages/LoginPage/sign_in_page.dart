@@ -187,6 +187,7 @@ class _SignInPage extends State<SignInPage> {
                 );
               });
         });
+        EasyLoading.dismiss();
       } on FirebaseAuthException catch (e) {
         print('Failed with error code: ${e.code}');
         print(e.message);

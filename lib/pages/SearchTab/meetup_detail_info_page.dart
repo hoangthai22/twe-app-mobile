@@ -91,51 +91,54 @@ class _SessionDetailPage extends State<SessionDetailPage> {
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        'Chủ đề',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          child: Icon(
-                            Icons.subject,
-                            size: 22,
-                            color: MaterialColors.primary,
-                          ),
-                          margin: EdgeInsets.only(
-                            right: 5,
-                          ),
-                        ),
-                        Title(
-                            color: Colors.black,
-                            child: Text(
-                              widget.meetingInfo.subject!,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                              ),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
               ],
             ))),
+        Container(
+          margin: EdgeInsets.only(left: 40, top: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: Text(
+                  'Chủ đề',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    child: Icon(
+                      Icons.subject,
+                      size: 22,
+                      color: MaterialColors.primary,
+                    ),
+                    margin: EdgeInsets.only(
+                      right: 5,
+                    ),
+                  ),
+                  Title(
+                      color: Colors.black,
+                      child: Text(
+                        widget.meetingInfo.subject!,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      )),
+                ],
+              ),
+            ],
+          ),
+        ),
         Padding(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
             child: Container(

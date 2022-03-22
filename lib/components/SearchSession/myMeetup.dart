@@ -126,6 +126,9 @@ class MySession extends StatelessWidget {
                             )
                           ],
                         )),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Container(
                             child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,31 +142,36 @@ class MySession extends StatelessWidget {
                               ),
                               margin: EdgeInsets.only(right: 5),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  session.mentorName!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Roboto",
-                                      fontSize: 14),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 3),
-                                  width: 100,
-                                  child: Text(
-                                    MENTOR_DATA[0].listMajor![0].toString(),
+                            Container(
+                              width: 130,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    session.mentorName!,
+                                    maxLines: 1,
                                     style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w600,
                                         fontFamily: "Roboto",
-                                        fontSize: 12,
-                                        overflow: TextOverflow.ellipsis),
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 14),
                                   ),
-                                )
-                              ],
+                                  Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    width: 100,
+                                    child: Text(
+                                      MENTOR_DATA[0].listMajor![0].toString(),
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Roboto",
+                                          fontSize: 12,
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         )),

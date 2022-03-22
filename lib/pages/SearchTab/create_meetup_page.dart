@@ -27,7 +27,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   late DateTime _selectedDay;
-  int isSelectedSlot = 1;
+  int isSelectedSlot = 0;
   MajorModel isSelectMajor = new MajorModel(majorId: "", majorName: "");
   List<MajorModel> majorList = [];
   List<SubjectModel> subList = [];
@@ -41,8 +41,8 @@ class _CreateSessionPage extends State<CreateSessionPage> {
     // majorList = MAJOR_DATA;
     _fetch();
     subList = [];
-    isSelectedSlot = context.read<AppProvider>().getBookingSlot - 1 < 1
-        ? 1
+    isSelectedSlot = context.read<AppProvider>().getBookingSlot - 1 < 0
+        ? 0
         : context.read<AppProvider>().getBookingSlot - 1;
     _selectedDay = DateTime.parse(context.read<AppProvider>().getBookingDate);
     _focusedDay = DateTime.parse(context.read<AppProvider>().getBookingDate);
@@ -182,7 +182,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                 return InkWell(
                                   onTap: () {
                                     setState(() {
-                                      isSelectedSlot = index + 1;
+                                      isSelectedSlot = index;
                                     });
                                   },
                                   child: mentorTimingsData(SLOT[index],

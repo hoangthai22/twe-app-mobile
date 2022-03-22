@@ -209,7 +209,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                             width: MediaQuery.of(context).size.width * 1 - 65,
                             margin: const EdgeInsets.only(left: 10),
                             child: Text(
-                              "${coffee.street}",
+                              "${coffee.street}, ${coffee.distric}, TP HCM",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontFamily: 'Roboto',
@@ -241,7 +241,7 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                               margin: const EdgeInsets.only(left: 10),
                               alignment: Alignment.topLeft,
                               child: Text(
-                                coffee.price ?? "",
+                                "20.000 - 100.000",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'Roboto',

@@ -39,14 +39,13 @@ class _ProfilePage extends State<ProfilePage> {
     print("name: ${_major}");
     print("name: ${_address.text}");
     print("name: ${_date.text}");
-    var email = auth.currentUser!.email;
+    var email = auth.currentUser!.uid;
     ApiServices.putUpdateProfileByUserId(UserModel(
             id: email,
             fullname: _name.text,
             sex: _sex,
             phone: _phone.text,
-            image:
-                "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/members%2F177630271_2900197300241115_353909334207364766_n.jpg?alt=media&token=51a2e073-b6ff-41bc-be41-c8cc1f73e5a2",
+            image: "",
             majorName: _major,
             address: _address.text,
             birthday: _date.text))
@@ -91,8 +90,9 @@ class _ProfilePage extends State<ProfilePage> {
                 _phone.text = user.phone != null ? user.phone.toString() : "";
                 _address.text =
                     user.address != null ? user.address.toString() : "";
-                _date.text =
-                    user.birthday != null ? user.birthday.toString() : "";
+                _date.text = user.birthday != null
+                    ? user.birthday.toString()
+                    : DateTime.now().toString();
                 _major =
                     user.majorName != null ? user.majorName.toString() : "";
                 _sex = user.sex != null ? user.sex.toString() : "";
@@ -363,9 +363,12 @@ class _ProfilePage extends State<ProfilePage> {
                           TextFormField(
                             controller: _date,
                             onTap: () {
+                              print(_date.text);
                               showDatePicker(
                                   context: context,
-                                  initialDate: DateTime.parse(_date.text),
+                                  initialDate: _date.text != ""
+                                      ? DateTime.parse(_date.text)
+                                      : DateTime.now(),
                                   firstDate: DateTime(1950, 1),
                                   lastDate: DateTime(2023, 12),
                                   builder: (context, picker) {

@@ -104,7 +104,7 @@ class _SuggestSessionPage extends State<SuggestSessionPage> {
                   crossAxisCount: 2,
                   childAspectRatio: 0.76,
                   crossAxisSpacing: 12,
-                  mainAxisSpacing: 10.0),
+                  mainAxisSpacing: 20.0),
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                     //child: SessionCard(session: mentor)

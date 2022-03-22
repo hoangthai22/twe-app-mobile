@@ -41,7 +41,7 @@ class SessionCard extends StatelessWidget {
                 child: Image.network(getImageNetwork(session["icon"]))),
           ),*/
           Container(
-            // width: 250,
+            width: 250,
             height: 140,
             child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -161,7 +161,7 @@ class SessionCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   child: Text(
-                    session.cafeName.toString() + " / Khoảng cách 1.4km",
+                    session.cafeName.toString() ,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.normal),

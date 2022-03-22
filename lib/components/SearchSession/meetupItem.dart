@@ -275,8 +275,8 @@ class _SessionItem extends State<SessionItem> {
                   right: 0,
                   top: 15,
                   child: Container(
-                    height: 50,
-                    width: 110,
+                    height: 45,
+                    width: 100,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: MaterialColors.primary,
@@ -287,7 +287,7 @@ class _SessionItem extends State<SessionItem> {
                     child: Text(
                       "${widget.session.listMemberImage!.length}/5 thành viên",
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 14,
                           fontFamily: 'Roboto',
                           color: Colors.white,
                           fontWeight: FontWeight.w400),

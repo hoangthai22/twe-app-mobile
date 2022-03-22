@@ -121,10 +121,8 @@ class _FeedBack extends State<FeedBack> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: Text(
-                  widget.feedbackContent +
-                      widget.feedbackContent +
-                      widget.feedbackContent +
-                      widget.feedbackContent,
+                  widget.feedbackContent 
+                    ,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

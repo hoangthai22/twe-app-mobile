@@ -155,7 +155,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                                         (widget.widthImg + 30 + 45),
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Text(
-                                      widget.coffee.street!,
+                                      (widget.coffee.street ?? "") +", "+(widget.coffee.distric ?? ""),
                                       maxLines: 2,
                                       style: TextStyle(
                                           fontSize: 13,
@@ -220,7 +220,7 @@ class _CoffeeItem extends State<CoffeeItem> {
                 ))),
         if (widget.isTabPage && widget.isButton) ...[
           Positioned(
-              right: 30,
+              right: 20,
               bottom: 30,
               child: Container(
                 width: 100,

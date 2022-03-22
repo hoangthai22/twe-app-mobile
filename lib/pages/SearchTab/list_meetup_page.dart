@@ -447,7 +447,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                               )),
                         ],
                         if (!_isLoadingMeetups) ...[
-                          // MySession(session: listMeetups[2]),
+                          MySession(session: listMeetups[2]),
                         ],
                         Skeleton(
                             isLoading: _isLoadingMeetups,
@@ -617,7 +617,7 @@ Widget _buildSessionItemRecommen(SessionModel session, context) {
             child: Text(
               session.subject!,
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   fontSize: 15,
