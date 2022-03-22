@@ -173,7 +173,11 @@ class MySession extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Navigator.pushNamed(context, "/session",
+                        //     arguments: session.sessionId);
+                        print("object");
+                      },
                       style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,
                           textStyle: TextStyle(color: Colors.white),

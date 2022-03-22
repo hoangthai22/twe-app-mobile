@@ -233,6 +233,7 @@ class _ListSessionPage extends State<ListSessionPage> {
               child: Stack(
                 children: [
                   Container(
+                    height: MediaQuery.of(context).size.height,
                     margin: EdgeInsets.only(bottom: 50),
                     child: ListView(
                       controller: scrollController,
@@ -498,7 +499,23 @@ class _ListSessionPage extends State<ListSessionPage> {
                                               SessionItem(
                                                 session: session,
                                               ))
-                                          .toList(),
+                                          .toList()
+                                    else ...[
+                                      Container(
+                                        color: Colors.white,
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                250,
+                                        child: Center(
+                                            child: Text(
+                                          "Không tìm thấy metetup nào!",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.w400),
+                                        )),
+                                      )
+                                    ],
                                     if (_isLoadingCircle) ...[
                                       Center(
                                           child: Container(

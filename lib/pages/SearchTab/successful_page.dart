@@ -18,7 +18,7 @@ class _SuccessfulPage extends State<SuccessfulPage> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Consumer<AppProvider>(builder: (context, provider, child) {
-              provider.setListMentorInviteEmpty();
+              // provider.setListMentorInviteEmpty();
               return ListView(
                 children: [
                   Container(

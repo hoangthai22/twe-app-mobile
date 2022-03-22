@@ -102,6 +102,17 @@ class _ListMentorPage extends State<ListMentorPage> {
     return _Modal(context);
   }
 
+  void _Modal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ListMentorInvite();
+        });
+  }
+
   Widget _buildSearchField() {
     return TextField(
       autofocus: true,
@@ -298,7 +309,7 @@ class _ListMentorPage extends State<ListMentorPage> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    _Modal(context);
+                                    _ModalFilter(context);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -552,7 +563,7 @@ class _ListMentorPage extends State<ListMentorPage> {
     );
   }
 
-  void _Modal(context) {
+  void _ModalFilter(context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,

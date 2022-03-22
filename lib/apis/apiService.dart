@@ -9,6 +9,7 @@ import 'package:twe/models/major.dart';
 import 'package:twe/models/meetup.dart';
 import 'package:twe/models/mentor.dart';
 import 'package:http/http.dart' as http;
+import 'package:twe/models/nofication.dart';
 import 'package:twe/models/subject.dart';
 import 'package:twe/models/user.dart';
 
@@ -471,6 +472,27 @@ class ApiServices {
     }
   }
 
+  static Future<dynamic> getListNotification(
+      String userId, int page, int limit) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/Notification/${userId}?pageIndex=${page}&pageSize=${limit}'),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<NoficationModel> list =
+            body.map((dynamic item) => NoficationModel.fromJson(item)).toList();
+        return list;
+      } else if (response.statusCode == 404) {
+        List<NoficationModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
   //API POST
   //-------------------------------------------------------------------------
   static Future<dynamic> putUpdateProfileByUserId(UserModel user) async {
@@ -569,6 +591,54 @@ class ApiServices {
     }
   }
 
+  static Future<dynamic> postLeaveMeetup(
+      String meetupId, String memberId) async {
+    //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    try {
+      Map<String, String> headers = {"Content-type": "application/json"};
+      var response = await http.post(
+        Uri.parse(
+          '${baseURL}/session-management/${meetupId}/members/${memberId}/leave',
+        ),
+        headers: headers,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String body = "Successfull";
+
+        return body;
+      } else if (response.statusCode == 404 || response.statusCode == 409) {
+        return null;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> putCancelMeetup(
+      String meetupId, String memberId) async {
+    //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    try {
+      Map<String, String> headers = {"Content-type": "application/json"};
+      var response = await http.put(
+        Uri.parse(
+          '${baseURL}/session-management/${meetupId}/user/${memberId}/Cancel',
+        ),
+        headers: headers,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String body = "Successfull";
+
+        return body;
+      } else if (response.statusCode == 404 || response.statusCode == 409) {
+        return null;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
   static Future<dynamic> putAcceptRequestMeetup(
       String meetupId, String memberId) async {
     //12c9cd48-8cb7-4145-8fd9-323e20b329dd
@@ -577,6 +647,30 @@ class ApiServices {
       var response = await http.put(
         Uri.parse(
           '${baseURL}/session-management/${meetupId}/members/${memberId}/accept',
+        ),
+        headers: headers,
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String body = "Successfull";
+
+        return body;
+      } else if (response.statusCode == 404 || response.statusCode == 409) {
+        return null;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> deleteRejectRequestMeetup(
+      String meetupId, String memberId) async {
+    //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    try {
+      Map<String, String> headers = {"Content-type": "application/json"};
+      var response = await http.delete(
+        Uri.parse(
+          '${baseURL}/session-management/${meetupId}/members/${memberId}/reject',
         ),
         headers: headers,
       );
@@ -658,6 +752,41 @@ class ApiServices {
             "majorId": majorId.toString()
           }));
 
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        return body;
+      } else if (response.statusCode == 404 || response.statusCode == 409) {
+        return null;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
+  static Future<dynamic> postFeedback(
+      String userId,
+      int voteMentor,
+      int voteLocaiton,
+      String feedbackMentor,
+      String feedbackLocation,
+      String sessionId) async {
+    //12c9cd48-8cb7-4145-8fd9-323e20b329dd
+    try {
+      Map<String, String> headers = {"Content-type": "application/json"};
+      var response = await http.post(
+          Uri.parse(
+            '${baseURL}/members/new_feedback/${userId}',
+          ),
+          headers: headers,
+          body: convert.jsonEncode({
+            "mentorVoting": voteMentor,
+            "cafeVoting": voteLocaiton,
+            "feedbackOfMentor": feedbackMentor.toString(),
+            "feedbackOfCafe": feedbackLocation.toString(),
+            "sessionId": sessionId.toString()
+          }));
+      print(response.statusCode);
       if (response.statusCode == 200) {
         String body = response.body;
 

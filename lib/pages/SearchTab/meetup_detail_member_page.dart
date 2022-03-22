@@ -38,6 +38,9 @@ class _SessionMemberPage extends State<SessionMemberPage> {
   Widget build(BuildContext context) {
     return !isLoading
         ? ListMember(
+            isLeader: sessions.isLead!,
+            meetupId: sessions.sessionId!,
+            isJoin: sessions.isJoin! == 2,
             members: sessions.listMember!,
           )
         : Center(child: CircularProgressIndicator());

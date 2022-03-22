@@ -34,9 +34,12 @@ class _MemberItem extends State<MemberItem> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
           return ModalInfo(
-            id: widget.id,
-            isMember: true
-          );
+              meetupId: "",
+              function: (func) {
+                print("object");
+              },
+              id: widget.id,
+              isMember: true);
         });
   }
 

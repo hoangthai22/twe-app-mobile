@@ -8,16 +8,23 @@ class MentorItemInvite extends StatelessWidget {
   final String mentorName;
   final String major;
   final bool isButtonCancel;
+  final bool isRate;
+  final double rate;
   final onPush;
   MentorItemInvite(
       {required this.avatar,
       required this.mentorName,
       required this.major,
+      required this.rate,
+      required this.isRate,
       required this.isButtonCancel,
       this.onPush});
 
   @override
   Widget build(BuildContext context) {
+    var listRate = [for (var i = 1; i <= rate; i++) i];
+    var listRateEmpty = [for (var i = 1; i <= 5 - rate; i++) i];
+
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
       height: 120,
@@ -66,24 +73,44 @@ class MentorItemInvite extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.subject_outlined,
-                            color: MaterialColors.primary,
-                            size: 24,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.40,
-                            margin: EdgeInsets.only(left: 5),
-                            child: Text(
-                              major,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontFamily: "Roboto",
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400),
+                          if (!isRate) ...[
+                            const Icon(
+                              Icons.subject_outlined,
+                              color: MaterialColors.primary,
+                              size: 24,
                             ),
-                          ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(
+                                major,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ] else ...[
+                          
+                            if (listRate.length > 0)
+                              ...listRate.map((e) {
+                                return Icon(
+                                  Icons.star,
+                                  size: 18,
+                                  color: Colors.amber,
+                                );
+                              }).toList(),
+                            if (listRateEmpty.length > 0)
+                              ...listRateEmpty.map((e) {
+                                return Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                  color: Colors.amber,
+                                );
+                              }).toList(),
+                          ]
                         ],
                       ),
                     )),

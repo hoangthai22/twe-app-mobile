@@ -28,9 +28,9 @@ class MemberRequestItem extends StatefulWidget {
 }
 
 class _MemberRequestItem extends State<MemberRequestItem> {
-  void showMemberInfo() {
-    return _Modal(context);
-  }
+  // void showMemberInfo() {
+  //   return _Modal(context);
+  // }
 
   void _Modal(context) {
     showModalBottomSheet(
@@ -39,7 +39,14 @@ class _MemberRequestItem extends State<MemberRequestItem> {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         builder: (BuildContext bc) {
-          return ModalInfo(id: widget.id, isMember: false);
+          return ModalInfo(
+            id: widget.id,
+            isMember: false,
+            meetupId: widget.meetingId,
+            function: (func) {
+              hanldeCallback();
+            },
+          );
         });
   }
 
@@ -54,7 +61,8 @@ class _MemberRequestItem extends State<MemberRequestItem> {
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/member-detail');
+            // Navigator.pushNamed(context, '/member-detail');
+            _Modal(context);
           },
           child: Container(
             height: 125,
@@ -150,7 +158,7 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                       ),
                       Container(
                         width: 120,
-                        margin: EdgeInsets.only(left: 15, bottom: 5),
+                        margin: EdgeInsets.only(left: 15, bottom: 0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: MaterialColors.muted,
@@ -168,7 +176,22 @@ class _MemberRequestItem extends State<MemberRequestItem> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600),
                             ),
-                            onPressed: () => {}),
+                            onPressed: () => {
+                                  ApiServices.deleteRejectRequestMeetup(
+                                          widget.meetingId, widget.id)
+                                      .then((result) => {
+                                            if (result != null)
+                                              {
+                                                hanldeCallback(),
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      content: Text(
+                                                          'Đã hủy bỏ')),
+                                                )
+                                              }
+                                          })
+                                }),
                       ),
                     ],
                   )

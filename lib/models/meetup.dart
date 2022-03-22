@@ -22,6 +22,7 @@ class SessionModel {
   final List? listMemberImage;
   final List? listMember;
   final int? status;
+  final bool? isFeed;
 
   SessionModel(
       {this.description,
@@ -33,6 +34,7 @@ class SessionModel {
       this.cafeDistric,
       this.cafeStreet,
       this.cafe,
+      this.isFeed,
       this.date,
       this.cafeName,
       this.slot,
@@ -68,6 +70,7 @@ class SessionModel {
       cafe: json['cafe'],
       status: json['status'],
       isLead: json['isLead'],
+      isFeed: json['isFeed'],
     );
   }
 }

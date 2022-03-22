@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
+import 'package:twe/apis/apiService.dart';
+import 'package:twe/components/Setting/my_meetup_item.dart';
+import 'package:twe/models/meetup.dart';
 
 import '../../common/constants.dart';
 
@@ -9,168 +14,96 @@ class MySessionPageGoing extends StatefulWidget {
   State<MySessionPageGoing> createState() => _MySessionPageCancel();
 }
 
-class _MySessionPageCancel extends State<MySessionPageGoing> {
+class _MySessionPageCancel extends State<MySessionPageGoing>
+    with AutomaticKeepAliveClientMixin<MySessionPageGoing> {
+  @override
+  bool get wantKeepAlive => true;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  List<SessionModel> listMeetup = [];
+  bool isLoadingCircle = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetch();
+  }
+
+  fetch() {
+    setState(() {
+      isLoadingCircle = true;
+    });
+    var id = auth.currentUser!.uid;
+    ApiServices.getListAllMyMeetupByStatus(id, 1, 1, 10).then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                listMeetup = value;
+                isLoadingCircle = false;
+              })
+            }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: Offset(0, 2), // changes position of shadow
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 15),
-      // padding: EdgeInsets.all(10),
-      child: InkWell(
-        //onTap: () => onClick(),
-        child: Stack(
-          children: [
-            Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: Colors.black12, width: 1.0)),
-                ),
-                padding: const EdgeInsets.only(bottom: 15, top: 15, left: 280),
-                child: Text(
-                  "Diễn ra",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
-                  ),
-                )),
-            Container(
-                height: 220,
-                decoration: const BoxDecoration(),
-                margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 1,
-                            child: Container(
-                                padding:
-                                    const EdgeInsets.only(top: 50, right: 15),
-                                child: CircleAvatar(
-                                  radius: 45, // Image radius
-                                  backgroundImage: NetworkImage(
-                                      "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/subject%2Flambanner-ky-thuat-thiet-ke-banner-1024x527.png?alt=media&token=35f11e4c-c1cd-49d8-9067-b1a712bc520f"),
-                                ))),
-                        Expanded(
-                            flex: 3,
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.only(top: 50, right: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    "Clean Code",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'Roboto',
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "Lúc: 07:00 - 09:00 (17/03/2022)",
-                                      maxLines: 2,
-                                      style: const TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Roboto',
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "Mentor: Lâm Hữu Khánh Phương",
-                                      maxLines: 2,
-                                      style: const TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Roboto',
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "Tại: Moda Coffee",
-                                      maxLines: 2,
-                                      style: const TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Roboto',
-                                      ),
-                                    ),
-                                  ),
-                                ],
+      child: Skeleton(
+        isLoading: isLoadingCircle,
+        skeleton: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+                children: [1, 2, 3]
+                    .map(
+                      (e) => Container(
+                          margin: EdgeInsets.only(top: 15, right: 15, left: 15),
+                          width: MediaQuery.of(context).size.width,
+                          height: 220,
+                          child: SkeletonItem(
+                            child: SkeletonAvatar(
+                              style: SkeletonAvatarStyle(
+                                borderRadius: BorderRadius.circular(10),
+                                width: double.infinity,
+                                minHeight:
+                                    MediaQuery.of(context).size.height / 8,
+                                maxHeight:
+                                    MediaQuery.of(context).size.height / 3,
                               ),
-                            )),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                    ),
-                  ],
-                )),
+                            ),
+                          )),
+                    )
+                    .toList())),
+        child: ListView(children: [
+          if (listMeetup.length > 0)
+            ...listMeetup
+                .map((meetup) => MyMeetupitem(
+                      function: (v) {
+                        fetch();
+                      },
+                      isCancelBtn: true,
+                      status: 1,
+                      isStatus: false,
+                      sessionModel: meetup,
+                    ))
+                .toList()
+          else ...[
             Container(
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 170, left: 50),
-                    child: FlatButton(
-                      child: Text(
-                        'Hủy Meetup',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      color: Color.fromARGB(255, 128, 187, 123),
-                      textColor: Colors.white,
-                      onPressed: () {},
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 170, left: 50),
-                    child: FlatButton(
-                      child: Text(
-                        'Xem chi tiết',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      color: MaterialColors.primary,
-                      textColor: Colors.white,
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
+              color: Colors.white,
+              height: MediaQuery.of(context).size.height - 130,
+              child: Container(
+                  margin: EdgeInsets.only(top: 100, left: 30, right: 30),
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "Bạn chưa có meetup nào!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w400),
+                  )),
             )
-          ],
-        ),
+          ]
+        ]),
       ),
     );
   }

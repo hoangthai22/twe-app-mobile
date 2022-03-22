@@ -28,10 +28,6 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
   Widget build(BuildContext context) {
     return isLoading
         ? Scaffold(
-            appBar: AppBar(
-              title: Text("Chi tiết Meetup"),
-              backgroundColor: MaterialColors.primary,
-            ),
             body: Center(
                 child: Container(
                     margin: EdgeInsets.only(bottom: 10),
@@ -45,6 +41,7 @@ class _SessionDetailMainPageState extends State<SessionDetailMainPage> {
                 appBar: AppBar(
                   title: Text("Chi tiết Meetup"),
                   backgroundColor: MaterialColors.primary,
+                  centerTitle: true,
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(50.0),
                     child: ColoredBox(

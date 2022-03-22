@@ -266,7 +266,7 @@ class _RegisterPage extends State<RegisterPage> {
                                 margin: EdgeInsets.only(right: 5),
                                 width: 60,
                                 child: Image.asset(
-                                  'assets/coctrensach5.png',
+                                  'assets/logo_transparent.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),

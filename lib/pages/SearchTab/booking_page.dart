@@ -317,12 +317,11 @@ class _BookingPage extends State<BookingPage> {
                       // ),
                       ElevatedButton(
                         onPressed: () {
-                          // Navigator.of(context)
-                          //     .popUntil((route) => route.isFirst);
-                          // provider.setListMentorInviteEmpty();
-                          // Navigator.of(context).pushNamed("/successful");
+                          List<MentorModel> listMentorInvite =
+                              provider.getListMentorInvite;
                           createSession(context, provider.getBooking,
-                              provider.getListMentorInvite, provider.getUid);
+                              listMentorInvite, provider.getUid);
+                          provider.setListMentorInviteEmpty();
                         },
                         style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,

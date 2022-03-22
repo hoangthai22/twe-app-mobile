@@ -32,6 +32,13 @@ class _MySessionPage extends State<MySessionPage>
   @override
   void initState() {
     super.initState();
+    fetch();
+  }
+
+  fetch() {
+    setState(() {
+      isLoadingCircle = true;
+    });
     var id = auth.currentUser!.uid;
     ApiServices.getListAllMyMeetup(id, 1, 10).then((value) => {
           if (value != null)
@@ -76,10 +83,33 @@ class _MySessionPage extends State<MySessionPage>
           if (listMeetup.length > 0)
             ...listMeetup
                 .map((meetup) => MyMeetupitem(
+                      function: (v) {
+                        fetch();
+                      },
+                      isCancelBtn: true,
+                      status: 4,
                       isStatus: true,
                       sessionModel: meetup,
                     ))
                 .toList()
+          else ...[
+            Container(
+              color: Colors.white,
+              height: MediaQuery.of(context).size.height - 130,
+              child: Container(
+                  margin: EdgeInsets.only(top: 100, left: 30, right: 30),
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "Bạn chưa có meetup nào, hãy tạo cho mình một meetup phù hợp nhé!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w400),
+                  )),
+            )
+          ]
         ]),
       ),
     );

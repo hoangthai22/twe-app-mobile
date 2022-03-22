@@ -109,7 +109,7 @@ class _HomePage extends State<HomePage> {
                                 width: 75,
                                 height: 50,
                                 child: Image.asset(
-                                  'assets/coctrensach5.png',
+                                  'assets/logo_transparent.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),

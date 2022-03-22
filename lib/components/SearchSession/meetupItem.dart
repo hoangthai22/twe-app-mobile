@@ -224,7 +224,7 @@ class _SessionItem extends State<SessionItem> {
                                     size: 20, color: MaterialColors.primary),
                               ),
                               Text(
-                                getSlot(widget.session.slot!),
+                                getSlot(widget.session.slot!) ?? "",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontFamily: "Roboto",
