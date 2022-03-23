@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/provider/appProvider.dart';
 
 class SuccessfulPage extends StatefulWidget {
@@ -63,7 +64,7 @@ class _SuccessfulPage extends State<SuccessfulPage> {
                                 "Buổi meetup của bạn sẽ được diễn ra vào lúc ",
                             children: [
                               TextSpan(
-                                  text: "2022-02-02, 07:00 - 09:00",
+                                  text: "${provider.getBooking.date}, ${getSlot(provider.getBooking.slot)}",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
@@ -81,13 +82,13 @@ class _SuccessfulPage extends State<SuccessfulPage> {
                                       fontWeight: FontWeight.w600,
                                       color: MaterialColors.primary)),
                               TextSpan(
-                                  text: " và Mentor ",
+                                  text: " và ",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black)),
                               TextSpan(
-                                  text: "Nguyễn Thế Hoàng",
+                                  text: "Mentor",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,

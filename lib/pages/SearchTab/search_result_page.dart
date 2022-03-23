@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
+import 'package:twe/components/SearchSession/meetupItem.dart';
+import 'package:twe/models/meetup.dart';
 import 'package:twe/pages/MentorTab/list_mentor_tab.dart';
 
 import 'list_location_page.dart';
@@ -22,10 +25,22 @@ class _SearchResultPage extends State<SearchResultPage> {
     setState(() {
       _controller.text = widget.keySearch;
     });
+    if (widget.type == "meeting") {
+      ApiServices.getListMentorBySearchKey(widget.keySearch).then((value) => {
+        print(value),
+            if (value != null)
+              {
+                setState(() {
+                  listMeetups = value;
+                }),
+              }
+          });
+    }
   }
 
   final _controller = TextEditingController();
   String inputText = "";
+  late List<SessionModel> listMeetups = [];
 
   Widget _buildSearchField() {
     return TextField(
@@ -62,7 +77,31 @@ class _SearchResultPage extends State<SearchResultPage> {
             isFilterBtn: false,
             searchKey: widget.keySearch);
       case "meeting":
-        return Center(child: Text("meeting"),);
+        return ListView(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: [
+              if (listMeetups.length > 0)
+                ...listMeetups
+                    .map((SessionModel session) => SessionItem(
+                          session: session,
+                        ))
+                    .toList()
+              else ...[
+                Container(
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height - 80,
+                  child: Center(
+                      child: Text(
+                    "Không tìm thấy metetup nào!",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400),
+                  )),
+                )
+              ],
+            ]);
 
       default:
         return ListMentorTab(

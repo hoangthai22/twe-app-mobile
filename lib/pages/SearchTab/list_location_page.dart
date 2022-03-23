@@ -8,6 +8,7 @@ import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
 import 'package:twe/components/SearchCoffee/modalFilter.dart';
+import 'package:twe/components/SearchCoffee/modalFilterLocation.dart';
 import 'package:twe/models/location.dart';
 import 'package:twe/provider/appProvider.dart';
 import 'package:twe/routes.dart';
@@ -26,7 +27,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   final ScrollController scrollController = ScrollController();
   int page = 1;
   int checkedInit = 0;
-
+  String dictricFilter = "";
   @override
   void initState() {
     super.initState();
@@ -35,11 +36,29 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
-          !_isLoadingCircle && !isSearchKey &&
+          !_isLoadingCircle &&
+          !isSearchKey &&
           !isListFull) {
         _fetch();
       }
     });
+  }
+
+  getListCoffeeByDistric(String distric) {
+    setState(() {
+      _isLoadingCircle= false;
+      _isLoadingCoffee = true;
+    });
+    ApiServices.getListCoffeeByDistric(distric).then((value) => {
+          print(value),
+          if (value != null)
+            {
+              setState(() {
+                _isLoadingCoffee = false;
+                coffeeList = value;
+              })
+            }
+        });
   }
 
   _fetch() async {
@@ -48,6 +67,7 @@ class _ListCoffeePage extends State<ListCoffeePage> {
     });
     List<CoffeeModel> coffees = [];
     List<CoffeeModel> newList = [];
+
     ApiServices.getListCoffeePagination(page, 5).then((item) => {
           print(item),
           if (item != null)
@@ -234,44 +254,44 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                           ],
                         )),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                    width: 110,
-                    height: 40,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          textStyle: TextStyle(color: MaterialColors.primary),
-                          shadowColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                              side: BorderSide(
-                                  color: MaterialColors.primary, width: 1)),
-                        ),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Sắp xếp",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: MaterialColors.primary,
-                                  fontFamily: "Roboto",
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: Icon(
-                                Icons.sort_by_alpha,
-                                color: MaterialColors.primary,
-                                size: 20,
-                              ),
-                            )
-                          ],
-                        )),
-                  ),
-                  (checkedInit == 0
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                  //   width: 110,
+                  //   height: 40,
+                  //   child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         primary: Colors.white,
+                  //         textStyle: TextStyle(color: MaterialColors.primary),
+                  //         shadowColor: Colors.white,
+                  //         shape: RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.circular(18),
+                  //             side: BorderSide(
+                  //                 color: MaterialColors.primary, width: 1)),
+                  //       ),
+                  //       onPressed: () {},
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Text(
+                  //             "Sắp xếp",
+                  //             style: TextStyle(
+                  //                 fontSize: 14,
+                  //                 color: MaterialColors.primary,
+                  //                 fontFamily: "Roboto",
+                  //                 fontWeight: FontWeight.w500),
+                  //           ),
+                  //           Container(
+                  //             margin: EdgeInsets.only(left: 5),
+                  //             child: Icon(
+                  //               Icons.sort_by_alpha,
+                  //               color: MaterialColors.primary,
+                  //               size: 20,
+                  //             ),
+                  //           )
+                  //         ],
+                  //       )),
+                  // ),
+                  (dictricFilter == ""
                       ? Text("")
                       : Container(
                           padding: EdgeInsets.only(left: 15),
@@ -280,7 +300,8 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                                 primary: Colors.white70,
                                 textStyle: TextStyle(color: Colors.blue),
                                 shadowColor: Colors.white,
-                                side: BorderSide(color: Colors.blue, width: 1),
+                                side: BorderSide(
+                                    color: MaterialColors.primary, width: 1),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18),
                                 ),
@@ -291,19 +312,20 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                                   Container(
                                     margin: EdgeInsets.only(right: 5),
                                     child: Text(
-                                      "",
-                                      style: TextStyle(color: Colors.blue),
+                                      dictricFilter,
+                                      style: TextStyle(
+                                          color: MaterialColors.primary),
                                     ),
                                   ),
                                   InkWell(
                                     onTap: () {
                                       setState(() {
-                                        checkedInit = 0;
+                                        dictricFilter = "";
                                       });
                                     },
                                     child: const Icon(
                                       Icons.highlight_remove_rounded,
-                                      color: Colors.blue,
+                                      color: MaterialColors.primary,
                                       size: 24,
                                     ),
                                   )
@@ -348,43 +370,58 @@ class _ListCoffeePage extends State<ListCoffeePage> {
                       child: Consumer<AppProvider>(
                           builder: (context, provider, child) {
                     return ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        if (coffeeList.isNotEmpty)
-                          ...coffeeList
-                              .map((item) => CoffeeItem(
-                                  coffee: item,
-                                  onPush: (coffeeId) {
-                                    Navigator.of(context).pushNamed(
-                                      '/coffee-detail',
-                                      arguments: coffeeId,
-                                    );
-                                  },
-                                  onSubmit: (coffee) {
-                                    Navigator.of(context).pushNamed(
-                                      '/list-mentor',
-                                      arguments: ScreenArguments(false),
-                                    );
-                                    provider.setBookingCoffee(coffee);
-                                  },
-                                  isButton: true,
-                                  isTabPage: !widget.isCoffeeTab,
-                                  isStar: true,
-                                  heightImg: 150,
-                                  widthImg: 120))
-                              .toList(),
-                        if (_isLoadingCircle) ...[
-                          Center(
-                              child: Container(
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3.0,
-                                    color: MaterialColors.primary,
-                                  )))
-                        ],
-                      ],
-                    );
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          if (coffeeList.isNotEmpty)
+                            ...coffeeList
+                                .map((item) => CoffeeItem(
+                                    coffee: item,
+                                    onPush: (coffeeId) {
+                                      Navigator.of(context).pushNamed(
+                                        '/coffee-detail',
+                                        arguments: coffeeId,
+                                      );
+                                    },
+                                    onSubmit: (coffee) {
+                                      Navigator.of(context).pushNamed(
+                                        '/list-mentor',
+                                        arguments: ScreenArguments(false),
+                                      );
+                                      provider.setBookingCoffee(coffee);
+                                    },
+                                    isButton: true,
+                                    isTabPage: !widget.isCoffeeTab,
+                                    isStar: true,
+                                    heightImg: 150,
+                                    widthImg: 120))
+                                .toList()
+                          else ...[
+                            Container(
+                              color: Colors.white,
+                              height: MediaQuery.of(context).size.height - 200,
+                              padding: EdgeInsets.only(top: 50),
+                              child: Text(
+                                "Không tìm thấy địa điểm nào phù hợp!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.black54,
+                                    fontFamily: "Roboto",
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            )
+                          ],
+                          if (_isLoadingCircle) ...[
+                            Center(
+                                child: Container(
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3.0,
+                                      color: MaterialColors.primary,
+                                    )))
+                          ]
+                        ]);
                   }))),
             ],
           ),
@@ -392,20 +429,22 @@ class _ListCoffeePage extends State<ListCoffeePage> {
   }
 
   void _Modal(context) {
-    // showModalBottomSheet(
-    //     isScrollControlled: true,
-    //     context: context,
-    //     shape: const RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
-    //     builder: (BuildContext bc) {
-    //       return ModalFilter(
-    //         onSeletedMajor: (major) => {
-    //           setState(() {
-    //             // majorFilter = major;
-    //           })
-    //         },
-    //       );
-    //     });
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+        builder: (BuildContext bc) {
+          return ModalFilterLocation(
+            onSeletedMajor: (dictric) => {
+              print("ok"),
+              getListCoffeeByDistric(dictric),
+              // setState(() {
+              //   dictricFilter = dictric;
+              // })
+            },
+          );
+        });
   }
 
   void searchBar(String query) {
@@ -418,6 +457,15 @@ class _ListCoffeePage extends State<ListCoffeePage> {
               setState(() {
                 coffeeList = value;
                 isSearchKey = true;
+                isListFull = true;
+                _isLoadingCoffee = false;
+              })
+            }
+          else
+            {
+              setState(() {
+                coffeeList = [];
+                isListFull = true;
                 _isLoadingCoffee = false;
               })
             }

@@ -14,7 +14,7 @@ class AppProvider with ChangeNotifier {
 
   BookingModel booking = BookingModel(
     date: DateTime.now().toString().split(" ")[0],
-    slot: 0,
+    slot: 1,
     id: "111111111",
   );
 
@@ -112,7 +112,7 @@ class AppProvider with ChangeNotifier {
   String get getUserId => userId;
   String get getAvatar => avatar;
   String get getUid => uid;
-  int get getBookingSlot => booking.slot ?? 0;
+  int get getBookingSlot => booking.slot;
   CoffeeModel get getBookingCoffee => booking.coffee;
   String get getBookingUserId => booking.userId;
   String get getBookingDate => booking.date;

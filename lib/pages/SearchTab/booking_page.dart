@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:twe/apis/apiService.dart';
 import 'package:twe/common/constants.dart';
 import 'package:twe/common/data_mock.dart';
+import 'package:twe/common/utils.dart';
 import 'package:twe/components/SearchCoffee/locationItem.dart';
 import 'package:twe/components/menuFooter.dart';
 import 'package:twe/models/booking.dart';
@@ -193,14 +194,14 @@ class _BookingPage extends State<BookingPage> {
                                 ),
                               ),
                               Text(
-                                provider.getBookingDate + ", ",
+                                provider.getBooking.date + ", ",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16),
                               ),
                               Text(
-                                SLOT[provider.getBookingSlot],
+                                getSlot(provider.getBooking.slot),
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontWeight: FontWeight.w400,
@@ -376,6 +377,7 @@ class _BookingPage extends State<BookingPage> {
               // ApiServices.
               print(listStirng),
               print(["m1", "m2"]),
+
               ApiServices.postCreateMeetup(
                 booking,
                 listStirng,

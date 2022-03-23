@@ -41,7 +41,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
     // majorList = MAJOR_DATA;
     _fetch();
     subList = [];
-    isSelectedSlot = context.read<AppProvider>().getBookingSlot - 1 < 0
+    isSelectedSlot = context.read<AppProvider>().booking.slot- 1 < 0
         ? 0
         : context.read<AppProvider>().getBookingSlot - 1;
     _selectedDay = DateTime.parse(context.read<AppProvider>().getBookingDate);
@@ -361,7 +361,7 @@ class _CreateSessionPage extends State<CreateSessionPage> {
                                   ? {
                                       provider.setBookingDate(
                                           "${_selectedDay.year}-${_selectedDay.month < 10 ? "0" + _selectedDay.month.toString() : _selectedDay.month}-${_selectedDay.day < 10 ? "0" + _selectedDay.day.toString() : _selectedDay.day}"),
-                                      provider.setBookingSlot(isSelectedSlot),
+                                      provider.setBookingSlot(isSelectedSlot + 1),
                                       provider
                                           .setBookingSubjct(isSelectSubject),
                                       provider.setBookingMajor(isSelectMajor),

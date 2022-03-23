@@ -96,7 +96,7 @@ class _NoficationPage extends State<NoficationPage> {
                 ),
                 height: 80,
               )
-            ] else ...[
+            ] else if (nofiList.isNotEmpty || nofiListToday.isNotEmpty) ...[
               Container(
                   width: MediaQuery.of(context).size.width * 1,
                   color: Colors.white,
@@ -106,17 +106,19 @@ class _NoficationPage extends State<NoficationPage> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: [
-                      Container(
-                        child: Text(
-                          "Hôm nay",
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        margin: EdgeInsets.all(15),
-                      ),
-                      if (nofiListToday.length > 0)
+                      nofiListToday.isNotEmpty
+                          ? Container(
+                              child: Text(
+                                "Hôm nay",
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              margin: EdgeInsets.all(15),
+                            )
+                          : Container(),
+                      if (nofiListToday.isNotEmpty)
                         ...nofiListToday.map((item) {
                           return InkWell(
                             child: NoficationItem(
@@ -135,7 +137,9 @@ class _NoficationPage extends State<NoficationPage> {
                                     //         color: MaterialColors.primary)),
                                   ]),
                               time: item.time.toString(),
-                              image: MENTOR_DATA[0].image!,
+                              image: item.image.toString() == ""
+                                  ? "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/subject%2Fdatabase-change-notification-oracle-63742419191.3747.jpg?alt=media&token=259afcf8-c65c-4f7a-a953-250253c0e97c"
+                                  : item.image.toString(),
                               date: "",
                             ),
                             onTap: () {
@@ -194,7 +198,9 @@ class _NoficationPage extends State<NoficationPage> {
                           time: nofiList[index].time.toString(),
                           date: nofiList[index].date.toString(),
                           title: nofiList[index].title.toString(),
-                          image: NOFI_DATA[0].image.toString(),
+                          image: nofiList[index].image.toString() == ""
+                              ? "https://firebasestorage.googleapis.com/v0/b/twe-mobile.appspot.com/o/subject%2Fdatabase-change-notification-oracle-63742419191.3747.jpg?alt=media&token=259afcf8-c65c-4f7a-a953-250253c0e97c"
+                              : nofiList[index].image.toString(),
                         ),
                       );
                     },
@@ -203,6 +209,18 @@ class _NoficationPage extends State<NoficationPage> {
                     },
                     itemCount: nofiList.length),
               ),
+            ] else ...[
+              Container(
+                margin: EdgeInsets.only(top: 50),
+                child: Text(
+                  "Không có thông báo nào!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontFamily: "Roboto",
+                      fontSize: 16),
+                ),
+              )
             ]
           ],
         ));

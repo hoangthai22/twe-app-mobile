@@ -169,7 +169,7 @@ class _SessionMentorTab extends State<SessionMentorTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Ngày 22 Tháng 3",
+                    date,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

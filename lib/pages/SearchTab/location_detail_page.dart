@@ -369,23 +369,23 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
                           FeedBack(
                             avatar: coffee.image!,
                             userId: 1,
-                            userName: "Hoang Thai Hoang Thai Hoang Thai ",
+                            userName: "Hoang Thai ",
+                            feedbackContent: "Không gian quán rộng",
+                            time: "22:20, 11 thg 1, 2022",
+                          ),
+                          FeedBack(
+                            avatar: coffee.image!,
+                            userId: 1,
+                            userName: "Võ Chí Công",
                             feedbackContent: coffee.description!,
                             time: "22:20, 11 thg 1, 2022",
                           ),
                           FeedBack(
                             avatar: coffee.image!,
                             userId: 1,
-                            userName: "Hoang Thai Hoang Thai Hoang Thai ",
-                            feedbackContent: coffee.description!,
-                            time: "22:20, 11 thg 1, 2022",
-                          ),
-                          FeedBack(
-                            avatar: coffee.image!,
-                            userId: 1,
-                            userName: "Hoang Thai",
+                            userName: "Bá Tâm",
                             feedbackContent:
-                                (coffee.description! + coffee.description!),
+                                "Thức uống ngon, không gian đẹp, sẽ đến nữa vào lần sau",
                             time: "22:20, 11 thg 1, 2022",
                           )
                         ],
@@ -401,19 +401,20 @@ class _CoffeeDetailPage extends State<CoffeeDetailPage> {
         //   );
         // }),
 
-        bottomNavigationBar:
-            Consumer<AppProvider>(builder: (context, provider, child) {
-          return !isLoading
-              ? BottomNavMentorDetail(
-                  checkInvited: false,
-                  title: "Tiếp tục",
-                  onRedirect: () {
-                    provider.setBookingCoffee(coffee);
-                    Navigator.of(context).pushNamed('/list-mentor',
-                        arguments: ScreenArguments(false));
-                  })
-              : Text("");
-        }));
+        // bottomNavigationBar:
+        //     Consumer<AppProvider>(builder: (context, provider, child) {
+        //   return !isLoading
+        //       ? BottomNavMentorDetail(
+        //           checkInvited: false,
+        //           title: "Tiếp tục",
+        //           onRedirect: () {
+        //             provider.setBookingCoffee(coffee);
+        //             Navigator.of(context).pushNamed('/list-mentor',
+        //                 arguments: ScreenArguments(false));
+        //           })
+        //       : Text("");
+        // })
+        );
   }
 }
 

@@ -182,9 +182,9 @@ class MySession extends StatelessWidget {
                   margin: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
                       onPressed: () {
+                        print(session);
                         // Navigator.pushNamed(context, "/session",
                         //     arguments: session.sessionId);
-                        print("object");
                       },
                       style: ElevatedButton.styleFrom(
                           primary: MaterialColors.primary,

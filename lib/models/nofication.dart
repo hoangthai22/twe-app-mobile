@@ -29,6 +29,7 @@ class NoficationModel {
       date: json['date'],
       sessionId: json['sessionId'],
       content: json['contentNoti'],
+      image: json['image'],
     );
   }
 }

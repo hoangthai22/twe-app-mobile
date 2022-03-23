@@ -282,46 +282,46 @@ class _ListSessionPage extends State<ListSessionPage> {
                                     ],
                                   )),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15, top: 10, bottom: 10),
-                              width: 110,
-                              height: 40,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    textStyle: TextStyle(
-                                        color: MaterialColors.primary),
-                                    shadowColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18),
-                                        side: BorderSide(
-                                            color: MaterialColors.primary,
-                                            width: 1)),
-                                  ),
-                                  onPressed: () {},
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Sắp xếp",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: MaterialColors.primary,
-                                            fontFamily: "Roboto",
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 5),
-                                        child: Icon(
-                                          Icons.sort_by_alpha,
-                                          color: MaterialColors.primary,
-                                          size: 20,
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
+                            // Container(
+                            //   margin: EdgeInsets.only(
+                            //       left: 15, top: 10, bottom: 10),
+                            //   width: 110,
+                            //   height: 40,
+                            //   child: ElevatedButton(
+                            //       style: ElevatedButton.styleFrom(
+                            //         primary: Colors.white,
+                            //         textStyle: TextStyle(
+                            //             color: MaterialColors.primary),
+                            //         shadowColor: Colors.white,
+                            //         shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.circular(18),
+                            //             side: BorderSide(
+                            //                 color: MaterialColors.primary,
+                            //                 width: 1)),
+                            //       ),
+                            //       onPressed: () {},
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.center,
+                            //         children: [
+                            //           Text(
+                            //             "Sắp xếp",
+                            //             style: TextStyle(
+                            //                 fontSize: 14,
+                            //                 color: MaterialColors.primary,
+                            //                 fontFamily: "Roboto",
+                            //                 fontWeight: FontWeight.w500),
+                            //           ),
+                            //           Container(
+                            //             margin: EdgeInsets.only(left: 5),
+                            //             child: Icon(
+                            //               Icons.sort_by_alpha,
+                            //               color: MaterialColors.primary,
+                            //               size: 20,
+                            //             ),
+                            //           )
+                            //         ],
+                            //       )),
+                            // ),
                             (checkedInit == 0
                                 ? Text("")
                                 : Container(
@@ -447,7 +447,7 @@ class _ListSessionPage extends State<ListSessionPage> {
                               )),
                         ],
                         if (!_isLoadingMeetups) ...[
-                          MySession(session: listMeetups[2]),
+                          MySession(session: listMeetups[0]),
                         ],
                         Skeleton(
                             isLoading: _isLoadingMeetups,

@@ -225,6 +225,28 @@ class ApiServices {
     }
   }
 
+  static Future<dynamic> getListCoffeeByDistric(String distric) async {
+    try {
+      var response = await http.get(
+        Uri.parse(
+            '${baseURL}/cafe/Distric?distric=${distric.split(" ")[1]}&pageIndex=1&pageSize=5'),
+      );
+      print(distric);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        List<dynamic> body = convert.jsonDecode(response.body);
+        List<CoffeeModel> listCoffee =
+            body.map((dynamic item) => CoffeeModel.fromJson(item)).toList();
+        return listCoffee;
+      } else if (response.statusCode == 404 || response.statusCode == 400) {
+        List<CoffeeModel> list = [];
+        return list;
+      }
+    } catch (e) {
+      print('Error with status code: ${e}');
+    }
+  }
+
   static Future<dynamic> getDetailLocationById(String locationId) async {
     var coffeeModel = Completer<CoffeeModel>();
     var body;
